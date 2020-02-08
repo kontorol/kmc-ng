@@ -2,17 +2,17 @@ import { Component, OnInit, OnDestroy, AfterViewInit, Input, Output, EventEmitte
 import { ISubscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 
-import { KalturaClient } from 'kaltura-ngx-client';
-import { TagSearchAction } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
-import { KalturaTagFilter } from 'kaltura-ngx-client';
-import { KalturaTaggedObjectType } from 'kaltura-ngx-client';
-import { SuggestionsProviderData } from '@kaltura-ng/kaltura-primeng-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { TagSearchAction } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
+import { KontorolTagFilter } from 'kontorol-ngx-client';
+import { KontorolTaggedObjectType } from 'kontorol-ngx-client';
+import { SuggestionsProviderData } from '@kontorol-ng/kontorol-primeng-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BrowserService } from 'app-shared/kmc-shell';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kBulkAddTags',
@@ -34,7 +34,7 @@ export class BulkAddTags implements OnInit, OnDestroy, AfterViewInit {
   private _parentPopupStateChangeSubscribe : ISubscription;
   private _confirmClose: boolean = true;
 
-  constructor(private _kalturaServerClient: KalturaClient, private _appLocalization: AppLocalization, private _browserService: BrowserService) {
+  constructor(private _kontorolServerClient: KontorolClient, private _appLocalization: AppLocalization, private _browserService: BrowserService) {
   }
 
   ngOnInit() {
@@ -83,16 +83,16 @@ export class BulkAddTags implements OnInit, OnDestroy, AfterViewInit {
       this._searchTagsSubscription = null;
     }
 
-    const requestSubscription = this._kalturaServerClient.request(
+    const requestSubscription = this._kontorolServerClient.request(
       new TagSearchAction(
         {
-          tagFilter: new KalturaTagFilter(
+          tagFilter: new KontorolTagFilter(
             {
               tagStartsWith : event.query,
-              objectTypeEqual : KalturaTaggedObjectType.entry
+              objectTypeEqual : KontorolTaggedObjectType.entry
             }
           ),
-          pager: new KalturaFilterPager({
+          pager: new KontorolFilterPager({
             pageIndex : 0,
             pageSize : 30
           })

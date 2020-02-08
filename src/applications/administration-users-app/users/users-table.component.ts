@@ -11,13 +11,13 @@ import {
     ViewChild
 } from '@angular/core';
 import { AppAuthentication, BrowserService } from 'app-shared/kmc-shell';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { UsersStore } from './users.service';
 import { Menu, MenuItem } from 'primeng/primeng';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { KalturaSourceType, KalturaUser } from 'kaltura-ngx-client';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { KontorolSourceType, KontorolUser } from 'kontorol-ngx-client';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
 import { ColumnsResizeManagerService, ResizableColumnsTableName } from 'app-shared/kmc-shared/columns-resize-manager';
 import { AnalyticsNewMainViewService } from 'app-shared/kmc-shared/kmc-views';
 import { Router } from '@angular/router';
@@ -39,13 +39,13 @@ export interface PartnerInfo {
 export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild('actionsmenu') private _actionsMenu: Menu;
 
-  @Output() editUser = new EventEmitter<KalturaUser>();
-  @Output() toggleUserStatus = new EventEmitter<KalturaUser>();
-  @Output() deleteUser = new EventEmitter<KalturaUser>();
+  @Output() editUser = new EventEmitter<KontorolUser>();
+  @Output() toggleUserStatus = new EventEmitter<KontorolUser>();
+  @Output() deleteUser = new EventEmitter<KontorolUser>();
 
   private _partnerInfo: PartnerInfo = { adminLoginUsersQuota: 0, adminUserId: null };
 
-  public _users: KalturaUser[] = [];
+  public _users: KontorolUser[] = [];
   public _deferredUsers: any[];
   public _items: MenuItem[];
   public _deferredLoading = true;
@@ -133,7 +133,7 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnDestroy() {
   }
 
-  private _buildMenu(user: KalturaUser): void {
+  private _buildMenu(user: KontorolUser): void {
 
       this._items = [{
           id: 'edit', label: this._appLocalization.get('applications.content.table.edit'),
@@ -179,7 +179,7 @@ export class UsersTableComponent implements OnInit, OnDestroy, AfterViewInit {
       }
   }
 
-  public _openActionsMenu(event: any, user: KalturaUser): void {
+  public _openActionsMenu(event: any, user: KontorolUser): void {
     if (this._actionsMenu) {
       this._buildMenu(user);
       this._actionsMenu.toggle(event);

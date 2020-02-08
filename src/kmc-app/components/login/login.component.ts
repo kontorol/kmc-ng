@@ -3,11 +3,11 @@ import { AppAuthentication, AutomaticLoginErrorReasons, BrowserService, LoginErr
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { serverConfig } from 'config/server';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { RestorePasswordViewService } from 'app-shared/kmc-shared/kmc-views/details-views/restore-password-view.service';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { AuthenticatorViewService } from "app-shared/kmc-shared/kmc-views/details-views";
-import { KalturaAuthentication } from "kaltura-ngx-client";
+import { KontorolAuthentication } from "kontorol-ngx-client";
 
 export enum LoginScreens {
   Login,
@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   public _loginScreens = LoginScreens;
   public _currentScreen = LoginScreens.Login;
   public _passwordReset = false;
-  public _signUpLinkExists = !!serverConfig.externalLinks.kaltura && !!serverConfig.externalLinks.kaltura.signUp;
+  public _signUpLinkExists = !!serverConfig.externalLinks.kontorol && !!serverConfig.externalLinks.kontorol.signUp;
   public _restorePasswordHash: string;
   public _passwordRestored = false;
   public _showAuthenticator = false;
@@ -260,7 +260,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   public _signUp(): void {
-    this._browserService.openLink(serverConfig.externalLinks.kaltura.signUp, {}, '_self');
+    this._browserService.openLink(serverConfig.externalLinks.kontorol.signUp, {}, '_self');
   }
 
   public _restorePassword(payload: {newPassword: string, hashKey: string}): void {
@@ -268,7 +268,7 @@ export class LoginComponent implements OnInit, OnDestroy, AfterViewInit {
     this._errorMessage = '';
     this._appAuthentication.setInitalPassword(payload)
       .subscribe(
-          (response: KalturaAuthentication) => {
+          (response: KontorolAuthentication) => {
           this._inProgress = false;
           this._passwordRestored = true;
           if (response.qrCode) {

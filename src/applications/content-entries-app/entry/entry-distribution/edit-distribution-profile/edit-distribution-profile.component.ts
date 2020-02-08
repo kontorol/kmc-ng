@@ -1,23 +1,23 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { Flavor } from '../../entry-flavours/flavor';
-import { KalturaDistributionProfile } from 'kaltura-ngx-client';
-import { EntryDistributionWidget, ExtendedKalturaEntryDistribution } from '../entry-distribution-widget.service';
-import { KalturaBaseEntry } from 'kaltura-ngx-client';
+import { KontorolDistributionProfile } from 'kontorol-ngx-client';
+import { EntryDistributionWidget, ExtendedKontorolEntryDistribution } from '../entry-distribution-widget.service';
+import { KontorolBaseEntry } from 'kontorol-ngx-client';
 import { AppAuthentication, BrowserService } from 'app-shared/kmc-shell';
-import { KalturaThumbAsset } from 'kaltura-ngx-client';
-import { KalturaDistributionThumbDimensions } from 'kaltura-ngx-client';
-import { KalturaThumbAssetStatus } from 'kaltura-ngx-client';
-import { getKalturaServerUri } from 'config/server';
+import { KontorolThumbAsset } from 'kontorol-ngx-client';
+import { KontorolDistributionThumbDimensions } from 'kontorol-ngx-client';
+import { KontorolThumbAssetStatus } from 'kontorol-ngx-client';
+import { getKontorolServerUri } from 'config/server';
 import { subApplicationsConfig } from 'config/sub-applications';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
-import { KalturaNullableBoolean } from 'kaltura-ngx-client';
-import { KalturaDistributionProfileActionStatus } from 'kaltura-ngx-client';
-import { KalturaEntryDistributionStatus } from 'kaltura-ngx-client';
+import { KontorolNullableBoolean } from 'kontorol-ngx-client';
+import { KontorolDistributionProfileActionStatus } from 'kontorol-ngx-client';
+import { KontorolEntryDistributionStatus } from 'kontorol-ngx-client';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 
-export interface ExtendedKalturaDistributionThumbDimensions extends KalturaDistributionThumbDimensions {
+export interface ExtendedKontorolDistributionThumbDimensions extends KontorolDistributionThumbDimensions {
   entryThumbnails?: {
     size: number,
     url: string;
@@ -32,18 +32,18 @@ export interface ExtendedKalturaDistributionThumbDimensions extends KalturaDistr
 })
 export class EditDistributionProfileComponent implements OnInit {
   @Input() parentPopup: PopupWidgetComponent;
-  @Input() distributedProfile: ExtendedKalturaEntryDistribution | null;
-  @Input() undistributedProfile: KalturaDistributionProfile;
+  @Input() distributedProfile: ExtendedKontorolEntryDistribution | null;
+  @Input() undistributedProfile: KontorolDistributionProfile;
   @Input() flavors: Flavor[] = [];
-  @Input() entry: KalturaBaseEntry;
-  @Input() thumbnails: KalturaThumbAsset[] = [];
+  @Input() entry: KontorolBaseEntry;
+  @Input() thumbnails: KontorolThumbAsset[] = [];
 
   @Output() onActionSelected = new EventEmitter<{ action: string, payload: any }>();
 
-  public _profile: KalturaDistributionProfile | ExtendedKalturaEntryDistribution;
+  public _profile: KontorolDistributionProfile | ExtendedKontorolEntryDistribution;
   public _forDistribution = true;
   public _requiredFlavors: Partial<Flavor>[] = [];
-  public _requiredThumbnails: ExtendedKalturaDistributionThumbDimensions[] = [];
+  public _requiredThumbnails: ExtendedKontorolDistributionThumbDimensions[] = [];
   public _profileName = '';
   public _distributionName = '';
   public _createdAtDateRange = subApplicationsConfig.shared.datesRange;
@@ -73,7 +73,7 @@ export class EditDistributionProfileComponent implements OnInit {
     let updateDisabled = false;
     let updateForAutoDistributionDisabled = false;
     if (!this._forDistribution) {
-      const autoUpdates = this.undistributedProfile.submitEnabled === KalturaDistributionProfileActionStatus.automatic;
+      const autoUpdates = this.undistributedProfile.submitEnabled === KontorolDistributionProfileActionStatus.automatic;
 
       updateForAutoDistributionDisabled = autoUpdates
         && !this._permissionsService.hasPermission(KMCPermissions.CONTENT_MANAGE_DISTRIBUTION_SEND);
@@ -145,7 +145,7 @@ export class EditDistributionProfileComponent implements OnInit {
     }
   }
 
-  public _deleteProfile(profile: ExtendedKalturaEntryDistribution): void {
+  public _deleteProfile(profile: ExtendedKontorolEntryDistribution): void {
     this.onActionSelected.emit({ action: 'delete', payload: profile });
   }
 
@@ -180,23 +180,23 @@ export class EditDistributionProfileComponent implements OnInit {
     } else {
       this._distributionName = this._widget.getProviderName(this.undistributedProfile.providerType);
 
-      if (this.distributedProfile.hasSubmitSentDataLog === KalturaNullableBoolean.trueValue) {
-        this._requestXmlLink = getKalturaServerUri(`/api_v3/index.php/service/contentDistribution_entryDistribution/action/serveSentData/actionType/1/id/${this.distributedProfile.id}/ks/${this._appAuthentication.appUser.ks}`);
+      if (this.distributedProfile.hasSubmitSentDataLog === KontorolNullableBoolean.trueValue) {
+        this._requestXmlLink = getKontorolServerUri(`/api_v3/index.php/service/contentDistribution_entryDistribution/action/serveSentData/actionType/1/id/${this.distributedProfile.id}/ks/${this._appAuthentication.appUser.ks}`);
       }
 
-      if (this.distributedProfile.hasSubmitResultsLog === KalturaNullableBoolean.trueValue) {
-        this._responseXmlLink = getKalturaServerUri(`/api_v3/index.php/service/contentDistribution_entryDistribution/action/serveReturnedData/actionType/1/id/${this.distributedProfile.id}/ks/${this._appAuthentication.appUser.ks}`);
+      if (this.distributedProfile.hasSubmitResultsLog === KontorolNullableBoolean.trueValue) {
+        this._responseXmlLink = getKontorolServerUri(`/api_v3/index.php/service/contentDistribution_entryDistribution/action/serveReturnedData/actionType/1/id/${this.distributedProfile.id}/ks/${this._appAuthentication.appUser.ks}`);
       }
 
-      const autoSubmitEnabled = this.undistributedProfile.submitEnabled === KalturaDistributionProfileActionStatus.automatic
-        && this.distributedProfile.status === KalturaEntryDistributionStatus.queued;
+      const autoSubmitEnabled = this.undistributedProfile.submitEnabled === KontorolDistributionProfileActionStatus.automatic
+        && this.distributedProfile.status === KontorolEntryDistributionStatus.queued;
       if (autoSubmitEnabled) {
         this._updatesField.enable({ onlySelf: true });
       } else {
         this._updatesField.disable({ onlySelf: true });
       }
 
-      const hasAutoSubmit = this.undistributedProfile.submitEnabled === KalturaDistributionProfileActionStatus.automatic;
+      const hasAutoSubmit = this.undistributedProfile.submitEnabled === KontorolDistributionProfileActionStatus.automatic;
       const noSendPermissions = !this._permissionsService.hasPermission(KMCPermissions.CONTENT_MANAGE_DISTRIBUTION_SEND);
       const noWherePermissions = !this._permissionsService.hasPermission(KMCPermissions.CONTENT_MANAGE_DISTRIBUTION_WHERE);
       if (noWherePermissions || (hasAutoSubmit && noSendPermissions)) {
@@ -204,7 +204,7 @@ export class EditDistributionProfileComponent implements OnInit {
         this._endDateField.disable({ onlySelf: true });
       }
 
-      const updates = this.undistributedProfile.submitEnabled === KalturaDistributionProfileActionStatus.automatic;
+      const updates = this.undistributedProfile.submitEnabled === KontorolDistributionProfileActionStatus.automatic;
       const startDate = this.distributedProfile.sunrise || null;
       const endDate = this.distributedProfile.sunset || null;
       this._distributionForm.setValue(
@@ -264,14 +264,14 @@ export class EditDistributionProfileComponent implements OnInit {
   }
 
   private _prepareThumbnails(): void {
-    const entryThumbnails = this.thumbnails.filter(thumbnail => thumbnail.status === KalturaThumbAssetStatus.ready);
+    const entryThumbnails = this.thumbnails.filter(thumbnail => thumbnail.status === KontorolThumbAssetStatus.ready);
     this._requiredThumbnails = this.undistributedProfile.requiredThumbDimensions.map(thumbnail => {
       const relevantEntryThumbnails = entryThumbnails.filter(item => item.width === thumbnail.width && item.height === thumbnail.height);
       if (relevantEntryThumbnails.length) {
-        (<ExtendedKalturaDistributionThumbDimensions>thumbnail).entryThumbnails = relevantEntryThumbnails.map(relevantEntryThumbnail => ({
+        (<ExtendedKontorolDistributionThumbDimensions>thumbnail).entryThumbnails = relevantEntryThumbnails.map(relevantEntryThumbnail => ({
           id: relevantEntryThumbnail.id,
           size: Number(relevantEntryThumbnail.size),
-          url: getKalturaServerUri(`/api_v3/index.php/service/thumbasset/action/serve/ks/${this._appAuthentication.appUser.ks}/thumbAssetId/${relevantEntryThumbnail.id}`)
+          url: getKontorolServerUri(`/api_v3/index.php/service/thumbasset/action/serve/ks/${this._appAuthentication.appUser.ks}/thumbAssetId/${relevantEntryThumbnail.id}`)
         }));
       } else {
         this._missingThumbnailError = this._appLocalization.get('applications.content.entryDetails.distribution.errors.missingThumbnails');

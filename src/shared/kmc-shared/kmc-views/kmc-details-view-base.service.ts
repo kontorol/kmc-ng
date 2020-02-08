@@ -1,5 +1,5 @@
 import { Observable, of as ObservableOf, throwError as ObservableThrowError } from 'rxjs';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { BrowserService } from 'app-shared/kmc-shell';
 import { Title } from '@angular/platform-browser';
 import { ContextualHelpService } from 'app-shared/kmc-shared/contextual-help/contextual-help.service';
@@ -15,7 +15,7 @@ export abstract class KmcDetailsViewBaseService<TArgs extends {}> {
 
     private _lastArgsUsedByOpen: TArgs = null;
 
-    protected constructor(protected _logger: KalturaLogger,
+    protected constructor(protected _logger: KontorolLogger,
                           protected _browserService: BrowserService,
                           private _titleService: Title,
                           private _contextualHelpService: ContextualHelpService) {

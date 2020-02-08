@@ -5,8 +5,8 @@ import {NotificationTypes, ActionTypes, CategoryService} from './category.servic
 import {CategorySectionsListWidget} from './category-sections-list/category-sections-list-widget.service';
 import {CategoriesService} from '../categories/categories.service';
 import {CategoryWidgetsManager} from './category-widgets-manager';
-import {AreaBlockerMessage, AreaBlockerMessageButton} from '@kaltura-ng/kaltura-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import {AreaBlockerMessage, AreaBlockerMessageButton} from '@kontorol-ng/kontorol-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { Observable } from 'rxjs';
 import {CategoryEntitlementsWidget} from './category-entitlements/category-entitlements-widget.service';
 import {CategorySubcategoriesWidget} from './category-subcategories/category-subcategories-widget.service';
@@ -17,9 +17,9 @@ import {
 } from 'app-shared/content-shared/categories-status/categories-status-monitor.service';
 import { BrowserService } from 'app-shared/kmc-shell';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { ContentCategoryViewSections, ContentCategoryViewService } from 'app-shared/kmc-shared/kmc-views/details-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kCategory',
@@ -33,7 +33,7 @@ import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
     CategoryMetadataWidget,
       CategoryEntitlementsWidget,
     CategorySubcategoriesWidget,
-      KalturaLogger.createLogger('CategoryComponent')
+      KontorolLogger.createLogger('CategoryComponent')
   ]
 })
 export class CategoryComponent implements OnInit, OnDestroy {
@@ -57,7 +57,7 @@ export class CategoryComponent implements OnInit, OnDestroy {
               private _categoriesStore: CategoriesService,
               private _appLocalization: AppLocalization,
               private _categoriesStatusMonitorService: CategoriesStatusMonitorService,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _contentCategoryView: ContentCategoryViewService,
               private _categoryRoute: ActivatedRoute) {
 

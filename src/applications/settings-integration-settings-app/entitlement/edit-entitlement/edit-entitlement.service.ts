@@ -1,11 +1,11 @@
 import {Injectable} from '@angular/core';
-import {KalturaClient} from 'kaltura-ngx-client';
-import {KalturaCategory} from 'kaltura-ngx-client';
+import {KontorolClient} from 'kontorol-ngx-client';
+import {KontorolCategory} from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
-import {CategoryUpdateAction} from 'kaltura-ngx-client';
+import {CategoryUpdateAction} from 'kontorol-ngx-client';
 
 export interface Entitlement {
-  categories: KalturaCategory[];
+  categories: KontorolCategory[];
   partnerDefaultEntitlementEnforcement: boolean
 }
 
@@ -13,15 +13,15 @@ export interface Entitlement {
 export class EditEntitlementService {
 
 
-  constructor(private _kalturaServerClient: KalturaClient) {
+  constructor(private _kontorolServerClient: KontorolClient) {
   }
 
 
   public updateEntitlementPrivacyContext(id: number, privacyContextLabel: string): Observable<void> {
 
-    return this._kalturaServerClient.request(new CategoryUpdateAction({
+    return this._kontorolServerClient.request(new CategoryUpdateAction({
       id,
-      category: new KalturaCategory({
+      category: new KontorolCategory({
         privacyContext: privacyContextLabel
       })
     }))

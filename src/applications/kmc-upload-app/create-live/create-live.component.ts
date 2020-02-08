@@ -1,23 +1,23 @@
 import {AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {CreateLiveService} from './create-live.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import {KalturaRecordStatus} from 'kaltura-ngx-client';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import {KontorolRecordStatus} from 'kontorol-ngx-client';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
 import {BrowserService} from 'app-shared/kmc-shell';
-import {PopupWidgetComponent, PopupWidgetStates} from '@kaltura-ng/kaltura-ui';
-import {KalturaLive} from './kaltura-live-stream/kaltura-live-stream.interface';
+import {PopupWidgetComponent, PopupWidgetStates} from '@kontorol-ng/kontorol-ui';
+import {KontorolLive} from './kontorol-live-stream/kontorol-live-stream.interface';
 import {ManualLive} from './manual-live/manual-live.interface';
 import {UniversalLive} from './universal-live/universal-live.interface';
-import { KalturaLiveStreamEntry } from 'kaltura-ngx-client';
-import { KalturaSourceType } from 'kaltura-ngx-client';
+import { KontorolLiveStreamEntry } from 'kontorol-ngx-client';
+import { KontorolSourceType } from 'kontorol-ngx-client';
 import { AppEventsService } from 'app-shared/kmc-shared';
 import { UpdateEntriesListEvent } from 'app-shared/kmc-shared/events/update-entries-list-event';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { ContentEntryViewSections, ContentEntryViewService } from 'app-shared/kmc-shared/kmc-views/details-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export enum StreamTypes {
-  kaltura,
+  kontorol,
   universal,
   manual
 }
@@ -31,14 +31,14 @@ export enum StreamTypes {
 export class CreateLiveComponent implements OnInit, OnDestroy, AfterViewInit {
   private _showConfirmationOnClose = true;
 
-  public _selectedStreamType: StreamTypes = StreamTypes.kaltura;
-  public kalturaLiveStreamData: KalturaLive = {
+  public _selectedStreamType: StreamTypes = StreamTypes.kontorol;
+  public kontorolLiveStreamData: KontorolLive = {
     name: '',
     description: '',
     transcodingProfile: null,
     liveDVR: false,
     enableRecording: this._permissionsService.hasPermission(KMCPermissions.FEATURE_LIVE_STREAM_RECORD),
-    enableRecordingSelectedOption: KalturaRecordStatus.appended,
+    enableRecordingSelectedOption: KontorolRecordStatus.appended,
     previewMode: false
   };
   public manualLiveData: ManualLive = {
@@ -61,7 +61,7 @@ export class CreateLiveComponent implements OnInit, OnDestroy, AfterViewInit {
   public _blockerMessage: AreaBlockerMessage;
   public _manualStreamOnly = false;
 
-  @ViewChild('kalturaLiveStreamComponent') kalturaLiveStreamComponent;
+  @ViewChild('kontorolLiveStreamComponent') kontorolLiveStreamComponent;
   @ViewChild('manualLiveComponent') manualLiveComponent;
   @ViewChild('universalLiveComponent') universalLiveComponent;
   @Input() parentPopupWidget: PopupWidgetComponent;
@@ -77,9 +77,9 @@ export class CreateLiveComponent implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     this._availableStreamTypes = [
       {
-        id: 'kaltura',
-        value: StreamTypes.kaltura,
-        label: this._appLocalization.get('applications.upload.prepareLive.streamTypes.kaltura')
+        id: 'kontorol',
+        value: StreamTypes.kontorol,
+        label: this._appLocalization.get('applications.upload.prepareLive.streamTypes.kontorol')
       },
       {
         id: 'universal',
@@ -96,7 +96,7 @@ export class CreateLiveComponent implements OnInit, OnDestroy, AfterViewInit {
     this._permissionsService.filterList(
       this._availableStreamTypes,
       {
-        'kaltura': KMCPermissions.FEATURE_KALTURA_LIVE_STREAM,
+        'kontorol': KMCPermissions.FEATURE_KONTOROL_LIVE_STREAM,
         'universal': KMCPermissions.FEATURE_KMC_AKAMAI_UNIVERSAL_LIVE_STREAM_PROVISION
       }
     );
@@ -141,8 +141,8 @@ export class CreateLiveComponent implements OnInit, OnDestroy, AfterViewInit {
 
   submitCurrentSelectedForm() {
     switch (this._selectedStreamType) {
-      case StreamTypes.kaltura: {
-        this._submitKalturaLiveStreamData();
+      case StreamTypes.kontorol: {
+        this._submitKontorolLiveStreamData();
         break;
       }
       case StreamTypes.universal: {
@@ -172,8 +172,8 @@ export class CreateLiveComponent implements OnInit, OnDestroy, AfterViewInit {
 
   private _isCurrentSelectedFormDirty(): boolean {
     switch (this._selectedStreamType) {
-      case StreamTypes.kaltura: {
-        return this.kalturaLiveStreamComponent.isFormDirty();
+      case StreamTypes.kontorol: {
+        return this.kontorolLiveStreamComponent.isFormDirty();
       }
       case StreamTypes.universal: {
         return this.universalLiveComponent.isFormDirty();
@@ -188,14 +188,14 @@ export class CreateLiveComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
 
-  private _confirmEntryNavigation(liveStream: KalturaLiveStreamEntry): void {
+  private _confirmEntryNavigation(liveStream: KontorolLiveStreamEntry): void {
     const header = this._appLocalization.get('applications.upload.prepareLive.confirmEntryNavigation.title');
 
     switch (liveStream.sourceType) {
-      case KalturaSourceType.liveStream:
+      case KontorolSourceType.liveStream:
         this._browserService.confirm({
           header,
-          message: this._appLocalization.get('applications.upload.prepareLive.confirmEntryNavigation.kalturaMessage'),
+          message: this._appLocalization.get('applications.upload.prepareLive.confirmEntryNavigation.kontorolMessage'),
           accept: () => {
               this._contentEntryViewService.open({
                   entry: liveStream,
@@ -213,7 +213,7 @@ export class CreateLiveComponent implements OnInit, OnDestroy, AfterViewInit {
         });
         break;
 
-      case KalturaSourceType.akamaiUniversalLive:
+      case KontorolSourceType.akamaiUniversalLive:
         this._browserService.alert({
           header,
           message: this._appLocalization.get('applications.upload.prepareLive.confirmEntryNavigation.universalMessage'),
@@ -225,7 +225,7 @@ export class CreateLiveComponent implements OnInit, OnDestroy, AfterViewInit {
         });
         break;
 
-      case KalturaSourceType.manualLiveStream:
+      case KontorolSourceType.manualLiveStream:
         this._browserService.alert({
           header,
           message: this._appLocalization.get(
@@ -254,9 +254,9 @@ export class CreateLiveComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
 
-  private _submitKalturaLiveStreamData() {
-    if (this.kalturaLiveStreamComponent.validate()) {
-      this.createLiveService.createKalturaLiveStream(this.kalturaLiveStreamData)
+  private _submitKontorolLiveStreamData() {
+    if (this.kontorolLiveStreamComponent.validate()) {
+      this.createLiveService.createKontorolLiveStream(this.kontorolLiveStreamData)
         .pipe(cancelOnDestroy(this))
         .pipe(tag('block-shell'))
         .subscribe(response => {

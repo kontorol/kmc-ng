@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DefaultFiltersList } from './default-filters-list';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaBulkUploadObjectType } from 'kaltura-ngx-client';
+import { KontorolBulkUploadObjectType } from 'kontorol-ngx-client';
 
 export interface RefineListItem {
   value: string;
@@ -38,11 +38,11 @@ export class BulkLogRefineFiltersService {
       );
 
       list.items.forEach((item: any) => {
-        if (item.value === KalturaBulkUploadObjectType.user && !hasEndUserPermission) {
+        if (item.value === KontorolBulkUploadObjectType.user && !hasEndUserPermission) {
           return;
         }
 
-	    if (item.value === KalturaBulkUploadObjectType.categoryUser && !hasEntitlementPermission) {
+	    if (item.value === KontorolBulkUploadObjectType.categoryUser && !hasEntitlementPermission) {
 	        return;
 	    }
 

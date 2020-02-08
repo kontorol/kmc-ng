@@ -1,20 +1,20 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { RolesFilters, RolesStoreService } from '../roles-store/roles-store.service';
-import { KalturaUserRole } from 'kaltura-ngx-client';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
+import { KontorolUserRole } from 'kontorol-ngx-client';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
 import { BrowserService } from 'app-shared/kmc-shell';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
 import { AdminRolesMainViewService } from 'app-shared/kmc-shared/kmc-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kRolesList',
   templateUrl: './roles-list.component.html',
   styleUrls: ['./roles-list.component.scss'],
-  providers: [KalturaLogger.createLogger('RolesListComponent')]
+  providers: [KontorolLogger.createLogger('RolesListComponent')]
 })
 
 export class RolesListComponent implements OnInit, OnDestroy {
@@ -24,7 +24,7 @@ export class RolesListComponent implements OnInit, OnDestroy {
   public _blockerMessage: AreaBlockerMessage = null;
   public _tableIsBusy = false;
   public _tableBlockerMessage: AreaBlockerMessage = null;
-  public _currentEditRole: KalturaUserRole = null;
+  public _currentEditRole: KontorolUserRole = null;
   public _query = {
     createdBefore: null,
     pageIndex: 0,
@@ -32,7 +32,7 @@ export class RolesListComponent implements OnInit, OnDestroy {
   };
 
   constructor(public _rolesStore: RolesStoreService,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _browserService: BrowserService,
               private _adminRolesMainViewService: AdminRolesMainViewService,
               private _appLocalization: AppLocalization) {
@@ -108,13 +108,13 @@ export class RolesListComponent implements OnInit, OnDestroy {
         });
   }
 
-  private _editRole(role: KalturaUserRole): void {
+  private _editRole(role: KontorolUserRole): void {
     this._logger.info(`handle edit role action by user`, { id: role.id, name: role.name });
     this._currentEditRole = role;
     this.editPopup.open();
   }
 
-  private _deleteRole(role: KalturaUserRole): void {
+  private _deleteRole(role: KontorolUserRole): void {
     this._logger.info(`handle delete role request by user`);
     this._blockerMessage = null;
     this._rolesStore.deleteRole(role)
@@ -153,7 +153,7 @@ export class RolesListComponent implements OnInit, OnDestroy {
       );
   }
 
-  private _duplicateRole(role: KalturaUserRole): void {
+  private _duplicateRole(role: KontorolUserRole): void {
     this._logger.info(`handle duplicate role request by user`, { id: role.id, name: role.name });
     this._blockerMessage = null;
     this._rolesStore.duplicateRole(role)
@@ -206,7 +206,7 @@ export class RolesListComponent implements OnInit, OnDestroy {
     }
   }
 
-  public _onActionSelected({ action, role }: { action: string, role: KalturaUserRole }): void {
+  public _onActionSelected({ action, role }: { action: string, role: KontorolUserRole }): void {
     switch (action) {
       case 'edit':
         this._editRole(role);

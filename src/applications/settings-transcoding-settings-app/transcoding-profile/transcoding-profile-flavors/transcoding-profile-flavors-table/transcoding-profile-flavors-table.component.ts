@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaFlavorParams } from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolFlavorParams } from 'kontorol-ngx-client';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 
 @Component({
@@ -10,7 +10,7 @@ import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc
 })
 export class TranscodingProfileFlavorsTableComponent implements AfterViewInit, OnInit, OnDestroy {
   @Input() isNewProfile: boolean;
-  @Input() selectedFlavors: KalturaFlavorParams[] = [];
+  @Input() selectedFlavors: KontorolFlavorParams[] = [];
 
   @Input()
   set flavors(data: any[]) {
@@ -24,11 +24,11 @@ export class TranscodingProfileFlavorsTableComponent implements AfterViewInit, O
     }
   }
 
-  @Output() selectedFlavorsChange = new EventEmitter<KalturaFlavorParams[]>();
-  @Output() editFlavor = new EventEmitter<KalturaFlavorParams>();
+  @Output() selectedFlavorsChange = new EventEmitter<KontorolFlavorParams[]>();
+  @Output() editFlavor = new EventEmitter<KontorolFlavorParams>();
 
-  private _deferredFlavors: KalturaFlavorParams[];
-  public _flavors: KalturaFlavorParams[] = [];
+  private _deferredFlavors: KontorolFlavorParams[];
+  public _flavors: KontorolFlavorParams[] = [];
   public _emptyMessage: string;
   public _deferredLoading = true;
 
@@ -60,7 +60,7 @@ export class TranscodingProfileFlavorsTableComponent implements AfterViewInit, O
   ngOnDestroy() {
   }
 
-  public _onSelectionChange(event: KalturaFlavorParams[]): void {
+  public _onSelectionChange(event: KontorolFlavorParams[]): void {
     this.selectedFlavorsChange.emit(event);
   }
 
@@ -68,7 +68,7 @@ export class TranscodingProfileFlavorsTableComponent implements AfterViewInit, O
     this._emptyMessage = this._appLocalization.get('applications.content.playlistDetails.errors.addAtLeastOneMedia');
   }
 
-  public _editFlavor(flavor: KalturaFlavorParams): void {
+  public _editFlavor(flavor: KontorolFlavorParams): void {
     const isSelected = this.selectedFlavors.indexOf(flavor) !== -1;
     if (isSelected && this._isEditAllowed) {
       this.editFlavor.emit(flavor);

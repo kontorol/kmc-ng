@@ -1,17 +1,17 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ControlValueAccessor, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { KalturaClient } from 'kaltura-ngx-client';
-import { BaseEntryGetAction } from 'kaltura-ngx-client';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { KalturaUtils } from '@kaltura-ng/kaltura-common';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { BaseEntryGetAction } from 'kontorol-ngx-client';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { KontorolUtils } from '@kontorol-ng/kontorol-common';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
 import { LinkedEntriesControl } from 'app-shared/kmc-shared/dynamic-metadata-form/linked-entries-control';
 import { BrowserService } from 'app-shared/kmc-shell';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
-import { FriendlyHashId } from '@kaltura-ng/kaltura-common';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
+import { FriendlyHashId } from '@kontorol-ng/kontorol-common';
 
-export interface LinkedMediaEntry extends KalturaMediaEntry {
+export interface LinkedMediaEntry extends KontorolMediaEntry {
   selectionId?: string;
 }
 
@@ -47,7 +47,7 @@ export class LinkedEntriesComponent implements OnInit, OnDestroy, ControlValueAc
   private onChangeCallback: (_: any) => void = () => {
   };
 
-  constructor(private _kalturaClient: KalturaClient,
+  constructor(private _kontorolClient: KontorolClient,
               private _browserService: BrowserService,
               private _appLocalization: AppLocalization) {
   }
@@ -72,7 +72,7 @@ export class LinkedEntriesComponent implements OnInit, OnDestroy, ControlValueAc
 
       const requests = this._innerValue.map(entryId => new BaseEntryGetAction({ entryId }));
 
-      this._kalturaClient.multiRequest(requests)
+      this._kontorolClient.multiRequest(requests)
         .subscribe(
           responses => {
             const missingEntryIds = [];
@@ -131,7 +131,7 @@ export class LinkedEntriesComponent implements OnInit, OnDestroy, ControlValueAc
     return this._selectionIdGenerator.generateUnique(this._entries.map(item => item.selectionId));
   }
 
-  private _extendWithSelectionId(entries: KalturaMediaEntry[]): LinkedMediaEntry[] {
+  private _extendWithSelectionId(entries: KontorolMediaEntry[]): LinkedMediaEntry[] {
     return entries.map(entry => {
       (<LinkedMediaEntry>entry).selectionId = this._generateUniqueSelectionId();
 
@@ -162,7 +162,7 @@ export class LinkedEntriesComponent implements OnInit, OnDestroy, ControlValueAc
     this.onTouchedCallback = fn;
   }
 
-  public _deleteEntry(entry: KalturaMediaEntry): void {
+  public _deleteEntry(entry: KontorolMediaEntry): void {
     this._clearSelection();
     this._entries.splice(this._entries.indexOf(entry), 1);
     this._propogateChanges();
@@ -170,13 +170,13 @@ export class LinkedEntriesComponent implements OnInit, OnDestroy, ControlValueAc
 
 
   public _moveUpSelections(): void {
-    if (KalturaUtils.moveUpItems(this._entries, this._selectedEntries)) {
+    if (KontorolUtils.moveUpItems(this._entries, this._selectedEntries)) {
       this._propogateChanges();
     }
   }
 
   public _moveDownSelections(): void {
-    if (KalturaUtils.moveDownItems(this._entries, this._selectedEntries)) {
+    if (KontorolUtils.moveDownItems(this._entries, this._selectedEntries)) {
       this._propogateChanges();
     }
   }
@@ -200,7 +200,7 @@ export class LinkedEntriesComponent implements OnInit, OnDestroy, ControlValueAc
     this._selectedEntries = [];
   }
 
-  public _addEntries(entries: KalturaMediaEntry[]): void {
+  public _addEntries(entries: KontorolMediaEntry[]): void {
     this._entries = this._extendWithSelectionId(entries);
     this._propogateChanges();
   }

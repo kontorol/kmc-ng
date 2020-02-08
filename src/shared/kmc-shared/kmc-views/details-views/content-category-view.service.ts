@@ -2,19 +2,19 @@ import { Injectable } from '@angular/core';
 import { KMCPermissions, KMCPermissionsService } from '../../kmc-permissions';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { DetailsViewMetadata, KmcDetailsViewBaseService } from 'app-shared/kmc-shared/kmc-views/kmc-details-view-base.service';
 import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
-import { KalturaCategory } from 'kaltura-ngx-client';
+import { KontorolCategory } from 'kontorol-ngx-client';
 import { modulesConfig } from 'config/modules';
-import { KalturaClient } from 'kaltura-ngx-client';
-import { CategoryGetAction } from 'kaltura-ngx-client';
-import { KalturaResponseProfileType } from 'kaltura-ngx-client';
-import { KalturaDetachedResponseProfile } from 'kaltura-ngx-client';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { CategoryGetAction } from 'kontorol-ngx-client';
+import { KontorolResponseProfileType } from 'kontorol-ngx-client';
+import { KontorolDetachedResponseProfile } from 'kontorol-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { Title } from '@angular/platform-browser';
 import { ContextualHelpService } from 'app-shared/kmc-shared/contextual-help/contextual-help.service';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export enum ContentCategoryViewSections {
     Metadata = 'Metadata',
@@ -24,7 +24,7 @@ export enum ContentCategoryViewSections {
 }
 
 export interface ContentCategoryViewArgs {
-    category: KalturaCategory;
+    category: KontorolCategory;
     section: ContentCategoryViewSections;
     activatedRoute?: ActivatedRoute;
     ignoreWarningTag?: boolean;
@@ -35,11 +35,11 @@ export class ContentCategoryViewService extends KmcDetailsViewBaseService<Conten
 
     constructor(private _appPermissions: KMCPermissionsService,
                 private _appLocalization: AppLocalization,
-                private _kalturaClient: KalturaClient,
+                private _kontorolClient: KontorolClient,
                 private _router: Router,
                 _browserService: BrowserService,
                 _title: Title,
-                _logger: KalturaLogger,
+                _logger: KontorolLogger,
                 _contextualHelpService: ContextualHelpService) {
         super(_logger.subLogger('ContentCategoryViewService'), _browserService, _title, _contextualHelpService);
     }
@@ -111,7 +111,7 @@ export class ContentCategoryViewService extends KmcDetailsViewBaseService<Conten
         return result;
     }
 
-    private _isSectionEnabled(section: ContentCategoryViewSections, category: KalturaCategory): boolean {
+    private _isSectionEnabled(section: ContentCategoryViewSections, category: KontorolCategory): boolean {
         if (!section) {
             this._logger.debug('missing target section, reject request');
             return false;
@@ -124,7 +124,7 @@ export class ContentCategoryViewService extends KmcDetailsViewBaseService<Conten
         return availableByData && availableByPermission;
     }
 
-    private _isAvailableByData(section: ContentCategoryViewSections, category: KalturaCategory): boolean {
+    private _isAvailableByData(section: ContentCategoryViewSections, category: KontorolCategory): boolean {
         this._logger.debug(`check section availability by data for category`, { categoryId: category.id, section });
         let result = false;
         switch (section) {
@@ -208,13 +208,13 @@ export class ContentCategoryViewService extends KmcDetailsViewBaseService<Conten
         this._logger.info('handle open category view by id request by the user, load category data', {categoryId});
         const categoryGetAction = new CategoryGetAction({id: categoryId})
             .setRequestOptions({
-                responseProfile: new KalturaDetachedResponseProfile({
-                    type: KalturaResponseProfileType.includeFields,
+                responseProfile: new KontorolDetachedResponseProfile({
+                    type: KontorolResponseProfileType.includeFields,
                     fields: 'id,tags,privacyContexts,directSubCategoriesCount'
                 })
             });
 
-        this._kalturaClient
+        this._kontorolClient
             .request(categoryGetAction)
             .pipe(tag('block-shell'))
             .subscribe(

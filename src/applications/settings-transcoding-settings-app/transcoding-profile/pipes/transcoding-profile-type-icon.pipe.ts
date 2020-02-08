@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { KalturaConversionProfileType } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolConversionProfileType } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 
 @Pipe({
   name: 'kTranscodingProfileType'
@@ -9,7 +9,7 @@ export class TranscodingProfileTypePipe implements PipeTransform {
   constructor(private _appLocalization: AppLocalization) {
   }
 
-  transform(value: KalturaConversionProfileType, icon: boolean): string {
+  transform(value: KontorolConversionProfileType, icon: boolean): string {
     if (!value) {
       return '';
     }
@@ -20,14 +20,14 @@ export class TranscodingProfileTypePipe implements PipeTransform {
     };
 
     switch (true) {
-      case value === KalturaConversionProfileType.media:
+      case value === KontorolConversionProfileType.media:
         result = {
           icon: 'kIcontranscoding',
           label: this._appLocalization.get('applications.settings.transcoding.type.media')
         };
         break;
 
-      case value === KalturaConversionProfileType.liveStream:
+      case value === KontorolConversionProfileType.liveStream:
         result = {
           icon: 'kIconlive_transcoding',
           label: this._appLocalization.get('applications.settings.transcoding.type.live')

@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { KMCPermissions, KMCPermissionsService } from '../../kmc-permissions';
 import { KmcMainViewBaseService, ViewMetadata } from '../kmc-main-view-base.service';
 import { Router } from '@angular/router';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { Title } from '@angular/platform-browser';
 import { ContextualHelpService } from 'app-shared/kmc-shared/contextual-help/contextual-help.service';
 
@@ -12,7 +12,7 @@ import { ContextualHelpService } from 'app-shared/kmc-shared/contextual-help/con
 export class ContentSyndicationMainViewService extends KmcMainViewBaseService {
 
     constructor(
-        logger: KalturaLogger,
+        logger: KontorolLogger,
         browserService: BrowserService,
         router: Router,
         private _appPermissions: KMCPermissionsService,

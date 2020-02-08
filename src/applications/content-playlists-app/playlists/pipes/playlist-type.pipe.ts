@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { KalturaPlaylistType } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolPlaylistType } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 
 @Pipe({name: 'playlistType'})
 
@@ -14,15 +14,15 @@ export class PlaylistTypePipe implements PipeTransform {
 		    playlistType = "";
 		if (typeof(value) !== 'undefined' && value !== null) {
 			switch (value) {
-				case KalturaPlaylistType.dynamic:
+				case KontorolPlaylistType.dynamic:
 				  className = 'kIconPlaylist_RuleBased'; /* TODO [kmc] should be the correct icons here and below */
 					playlistType = this.appLocalization.get("applications.content.playlistType.dynamic");
 					break;
-				case KalturaPlaylistType.external:
+				case KontorolPlaylistType.external:
           className = 'kIconPlaylist_RuleBased';
 					playlistType = this.appLocalization.get("applications.content.playlistType.external");
 					break;
-				case KalturaPlaylistType.staticList:
+				case KontorolPlaylistType.staticList:
           className = 'kIconPlaylist_Manual';
 					playlistType = this.appLocalization.get("applications.content.playlistType.staticList");
 					break;

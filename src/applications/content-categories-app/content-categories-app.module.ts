@@ -15,7 +15,7 @@ import {CommonModule} from '@angular/common';
 import {RouterModule} from '@angular/router';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
-import {TagsModule} from '@kaltura-ng/kaltura-ui';
+import {TagsModule} from '@kontorol-ng/kontorol-ui';
 import {
   AccordionModule,
   ButtonModule,
@@ -43,29 +43,29 @@ import {ContentCategoriesComponent} from './content-categories.component';
 
 import {DynamicMetadataFormModule} from 'app-shared/kmc-shared';
 
-import {LocalizationModule} from '@kaltura-ng/mc-shared';
+import {LocalizationModule} from '@kontorol-ng/mc-shared';
 
-import {KalturaPrimeNgUIModule} from '@kaltura-ng/kaltura-primeng-ui';
+import {KontorolPrimeNgUIModule} from '@kontorol-ng/kontorol-primeng-ui';
 import {
   AreaBlockerModule,
   InputHelperModule,
-  KalturaUIModule,
+  KontorolUIModule,
   StickyModule,
   TooltipModule
-} from '@kaltura-ng/kaltura-ui';
-import {AutoCompleteModule} from '@kaltura-ng/kaltura-primeng-ui';
-import {PopupWidgetModule} from '@kaltura-ng/kaltura-ui';
-import {DynamicFormModule} from '@kaltura-ng/kaltura-ui';
-import {DynamicFormModule as PrimeDynamicFormModule} from '@kaltura-ng/kaltura-primeng-ui';
+} from '@kontorol-ng/kontorol-ui';
+import {AutoCompleteModule} from '@kontorol-ng/kontorol-primeng-ui';
+import {PopupWidgetModule} from '@kontorol-ng/kontorol-ui';
+import {DynamicFormModule} from '@kontorol-ng/kontorol-ui';
+import {DynamicFormModule as PrimeDynamicFormModule} from '@kontorol-ng/kontorol-primeng-ui';
 import {CategoryComponentsList} from './category/category-components-list';
 import {CategoriesComponentsList} from './categories/categories-components-list';
 import {CategoryCanDeactivate} from './category/category-can-deactivate.service';
-import {DetailsBarModule} from '@kaltura-ng/kaltura-ui';
+import {DetailsBarModule} from '@kontorol-ng/kontorol-ui';
 import {CategoriesUtilsService} from './categories-utils.service';
 import {NewCategoryComponent} from './categories/new-category/new-category.component';
 import {MoveCategoryComponent} from './categories/move-category/move-category.component';
 import {CategoriesRefineFiltersService} from './categories/categories-refine-filters.service';
-import { FiltersModule } from '@kaltura-ng/mc-shared';
+import { FiltersModule } from '@kontorol-ng/mc-shared';
 import { KMCPermissionsModule } from 'app-shared/kmc-shared/kmc-permissions';
 import { EntriesModule } from 'app-shared/content-shared/entries/entries.module';
 import { DateFormatModule } from 'app-shared/kmc-shared/date-format/date-format.module';
@@ -89,8 +89,8 @@ import { DateFormatModule } from 'app-shared/kmc-shared/date-format/date-format.
         InputTextModule,
         LocalizationModule,
         DynamicMetadataFormModule,
-        KalturaPrimeNgUIModule,
-        KalturaUIModule,
+        KontorolPrimeNgUIModule,
+        KontorolUIModule,
         KMCShellModule,
         MenuModule,
         MultiSelectModule,

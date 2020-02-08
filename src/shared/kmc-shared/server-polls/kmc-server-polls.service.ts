@@ -1,17 +1,17 @@
 import {
-    KalturaAPIException, KalturaClient, KalturaMultiRequest, KalturaRequest, KalturaRequestBase
-} from 'kaltura-ngx-client';
+    KontorolAPIException, KontorolClient, KontorolMultiRequest, KontorolRequest, KontorolRequestBase
+} from 'kontorol-ngx-client';
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable, throwError as ObservableThrowError} from 'rxjs';
-import { ServerPolls } from '@kaltura-ng/kaltura-common';
+import { ServerPolls } from '@kontorol-ng/kontorol-common';
 import { Subject } from 'rxjs/Subject';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { AppEventsService } from 'app-shared/kmc-shared/app-events';
 import { UserLoginStatusEvent } from 'app-shared/kmc-shared/events';
 import { catchError, map } from 'rxjs/operators';
 
 @Injectable()
-export class KmcServerPolls extends ServerPolls<KalturaRequestBase, KalturaAPIException> implements OnDestroy {
+export class KmcServerPolls extends ServerPolls<KontorolRequestBase, KontorolAPIException> implements OnDestroy {
   private _onDestory = new Subject<void>();
   private _isLogged = false;
   private _isKSValid = true;
@@ -19,8 +19,8 @@ export class KmcServerPolls extends ServerPolls<KalturaRequestBase, KalturaAPIEx
       return this._onDestory.asObservable();
   }
 
-  constructor(private _kalturaClient: KalturaClient, private _kalturaLogger: KalturaLogger, private _appEvents: AppEventsService) {
-      super(null); // _kalturaLogger.subLogger('KmcServerPolls')
+  constructor(private _kontorolClient: KontorolClient, private _kontorolLogger: KontorolLogger, private _appEvents: AppEventsService) {
+      super(null); // _kontorolLogger.subLogger('KmcServerPolls')
 
       _appEvents.event(UserLoginStatusEvent).subscribe(
           event => {
@@ -32,8 +32,8 @@ export class KmcServerPolls extends ServerPolls<KalturaRequestBase, KalturaAPIEx
       );
   }
 
-  protected _createGlobalError(error?: Error): KalturaAPIException {
-      return new KalturaAPIException( error ? error.message : '', 'kmc-server_polls_global_error', null);
+  protected _createGlobalError(error?: Error): KontorolAPIException {
+      return new KontorolAPIException( error ? error.message : '', 'kmc-server_polls_global_error', null);
   }
 
   protected _canExecute(): boolean {
@@ -49,21 +49,21 @@ export class KmcServerPolls extends ServerPolls<KalturaRequestBase, KalturaAPIEx
    *   [1,1,3,2,1] - mapping by count of requests in multi-requests, needed to restore original structure of requests
    *   response: [a,b, [c1,c2,c3], [d1,d2],e] - response mapped to according requests
    */
-  protected _executeRequests(requests: KalturaRequestBase[]): Observable<{ error: KalturaAPIException, result: any }[]> {
-    const multiRequest = new KalturaMultiRequest();
+  protected _executeRequests(requests: KontorolRequestBase[]): Observable<{ error: KontorolAPIException, result: any }[]> {
+    const multiRequest = new KontorolMultiRequest();
     const requestsMapping: number[] = [];
     requests.forEach(request => {
-      if (request instanceof KalturaRequest) {
+      if (request instanceof KontorolRequest) {
         multiRequest.requests.push(request);
         requestsMapping.push(1);
-      } else if (request instanceof KalturaMultiRequest) {
+      } else if (request instanceof KontorolMultiRequest) {
         multiRequest.requests.push(...request.requests);
         requestsMapping.push(request.requests.length);
       } else {
         throw new Error(`unsupported type of request provided '${typeof request}'`);
       }
     });
-      return this._kalturaClient.multiRequest(multiRequest.setNetworkTag('pr'))
+      return this._kontorolClient.multiRequest(multiRequest.setNetworkTag('pr'))
           .pipe(
               map(responses => {
                   if (responses.hasErrors()) {

@@ -2,12 +2,12 @@ import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Outpu
 import { ISubscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 
-import { KalturaClient, KalturaFilterPager, KalturaUser, KalturaUserFilter, UserListAction } from 'kaltura-ngx-client';
-import { SuggestionsProviderData } from '@kaltura-ng/kaltura-primeng-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolClient, KontorolFilterPager, KontorolUser, KontorolUserFilter, UserListAction } from 'kontorol-ngx-client';
+import { SuggestionsProviderData } from '@kontorol-ng/kontorol-primeng-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BrowserService } from 'app-shared/kmc-shell';
-import { AreaBlockerMessage, PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
+import { AreaBlockerMessage, PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
 
 @Component({
     selector: 'kBulkAddViewers',
@@ -16,19 +16,19 @@ import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
 })
 export class BulkAddViewersComponent implements OnInit, OnDestroy, AfterViewInit {
     @Input() parentPopupWidget: PopupWidgetComponent;
-    @Output() addViewersChanged = new EventEmitter<KalturaUser[]>();
+    @Output() addViewersChanged = new EventEmitter<KontorolUser[]>();
 
     public _loading = false;
     public _sectionBlockerMessage: AreaBlockerMessage;
 
     public _usersProvider = new Subject<SuggestionsProviderData>();
-    public users: KalturaUser[] = [];
+    public users: KontorolUser[] = [];
 
     private _searchViewersSubscription: ISubscription;
     private _parentPopupStateChangeSubscribe: ISubscription;
     private _confirmClose = true;
 
-    constructor(private _kalturaServerClient: KalturaClient,
+    constructor(private _kontorolServerClient: KontorolClient,
                 private _appLocalization: AppLocalization,
                 private _browserService: BrowserService) {
         this._convertUserInputToValidValue = this._convertUserInputToValidValue.bind(this); // fix scope issues when binding to a property
@@ -79,9 +79,9 @@ export class BulkAddViewersComponent implements OnInit, OnDestroy, AfterViewInit
             this._searchViewersSubscription = null;
         }
 
-        this._kalturaServerClient.request(new UserListAction({
-            filter: new KalturaUserFilter({ idOrScreenNameStartsWith: event.query }),
-            pager: new KalturaFilterPager({ pageIndex: 0, pageSize: 30 })
+        this._kontorolServerClient.request(new UserListAction({
+            filter: new KontorolUserFilter({ idOrScreenNameStartsWith: event.query }),
+            pager: new KontorolFilterPager({ pageIndex: 0, pageSize: 30 })
         }))
             .pipe(cancelOnDestroy(this))
             .subscribe(

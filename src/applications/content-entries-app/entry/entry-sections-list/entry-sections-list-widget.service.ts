@@ -1,16 +1,16 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import { Observable } from 'rxjs';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
 import {SectionsList} from './sections-list';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import {KalturaMediaEntry} from 'kaltura-ngx-client';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import {KontorolMediaEntry} from 'kontorol-ngx-client';
 import {EntryWidget} from '../entry-widget';
 import {
     ContentEntryViewSections,
     ContentEntryViewService
 } from 'app-shared/kmc-shared/kmc-views/details-views/content-entry-view.service';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 
 export interface SectionWidgetItem {
     label: string;
@@ -27,7 +27,7 @@ export class EntrySectionsListWidget extends EntryWidget implements OnDestroy
 
     constructor(private _appLocalization: AppLocalization,
                 private _contentEntryViewService: ContentEntryViewService,
-                logger: KalturaLogger)
+                logger: KontorolLogger)
     {
         super('sectionsList', logger);
     }
@@ -44,7 +44,7 @@ export class EntrySectionsListWidget extends EntryWidget implements OnDestroy
         }
     }
 
-    protected onDataLoaded(data : KalturaMediaEntry) : void {
+    protected onDataLoaded(data : KontorolMediaEntry) : void {
         this._reloadSections(data);
     }
 
@@ -81,7 +81,7 @@ export class EntrySectionsListWidget extends EntryWidget implements OnDestroy
 
     }
 
-    private _reloadSections(entry : KalturaMediaEntry) : void
+    private _reloadSections(entry : KontorolMediaEntry) : void
     {
         const sections = [];
         const formWidgetsState = this.form.widgetsState;

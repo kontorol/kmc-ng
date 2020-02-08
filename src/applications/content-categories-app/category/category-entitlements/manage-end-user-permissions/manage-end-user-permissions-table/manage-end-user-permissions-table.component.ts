@@ -8,11 +8,11 @@ import {
   OnInit,
   Output
 } from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {EndUserPermissionsUser} from '../manage-end-user-permissions.service';
-import {KalturaCategoryUserPermissionLevel} from 'kaltura-ngx-client';
-import {KalturaUpdateMethodType} from 'kaltura-ngx-client';
-import {KalturaCategoryUserStatus} from 'kaltura-ngx-client';
+import {KontorolCategoryUserPermissionLevel} from 'kontorol-ngx-client';
+import {KontorolUpdateMethodType} from 'kontorol-ngx-client';
+import {KontorolCategoryUserStatus} from 'kontorol-ngx-client';
 import {UserActionData} from '../manage-end-user-permissions.component';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
 
@@ -57,7 +57,7 @@ export class ManageEndUserPermissionsTableComponent implements OnInit, AfterView
 
   public _permissionLevelOptions: { value: number, label: string }[] = [];
   public _updateMethodOptions: { value: number, label: string }[] = [];
-  public _kalturaCategoryUserStatus = KalturaCategoryUserStatus;
+  public _kontorolCategoryUserStatus = KontorolCategoryUserStatus;
   public _emptyMessage = '';
 
   public rowTrackBy: Function = (index: number, item: any) => {
@@ -76,27 +76,27 @@ export class ManageEndUserPermissionsTableComponent implements OnInit, AfterView
 
   private _fillPermissionLevelOptions() {
     this._permissionLevelOptions = [{
-      value: KalturaCategoryUserPermissionLevel.member,
+      value: KontorolCategoryUserPermissionLevel.member,
       label: this._appLocalization.get('applications.content.categoryDetails.entitlements.defaultPermissionLevel.member')
     }, {
-      value: KalturaCategoryUserPermissionLevel.contributor,
+      value: KontorolCategoryUserPermissionLevel.contributor,
       label: this._appLocalization.get('applications.content.categoryDetails.entitlements.defaultPermissionLevel.contributor')
     }, {
-      value: KalturaCategoryUserPermissionLevel.moderator,
+      value: KontorolCategoryUserPermissionLevel.moderator,
       label: this._appLocalization.get('applications.content.categoryDetails.entitlements.defaultPermissionLevel.moderator')
     }, {
-      value: KalturaCategoryUserPermissionLevel.manager,
+      value: KontorolCategoryUserPermissionLevel.manager,
       label: this._appLocalization.get('applications.content.categoryDetails.entitlements.defaultPermissionLevel.manager')
     }];
   }
 
   private _fillUpdateMethodOptions() {
     this._updateMethodOptions = [{
-      value: KalturaUpdateMethodType.automatic,
+      value: KontorolUpdateMethodType.automatic,
       label: this._appLocalization
         .get('applications.content.categoryDetails.entitlements.usersPermissions.table.updateMethodOptions.automatic')
     }, {
-      value: KalturaUpdateMethodType.manual,
+      value: KontorolUpdateMethodType.manual,
       label: this._appLocalization
         .get('applications.content.categoryDetails.entitlements.usersPermissions.table.updateMethodOptions.manual')
     }];

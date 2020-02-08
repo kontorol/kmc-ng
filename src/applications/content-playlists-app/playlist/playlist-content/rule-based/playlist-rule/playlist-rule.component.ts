@@ -5,15 +5,15 @@ import {
   SortDirection
 } from 'app-shared/content-shared/entries/entries-store/entries-store.service';
 import { EntriesTableColumns } from 'app-shared/content-shared/entries/entries-table/entries-table.component';
-import { KalturaPlayableEntryOrderBy } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolPlayableEntryOrderBy } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { subApplicationsConfig } from 'config/sub-applications';
 import { PlaylistRuleParserService } from './playlist-rule-parser.service';
 import { BrowserService } from 'app-shared/kmc-shell';
-import { KalturaEntryModerationStatus } from 'kaltura-ngx-client';
-import { KalturaEntryStatus } from 'kaltura-ngx-client';
+import { KontorolEntryModerationStatus } from 'kontorol-ngx-client';
+import { KontorolEntryStatus } from 'kontorol-ngx-client';
 import { PlaylistRule } from './playlist-rule.interface';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
 import { ColumnsResizeManagerService, ResizableColumnsTableName } from 'app-shared/kmc-shared/columns-resize-manager';
 
 @Component({
@@ -41,14 +41,14 @@ export class PlaylistRuleComponent implements OnInit {
   public _nameRequiredError = false;
   public _enforcedFilters: Partial<EntriesFilters> = {
     'moderationStatuses': [
-      KalturaEntryModerationStatus.pendingModeration.toString(),
-      KalturaEntryModerationStatus.approved.toString(),
-      KalturaEntryModerationStatus.flaggedForReview.toString(),
-      KalturaEntryModerationStatus.autoApproved.toString()
+      KontorolEntryModerationStatus.pendingModeration.toString(),
+      KontorolEntryModerationStatus.approved.toString(),
+      KontorolEntryModerationStatus.flaggedForReview.toString(),
+      KontorolEntryModerationStatus.autoApproved.toString()
     ],
     'ingestionStatuses': [
-      KalturaEntryStatus.preconvert.toString(),
-      KalturaEntryStatus.ready.toString()
+      KontorolEntryStatus.preconvert.toString(),
+      KontorolEntryStatus.ready.toString()
     ],
     'accessControlProfiles': [],
     'timeScheduling': []
@@ -66,26 +66,26 @@ export class PlaylistRuleComponent implements OnInit {
 
   public _orderByOptions = [
     {
-      value: KalturaPlayableEntryOrderBy.playsDesc,
+      value: KontorolPlayableEntryOrderBy.playsDesc,
       label: this._appLocalization.get('applications.content.playlistDetails.content.orderBy.mostPlayed')
     },
     {
-      value: KalturaPlayableEntryOrderBy.recentDesc,
+      value: KontorolPlayableEntryOrderBy.recentDesc,
       label: this._appLocalization.get('applications.content.playlistDetails.content.orderBy.mostRecent')
     },
     {
-      value: KalturaPlayableEntryOrderBy.rankDesc,
+      value: KontorolPlayableEntryOrderBy.rankDesc,
       label: this._appLocalization.get('applications.content.playlistDetails.content.orderBy.highestRated')
     },
     {
-      value: KalturaPlayableEntryOrderBy.nameAsc,
+      value: KontorolPlayableEntryOrderBy.nameAsc,
       label: this._appLocalization.get('applications.content.playlistDetails.content.orderBy.entryName')
     }
   ];
 
   public _resultsLimit = subApplicationsConfig.contentPlaylistsApp.ruleBasedTotalResults;
   public _ruleName = '';
-  public _orderBy = KalturaPlayableEntryOrderBy.playsDesc; // default
+  public _orderBy = KontorolPlayableEntryOrderBy.playsDesc; // default
 
   constructor(public _entriesStore: EntriesStore,
               private _browserService: BrowserService,

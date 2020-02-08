@@ -2,15 +2,15 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { DropFoldersFilters, DropFoldersStoreService, SortDirection } from '../drop-folders-store/drop-folders-store.service';
 import { Router } from '@angular/router';
 import { subApplicationsConfig } from 'config/sub-applications';
-import { KalturaDropFolderFile } from 'kaltura-ngx-client';
+import { KontorolDropFolderFile } from 'kontorol-ngx-client';
 import { BrowserService } from 'app-shared/kmc-shell';
-import { StickyComponent } from '@kaltura-ng/kaltura-ui';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { StickyComponent } from '@kontorol-ng/kontorol-ui';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { DropFoldersRefineFiltersService, RefineList } from '../drop-folders-store/drop-folders-refine-filters.service';
 import { ContentEntryViewSections, ContentEntryViewService } from 'app-shared/kmc-shared/kmc-views/details-views';
 import { ContentDropFoldersMainViewService } from 'app-shared/kmc-shared/kmc-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { RefineGroup } from 'app-shared/content-shared/entries/entries-store/entries-refine-filters.service';
 
 @Component({
@@ -28,7 +28,7 @@ export class DropFoldersListComponent implements OnInit, OnDestroy {
     public _tableIsBusy = false;
     public _tableBlockerMessage: AreaBlockerMessage = null;
     public _refineFilters: RefineGroup[];
-  public _selectedDropFolders: KalturaDropFolderFile[] = [];
+  public _selectedDropFolders: KontorolDropFolderFile[] = [];
   public _query = {
     freeText: '',
     pageIndex: 0,
@@ -208,7 +208,7 @@ export class DropFoldersListComponent implements OnInit, OnDestroy {
     }
   }
 
-  public _bulkDelete(_selectedDropFolders: KalturaDropFolderFile[]): void {
+  public _bulkDelete(_selectedDropFolders: KontorolDropFolderFile[]): void {
     const dropFolderFilesToDelete = _selectedDropFolders.map((file, index) => `${index + 1}: ${(file.fileName)}`);
     const dropFolderFiles = _selectedDropFolders.length <= 10 ? dropFolderFilesToDelete.join(',').replace(/,/gi, '\n') : '';
     this._browserService.confirm({

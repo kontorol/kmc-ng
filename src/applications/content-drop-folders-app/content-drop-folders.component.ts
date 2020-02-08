@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DropFoldersStoreService } from './drop-folders-store/drop-folders-store.service';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { KalturaLoggerName } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { KontorolLoggerName } from '@kontorol-ng/kontorol-logger';
 
 
 @Component({
@@ -10,9 +10,9 @@ import { KalturaLoggerName } from '@kaltura-ng/kaltura-logger';
   styleUrls: ['./content-drop-folders.component.scss'],
   providers: [
     DropFoldersStoreService,
-      KalturaLogger,
+      KontorolLogger,
     {
-      provide: KalturaLoggerName, useValue: 'drop-folders-store.service'
+      provide: KontorolLoggerName, useValue: 'drop-folders-store.service'
     }
   ]
 })

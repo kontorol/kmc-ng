@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {KalturaClient} from 'kaltura-ngx-client';
+import {KontorolClient} from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import {KalturaPartner} from 'kaltura-ngx-client';
-import {PartnerGetInfoAction} from 'kaltura-ngx-client';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import {KontorolPartner} from 'kontorol-ngx-client';
+import {PartnerGetInfoAction} from 'kontorol-ngx-client';
 
 export interface AccountInfo {
   partnerId: number;
@@ -15,16 +15,16 @@ export interface AccountInfo {
 @Injectable()
 export class AccountInfoService {
 
-  constructor(private _kalturaServerClient: KalturaClient) {
+  constructor(private _kontorolServerClient: KontorolClient) {
   }
 
   /** Get the account owners list for current partner */
   public getAccountInfo(): Observable<AccountInfo> {
 
 
-    return this._kalturaServerClient.request(new PartnerGetInfoAction())
+    return this._kontorolServerClient.request(new PartnerGetInfoAction())
       .map(
-        (response: KalturaPartner) => {
+        (response: KontorolPartner) => {
 
           const accountInfo: AccountInfo = {
             partnerId: response.id,

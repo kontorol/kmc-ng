@@ -2,10 +2,10 @@ import { Component, Input, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ISubscription } from 'rxjs/Subscription';
 
-import { KalturaAttachmentAsset } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolAttachmentAsset } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BrowserService } from 'app-shared/kmc-shell';
-import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
 
 @Component({
     selector: 'kEntryRelatedEdit',
@@ -14,7 +14,7 @@ import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui'
 })
 export class EntryRelatedEdit implements  AfterViewInit, OnDestroy{
 
-	@Input() currentFile: KalturaAttachmentAsset;
+	@Input() currentFile: KontorolAttachmentAsset;
 	@Input() parentPopupWidget: PopupWidgetComponent;
 
 	public relatedEditForm: FormGroup;

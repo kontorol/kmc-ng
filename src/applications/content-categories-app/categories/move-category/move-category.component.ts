@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
 import { CategoriesService } from '../categories.service';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BrowserService } from 'app-shared/kmc-shell';
-import { KalturaCategory } from 'kaltura-ngx-client';
+import { KontorolCategory } from 'kontorol-ngx-client';
 import {
   CategoriesStatus,
   CategoriesStatusMonitorService
@@ -13,19 +13,19 @@ import { SelectedCategory } from 'app-shared/content-shared/categories/category-
 import { Observable } from 'rxjs';
 import { CategoriesGraphUpdatedEvent } from 'app-shared/kmc-shared/app-events/categories-graph-updated/categories-graph-updated';
 import { AppEventsService } from 'app-shared/kmc-shared';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kMoveCategory',
   templateUrl: './move-category.component.html',
   styleUrls: ['./move-category.component.scss'],
-    providers: [KalturaLogger.createLogger('MoveCategoryComponent')]
+    providers: [KontorolLogger.createLogger('MoveCategoryComponent')]
 })
 export class MoveCategoryComponent implements OnInit, OnDestroy {
 
   @Input() parentPopupWidget: PopupWidgetComponent;
-  @Input() selectedCategories: KalturaCategory[];
+  @Input() selectedCategories: KontorolCategory[];
   @Output() onMovedCategories = new EventEmitter<null>();
 
   public _blockerMessage: AreaBlockerMessage = null;
@@ -37,7 +37,7 @@ export class MoveCategoryComponent implements OnInit, OnDestroy {
               private _appLocalization: AppLocalization,
               private _browserService: BrowserService,
               private _categoriesStatusMonitorService: CategoriesStatusMonitorService,
-              private _logger: KalturaLogger) {
+              private _logger: KontorolLogger) {
   }
 
   ngOnInit() {
@@ -180,7 +180,7 @@ export class MoveCategoryComponent implements OnInit, OnDestroy {
         });
   }
 
-  private _validateCategoryMove(categoryToMove: KalturaCategory) {
+  private _validateCategoryMove(categoryToMove: KontorolCategory) {
     if (this._selectedParentCategory === 'missing') {
       return Observable.of(false);
     }

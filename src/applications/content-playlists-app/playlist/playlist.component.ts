@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BrowserService } from 'app-shared/kmc-shell';
-import { AreaBlockerMessage, AreaBlockerMessageButton } from '@kaltura-ng/kaltura-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AreaBlockerMessage, AreaBlockerMessageButton } from '@kontorol-ng/kontorol-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { Observable } from 'rxjs';
 import { NotificationTypes, ActionTypes, PlaylistStore } from './playlist-store.service';
 import { PlaylistsStore } from '../playlists/playlists-store/playlists-store.service';
@@ -12,10 +12,10 @@ import { ManualContentWidget } from './playlist-content/manual/manual-content-wi
 import { PlaylistMetadataWidget } from './playlist-metadata/playlist-metadata-widget.service';
 import { PlaylistDetailsWidget } from './playlist-details/playlist-details-widget.service';
 import { RuleBasedContentWidget } from './playlist-content/rule-based/rule-based-content-widget.service';
-import { KalturaPlaylistType } from 'kaltura-ngx-client';
+import { KontorolPlaylistType } from 'kontorol-ngx-client';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { ContentPlaylistViewSections, ContentPlaylistViewService } from 'app-shared/kmc-shared/kmc-views/details-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kPlaylist',
@@ -109,7 +109,7 @@ export class PlaylistComponent implements OnInit, OnDestroy {
 
               case ActionTypes.PlaylistLoaded:
                 this._playlistName = this._playlistStore.playlist.name;
-                this._playlistTypeIcon = this._playlistStore.playlist.playlistType === KalturaPlaylistType.staticList
+                this._playlistTypeIcon = this._playlistStore.playlist.playlistType === KontorolPlaylistType.staticList
                   ? 'kIconPlaylist_Manual'
                   : 'kIconPlaylist_RuleBased';
                 break;

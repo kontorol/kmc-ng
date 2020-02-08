@@ -1,22 +1,22 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { BaseEntryUpdateAction, KalturaBaseEntry, KalturaClient, KalturaMediaEntry } from 'kaltura-ngx-client';
+import { BaseEntryUpdateAction, KontorolBaseEntry, KontorolClient, KontorolMediaEntry } from 'kontorol-ngx-client';
 import { BulkActionBaseService } from './bulk-action-base.service';
 
 @Injectable()
 export class BulkRemoveViewersService extends BulkActionBaseService<string[]> {
 
-    constructor(_kalturaServerClient: KalturaClient) {
-        super(_kalturaServerClient);
+    constructor(_kontorolServerClient: KontorolClient) {
+        super(_kontorolServerClient);
     }
 
-    public execute(selectedEntries: KalturaMediaEntry[], viewers: string[]): Observable<{}> {
+    public execute(selectedEntries: KontorolMediaEntry[], viewers: string[]): Observable<{}> {
         return Observable.create(observer => {
 
             const requests: BaseEntryUpdateAction[] = [];
 
             selectedEntries.forEach(entry => {
-                const updatedEntry: KalturaBaseEntry = new KalturaBaseEntry();
+                const updatedEntry: KontorolBaseEntry = new KontorolBaseEntry();
 
                 // update entry publishers. trim publishers due to legacy KMC bugs
                 let entryViewers = [];

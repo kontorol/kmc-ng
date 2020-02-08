@@ -1,10 +1,10 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { PreviewAndEmbedEvent } from 'app-shared/kmc-shared/events';
 import { AppEventsService } from 'app-shared/kmc-shared';
-import { KalturaPlaylist } from 'kaltura-ngx-client';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolPlaylist } from 'kontorol-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kPreviewEmbed',
@@ -15,7 +15,7 @@ export class PreviewEmbedComponent implements OnDestroy {
 
   @ViewChild('previewEmbed') previewEmbedPopup: PopupWidgetComponent;
 
-  public _media: KalturaPlaylist | KalturaMediaEntry;
+  public _media: KontorolPlaylist | KontorolMediaEntry;
 
   constructor(appEvents: AppEventsService) {
     appEvents.event(PreviewAndEmbedEvent)
@@ -23,7 +23,7 @@ export class PreviewEmbedComponent implements OnDestroy {
 	    .subscribe(({media}) =>
         {
           this._media = media;
-          if ((media instanceof KalturaPlaylist || media instanceof KalturaMediaEntry) && !this.previewEmbedPopup.isShow) {
+          if ((media instanceof KontorolPlaylist || media instanceof KontorolMediaEntry) && !this.previewEmbedPopup.isShow) {
             this.previewEmbedPopup.open();
           }else{
             console.warn("Cannot open preview & embed (window already open?)");

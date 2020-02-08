@@ -1,8 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaEntryDistribution } from 'kaltura-ngx-client';
-import { KalturaEntryDistributionStatus } from 'kaltura-ngx-client';
-import { KalturaEntryDistributionFlag } from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolEntryDistribution } from 'kontorol-ngx-client';
+import { KontorolEntryDistributionStatus } from 'kontorol-ngx-client';
+import { KontorolEntryDistributionFlag } from 'kontorol-ngx-client';
 
 @Pipe({ name: 'kEntriesDistributionStatus' })
 export class DistributionStatusPipe implements PipeTransform {
@@ -10,7 +10,7 @@ export class DistributionStatusPipe implements PipeTransform {
 
   }
 
-  transform(profile: KalturaEntryDistribution, type: 'icon' | 'label'): string {
+  transform(profile: KontorolEntryDistribution, type: 'icon' | 'label'): string {
     const result = {
       icon: '',
       label: ''
@@ -21,11 +21,11 @@ export class DistributionStatusPipe implements PipeTransform {
     }
 
     switch (profile.status) {
-      case KalturaEntryDistributionStatus.pending:
+      case KontorolEntryDistributionStatus.pending:
         if (!profile.validationErrors || profile.validationErrors.length === 0) {
           result.label = this._appLocalization.get('applications.content.entryDetails.distribution.status.readyForDistribution');
           result.icon = 'kIconinactive';
-        } else if (profile.dirtyStatus === KalturaEntryDistributionFlag.submitRequired) {
+        } else if (profile.dirtyStatus === KontorolEntryDistributionFlag.submitRequired) {
           result.label = this._appLocalization.get('applications.content.entryDetails.distribution.status.scheduledForDistribution');
           result.icon = 'kIconscheduled';
         } else if (profile.validationErrors && profile.validationErrors.length) {
@@ -34,13 +34,13 @@ export class DistributionStatusPipe implements PipeTransform {
         }
         break;
 
-      case KalturaEntryDistributionStatus.queued:
+      case KontorolEntryDistributionStatus.queued:
         result.label = this._appLocalization.get('applications.content.entryDetails.distribution.status.queued');
         result.icon = 'kIconupload2';
         break;
 
-      case KalturaEntryDistributionStatus.ready:
-        if (profile.dirtyStatus === KalturaEntryDistributionFlag.updateRequired) {
+      case KontorolEntryDistributionStatus.ready:
+        if (profile.dirtyStatus === KontorolEntryDistributionFlag.updateRequired) {
           result.label = this._appLocalization.get('applications.content.entryDetails.distribution.status.readyUpdateRequired');
         } else {
           result.label = this._appLocalization.get('applications.content.entryDetails.distribution.status.ready');
@@ -48,40 +48,40 @@ export class DistributionStatusPipe implements PipeTransform {
         result.icon = 'kIconcomplete';
         break;
 
-      case KalturaEntryDistributionStatus.deleted:
+      case KontorolEntryDistributionStatus.deleted:
         result.label = this._appLocalization.get('applications.content.entryDetails.distribution.status.deleted');
         result.icon = 'kIconinactive';
         break;
 
-      case KalturaEntryDistributionStatus.submitting:
-      case KalturaEntryDistributionStatus.importSubmitting:
+      case KontorolEntryDistributionStatus.submitting:
+      case KontorolEntryDistributionStatus.importSubmitting:
         result.label = this._appLocalization.get('applications.content.entryDetails.distribution.status.submitting');
         result.icon = 'kIconsync';
         break;
 
-      case KalturaEntryDistributionStatus.updating:
-      case KalturaEntryDistributionStatus.importUpdating:
+      case KontorolEntryDistributionStatus.updating:
+      case KontorolEntryDistributionStatus.importUpdating:
         result.label = this._appLocalization.get('applications.content.entryDetails.distribution.status.updating');
         result.icon = 'kIconsync';
         break;
 
-      case KalturaEntryDistributionStatus.deleting:
+      case KontorolEntryDistributionStatus.deleting:
         result.label = this._appLocalization.get('applications.content.entryDetails.distribution.status.deleting');
         result.icon = 'kIconsync';
         break;
 
-      case KalturaEntryDistributionStatus.errorSubmitting:
-      case KalturaEntryDistributionStatus.errorUpdating:
+      case KontorolEntryDistributionStatus.errorSubmitting:
+      case KontorolEntryDistributionStatus.errorUpdating:
         result.label = this._appLocalization.get('applications.content.entryDetails.distribution.status.errorSubmitting');
         result.icon = 'kIconerror';
         break;
 
-      case KalturaEntryDistributionStatus.errorDeleting:
+      case KontorolEntryDistributionStatus.errorDeleting:
         result.label = this._appLocalization.get('applications.content.entryDetails.distribution.status.errorDeleting');
         result.icon = 'kIconerror';
         break;
 
-      case KalturaEntryDistributionStatus.removed:
+      case KontorolEntryDistributionStatus.removed:
         result.label = this._appLocalization.get('applications.content.entryDetails.distribution.status.removed');
         result.icon = 'kIconinactive';
         break;

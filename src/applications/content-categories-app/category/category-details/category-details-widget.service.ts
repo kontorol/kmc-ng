@@ -1,10 +1,10 @@
 import {Injectable} from '@angular/core';
 import {CategoryWidget} from '../category-widget';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 
 @Injectable()
 export class CategoryDetailsWidget extends CategoryWidget {
-  constructor(logger: KalturaLogger) {
+  constructor(logger: KontorolLogger) {
     super('categoryDetails', logger);
   }
 

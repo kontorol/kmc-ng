@@ -1,17 +1,17 @@
 import { AfterViewInit, Component, Input, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { SelectItem } from 'primeng/primeng';
-import { UploadManagement } from '@kaltura-ng/kaltura-common';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaMediaType } from 'kaltura-ngx-client';
+import { UploadManagement } from '@kontorol-ng/kontorol-common';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolMediaType } from 'kontorol-ngx-client';
 import { NewEntryUploadFile, NewEntryUploadService } from 'app-shared/kmc-shell';
-import { AreaBlockerMessage, FileDialogComponent } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerMessage, FileDialogComponent } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { TranscodingProfileManagement } from 'app-shared/kmc-shared/transcoding-profile-management';
 import { globalConfig } from 'config/global';
-import { urlRegex } from '@kaltura-ng/kaltura-ui';
+import { urlRegex } from '@kontorol-ng/kontorol-ui';
 import { UpdateEntriesListEvent } from 'app-shared/kmc-shared/events/update-entries-list-event';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { NewEntryCreateFromUrlService } from 'app-shared/kmc-shell/new-entry-create-from-url';
 import { AppEventsService } from 'app-shared/kmc-shared';
 
@@ -23,7 +23,7 @@ export enum KMCFileCreationType {
 export interface UploadSettingsFile {
     url?: string;
   file?: File;
-  mediaType?: KalturaMediaType;
+  mediaType?: KontorolMediaType;
   name?: string;
   isEditing?: boolean;
   hasError?: boolean;
@@ -55,15 +55,15 @@ export class UploadSettingsComponent implements OnInit, AfterViewInit, OnDestroy
   public _fileTypes: SelectItem[] = [
     {
       'label': this._appLocalization.get('applications.upload.uploadSettings.mediaTypes.video'),
-      'value': KalturaMediaType.video
+      'value': KontorolMediaType.video
     },
     {
       'label': this._appLocalization.get('applications.upload.uploadSettings.mediaTypes.audio'),
-      'value': KalturaMediaType.audio
+      'value': KontorolMediaType.audio
     },
     {
       'label': this._appLocalization.get('applications.upload.uploadSettings.mediaTypes.image'),
-      'value': KalturaMediaType.image
+      'value': KontorolMediaType.image
     },
   ];
 
@@ -128,7 +128,7 @@ export class UploadSettingsComponent implements OnInit, AfterViewInit, OnDestroy
     return typeof extension === "undefined" ? '' : extension.toLowerCase();
   }
 
-  private _getMediaTypeFromExtension(extension: string): KalturaMediaType | null {
+  private _getMediaTypeFromExtension(extension: string): KontorolMediaType | null {
     const imageFiles = ['jpg', 'jpeg', 'gif', 'png'];
     const audioFiles = [
       'flv', 'asf', 'qt', 'mov', 'mpg',
@@ -145,11 +145,11 @@ export class UploadSettingsComponent implements OnInit, AfterViewInit, OnDestroy
 
     switch (true) {
       case videoFiles.indexOf(extension) !== -1:
-        return KalturaMediaType.video;
+        return KontorolMediaType.video;
       case audioFiles.indexOf(extension) !== -1:
-        return KalturaMediaType.audio;
+        return KontorolMediaType.audio;
       case imageFiles.indexOf(extension) !== -1:
-        return KalturaMediaType.image;
+        return KontorolMediaType.image;
       default:
         return null;
     }
@@ -307,8 +307,8 @@ export class UploadSettingsComponent implements OnInit, AfterViewInit, OnDestroy
   private _validateUploadFiles(files: UploadSettingsFile[]): boolean {
 
     let result = true;
-    const allowedTypes = [KalturaMediaType.audio, KalturaMediaType.video, KalturaMediaType.image];
-    const maxFileSize = globalConfig.kalturaServer.maxUploadFileSize;
+    const allowedTypes = [KontorolMediaType.audio, KontorolMediaType.video, KontorolMediaType.image];
+    const maxFileSize = globalConfig.kontorolServer.maxUploadFileSize;
 
     files.forEach(file => {
       const fileSize = file.size / 1024 / 1024; // convert to Mb

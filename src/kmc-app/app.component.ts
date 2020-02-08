@@ -1,16 +1,16 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { ConfirmationService, ConfirmDialog } from 'primeng/primeng';
 import { BrowserService, GrowlMessage } from 'app-shared/kmc-shell/providers/browser.service';
-import { OperationTagManagerService} from '@kaltura-ng/kaltura-common';
+import { OperationTagManagerService} from '@kontorol-ng/kontorol-common';
 import { NavigationEnd, Router } from '@angular/router';
 import { KmcLoggerConfigurator } from 'app-shared/kmc-shell/kmc-logs/kmc-logger-configurator';
 import { async } from 'rxjs/scheduler/async';
 
 import { OpenEmailEvent } from 'app-shared/kmc-shared/events';
 import { AppEventsService } from 'app-shared/kmc-shared';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { EmailConfig } from './components/open-email/open-email.component';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BoostrappingStatus, AppBootstrap } from 'app-shared/kmc-shell';
 /*
  * App Component

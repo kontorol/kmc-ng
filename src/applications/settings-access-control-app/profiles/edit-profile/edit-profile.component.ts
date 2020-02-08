@@ -1,24 +1,24 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { KalturaSiteRestrictionType } from 'kaltura-ngx-client';
-import { KalturaCountryRestrictionType } from 'kaltura-ngx-client';
-import { KalturaIpAddressRestrictionType } from 'kaltura-ngx-client';
-import { KalturaLimitFlavorsRestrictionType } from 'kaltura-ngx-client';
-import { AccessControlProfilesStore, ExtendedKalturaAccessControl } from '../profiles-store/profiles-store.service';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolSiteRestrictionType } from 'kontorol-ngx-client';
+import { KontorolCountryRestrictionType } from 'kontorol-ngx-client';
+import { KontorolIpAddressRestrictionType } from 'kontorol-ngx-client';
+import { KontorolLimitFlavorsRestrictionType } from 'kontorol-ngx-client';
+import { AccessControlProfilesStore, ExtendedKontorolAccessControl } from '../profiles-store/profiles-store.service';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { BrowserService } from 'app-shared/kmc-shell';
-import { KalturaAccessControl } from 'kaltura-ngx-client';
-import { KalturaSiteRestriction } from 'kaltura-ngx-client';
-import { KalturaCountryRestriction } from 'kaltura-ngx-client';
-import { KalturaIpAddressRestriction } from 'kaltura-ngx-client';
-import { KalturaLimitFlavorsRestriction } from 'kaltura-ngx-client';
-import { KalturaSessionRestriction } from 'kaltura-ngx-client';
-import { KalturaPreviewRestriction } from 'kaltura-ngx-client';
+import { KontorolAccessControl } from 'kontorol-ngx-client';
+import { KontorolSiteRestriction } from 'kontorol-ngx-client';
+import { KontorolCountryRestriction } from 'kontorol-ngx-client';
+import { KontorolIpAddressRestriction } from 'kontorol-ngx-client';
+import { KontorolLimitFlavorsRestriction } from 'kontorol-ngx-client';
+import { KontorolSessionRestriction } from 'kontorol-ngx-client';
+import { KontorolPreviewRestriction } from 'kontorol-ngx-client';
 import { globalConfig } from 'config/global';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 
 export interface AccessControlAutocompleteItem {
   value: string;
@@ -30,16 +30,16 @@ export interface AccessControlAutocompleteItem {
   selector: 'kAccessControlProfilesEditProfile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss'],
-  providers: [KalturaLogger.createLogger('EditProfileComponent')]
+  providers: [KontorolLogger.createLogger('EditProfileComponent')]
 })
 export class EditProfileComponent implements OnInit, OnDestroy {
   @Input() parentPopup: PopupWidgetComponent;
 
-  @Input() profile: ExtendedKalturaAccessControl | null;
+  @Input() profile: ExtendedKontorolAccessControl | null;
 
-  @Output() onSave = new EventEmitter<KalturaAccessControl>();
+  @Output() onSave = new EventEmitter<KontorolAccessControl>();
 
-  private _profile: ExtendedKalturaAccessControl = null;
+  private _profile: ExtendedKontorolAccessControl = null;
   public _headerTitle: string;
 
   public _ipsFormatError = false;
@@ -75,16 +75,16 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   public _allowPreviewField: AbstractControl;
   public _previewField: AbstractControl;
 
-  public _siteRestrictionType = KalturaSiteRestrictionType;
-  public _countryRestrictionType = KalturaCountryRestrictionType;
-  public _ipAddressRestrictionType = KalturaIpAddressRestrictionType;
-  public _flavorsRestrictionType = KalturaLimitFlavorsRestrictionType;
+  public _siteRestrictionType = KontorolSiteRestrictionType;
+  public _countryRestrictionType = KontorolCountryRestrictionType;
+  public _ipAddressRestrictionType = KontorolIpAddressRestrictionType;
+  public _flavorsRestrictionType = KontorolLimitFlavorsRestrictionType;
 
   constructor(private _appLocalization: AppLocalization,
               private _browserService: BrowserService,
               private _fb: FormBuilder,
               private _permissionsService: KMCPermissionsService,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               public _store: AccessControlProfilesStore) {
     this._convertDomainsUserInputToValidValue = this._convertDomainsUserInputToValidValue.bind(this);
     this._convertIpsUserInputToValidValue = this._convertIpsUserInputToValidValue.bind(this);
@@ -115,7 +115,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  private _setInitialValue(profile: ExtendedKalturaAccessControl): void {
+  private _setInitialValue(profile: ExtendedKontorolAccessControl): void {
     let domainsType = null;
     let allowedDomains = [];
     let restrictedDomains = [];
@@ -123,7 +123,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       const domain = profile.view.domain;
       if (domain.isAuthorized !== null) {
           const isAuthorized = domain.isAuthorized;
-          domainsType = isAuthorized ? KalturaSiteRestrictionType.allowSiteList : KalturaSiteRestrictionType.restrictSiteList;
+          domainsType = isAuthorized ? KontorolSiteRestrictionType.allowSiteList : KontorolSiteRestrictionType.restrictSiteList;
           allowedDomains = isAuthorized ? domain.details.map(value => ({value, __tooltip: value})) : [];
           restrictedDomains = !isAuthorized ? domain.details.map(value => ({value, __tooltip: value})) : [];
       }
@@ -136,7 +136,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       const countries = profile.view.countries;
         if (countries.isAuthorized !== null) {
             const isAuthorized = countries.isAuthorized;
-            countriesType = isAuthorized ? KalturaCountryRestrictionType.allowCountryList : KalturaCountryRestrictionType.restrictCountryList;
+            countriesType = isAuthorized ? KontorolCountryRestrictionType.allowCountryList : KontorolCountryRestrictionType.restrictCountryList;
             allowedCountries = isAuthorized ? countries.details : [];
             restrictedCountries = !isAuthorized ? countries.details : [];
         }
@@ -149,7 +149,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       const ips = profile.view.ips;
         if (ips.isAuthorized !== null) {
             const isAuthorized = ips.isAuthorized;
-            ipsType = isAuthorized ? KalturaIpAddressRestrictionType.allowList : KalturaIpAddressRestrictionType.restrictList;
+            ipsType = isAuthorized ? KontorolIpAddressRestrictionType.allowList : KontorolIpAddressRestrictionType.restrictList;
             allowedIps = isAuthorized ? ips.details.map(value => ({value, __tooltip: value})) : [];
             restrictedIps = !isAuthorized ? ips.details.map(value => ({value, __tooltip: value})) : [];
         }
@@ -162,7 +162,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
       const flavors = profile.view.flavors;
         if (flavors.isAuthorized !== null) {
             const isAuthorized = flavors.isAuthorized;
-            flavorsType = isAuthorized ? KalturaLimitFlavorsRestrictionType.allowList : KalturaLimitFlavorsRestrictionType.restrictList;
+            flavorsType = isAuthorized ? KontorolLimitFlavorsRestrictionType.allowList : KontorolLimitFlavorsRestrictionType.restrictList;
             allowedFlavors = isAuthorized ? flavors.details.map(item => item.id) : [];
             restrictedFlavors = !isAuthorized ? flavors.details.map(item => item.id) : [];
         }
@@ -256,10 +256,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     this._domainsTypeField.valueChanges
       .pipe(cancelOnDestroy(this))
       .subscribe(value => {
-        if (value === KalturaSiteRestrictionType.allowSiteList) {
+        if (value === KontorolSiteRestrictionType.allowSiteList) {
           this._allowedDomainsField.enable();
           this._restrictedDomainsField.disable();
-        } else if (value === KalturaSiteRestrictionType.restrictSiteList) {
+        } else if (value === KontorolSiteRestrictionType.restrictSiteList) {
           this._restrictedDomainsField.enable();
           this._allowedDomainsField.disable();
         } else {
@@ -271,11 +271,11 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     this._countriesTypeField.valueChanges
       .pipe(cancelOnDestroy(this))
       .subscribe(value => {
-        if (value === KalturaCountryRestrictionType.allowCountryList) {
+        if (value === KontorolCountryRestrictionType.allowCountryList) {
           this._allowedCountriesField.enable();
           this._restrictedCountriesField.setValue([]);
           this._restrictedCountriesField.disable();
-        } else if (value === KalturaCountryRestrictionType.restrictCountryList) {
+        } else if (value === KontorolCountryRestrictionType.restrictCountryList) {
           this._restrictedCountriesField.enable();
           this._allowedCountriesField.setValue([]);
           this._allowedCountriesField.disable();
@@ -290,10 +290,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     this._ipsTypeField.valueChanges
       .pipe(cancelOnDestroy(this))
       .subscribe(value => {
-        if (value === KalturaIpAddressRestrictionType.allowList) {
+        if (value === KontorolIpAddressRestrictionType.allowList) {
           this._allowedIpsField.enable();
           this._restrictedIpsField.disable();
-        } else if (value === KalturaIpAddressRestrictionType.restrictList) {
+        } else if (value === KontorolIpAddressRestrictionType.restrictList) {
           this._restrictedIpsField.enable();
           this._allowedIpsField.disable();
         } else {
@@ -305,11 +305,11 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     this._flavorsTypeField.valueChanges
       .pipe(cancelOnDestroy(this))
       .subscribe(value => {
-        if (value === KalturaLimitFlavorsRestrictionType.allowList) {
+        if (value === KontorolLimitFlavorsRestrictionType.allowList) {
           this._allowedFlavorsField.enable();
           this._restrictedFlavorsField.setValue([]);
           this._restrictedFlavorsField.disable();
-        } else if (value === KalturaLimitFlavorsRestrictionType.restrictList) {
+        } else if (value === KontorolLimitFlavorsRestrictionType.restrictList) {
           this._restrictedFlavorsField.enable();
           this._allowedFlavorsField.setValue([]);
           this._allowedFlavorsField.disable();
@@ -379,26 +379,26 @@ export class EditProfileComponent implements OnInit, OnDestroy {
     let message = '';
 
     const { domainsType, allowedDomains, restrictedDomains } = formValue;
-    if (domainsType === KalturaSiteRestrictionType.allowSiteList && (!allowedDomains || !allowedDomains.length)
-      || domainsType === KalturaSiteRestrictionType.restrictSiteList && (!restrictedDomains || !restrictedDomains.length)) {
+    if (domainsType === KontorolSiteRestrictionType.allowSiteList && (!allowedDomains || !allowedDomains.length)
+      || domainsType === KontorolSiteRestrictionType.restrictSiteList && (!restrictedDomains || !restrictedDomains.length)) {
       message += this._appLocalization.get('applications.settings.accessControl.editForm.validationMessage.authorizedDomains') + '\n';
     }
 
     const { countriesType, allowedCountries, restrictedCountries } = formValue;
-    if (countriesType === KalturaCountryRestrictionType.allowCountryList && (!allowedCountries || !allowedCountries.length)
-      || countriesType === KalturaCountryRestrictionType.restrictCountryList && (!restrictedCountries || !restrictedCountries.length)) {
+    if (countriesType === KontorolCountryRestrictionType.allowCountryList && (!allowedCountries || !allowedCountries.length)
+      || countriesType === KontorolCountryRestrictionType.restrictCountryList && (!restrictedCountries || !restrictedCountries.length)) {
       message += this._appLocalization.get('applications.settings.accessControl.editForm.validationMessage.authorizedCountries') + '\n';
     }
 
     const { ipsType, allowedIps, restrictedIps } = formValue;
-    if (ipsType === KalturaIpAddressRestrictionType.allowList && (!allowedIps || !allowedIps.length)
-      || ipsType === KalturaIpAddressRestrictionType.restrictList && (!restrictedIps || !restrictedIps.length)) {
+    if (ipsType === KontorolIpAddressRestrictionType.allowList && (!allowedIps || !allowedIps.length)
+      || ipsType === KontorolIpAddressRestrictionType.restrictList && (!restrictedIps || !restrictedIps.length)) {
       message += this._appLocalization.get('applications.settings.accessControl.editForm.validationMessage.authorizedIps') + '\n';
     }
 
     const { flavorsType, allowedFlavors, restrictedFlavors } = formValue;
-    if (flavorsType === KalturaLimitFlavorsRestrictionType.allowList && (!allowedFlavors || !allowedFlavors.length)
-      || flavorsType === KalturaLimitFlavorsRestrictionType.restrictList && (!restrictedFlavors || !restrictedFlavors.length)) {
+    if (flavorsType === KontorolLimitFlavorsRestrictionType.allowList && (!allowedFlavors || !allowedFlavors.length)
+      || flavorsType === KontorolLimitFlavorsRestrictionType.restrictList && (!restrictedFlavors || !restrictedFlavors.length)) {
       message += this._appLocalization.get('applications.settings.accessControl.editForm.validationMessage.authorizedFlavors') + '\n';
     }
 
@@ -418,7 +418,7 @@ export class EditProfileComponent implements OnInit, OnDestroy {
   }
   private _proceedSave(): void {
     const formValue = this._profileForm.getRawValue();
-    const accessControlProfile = this._profile || new KalturaAccessControl();
+    const accessControlProfile = this._profile || new KontorolAccessControl();
 
     accessControlProfile.name = formValue.name;
     accessControlProfile.description = formValue.description;
@@ -426,10 +426,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     const { domainsType, allowedDomains, restrictedDomains } = formValue;
     if (domainsType !== null) {
-      const items = domainsType === KalturaSiteRestrictionType.allowSiteList ? allowedDomains : restrictedDomains;
+      const items = domainsType === KontorolSiteRestrictionType.allowSiteList ? allowedDomains : restrictedDomains;
       const siteList = this._getAutocompleteList(items);
       if (siteList) {
-        accessControlProfile.restrictions.push(new KalturaSiteRestriction({
+        accessControlProfile.restrictions.push(new KontorolSiteRestriction({
           siteList,
           siteRestrictionType: domainsType
         }));
@@ -438,10 +438,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     const { countriesType, allowedCountries, restrictedCountries } = formValue;
     if (countriesType !== null) {
-      const items = countriesType === KalturaCountryRestrictionType.allowCountryList ? allowedCountries : restrictedCountries;
+      const items = countriesType === KontorolCountryRestrictionType.allowCountryList ? allowedCountries : restrictedCountries;
       const countryList = this._getList(items);
       if (countryList) {
-        accessControlProfile.restrictions.push(new KalturaCountryRestriction({
+        accessControlProfile.restrictions.push(new KontorolCountryRestriction({
           countryList,
           countryRestrictionType: countriesType
         }));
@@ -450,10 +450,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     const { ipsType, allowedIps, restrictedIps } = formValue;
     if (ipsType !== null) {
-      const items = ipsType === KalturaIpAddressRestrictionType.allowList ? allowedIps : restrictedIps;
+      const items = ipsType === KontorolIpAddressRestrictionType.allowList ? allowedIps : restrictedIps;
       const ipAddressList = this._getAutocompleteList(items);
       if (ipAddressList) {
-        accessControlProfile.restrictions.push(new KalturaIpAddressRestriction({
+        accessControlProfile.restrictions.push(new KontorolIpAddressRestriction({
           ipAddressList,
           ipAddressRestrictionType: ipsType
         }));
@@ -462,10 +462,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     const { flavorsType, allowedFlavors, restrictedFlavors } = formValue;
     if (flavorsType !== null) {
-      const items = flavorsType === KalturaLimitFlavorsRestrictionType.allowList ?  allowedFlavors : restrictedFlavors;
+      const items = flavorsType === KontorolLimitFlavorsRestrictionType.allowList ?  allowedFlavors : restrictedFlavors;
       const flavorParamsIds = this._getList(items);
       if (flavorParamsIds) {
-        accessControlProfile.restrictions.push(new KalturaLimitFlavorsRestriction({
+        accessControlProfile.restrictions.push(new KontorolLimitFlavorsRestriction({
           flavorParamsIds,
           limitFlavorsRestrictionType: flavorsType
         }));
@@ -474,10 +474,10 @@ export class EditProfileComponent implements OnInit, OnDestroy {
 
     const { secureVideo, allowPreview, preview } = formValue;
     if (secureVideo) {
-      accessControlProfile.restrictions.push(new KalturaSessionRestriction());
+      accessControlProfile.restrictions.push(new KontorolSessionRestriction());
 
       if (allowPreview && preview >= 0) {
-        accessControlProfile.restrictions.push(new KalturaPreviewRestriction({
+        accessControlProfile.restrictions.push(new KontorolPreviewRestriction({
           previewLength: preview
         }));
       }

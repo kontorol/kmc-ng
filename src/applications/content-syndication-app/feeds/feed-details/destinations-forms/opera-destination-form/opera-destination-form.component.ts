@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import {KalturaOperaSyndicationFeed} from 'kaltura-ngx-client';
+import {KontorolOperaSyndicationFeed} from 'kontorol-ngx-client';
 import { DestinationComponentBase, FeedFormMode } from '../../feed-details.component';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 
@@ -31,7 +31,7 @@ export class OperaDestinationFormComponent extends DestinationComponentBase impl
   ngOnDestroy() {
   }
 
-  public getData(): KalturaOperaSyndicationFeed {
-    return new KalturaOperaSyndicationFeed();
+  public getData(): KontorolOperaSyndicationFeed {
+    return new KontorolOperaSyndicationFeed();
   }
 }

@@ -18,8 +18,8 @@
     </div>
 
     <div [ngSwitch]="_selectedStreamType">
-      <kKalturaLiveStream #kalturaLiveStreamComponent *ngSwitchCase="_streamTypes.kaltura"
-                          [(data)]="kalturaLiveStreamData"></kKalturaLiveStream>
+      <kKontorolLiveStream #kontorolLiveStreamComponent *ngSwitchCase="_streamTypes.kontorol"
+                          [(data)]="kontorolLiveStreamData"></kKontorolLiveStream>
       <kManualLive #manualLiveComponent *ngSwitchCase="_streamTypes.manual" [(data)]="manualLiveData"></kManualLive>
       <kUniversalLive #universalLiveComponent *ngSwitchCase="_streamTypes.universal" [(data)]="universalLiveData"></kUniversalLive>
 

@@ -1,7 +1,7 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs';
-import { KalturaLogger, LogLevels } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger, LogLevels } from '@kontorol-ng/kontorol-logger';
 import { BrowserService } from 'app-shared/kmc-shell';
 import { environment } from '../../../environments/environment';
 
@@ -25,7 +25,7 @@ export class KmcLoggerConfigurator implements OnDestroy {
     }
 
 
-    constructor(private _logger: KalturaLogger,
+    constructor(private _logger: KontorolLogger,
                 private _browserService: BrowserService) {
         this._logger = _logger.subLogger('KmcLoggerConfigurator');
     }

@@ -1,19 +1,19 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { KalturaMultiRequest } from 'kaltura-ngx-client';
+import { KontorolMultiRequest } from 'kontorol-ngx-client';
 import { PlaylistWidget } from '../playlist-widget';
-import { KalturaPlaylist } from 'kaltura-ngx-client';
+import { KontorolPlaylist } from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { TagSearchAction } from 'kaltura-ngx-client';
-import { KalturaTagFilter } from 'kaltura-ngx-client';
-import { KalturaTaggedObjectType } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
-import { KalturaClient } from 'kaltura-ngx-client';
+import { TagSearchAction } from 'kontorol-ngx-client';
+import { KontorolTagFilter } from 'kontorol-ngx-client';
+import { KontorolTaggedObjectType } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
 import { async } from 'rxjs/scheduler/async';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { ContentPlaylistViewSections } from 'app-shared/kmc-shared/kmc-views/details-views';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Injectable()
 export class PlaylistMetadataWidget extends PlaylistWidget implements OnDestroy {
@@ -21,8 +21,8 @@ export class PlaylistMetadataWidget extends PlaylistWidget implements OnDestroy 
 
   constructor(private _formBuilder: FormBuilder,
               private _permissionsService: KMCPermissionsService,
-              private _kalturaServerClient: KalturaClient,
-              logger: KalturaLogger) {
+              private _kontorolServerClient: KontorolClient,
+              logger: KontorolLogger) {
     super(ContentPlaylistViewSections.Metadata, logger);
     this._buildForm();
   }
@@ -60,7 +60,7 @@ export class PlaylistMetadataWidget extends PlaylistWidget implements OnDestroy 
       });
   }
 
-  protected onDataSaving(newData: KalturaPlaylist, request: KalturaMultiRequest): void {
+  protected onDataSaving(newData: KontorolPlaylist, request: KontorolMultiRequest): void {
     if (this.wasActivated) {
       const metadataFormValue = this.metadataForm.value;
       newData.name = metadataFormValue.name;
@@ -99,16 +99,16 @@ export class PlaylistMetadataWidget extends PlaylistWidget implements OnDestroy 
   public searchTags(text: string): Observable<string[]> {
     return Observable.create(
       observer => {
-        const requestSubscription = this._kalturaServerClient.request(
+        const requestSubscription = this._kontorolServerClient.request(
           new TagSearchAction(
             {
-              tagFilter: new KalturaTagFilter(
+              tagFilter: new KontorolTagFilter(
                 {
                   tagStartsWith: text,
-                  objectTypeEqual: KalturaTaggedObjectType.entry
+                  objectTypeEqual: KontorolTaggedObjectType.entry
                 }
               ),
-              pager: new KalturaFilterPager({
+              pager: new KontorolFilterPager({
                 pageIndex: 0,
                 pageSize: 30
               })

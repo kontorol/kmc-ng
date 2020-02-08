@@ -1,6 +1,6 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, HostListener } from '@angular/core';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
 
 @Component({
@@ -13,7 +13,7 @@ export class LinkedEntriesTableComponent implements OnInit, OnDestroy, AfterView
   public _kmcPermissions = KMCPermissions;
   @Input() disabled: boolean;
   @Input() allowMultiple: boolean;
-  @Input() selectedEntries: KalturaMediaEntry[] = [];
+  @Input() selectedEntries: KontorolMediaEntry[] = [];
   @Input()
   set entries(data: any[]) {
     if (!this._deferredLoading) {
@@ -26,8 +26,8 @@ export class LinkedEntriesTableComponent implements OnInit, OnDestroy, AfterView
     }
   }
 
-  @Output() selectedEntriesChange = new EventEmitter<KalturaMediaEntry[]>();
-  @Output() deleteEntry = new EventEmitter<KalturaMediaEntry>();
+  @Output() selectedEntriesChange = new EventEmitter<KontorolMediaEntry[]>();
+  @Output() deleteEntry = new EventEmitter<KontorolMediaEntry>();
 
   @HostListener("window:resize", [])
   onWindowResize() {
@@ -35,9 +35,9 @@ export class LinkedEntriesTableComponent implements OnInit, OnDestroy, AfterView
   }
   public _documentWidth: number = 2000;
 
-  private _deferredEntries: KalturaMediaEntry[];
+  private _deferredEntries: KontorolMediaEntry[];
 
-  public _entries: KalturaMediaEntry[] = [];
+  public _entries: KontorolMediaEntry[] = [];
   public _emptyMessage: string;
   public _deferredLoading = true;
 
@@ -71,7 +71,7 @@ export class LinkedEntriesTableComponent implements OnInit, OnDestroy, AfterView
   ngOnDestroy() {
   }
 
-  public _onSelectionChange(event: KalturaMediaEntry[]): void {
+  public _onSelectionChange(event: KontorolMediaEntry[]): void {
     this.selectedEntriesChange.emit(event);
   }
 }

@@ -1,9 +1,9 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ISubscription} from 'rxjs/Subscription';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {BrowserService} from 'app-shared/kmc-shell';
-import {PopupWidgetComponent, PopupWidgetStates} from '@kaltura-ng/kaltura-ui';
-import {KalturaMediaEntry} from 'kaltura-ngx-client';
+import {PopupWidgetComponent, PopupWidgetStates} from '@kontorol-ng/kontorol-ui';
+import {KontorolMediaEntry} from 'kontorol-ngx-client';
 
 @Component({
   selector: 'kBulkRemoveTags',
@@ -12,7 +12,7 @@ import {KalturaMediaEntry} from 'kaltura-ngx-client';
 })
 export class BulkRemoveTags implements OnInit, OnDestroy, AfterViewInit {
 
-  @Input() selectedEntries: KalturaMediaEntry[];
+  @Input() selectedEntries: KontorolMediaEntry[];
   @Input() parentPopupWidget: PopupWidgetComponent;
   @Output() removeTagsChanged = new EventEmitter<string[]>();
 

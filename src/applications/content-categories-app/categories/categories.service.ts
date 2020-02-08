@@ -1,20 +1,20 @@
 import {BrowserService} from 'app-shared/kmc-shell/providers/browser.service';
-import {KalturaCategoryFilter} from 'kaltura-ngx-client';
+import {KontorolCategoryFilter} from 'kontorol-ngx-client';
 import {Injectable, OnDestroy} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs';
 import {ISubscription} from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
 
-import {KalturaDetachedResponseProfile} from 'kaltura-ngx-client';
-import {KalturaFilterPager} from 'kaltura-ngx-client';
-import {KalturaResponseProfileType} from 'kaltura-ngx-client';
-import {CategoryListAction} from 'kaltura-ngx-client';
-import {KalturaClient, KalturaMultiRequest} from 'kaltura-ngx-client';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import {KalturaCategoryListResponse} from 'kaltura-ngx-client';
-import {KalturaCategory} from 'kaltura-ngx-client';
-import {CategoryDeleteAction} from 'kaltura-ngx-client';
+import {KontorolDetachedResponseProfile} from 'kontorol-ngx-client';
+import {KontorolFilterPager} from 'kontorol-ngx-client';
+import {KontorolResponseProfileType} from 'kontorol-ngx-client';
+import {CategoryListAction} from 'kontorol-ngx-client';
+import {KontorolClient, KontorolMultiRequest} from 'kontorol-ngx-client';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import {KontorolCategoryListResponse} from 'kontorol-ngx-client';
+import {KontorolCategory} from 'kontorol-ngx-client';
+import {CategoryDeleteAction} from 'kontorol-ngx-client';
 import {
     DatesRangeAdapter,
     DatesRangeType,
@@ -24,25 +24,25 @@ import {
     NumberTypeAdapter,
     StringTypeAdapter,
     TypeAdaptersMapping
-} from '@kaltura-ng/mc-shared';
+} from '@kontorol-ng/mc-shared';
 import {
     AppEventsService, MetadataProfileCreateModes, MetadataProfileStore,
     MetadataProfileTypes
 } from 'app-shared/kmc-shared';
-import {KalturaSearchOperator} from 'kaltura-ngx-client';
-import {KalturaSearchOperatorType} from 'kaltura-ngx-client';
-import {KalturaUtils} from '@kaltura-ng/kaltura-common';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
-import {KalturaMetadataSearchItem} from 'kaltura-ngx-client';
-import {KalturaSearchCondition} from 'kaltura-ngx-client';
-import {CategoryMoveAction} from 'kaltura-ngx-client';
-import {CategoryAddAction} from 'kaltura-ngx-client';
-import {KalturaInheritanceType} from 'kaltura-ngx-client';
-import {KalturaContributionPolicyType} from 'kaltura-ngx-client';
-import {KalturaAppearInListType} from 'kaltura-ngx-client';
-import {KalturaPrivacyType} from 'kaltura-ngx-client';
-import {KalturaCategoryEntry} from 'kaltura-ngx-client';
-import {CategoryEntryAddAction} from 'kaltura-ngx-client';
+import {KontorolSearchOperator} from 'kontorol-ngx-client';
+import {KontorolSearchOperatorType} from 'kontorol-ngx-client';
+import {KontorolUtils} from '@kontorol-ng/kontorol-common';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
+import {KontorolMetadataSearchItem} from 'kontorol-ngx-client';
+import {KontorolSearchCondition} from 'kontorol-ngx-client';
+import {CategoryMoveAction} from 'kontorol-ngx-client';
+import {CategoryAddAction} from 'kontorol-ngx-client';
+import {KontorolInheritanceType} from 'kontorol-ngx-client';
+import {KontorolContributionPolicyType} from 'kontorol-ngx-client';
+import {KontorolAppearInListType} from 'kontorol-ngx-client';
+import {KontorolPrivacyType} from 'kontorol-ngx-client';
+import {KontorolCategoryEntry} from 'kontorol-ngx-client';
+import {CategoryEntryAddAction} from 'kontorol-ngx-client';
 
 import {
   CategoriesModeAdapter,
@@ -52,7 +52,7 @@ import {
 import { CategoriesGraphUpdatedEvent } from 'app-shared/kmc-shared/app-events/categories-graph-updated/categories-graph-updated';
 import { CategoriesSearchService, CategoryData } from 'app-shared/content-shared/categories/categories-search.service';
 import { ContentCategoriesMainViewService } from 'app-shared/kmc-shared/kmc-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export interface UpdateStatus {
   loading: boolean;
@@ -60,7 +60,7 @@ export interface UpdateStatus {
 }
 
 export interface Categories {
-  items: KalturaCategory[],
+  items: KontorolCategory[],
   totalCount: number
 }
 
@@ -70,7 +70,7 @@ export enum SortDirection {
 }
 
 export interface MoveCategoryData {
-  categories: KalturaCategory[];
+  categories: KontorolCategory[];
   categoryParent: { id?: number, fullIds: number[] };
 }
 
@@ -120,14 +120,14 @@ export class CategoriesService extends FiltersStoreBase<CategoriesFilters> imple
     private readonly _pageSizeCacheKey = 'categories.list.pageSize';
 
 
-    constructor(private _kalturaClient: KalturaClient,
+    constructor(private _kontorolClient: KontorolClient,
                 private browserService: BrowserService,
                 private metadataProfileService: MetadataProfileStore,
                 private _appEvents: AppEventsService,
                 private _categoriesSearchService: CategoriesSearchService,
                 private _appLocalization: AppLocalization,
                 contentCategoriesMainViewService: ContentCategoriesMainViewService,
-                _logger: KalturaLogger) {
+                _logger: KontorolLogger) {
         super(_logger.subLogger('CategoriesService'));
         if (contentCategoriesMainViewService.isAvailable()) {
             this._prepare();
@@ -281,19 +281,19 @@ export class CategoriesService extends FiltersStoreBase<CategoriesFilters> imple
                 });
     }
 
-  private buildQueryRequest(): Observable<KalturaCategoryListResponse> {
+  private buildQueryRequest(): Observable<KontorolCategoryListResponse> {
     try {
       // create request items
-      const filter: KalturaCategoryFilter = new KalturaCategoryFilter({});
-      let pagination: KalturaFilterPager = null;
+      const filter: KontorolCategoryFilter = new KontorolCategoryFilter({});
+      let pagination: KontorolFilterPager = null;
       // update desired fields of entries
-      const responseProfile: KalturaDetachedResponseProfile = new KalturaDetachedResponseProfile({
-        type: KalturaResponseProfileType.includeFields,
+      const responseProfile: KontorolDetachedResponseProfile = new KontorolDetachedResponseProfile({
+        type: KontorolResponseProfileType.includeFields,
         fields: 'id, name, createdAt, directSubCategoriesCount, entriesCount, fullName, tags, parentId, privacyContexts'
       });
 
-      const advancedSearch = filter.advancedSearch = new KalturaSearchOperator({});
-      advancedSearch.type = KalturaSearchOperatorType.searchAnd;
+      const advancedSearch = filter.advancedSearch = new KontorolSearchOperator({});
+      advancedSearch.type = KontorolSearchOperatorType.searchAnd;
 
       const data: CategoriesFilters = this._getFiltersAsReadonly();
 
@@ -305,11 +305,11 @@ export class CategoriesService extends FiltersStoreBase<CategoriesFilters> imple
       // filter 'createdAt'
       if (data.createdAt) {
         if (data.createdAt.fromDate) {
-          filter.createdAtGreaterThanOrEqual = KalturaUtils.getStartDateValue(data.createdAt.fromDate);
+          filter.createdAtGreaterThanOrEqual = KontorolUtils.getStartDateValue(data.createdAt.fromDate);
         }
 
         if (data.createdAt.toDate) {
-          filter.createdAtLessThanOrEqual = KalturaUtils.getEndDateValue(data.createdAt.toDate);
+          filter.createdAtLessThanOrEqual = KontorolUtils.getEndDateValue(data.createdAt.toDate);
         }
       }
 
@@ -319,10 +319,10 @@ export class CategoriesService extends FiltersStoreBase<CategoriesFilters> imple
         this._metadataProfiles.forEach(metadataProfile => {
           // create advanced item for all metadata profiles regardless if the user filtered by them or not.
           // this is needed so freetext will include all metadata profiles while searching.
-          const metadataItem: KalturaMetadataSearchItem = new KalturaMetadataSearchItem(
+          const metadataItem: KontorolMetadataSearchItem = new KontorolMetadataSearchItem(
             {
               metadataProfileId: metadataProfile.id,
-              type: KalturaSearchOperatorType.searchAnd,
+              type: KontorolSearchOperatorType.searchAnd,
               items: []
             }
           );
@@ -331,15 +331,15 @@ export class CategoriesService extends FiltersStoreBase<CategoriesFilters> imple
           metadataProfile.lists.forEach(list => {
             const metadataProfileFilters = data.customMetadata[list.id];
             if (metadataProfileFilters && metadataProfileFilters.length > 0) {
-              const innerMetadataItem: KalturaMetadataSearchItem = new KalturaMetadataSearchItem({
+              const innerMetadataItem: KontorolMetadataSearchItem = new KontorolMetadataSearchItem({
                 metadataProfileId: metadataProfile.id,
-                type: KalturaSearchOperatorType.searchOr,
+                type: KontorolSearchOperatorType.searchOr,
                 items: []
               });
               metadataItem.items.push(innerMetadataItem);
 
               metadataProfileFilters.forEach(filterItem => {
-                const searchItem = new KalturaSearchCondition({
+                const searchItem = new KontorolSearchCondition({
                   field: `/*[local-name()='metadata']/*[local-name()='${list.name}']`,
                   value: filterItem
                 });
@@ -369,7 +369,7 @@ export class CategoriesService extends FiltersStoreBase<CategoriesFilters> imple
 
       // update pagination args
       if (data.pageIndex || data.pageSize) {
-        pagination = new KalturaFilterPager(
+        pagination = new KontorolFilterPager(
           {
             pageSize: data.pageSize,
             pageIndex: data.pageIndex + 1
@@ -386,11 +386,11 @@ export class CategoriesService extends FiltersStoreBase<CategoriesFilters> imple
       if (data.categoryListing) {
         if (data.categoryListing.length === 1) {
           switch (data.categoryListing[0]) {
-            case KalturaAppearInListType.categoryMembersOnly.toString():
-              filter.appearInListEqual = KalturaAppearInListType.categoryMembersOnly;
+            case KontorolAppearInListType.categoryMembersOnly.toString():
+              filter.appearInListEqual = KontorolAppearInListType.categoryMembersOnly;
               break;
-            case KalturaAppearInListType.partnerOnly.toString():
-              filter.appearInListEqual = KalturaAppearInListType.partnerOnly;
+            case KontorolAppearInListType.partnerOnly.toString():
+              filter.appearInListEqual = KontorolAppearInListType.partnerOnly;
               break;
             default:
               break
@@ -403,11 +403,11 @@ export class CategoriesService extends FiltersStoreBase<CategoriesFilters> imple
         if (data.contributionPolicy.length === 1) {
           data.contributionPolicy.forEach(item => {
             switch (item) {
-              case KalturaContributionPolicyType.all.toString():
-                filter.contributionPolicyEqual = KalturaContributionPolicyType.all;
+              case KontorolContributionPolicyType.all.toString():
+                filter.contributionPolicyEqual = KontorolContributionPolicyType.all;
                 break;
-              case KalturaContributionPolicyType.membersWithContributionPermission.toString():
-                filter.contributionPolicyEqual = KalturaContributionPolicyType.membersWithContributionPermission;
+              case KontorolContributionPolicyType.membersWithContributionPermission.toString():
+                filter.contributionPolicyEqual = KontorolContributionPolicyType.membersWithContributionPermission;
                 break;
               default:
                 break
@@ -442,7 +442,7 @@ export class CategoriesService extends FiltersStoreBase<CategoriesFilters> imple
       }
 
       // build the request
-      return this._kalturaClient.request(
+      return this._kontorolClient.request(
         new CategoryListAction({
           filter,
           pager: pagination
@@ -461,7 +461,7 @@ export class CategoriesService extends FiltersStoreBase<CategoriesFilters> imple
         return Observable.create(observer => {
             let subscription: ISubscription;
             if (categoryId && categoryId > 0) {
-                subscription = this._kalturaClient.request(new CategoryDeleteAction({id: categoryId})).subscribe(
+                subscription = this._kontorolClient.request(new CategoryDeleteAction({id: categoryId})).subscribe(
                     result => {
                         this._appEvents.publish(new CategoriesGraphUpdatedEvent());
                         observer.next();
@@ -550,29 +550,29 @@ export class CategoriesService extends FiltersStoreBase<CategoriesFilters> imple
      * @param newCategoryData {NewCategoryData} holds name and desired categoryParentId (if null - move to root)
      * @return {Observable<number>} new category ID
      */
-    public addNewCategory(newCategoryData: NewCategoryData): Observable<{ category: KalturaCategory }> {
+    public addNewCategory(newCategoryData: NewCategoryData): Observable<{ category: KontorolCategory }> {
         const newCategoryName = newCategoryData ? (newCategoryData.name || '').trim() : null;
         if (!newCategoryName) {
             const error = new Error('missing category name');
             (<any>error).code = 'missing_category_name';
             return Observable.throw(error);
         }
-        const category = new KalturaCategory({
+        const category = new KontorolCategory({
             name: newCategoryData.name,
             parentId: Number(newCategoryData.categoryParentId) || 0,
-            privacy: KalturaPrivacyType.all,
-            appearInList: KalturaAppearInListType.partnerOnly,
-            contributionPolicy: KalturaContributionPolicyType.all,
-            inheritanceType: KalturaInheritanceType.manual
+            privacy: KontorolPrivacyType.all,
+            appearInList: KontorolAppearInListType.partnerOnly,
+            contributionPolicy: KontorolContributionPolicyType.all,
+            inheritanceType: KontorolInheritanceType.manual
         });
 
-        const multiRequest: KalturaMultiRequest = new KalturaMultiRequest(
+        const multiRequest: KontorolMultiRequest = new KontorolMultiRequest(
             new CategoryAddAction({category})
         );
 
         if (newCategoryData.linkedEntriesIds && newCategoryData.linkedEntriesIds.length) {
             newCategoryData.linkedEntriesIds.forEach((entryId) => {
-                const categoryEntry = new KalturaCategoryEntry({
+                const categoryEntry = new KontorolCategoryEntry({
                     entryId: entryId
                 }).setDependency(['categoryId', 0, 'id']);
 
@@ -582,7 +582,7 @@ export class CategoriesService extends FiltersStoreBase<CategoriesFilters> imple
             });
         }
 
-        return this._kalturaClient.multiRequest(multiRequest)
+        return this._kontorolClient.multiRequest(multiRequest)
             .map(
                 data => {
                     if (data.hasErrors()) {
@@ -623,7 +623,7 @@ export class CategoriesService extends FiltersStoreBase<CategoriesFilters> imple
             return Observable.throw(new Error(categoryMovedFailureErrorMessage));
         }
 
-        return <any>this._kalturaClient.request(
+        return <any>this._kontorolClient.request(
             new CategoryMoveAction({
                 categoryIds: moveCategoryData.categories.map(category => (category.id)).join(','),
                 targetCategoryParentId: moveCategoryData.categoryParent ? moveCategoryData.categoryParent.id : 0

@@ -1,18 +1,18 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ISubscription} from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
-import {SuggestionsProviderData} from '@kaltura-ng/kaltura-primeng-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
-import {KalturaCategory} from 'kaltura-ngx-client';
-import {KalturaUser} from 'kaltura-ngx-client';
-import {KalturaInheritanceType} from 'kaltura-ngx-client';
-import {KalturaCategoryUserPermissionLevel} from 'kaltura-ngx-client';
-import {KalturaUpdateMethodType} from 'kaltura-ngx-client';
+import {SuggestionsProviderData} from '@kontorol-ng/kontorol-primeng-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
+import {KontorolCategory} from 'kontorol-ngx-client';
+import {KontorolUser} from 'kontorol-ngx-client';
+import {KontorolInheritanceType} from 'kontorol-ngx-client';
+import {KontorolCategoryUserPermissionLevel} from 'kontorol-ngx-client';
+import {KontorolUpdateMethodType} from 'kontorol-ngx-client';
 import {AddUsersService} from './add-users.service';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kAddUsers',
@@ -20,13 +20,13 @@ import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
   styleUrls: ['./add-users.component.scss'],
   providers: [
       AddUsersService,
-      KalturaLogger.createLogger('AddUsersComponent')
+      KontorolLogger.createLogger('AddUsersComponent')
   ]
 })
 export class AddUsersComponent implements OnInit, OnDestroy {
 
   @Input() parentPopupWidget: PopupWidgetComponent;
-  @Input() category: KalturaCategory;
+  @Input() category: KontorolCategory;
   @Input() parentCategoryMembersCount: number;
   @Input() categoryInheritUserPermissions = false;
   @Input() usersCount: number;
@@ -36,12 +36,12 @@ export class AddUsersComponent implements OnInit, OnDestroy {
   public _blockerMessage: AreaBlockerMessage;
 
   public _usersProvider = new Subject<SuggestionsProviderData>();
-  public _users: KalturaUser[] = null;
-  public _selectedPermissionLevel = KalturaCategoryUserPermissionLevel.member;
-  public _selectedUpdateMethod = KalturaUpdateMethodType.automatic;
+  public _users: KontorolUser[] = null;
+  public _selectedPermissionLevel = KontorolCategoryUserPermissionLevel.member;
+  public _selectedUpdateMethod = KontorolUpdateMethodType.automatic;
   public _permissionLevelOptions: { value: number, label: string }[] = [];
   public _updateMethodOptions: { value: number, label: string }[] = [];
-  public _kalturaInheritanceType = KalturaInheritanceType;
+  public _kontorolInheritanceType = KontorolInheritanceType;
 
   public _selectedPermissionSettings: 'inherit' | 'setPermissions' = 'setPermissions';
 
@@ -50,7 +50,7 @@ export class AddUsersComponent implements OnInit, OnDestroy {
 
   constructor( private _appLocalization: AppLocalization,
                private _addUsersService: AddUsersService,
-               private _logger: KalturaLogger) {
+               private _logger: KontorolLogger) {
       this._convertUserInputToValidValue = this._convertUserInputToValidValue.bind(this);
   }
 
@@ -99,7 +99,7 @@ export class AddUsersComponent implements OnInit, OnDestroy {
         data => {
             this._logger.info(`handle successful search users action by user`);
           const suggestions = [];
-          (data.objects || []).forEach((suggestedUser: KalturaUser) => {
+          (data.objects || []).forEach((suggestedUser: KontorolUser) => {
               suggestedUser['__tooltip'] = suggestedUser.id;
             suggestions.push({
               name: suggestedUser.screenName + '(' + suggestedUser.id + ')',
@@ -116,7 +116,7 @@ export class AddUsersComponent implements OnInit, OnDestroy {
       );
   }
 
-  public _convertUserInputToValidValue(value: string): KalturaUser {
+  public _convertUserInputToValidValue(value: string): KontorolUser {
     let result = null;
     const tooltip = this._appLocalization.get('applications.content.bulkActions.userTooltip', {0: value});
 
@@ -259,19 +259,19 @@ export class AddUsersComponent implements OnInit, OnDestroy {
 
   private _fillPermissionLevelOptions() {
     this._permissionLevelOptions = [{
-      value: KalturaCategoryUserPermissionLevel.member,
+      value: KontorolCategoryUserPermissionLevel.member,
       label: this._appLocalization
         .get('applications.content.categoryDetails.entitlements.usersPermissions.addUsers.permissionsLevelOptions.member')
     }, {
-      value: KalturaCategoryUserPermissionLevel.contributor,
+      value: KontorolCategoryUserPermissionLevel.contributor,
       label: this._appLocalization
         .get('applications.content.categoryDetails.entitlements.usersPermissions.addUsers.permissionsLevelOptions.contributor')
     }, {
-      value: KalturaCategoryUserPermissionLevel.moderator,
+      value: KontorolCategoryUserPermissionLevel.moderator,
       label: this._appLocalization
         .get('applications.content.categoryDetails.entitlements.usersPermissions.addUsers.permissionsLevelOptions.moderator')
     }, {
-      value: KalturaCategoryUserPermissionLevel.manager,
+      value: KontorolCategoryUserPermissionLevel.manager,
       label: this._appLocalization
         .get('applications.content.categoryDetails.entitlements.usersPermissions.addUsers.permissionsLevelOptions.manager')
     }];
@@ -279,11 +279,11 @@ export class AddUsersComponent implements OnInit, OnDestroy {
 
   private _fillUpdateMethodOptions() {
     this._updateMethodOptions = [{
-      value: KalturaUpdateMethodType.automatic,
+      value: KontorolUpdateMethodType.automatic,
       label: this._appLocalization
         .get('applications.content.categoryDetails.entitlements.usersPermissions.addUsers.updateMethodOptions.automatic')
     }, {
-      value: KalturaUpdateMethodType.manual,
+      value: KontorolUpdateMethodType.manual,
       label: this._appLocalization
         .get('applications.content.categoryDetails.entitlements.usersPermissions.addUsers.updateMethodOptions.manual')
     }];

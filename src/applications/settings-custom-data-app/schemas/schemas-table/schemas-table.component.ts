@@ -9,8 +9,8 @@ import {
     ViewChild
 } from '@angular/core';
 import { Menu, MenuItem } from 'primeng/primeng';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { SchemasStore } from '../schemas-store/schemas-store.service';
 import { SettingsMetadataProfile } from '../schemas-store/settings-metadata-profile.interface';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';

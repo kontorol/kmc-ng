@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { MultiAccountStoreService } from './multi-account-store/multi-account-store.service';
-import { KalturaLogger, KalturaLoggerName } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger, KontorolLoggerName } from '@kontorol-ng/kontorol-logger';
 
 @Component({
   selector: 'kMultiAccount',
@@ -8,7 +8,7 @@ import { KalturaLogger, KalturaLoggerName } from '@kaltura-ng/kaltura-logger';
   styleUrls: ['./administration-multi-account.component.scss'],
   providers: [
       MultiAccountStoreService,
-    KalturaLogger.createLogger('AdministrationMultiAccount')
+    KontorolLogger.createLogger('AdministrationMultiAccount')
   ]
 })
 

@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaBulkUploadObjectType } from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolBulkUploadObjectType } from 'kontorol-ngx-client';
 
 @Pipe({ name: 'kBulkLogTableObjectType' })
 
@@ -9,18 +9,18 @@ export class BulkLogObjectTypePipe implements PipeTransform {
   constructor(private _appLocalization: AppLocalization) {
   }
 
-  transform(value: KalturaBulkUploadObjectType): string {
+  transform(value: KontorolBulkUploadObjectType): string {
     switch (true) {
-      case KalturaBulkUploadObjectType.category === value:
+      case KontorolBulkUploadObjectType.category === value:
         return this._appLocalization.get('applications.content.bulkUpload.objectType.category');
 
-      case KalturaBulkUploadObjectType.categoryUser === value:
+      case KontorolBulkUploadObjectType.categoryUser === value:
         return this._appLocalization.get('applications.content.bulkUpload.objectType.categoryUser');
 
-      case KalturaBulkUploadObjectType.entry === value:
+      case KontorolBulkUploadObjectType.entry === value:
         return this._appLocalization.get('applications.content.bulkUpload.objectType.entry');
 
-      case KalturaBulkUploadObjectType.user === value:
+      case KontorolBulkUploadObjectType.user === value:
         return this._appLocalization.get('applications.content.bulkUpload.objectType.user');
 
       default:

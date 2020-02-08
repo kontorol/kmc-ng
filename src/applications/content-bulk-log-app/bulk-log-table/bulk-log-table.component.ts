@@ -11,8 +11,8 @@ import {
     ViewChild
 } from '@angular/core';
 import { Menu, MenuItem } from 'primeng/primeng';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaBulkUpload } from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolBulkUpload } from 'kontorol-ngx-client';
 import { globalConfig } from 'config/global';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { ColumnsResizeManagerService, ResizableColumnsTableName } from 'app-shared/kmc-shared/columns-resize-manager';
@@ -45,7 +45,7 @@ export class BulkLogTableComponent implements AfterViewInit, OnInit, OnDestroy {
   @Input() selectedBulkLogItems: any[] = [];
 
   @Output()
-  actionSelected = new EventEmitter<{ action: string, bulkLogItem: KalturaBulkUpload }>();
+  actionSelected = new EventEmitter<{ action: string, bulkLogItem: KontorolBulkUpload }>();
   @Output()
   selectedBulkLogItemsChange = new EventEmitter<any>();
 
@@ -95,7 +95,7 @@ export class BulkLogTableComponent implements AfterViewInit, OnInit, OnDestroy {
     this.actionsMenu.hide();
   }
 
-  private _buildMenu(bulkLogItem: KalturaBulkUpload): void {
+  private _buildMenu(bulkLogItem: KontorolBulkUpload): void {
     this._items = [
       {
         id: 'downloadLog',
@@ -125,11 +125,11 @@ export class BulkLogTableComponent implements AfterViewInit, OnInit, OnDestroy {
     );
   }
 
-  private _onActionSelected(action: string, bulkLogItem: KalturaBulkUpload): void {
+  private _onActionSelected(action: string, bulkLogItem: KontorolBulkUpload): void {
     this.actionSelected.emit({ action, bulkLogItem });
   }
 
-  public _openActionsMenu(event: any, bulkLogItem: KalturaBulkUpload): void {
+  public _openActionsMenu(event: any, bulkLogItem: KontorolBulkUpload): void {
     if (this.actionsMenu) {
       this._buildMenu(bulkLogItem);
       this.actionsMenu.toggle(event);

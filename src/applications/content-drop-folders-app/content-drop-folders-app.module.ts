@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { routing } from './content-drop-folders-app.routes';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AreaBlockerModule, KalturaUIModule, StickyModule, TooltipModule } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerModule, KontorolUIModule, StickyModule, TooltipModule } from '@kontorol-ng/kontorol-ui';
 import {
   ButtonModule,
   CalendarModule,
@@ -17,17 +17,17 @@ import {
   TreeModule
 } from 'primeng/primeng';
 import { TableModule } from 'primeng/table';
-import {LocalizationModule} from '@kaltura-ng/mc-shared';
-import { KalturaPrimeNgUIModule } from '@kaltura-ng/kaltura-primeng-ui';
-import { AutoCompleteModule } from '@kaltura-ng/kaltura-primeng-ui';
-import { TagsModule } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetModule } from '@kaltura-ng/kaltura-ui';
+import {LocalizationModule} from '@kontorol-ng/mc-shared';
+import { KontorolPrimeNgUIModule } from '@kontorol-ng/kontorol-primeng-ui';
+import { AutoCompleteModule } from '@kontorol-ng/kontorol-primeng-ui';
+import { TagsModule } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetModule } from '@kontorol-ng/kontorol-ui';
 import { EntriesModule } from 'app-shared/content-shared/entries/entries.module';
 
 import { ContentDropFoldersComponent } from './content-drop-folders.component';
 import { DropFoldersComponentsList } from './drop-folders-components-list';
 import { KMCShellModule } from 'app-shared/kmc-shell';
-import { FiltersModule } from '@kaltura-ng/mc-shared';
+import { FiltersModule } from '@kontorol-ng/mc-shared';
 import { KMCPermissionsModule } from 'app-shared/kmc-shared/kmc-permissions';
 import { DateFormatModule } from 'app-shared/kmc-shared/date-format/date-format.module';
 
@@ -36,7 +36,7 @@ import { DateFormatModule } from 'app-shared/kmc-shared/date-format/date-format.
     CommonModule,
     AreaBlockerModule,
     LocalizationModule,
-    KalturaUIModule,
+    KontorolUIModule,
     PaginatorModule,
     TooltipModule,
     ButtonModule,
@@ -47,7 +47,7 @@ import { DateFormatModule } from 'app-shared/kmc-shared/date-format/date-format.
     CalendarModule,
     MenuModule,
     TagsModule,
-    KalturaPrimeNgUIModule,
+    KontorolPrimeNgUIModule,
     AutoCompleteModule,
     TreeModule,
     SharedModule,

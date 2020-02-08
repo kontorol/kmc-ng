@@ -2,25 +2,25 @@ import {Injectable, OnDestroy} from '@angular/core';
 import { Observable } from 'rxjs';
 import {PartnerProfileStore} from '../partner-profile';
 import 'rxjs/add/observable/throw';
-import {KalturaClient} from 'kaltura-ngx-client';
-import {FlavorParamsListAction} from 'kaltura-ngx-client';
-import {KalturaFlavorParams} from 'kaltura-ngx-client';
-import {KalturaFilterPager} from 'kaltura-ngx-client';
-import {KalturaFlavorParamsListResponse} from 'kaltura-ngx-client';
-import {KalturaDetachedResponseProfile} from 'kaltura-ngx-client';
-import {KalturaResponseProfileType} from 'kaltura-ngx-client';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import {KontorolClient} from 'kontorol-ngx-client';
+import {FlavorParamsListAction} from 'kontorol-ngx-client';
+import {KontorolFlavorParams} from 'kontorol-ngx-client';
+import {KontorolFilterPager} from 'kontorol-ngx-client';
+import {KontorolFlavorParamsListResponse} from 'kontorol-ngx-client';
+import {KontorolDetachedResponseProfile} from 'kontorol-ngx-client';
+import {KontorolResponseProfileType} from 'kontorol-ngx-client';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Injectable()
 export class FlavoursStore extends PartnerProfileStore implements OnDestroy {
 
-  private _getFlavorsFilters$: Observable<{ items: KalturaFlavorParams[] }>;
+  private _getFlavorsFilters$: Observable<{ items: KontorolFlavorParams[] }>;
 
-  constructor(private _kalturaServerClient: KalturaClient) {
+  constructor(private _kontorolServerClient: KontorolClient) {
     super();
   }
 
-  public get(): Observable<{ items: KalturaFlavorParams[] }> {
+  public get(): Observable<{ items: KontorolFlavorParams[] }> {
     if (!this._getFlavorsFilters$) {
       // execute the request
       this._getFlavorsFilters$ = this._buildGetRequest()
@@ -45,19 +45,19 @@ export class FlavoursStore extends PartnerProfileStore implements OnDestroy {
   {
   }
 
-  private _buildGetRequest(): Observable<KalturaFlavorParamsListResponse> {
+  private _buildGetRequest(): Observable<KontorolFlavorParamsListResponse> {
 
-    const responseProfile: KalturaDetachedResponseProfile = new KalturaDetachedResponseProfile(
+    const responseProfile: KontorolDetachedResponseProfile = new KontorolDetachedResponseProfile(
       {
         fields: 'id,format,name,width,height,videoCodec,audioBitrate,videoBitrate,tags',
-        type: KalturaResponseProfileType.includeFields
+        type: KontorolResponseProfileType.includeFields
       }
     );
 
-    const favourParamsPager = new KalturaFilterPager();
+    const favourParamsPager = new KontorolFilterPager();
     favourParamsPager.pageSize = 500;
 
-    return this._kalturaServerClient.request(new FlavorParamsListAction({pager: favourParamsPager})
+    return this._kontorolServerClient.request(new FlavorParamsListAction({pager: favourParamsPager})
         .setRequestOptions({
             responseProfile
         }));

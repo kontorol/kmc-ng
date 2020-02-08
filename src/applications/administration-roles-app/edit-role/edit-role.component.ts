@@ -1,28 +1,28 @@
 import { Component, Input, IterableDiffers, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { KalturaAPIException, KalturaUserRole } from 'kaltura-ngx-client';
+import { KontorolAPIException, KontorolUserRole } from 'kontorol-ngx-client';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observer } from 'rxjs/Observer';
 import { PermissionsTableComponent, RolePermissionFormValue } from '../permissions-table/permissions-table.component';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { RolesStoreService } from '../roles-store/roles-store.service';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { subApplicationsConfig } from 'config/sub-applications';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { BrowserService } from 'app-shared/kmc-shell';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kEditRole',
   templateUrl: './edit-role.component.html',
   styleUrls: ['./edit-role.component.scss'],
   providers: [
-      KalturaLogger.createLogger('EditRoleComponent')
+      KontorolLogger.createLogger('EditRoleComponent')
   ]
 })
   export class EditRoleComponent implements OnInit, OnDestroy {
-  @Input() role: KalturaUserRole;
+  @Input() role: KontorolUserRole;
   @Input() parentPopupWidget: PopupWidgetComponent;
 
   @ViewChild(PermissionsTableComponent) _permissionsTable: PermissionsTableComponent;
@@ -48,7 +48,7 @@ import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
   }
 
   constructor(private _fb: FormBuilder,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _listDiffers: IterableDiffers,
               private _rolesService: RolesStoreService,
               private _permissionsService: KMCPermissionsService,
@@ -145,7 +145,7 @@ import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
     }
 
 
-    private _handleInvalidInputError(error: KalturaAPIException): void {
+    private _handleInvalidInputError(error: KontorolAPIException): void {
         if (error.args['PROPERTY_NAME'] === 'name') {
             this._nameField.setErrors({ unsafeValue: true });
         } else if (error.args['PROPERTY_NAME'] === 'description') {
@@ -246,7 +246,7 @@ import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
 
     const permissionNames = this._getUpdatedPermission();
     const { name, description } = this._editRoleForm.value;
-    const editedRole = new KalturaUserRole({ name, description, permissionNames });
+    const editedRole = new KontorolUserRole({ name, description, permissionNames });
     const retryFn = () => this._updateRole();
     const successFn = () => {
       this._browserService.alert({
@@ -269,7 +269,7 @@ import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
     const retryFn = () => this._addRole();
     const { name, description } = this._editRoleForm.value;
     const permissionNames = this._getUpdatedPermission();
-    this.role = new KalturaUserRole({ name, description, permissionNames });
+    this.role = new KontorolUserRole({ name, description, permissionNames });
 
     this._rolesService.addRole(this.role)
       .pipe(cancelOnDestroy(this))

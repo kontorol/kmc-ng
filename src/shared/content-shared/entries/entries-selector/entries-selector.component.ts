@@ -5,8 +5,8 @@ import {
   EntriesStorePaginationCacheToken
 } from 'app-shared/content-shared/entries/entries-store/entries-store.service';
 import { EntriesTableColumns } from 'app-shared/content-shared/entries/entries-table/entries-table.component';
-import { KalturaExternalMediaSourceType, KalturaMediaEntry } from 'kaltura-ngx-client';
-import { KalturaObjectBaseFactory } from 'kaltura-ngx-client';
+import { KontorolExternalMediaSourceType, KontorolMediaEntry } from 'kontorol-ngx-client';
+import { KontorolObjectBaseFactory } from 'kontorol-ngx-client';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
 
 export enum EntriesSelectorSelectionMode {
@@ -27,10 +27,10 @@ export enum EntriesSelectorSelectionMode {
 export class EntriesSelectorComponent {
 
   public _kmcPermissions = KMCPermissions;
-    public _youtubeExternalSourceType = KalturaExternalMediaSourceType.youtube;
+    public _youtubeExternalSourceType = KontorolExternalMediaSourceType.youtube;
 
   @Input() selectionMode: EntriesSelectorSelectionMode = EntriesSelectorSelectionMode.multiple;
-  @Input() selectedEntries: KalturaMediaEntry[] = [];
+  @Input() selectedEntries: KontorolMediaEntry[] = [];
   @Input() enforcedFilters: Partial<EntriesFilters>;
   @Input() defaultFilters: Partial<EntriesFilters>;
   @Input() columns: EntriesTableColumns = {
@@ -42,13 +42,13 @@ export class EntriesSelectorComponent {
     addToBucket: { sortable: false, width: '80px' }
   };
 
-  @Output() selectedEntriesChange = new EventEmitter<KalturaMediaEntry[]>();
+  @Output() selectedEntriesChange = new EventEmitter<KontorolMediaEntry[]>();
   @ViewChild(EntriesListComponent) public _entriesList: EntriesListComponent;
 
   constructor(public _entriesStore: EntriesStore) {
   }
 
-  public _onActionSelected({ action, entry }: { action: string, entry: KalturaMediaEntry }): void {
+  public _onActionSelected({ action, entry }: { action: string, entry: KontorolMediaEntry }): void {
     switch (action) {
       case 'addToBucket':
         this._addToBucket(entry);
@@ -58,15 +58,15 @@ export class EntriesSelectorComponent {
     }
   }
 
-  public _removeSelected(entry: KalturaMediaEntry): void {
+  public _removeSelected(entry: KontorolMediaEntry): void {
     this.selectedEntries.splice(this.selectedEntries.indexOf(entry), 1);
     this.selectedEntriesChange.emit(this.selectedEntries);
   }
 
-  public _addToBucket(entry: KalturaMediaEntry): void {
+  public _addToBucket(entry: KontorolMediaEntry): void {
     switch (this.selectionMode) {
       case EntriesSelectorSelectionMode.multiple:
-        const clonedEntry = <KalturaMediaEntry>Object.assign(KalturaObjectBaseFactory.createObject(entry), entry);
+        const clonedEntry = <KontorolMediaEntry>Object.assign(KontorolObjectBaseFactory.createObject(entry), entry);
         this.selectedEntries.push(clonedEntry);
         break;
 

@@ -1,31 +1,31 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import {
-    KalturaClient,
-    KalturaEntryServerNode,
-    KalturaEntryServerNodeListResponse,
-    KalturaEntryServerNodeStatus,
-    KalturaEntryServerNodeType,
-    KalturaLiveStreamEntry,
-    KalturaRecordingStatus,
-    KalturaViewMode,
+    KontorolClient,
+    KontorolEntryServerNode,
+    KontorolEntryServerNodeListResponse,
+    KontorolEntryServerNodeStatus,
+    KontorolEntryServerNodeType,
+    KontorolLiveStreamEntry,
+    KontorolRecordingStatus,
+    KontorolViewMode,
     LiveStreamUpdateAction
-} from 'kaltura-ngx-client';
+} from 'kontorol-ngx-client';
 import { LiveDataRequestFactory } from './live-data-request-factory';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
 import { map } from 'rxjs/operators';
 import { KmcServerPolls } from 'app-shared/kmc-shared';
 import { BehaviorSubject } from 'rxjs';
 import { BrowserService } from 'app-shared/kmc-shell';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 
 
-export interface KalturaExtendedLiveEntry extends KalturaLiveStreamEntry {
+export interface KontorolExtendedLiveEntry extends KontorolLiveStreamEntry {
     redundancy: boolean;
-    streamStatus: KalturaStreamStatus;
-    serverType: KalturaEntryServerNodeType;
+    streamStatus: KontorolStreamStatus;
+    serverType: KontorolEntryServerNodeType;
 }
 
-export enum KalturaStreamStatus {
+export enum KontorolStreamStatus {
     live = 'Live',
     initializing = 'Initializing',
     offline = 'Offline',
@@ -35,7 +35,7 @@ export enum KalturaStreamStatus {
 @Injectable()
 export class ToggleLiveService implements OnDestroy {
     private _isPolling = false;
-    private _entry: KalturaExtendedLiveEntry;
+    private _entry: KontorolExtendedLiveEntry;
     private _canToggle = new BehaviorSubject<boolean>(false);
     private _isPreview = new BehaviorSubject<boolean>(false);
 
@@ -44,7 +44,7 @@ export class ToggleLiveService implements OnDestroy {
 
     constructor(private _kmcServerPolls: KmcServerPolls,
                 private _browserService: BrowserService,
-                private _kalturaClient: KalturaClient,
+                private _kontorolClient: KontorolClient,
                 private _appLocalization: AppLocalization) {
     }
 
@@ -53,25 +53,25 @@ export class ToggleLiveService implements OnDestroy {
         this._isPreview.complete();
     }
 
-    private _getStreamStatus(entryServerNodeStatus: KalturaEntryServerNodeStatus,
-                             viewMode = KalturaViewMode.allowAll): KalturaStreamStatus {
+    private _getStreamStatus(entryServerNodeStatus: KontorolEntryServerNodeStatus,
+                             viewMode = KontorolViewMode.allowAll): KontorolStreamStatus {
         switch (entryServerNodeStatus) {
-            case KalturaEntryServerNodeStatus.authenticated:
-            case KalturaEntryServerNodeStatus.broadcasting:
-                return KalturaStreamStatus.initializing;
+            case KontorolEntryServerNodeStatus.authenticated:
+            case KontorolEntryServerNodeStatus.broadcasting:
+                return KontorolStreamStatus.initializing;
 
-            case KalturaEntryServerNodeStatus.playable:
-                return (viewMode === KalturaViewMode.preview) ? KalturaStreamStatus.preview : KalturaStreamStatus.live;
+            case KontorolEntryServerNodeStatus.playable:
+                return (viewMode === KontorolViewMode.preview) ? KontorolStreamStatus.preview : KontorolStreamStatus.live;
 
-            case KalturaEntryServerNodeStatus.stopped:
+            case KontorolEntryServerNodeStatus.stopped:
             default:
-                return KalturaStreamStatus.offline;
+                return KontorolStreamStatus.offline;
         }
     }
 
-    private _getRedundancyStatus(serverNodeList: KalturaEntryServerNode[]): boolean {
+    private _getRedundancyStatus(serverNodeList: KontorolEntryServerNode[]): boolean {
         if (serverNodeList.length > 1) {
-            return serverNodeList.every(sn => sn.status !== KalturaEntryServerNodeStatus.markedForDeletion);
+            return serverNodeList.every(sn => sn.status !== KontorolEntryServerNodeStatus.markedForDeletion);
         }
         return false;
     }
@@ -80,28 +80,28 @@ export class ToggleLiveService implements OnDestroy {
     // (1) If only primary -> StreamStatus equals primary status
     // (2) If only secondary -> StreamStatus equals secondary status
     // (3) If both -> StreamStatus equals the same as recent active
-    private _setStreamStatus(liveEntry: KalturaExtendedLiveEntry, serverNodeList: KalturaEntryServerNode[]): void {
+    private _setStreamStatus(liveEntry: KontorolExtendedLiveEntry, serverNodeList: KontorolEntryServerNode[]): void {
         const viewMode = liveEntry.explicitLive ? liveEntry.viewMode : null;
-        let result: { status: KalturaStreamStatus, serverType: KalturaEntryServerNodeType } = {
-            status: this._getStreamStatus(KalturaEntryServerNodeStatus.stopped),
+        let result: { status: KontorolStreamStatus, serverType: KontorolEntryServerNodeType } = {
+            status: this._getStreamStatus(KontorolEntryServerNodeStatus.stopped),
             serverType: null,
         };
 
         if (liveEntry.redundancy) {
-            if (!liveEntry.serverType || (KalturaEntryServerNodeType.livePrimary === liveEntry.serverType)) {
+            if (!liveEntry.serverType || (KontorolEntryServerNodeType.livePrimary === liveEntry.serverType)) {
                 result = {
                     status: this._getStreamStatus(serverNodeList[0].status, viewMode),
-                    serverType: KalturaEntryServerNodeType.livePrimary,
+                    serverType: KontorolEntryServerNodeType.livePrimary,
                 };
-            } else if (KalturaEntryServerNodeType.liveBackup === liveEntry.serverType) {
+            } else if (KontorolEntryServerNodeType.liveBackup === liveEntry.serverType) {
                 result = {
                     status: this._getStreamStatus(serverNodeList[1].status, viewMode),
-                    serverType: KalturaEntryServerNodeType.liveBackup,
+                    serverType: KontorolEntryServerNodeType.liveBackup,
                 };
             }
         } else {
             if (serverNodeList.length) {
-                const sn = serverNodeList.find(esn => esn.status !== KalturaEntryServerNodeStatus.markedForDeletion);
+                const sn = serverNodeList.find(esn => esn.status !== KontorolEntryServerNodeStatus.markedForDeletion);
                 if (sn) {
                     result = {
                         status: this._getStreamStatus(sn.status, viewMode),
@@ -115,10 +115,10 @@ export class ToggleLiveService implements OnDestroy {
         liveEntry.serverType = result.serverType;
     }
 
-    private _extendEntry(entry: KalturaExtendedLiveEntry, updatedEntry: KalturaLiveStreamEntry, nodes: KalturaEntryServerNode[]): void {
+    private _extendEntry(entry: KontorolExtendedLiveEntry, updatedEntry: KontorolLiveStreamEntry, nodes: KontorolEntryServerNode[]): void {
         const liveEntry = Object.assign(entry, {
             redundancy: this._getRedundancyStatus(nodes),
-            streamStatus: entry.streamStatus || KalturaStreamStatus.offline,
+            streamStatus: entry.streamStatus || KontorolStreamStatus.offline,
             serverType: entry.serverType || null,
         });
         this._setStreamStatus(liveEntry, nodes);
@@ -127,21 +127,21 @@ export class ToggleLiveService implements OnDestroy {
         entry.viewMode = updatedEntry.hasOwnProperty('viewMode') ? updatedEntry.viewMode : entry.viewMode;
     }
 
-    private _updateIsPreview(entry: KalturaLiveStreamEntry): void {
-        this._isPreview.next(entry.viewMode === KalturaViewMode.preview);
+    private _updateIsPreview(entry: KontorolLiveStreamEntry): void {
+        this._isPreview.next(entry.viewMode === KontorolViewMode.preview);
     }
 
-    private _updatePreviewMode(viewMode: KalturaViewMode, recordingStatus: KalturaRecordingStatus): void {
+    private _updatePreviewMode(viewMode: KontorolViewMode, recordingStatus: KontorolRecordingStatus): void {
         this._canToggle.next(false);
 
-        this._kalturaClient.request(
+        this._kontorolClient.request(
             new LiveStreamUpdateAction({
                 entryId: this._entry.id,
-                liveStreamEntry: new KalturaLiveStreamEntry({ viewMode, recordingStatus })
+                liveStreamEntry: new KontorolLiveStreamEntry({ viewMode, recordingStatus })
             })
         )
             .subscribe(
-                (entry: KalturaLiveStreamEntry) => {
+                (entry: KontorolLiveStreamEntry) => {
                     this._entry.viewMode = entry.viewMode;
                     this._entry.recordingStatus = entry.recordingStatus;
 
@@ -156,14 +156,14 @@ export class ToggleLiveService implements OnDestroy {
                 });
     }
 
-    public startPolling(liveEntry: KalturaLiveStreamEntry): void {
+    public startPolling(liveEntry: KontorolLiveStreamEntry): void {
         if (liveEntry && !this._isPolling) {
             this._isPolling = true;
-            this._entry = liveEntry as KalturaExtendedLiveEntry;
+            this._entry = liveEntry as KontorolExtendedLiveEntry;
 
             this._updateIsPreview(liveEntry);
 
-            this._kmcServerPolls.register<KalturaEntryServerNodeListResponse>(10, new LiveDataRequestFactory(liveEntry.id))
+            this._kmcServerPolls.register<KontorolEntryServerNodeListResponse>(10, new LiveDataRequestFactory(liveEntry.id))
                 .pipe(
                     cancelOnDestroy(this),
                     map(responses => {
@@ -183,15 +183,15 @@ export class ToggleLiveService implements OnDestroy {
                     this._extendEntry(this._entry, entry, nodes);
                     this._updateIsPreview(this._entry);
 
-                    const isBroadcasting = [KalturaStreamStatus.live, KalturaStreamStatus.preview].indexOf(this._entry.streamStatus) !== -1;
+                    const isBroadcasting = [KontorolStreamStatus.live, KontorolStreamStatus.preview].indexOf(this._entry.streamStatus) !== -1;
                     this._canToggle.next(isBroadcasting);
                 });
         }
     }
 
     public toggle() {
-        if (this._entry.viewMode === KalturaViewMode.preview) {
-            this._updatePreviewMode(KalturaViewMode.allowAll, KalturaRecordingStatus.active);
+        if (this._entry.viewMode === KontorolViewMode.preview) {
+            this._updatePreviewMode(KontorolViewMode.allowAll, KontorolRecordingStatus.active);
         } else {
             this._browserService.confirm(
                 {
@@ -199,7 +199,7 @@ export class ToggleLiveService implements OnDestroy {
                     message: this._appLocalization.get('applications.content.entryDetails.live.endLiveMessage'),
                     acceptLabel: this._appLocalization.get('applications.content.entryDetails.live.endLive'),
                     accept: () => {
-                        this._updatePreviewMode(KalturaViewMode.preview, KalturaRecordingStatus.stopped);
+                        this._updatePreviewMode(KontorolViewMode.preview, KontorolRecordingStatus.stopped);
                     }
                 });
         }

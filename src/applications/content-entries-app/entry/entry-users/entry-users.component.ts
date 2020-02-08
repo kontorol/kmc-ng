@@ -1,10 +1,10 @@
 import { Component, ViewChild, AfterViewInit,OnInit, OnDestroy } from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { ISubscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
-import { KalturaUser } from 'kaltura-ngx-client';
-import { SuggestionsProviderData } from '@kaltura-ng/kaltura-primeng-ui';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { KontorolUser } from 'kontorol-ngx-client';
+import { SuggestionsProviderData } from '@kontorol-ng/kontorol-primeng-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { EntryUsersWidget } from './entry-users-widget.service';
 import { BrowserService } from 'app-shared/kmc-shell';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
@@ -92,7 +92,7 @@ export class EntryUsers implements AfterViewInit, OnInit, OnDestroy {
 
 		this._searchUsersSubscription = this._widgetService.searchUsers(event.query).subscribe(data => {
 				const suggestions = [];
-				(data || []).forEach((suggestedUser: KalturaUser) => {
+				(data || []).forEach((suggestedUser: KontorolUser) => {
                     suggestedUser['__tooltip'] = suggestedUser.id;
 					let isSelectable = true;
 					if (formControl){

@@ -1,32 +1,32 @@
 import { BrowserService } from 'shared/kmc-shell/providers/browser.service';
 import {
-    KalturaClient,
-    KalturaDetachedResponseProfile,
-    KalturaDropFolderFileFilter,
-    KalturaFilterPager,
-    KalturaMultiRequest,
-    KalturaMultiResponse,
-    KalturaPartner,
-    KalturaPartnerFilter,
-    KalturaPartnerGroupType,
-    KalturaPartnerStatus,
-    KalturaResponseProfileType,
-    KalturaSessionType, PartnerGetAction,
+    KontorolClient,
+    KontorolDetachedResponseProfile,
+    KontorolDropFolderFileFilter,
+    KontorolFilterPager,
+    KontorolMultiRequest,
+    KontorolMultiResponse,
+    KontorolPartner,
+    KontorolPartnerFilter,
+    KontorolPartnerGroupType,
+    KontorolPartnerStatus,
+    KontorolResponseProfileType,
+    KontorolSessionType, PartnerGetAction,
     PartnerGetInfoAction,
     PartnerListAction,
     PartnerRegisterAction,
     SessionImpersonateAction,
     VarConsoleUpdateStatusAction
-} from 'kaltura-ngx-client';
+} from 'kontorol-ngx-client';
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs';
 import { ISubscription } from 'rxjs/Subscription';
-import { AppLocalization, FiltersStoreBase, ListTypeAdapter, NumberTypeAdapter, StringTypeAdapter, TypeAdaptersMapping } from '@kaltura-ng/mc-shared';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { AppLocalization, FiltersStoreBase, ListTypeAdapter, NumberTypeAdapter, StringTypeAdapter, TypeAdaptersMapping } from '@kontorol-ng/mc-shared';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { globalConfig } from 'config/global';
 import { AdminMultiAccountMainViewService } from 'app-shared/kmc-shared/kmc-views';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
 import { AppAuthentication } from "app-shared/kmc-shell";
 
 export enum SortDirection {
@@ -50,25 +50,25 @@ export class MultiAccountStoreService extends FiltersStoreBase<AccountFilters> i
 
 
   private _accounts = {
-    data: new BehaviorSubject<{ items: KalturaPartner[], totalCount: number, templateAccounts: KalturaPartner[], usedAccountsCount: number }>({ items: [], totalCount: 0, templateAccounts: [], usedAccountsCount: 0 }),
+    data: new BehaviorSubject<{ items: KontorolPartner[], totalCount: number, templateAccounts: KontorolPartner[], usedAccountsCount: number }>({ items: [], totalCount: 0, templateAccounts: [], usedAccountsCount: 0 }),
     state: new BehaviorSubject<{ loading: boolean, errorMessage: string }>({ loading: false, errorMessage: null })
   };
   private _isReady = false;
   private _querySubscription: ISubscription;
     private _allStatusesList = [
-        KalturaPartnerStatus.active,
-        KalturaPartnerStatus.blocked,
-        KalturaPartnerStatus.fullBlock
+        KontorolPartnerStatus.active,
+        KontorolPartnerStatus.blocked,
+        KontorolPartnerStatus.fullBlock
     ].join(',');
 
   public readonly accounts = { data$: this._accounts.data.asObservable(), state$: this._accounts.state.asObservable() };
 
-  constructor(private _kalturaClient: KalturaClient,
+  constructor(private _kontorolClient: KontorolClient,
               private _browserService: BrowserService,
               private _appLocalization: AppLocalization,
               private _appAuthentication: AppAuthentication,
               adminMultiAccountMainViewService: AdminMultiAccountMainViewService,
-              _logger: KalturaLogger) {
+              _logger: KontorolLogger) {
     super(_logger.subLogger('AccountsStoreService'));
     if (adminMultiAccountMainViewService.isAvailable()) {
         this._prepare();
@@ -158,7 +158,7 @@ export class MultiAccountStoreService extends FiltersStoreBase<AccountFilters> i
     this._querySubscription = this._buildQueryRequest()
       .pipe(cancelOnDestroy(this))
       .subscribe(
-          (responses: KalturaMultiResponse) => {
+          (responses: KontorolMultiResponse) => {
               if (responses.hasErrors()) {
                   this._querySubscription = null;
                   const error = responses.getFirstError();
@@ -185,7 +185,7 @@ export class MultiAccountStoreService extends FiltersStoreBase<AccountFilters> i
     return this._accounts.data.value.items.find(item => item['name'] === name) !== undefined;
   }
 
-    private _updateFilterWithJoinedList(list: string[], requestFilter: KalturaPartnerFilter, requestFilterProperty: keyof KalturaDropFolderFileFilter): void {
+    private _updateFilterWithJoinedList(list: string[], requestFilter: KontorolPartnerFilter, requestFilterProperty: keyof KontorolDropFolderFileFilter): void {
         const value = (list || []).map(item => item).join(',');
 
         if (value) {
@@ -193,16 +193,16 @@ export class MultiAccountStoreService extends FiltersStoreBase<AccountFilters> i
         }
     }
 
-  private _buildQueryRequest(): Observable<KalturaMultiResponse> {
+  private _buildQueryRequest(): Observable<KontorolMultiResponse> {
     try {
 
-      let pager: KalturaFilterPager = null;
-      const filter = new KalturaPartnerFilter({});
+      let pager: KontorolFilterPager = null;
+      const filter = new KontorolPartnerFilter({});
       const data: AccountFilters = this._getFiltersAsReadonly();
 
       // update pagination args
       if (data.pageIndex || data.pageSize) {
-        pager = new KalturaFilterPager(
+        pager = new KontorolFilterPager(
           {
             pageSize: data.pageSize,
             pageIndex: data.pageIndex + 1
@@ -237,22 +237,22 @@ export class MultiAccountStoreService extends FiltersStoreBase<AccountFilters> i
         }
 
         // create filter for template accounts
-        const templatesFilter = new KalturaPartnerFilter({});
+        const templatesFilter = new KontorolPartnerFilter({});
         templatesFilter.statusIn = '1,2'; // active and blocked
-        templatesFilter.partnerGroupTypeEqual = KalturaPartnerGroupType.template;
+        templatesFilter.partnerGroupTypeEqual = KontorolPartnerGroupType.template;
 
         // create filter for used accounts
-        const accountsFilter = new KalturaPartnerFilter({});
+        const accountsFilter = new KontorolPartnerFilter({});
         accountsFilter.statusIn = '1,2'; // active and blocked
 
         // update desired fields of partners
-        const responseProfile: KalturaDetachedResponseProfile = new KalturaDetachedResponseProfile({
-            type: KalturaResponseProfileType.includeFields,
+        const responseProfile: KontorolDetachedResponseProfile = new KontorolDetachedResponseProfile({
+            type: KontorolResponseProfileType.includeFields,
             fields: 'id,name,status,adminName,website,createdAt,referenceId,adminEmail,phone,createdAt,adminUserId'
         });
 
       // build the request
-      return this._kalturaClient.multiRequest(new KalturaMultiRequest(
+      return this._kontorolClient.multiRequest(new KontorolMultiRequest(
           new PartnerListAction({ filter, pager }).setRequestOptions({ responseProfile }),
           new PartnerListAction({ filter: templatesFilter }).setRequestOptions({ responseProfile }),
           new PartnerListAction({ filter: accountsFilter }).setRequestOptions({ responseProfile })
@@ -263,8 +263,8 @@ export class MultiAccountStoreService extends FiltersStoreBase<AccountFilters> i
 
   }
 
-  public updateAccountStatus(id: number, status: KalturaPartnerStatus): Observable<void> {
-      return this._kalturaClient.request(new VarConsoleUpdateStatusAction({id, status}))
+  public updateAccountStatus(id: number, status: KontorolPartnerStatus): Observable<void> {
+      return this._kontorolClient.request(new VarConsoleUpdateStatusAction({id, status}))
           .map(() => {
               return undefined;
           })
@@ -285,16 +285,16 @@ export class MultiAccountStoreService extends FiltersStoreBase<AccountFilters> i
               ks: this._appAuthentication.appUser.ks
           })];
 
-      return this._kalturaClient.multiRequest(requests).switchMap(
-          (responses: KalturaMultiResponse) => {
+      return this._kontorolClient.multiRequest(requests).switchMap(
+          (responses: KontorolMultiResponse) => {
               if (responses.hasErrors()) {
                   throw new Error(`Error occur during session creation for partner ${impersonatedPartnerId}`);
               }
-              return this._kalturaClient.request(new SessionImpersonateAction({
+              return this._kontorolClient.request(new SessionImpersonateAction({
                   secret: responses[0].result.adminSecret,
                   userId: responses[1].result.adminUserId,
                   impersonatedPartnerId,
-                  type: KalturaSessionType.admin,
+                  type: KontorolSessionType.admin,
                   partnerId: this._appAuthentication.appUser.partnerInfo.partnerId,
                   privileges: loggedInUserId !== responses[1].result.adminUserId ? `disableentitlement,enablechangeaccount:${impersonatedPartnerId}` : 'disableentitlement'
 
@@ -306,8 +306,8 @@ export class MultiAccountStoreService extends FiltersStoreBase<AccountFilters> i
       );
   }
 
-  public addAccount(partner: KalturaPartner, templatePartnerId: number): Observable<KalturaPartner> {
-      return this._kalturaClient.request(new PartnerRegisterAction({partner, templatePartnerId}));
+  public addAccount(partner: KontorolPartner, templatePartnerId: number): Observable<KontorolPartner> {
+      return this._kontorolClient.request(new PartnerRegisterAction({partner, templatePartnerId}));
   }
 
   public reload(): void {

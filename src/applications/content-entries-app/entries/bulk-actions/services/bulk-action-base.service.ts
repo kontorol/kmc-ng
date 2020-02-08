@@ -1,39 +1,39 @@
 import { Observable } from 'rxjs';
 import { subApplicationsConfig } from 'config/sub-applications';
 
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { KalturaClient } from 'kaltura-ngx-client';
-import { KalturaRequest, KalturaMultiRequest, KalturaMultiResponse } from 'kaltura-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { KontorolRequest, KontorolMultiRequest, KontorolMultiResponse } from 'kontorol-ngx-client';
 
 
 export abstract class BulkActionBaseService<T> {
 
-  constructor(public _kalturaServerClient: KalturaClient) {
+  constructor(public _kontorolServerClient: KontorolClient) {
   }
 
-  public abstract execute(selectedEntries: KalturaMediaEntry[] , params : T) : Observable<any>;
+  public abstract execute(selectedEntries: KontorolMediaEntry[] , params : T) : Observable<any>;
 
-  transmit(requests : KalturaRequest<any>[], chunk : boolean) : Observable<{}>
+  transmit(requests : KontorolRequest<any>[], chunk : boolean) : Observable<{}>
   {
     let maxRequestsPerMultiRequest = requests.length;
     if (chunk){
       maxRequestsPerMultiRequest = subApplicationsConfig.shared.bulkActionsLimit;
     }
 
-    let multiRequests: Observable<KalturaMultiResponse>[] = [];
-    let mr :KalturaMultiRequest = new KalturaMultiRequest();
+    let multiRequests: Observable<KontorolMultiResponse>[] = [];
+    let mr :KontorolMultiRequest = new KontorolMultiRequest();
 
     let counter = 0;
     for (let i = 0; i < requests.length; i++){
       if (counter === maxRequestsPerMultiRequest){
-        multiRequests.push(this._kalturaServerClient.multiRequest(mr));
-        mr = new KalturaMultiRequest();
+        multiRequests.push(this._kontorolServerClient.multiRequest(mr));
+        mr = new KontorolMultiRequest();
         counter = 0;
       }
       mr.requests.push(requests[i]);
       counter++;
     }
-    multiRequests.push(this._kalturaServerClient.multiRequest(mr));
+    multiRequests.push(this._kontorolServerClient.multiRequest(mr));
 
     return Observable.forkJoin(multiRequests)
       .map(responses => {

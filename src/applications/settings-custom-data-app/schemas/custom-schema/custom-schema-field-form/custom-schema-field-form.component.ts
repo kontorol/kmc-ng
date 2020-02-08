@@ -1,18 +1,18 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { MetadataItem, MetadataItemTypes } from 'app-shared/kmc-shared/custom-metadata/metadata-profile';
 import { BrowserService } from 'app-shared/kmc-shell';
-import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kCustomSchemaFieldForm',
   templateUrl: './custom-schema-field-form.component.html',
   styleUrls: ['./custom-schema-field-form.component.scss'],
-  providers: [KalturaLogger.createLogger('CustomSchemaFieldFormComponent')]
+  providers: [KontorolLogger.createLogger('CustomSchemaFieldFormComponent')]
 })
 export class CustomSchemaFieldFormComponent implements OnInit, OnDestroy, AfterViewInit {
 
@@ -70,7 +70,7 @@ export class CustomSchemaFieldFormComponent implements OnInit, OnDestroy, AfterV
   constructor(private _fb: FormBuilder,
               private _appLocalization: AppLocalization,
               private _permissionsService: KMCPermissionsService,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _browserService: BrowserService) {
     this._buildForm();
   }

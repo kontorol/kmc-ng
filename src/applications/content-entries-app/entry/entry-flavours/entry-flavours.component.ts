@@ -1,20 +1,20 @@
 import { AfterViewInit, Component, ElementRef, HostListener, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { UploadManagement } from '@kaltura-ng/kaltura-common';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { FileDialogComponent } from '@kaltura-ng/kaltura-ui';
-import { KalturaFlavorAssetStatus } from 'kaltura-ngx-client';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { KalturaMediaType } from 'kaltura-ngx-client';
-import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
+import { UploadManagement } from '@kontorol-ng/kontorol-common';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { FileDialogComponent } from '@kontorol-ng/kontorol-ui';
+import { KontorolFlavorAssetStatus } from 'kontorol-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { KontorolMediaType } from 'kontorol-ngx-client';
+import { PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
 import { Menu, MenuItem } from 'primeng/primeng';
 import { EntryFlavoursWidget, ReplacementData } from './entry-flavours-widget.service';
 import { Flavor } from './flavor';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { BrowserService } from 'app-shared/kmc-shell';
 import { NewEntryFlavourFile } from 'app-shared/kmc-shell/new-entry-flavour-file';
 import { globalConfig } from 'config/global';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaEntryStatus } from 'kaltura-ngx-client';
+import { KontorolEntryStatus } from 'kontorol-ngx-client';
 import { ColumnsResizeManagerService, ResizableColumnsTableName } from 'app-shared/kmc-shared/columns-resize-manager';
 
 @Component({
@@ -66,12 +66,12 @@ export class EntryFlavours implements AfterViewInit, OnInit, OnDestroy {
             .pipe(cancelOnDestroy(this))
             .filter(Boolean)
             .subscribe(entry => {
-                if (entry.status === KalturaEntryStatus.noContent) {
-                    this._replaceButtonsLabel = entry.mediaType === KalturaMediaType.audio
+                if (entry.status === KontorolEntryStatus.noContent) {
+                    this._replaceButtonsLabel = entry.mediaType === KontorolMediaType.audio
                         ? this._appLocalization.get('applications.content.entryDetails.flavours.replaceVideo.addAudio')
                         : this._appLocalization.get('applications.content.entryDetails.flavours.replaceVideo.addVideo');
                 } else {
-                    this._replaceButtonsLabel = entry.mediaType === KalturaMediaType.audio
+                    this._replaceButtonsLabel = entry.mediaType === KontorolMediaType.audio
                         ? this._appLocalization.get('applications.content.entryDetails.flavours.replaceVideo.replaceAudio')
                         : this._appLocalization.get('applications.content.entryDetails.flavours.replaceVideo.replaceVideo');
                 }
@@ -80,11 +80,11 @@ export class EntryFlavours implements AfterViewInit, OnInit, OnDestroy {
 
     public _updateShowActionsView(replacementData: ReplacementData): void {
         const processingFlavorsStatuses = [
-            KalturaFlavorAssetStatus.converting.toString(),
-            KalturaFlavorAssetStatus.waitForConvert.toString(),
-            KalturaFlavorAssetStatus.importing.toString(),
-            KalturaFlavorAssetStatus.validating.toString(),
-            KalturaFlavorAssetStatus.queued.toString()
+            KontorolFlavorAssetStatus.converting.toString(),
+            KontorolFlavorAssetStatus.waitForConvert.toString(),
+            KontorolFlavorAssetStatus.importing.toString(),
+            KontorolFlavorAssetStatus.validating.toString(),
+            KontorolFlavorAssetStatus.queued.toString()
         ];
         const flavors = this._widgetService.selectedFlavors || [];
         const processingFlavors = flavors.some(flavor => processingFlavorsStatuses.indexOf(flavor.status) !== -1);
@@ -99,12 +99,12 @@ export class EntryFlavours implements AfterViewInit, OnInit, OnDestroy {
         const hasReplacePermission = this._permissionsService.hasPermission(KMCPermissions.CONTENT_INGEST_INTO_READY);
         let showActionsView = true;
         switch (entry.status) {
-            case KalturaEntryStatus.noContent:
+            case KontorolEntryStatus.noContent:
                 showActionsView = this._permissionsService.hasPermission(KMCPermissions.CONTENT_INGEST_INTO_ORPHAN);
                 break;
-            case KalturaEntryStatus.ready:
-            case KalturaEntryStatus.errorConverting:
-            case KalturaEntryStatus.errorImporting:
+            case KontorolEntryStatus.ready:
+            case KontorolEntryStatus.errorConverting:
+            case KontorolEntryStatus.errorImporting:
                 showActionsView = noCurrentlyReplacing && hasReplacePermission;
                 break;
             default:
@@ -119,17 +119,17 @@ export class EntryFlavours implements AfterViewInit, OnInit, OnDestroy {
 		if (this.actionsMenu){
 			this._actions = [];
 			this._uploadFilter = this._setUploadFilter(this._widgetService.data);
-			if (this._widgetService.sourceAvailable && (flavor.id === '' || (flavor.id !== '' && flavor.status === KalturaFlavorAssetStatus.deleted.toString()))){
+			if (this._widgetService.sourceAvailable && (flavor.id === '' || (flavor.id !== '' && flavor.status === KontorolFlavorAssetStatus.deleted.toString()))){
 				this._actions.push({id: 'convert', label: this._appLocalization.get('applications.content.entryDetails.flavours.actions.convert'), command: (event) => {this.actionSelected("convert");}});
 			}
 			if ((flavor.isSource && this.isSourceReady(flavor)) || ( !flavor.isSource && flavor.id !== '' &&
-					(flavor.status === KalturaFlavorAssetStatus.exporting.toString() || flavor.status === KalturaFlavorAssetStatus.ready.toString() ))){
+					(flavor.status === KontorolFlavorAssetStatus.exporting.toString() || flavor.status === KontorolFlavorAssetStatus.ready.toString() ))){
 				this._actions.push({id: 'download', label: this._appLocalization.get('applications.content.entryDetails.flavours.actions.download'), command: (event) => {this.actionSelected("download");}});
 			}
-			if ((flavor.isSource && (this.isSourceReady(flavor) || flavor.status === KalturaFlavorAssetStatus.deleted.toString()))||
-					flavor.id === "" || (flavor.id !== "" && (flavor.status === KalturaFlavorAssetStatus.deleted.toString() ||
-					flavor.status === KalturaFlavorAssetStatus.error.toString() || flavor.status === KalturaFlavorAssetStatus.notApplicable.toString() ||
-					flavor.status === KalturaFlavorAssetStatus.exporting.toString() || flavor.status === KalturaFlavorAssetStatus.ready.toString()))
+			if ((flavor.isSource && (this.isSourceReady(flavor) || flavor.status === KontorolFlavorAssetStatus.deleted.toString()))||
+					flavor.id === "" || (flavor.id !== "" && (flavor.status === KontorolFlavorAssetStatus.deleted.toString() ||
+					flavor.status === KontorolFlavorAssetStatus.error.toString() || flavor.status === KontorolFlavorAssetStatus.notApplicable.toString() ||
+					flavor.status === KontorolFlavorAssetStatus.exporting.toString() || flavor.status === KontorolFlavorAssetStatus.ready.toString()))
 			){
 				this._actions.push({id: 'upload', label: this._appLocalization.get('applications.content.entryDetails.flavours.actions.upload'), command: (event) => {this.actionSelected("upload");}});
 				this._actions.push({id: 'import', label: this._appLocalization.get('applications.content.entryDetails.flavours.actions.import'), command: (event) => {this.actionSelected("import");}});
@@ -145,19 +145,19 @@ export class EntryFlavours implements AfterViewInit, OnInit, OnDestroy {
                 });
 			}
 			if ((flavor.isSource && this.isSourceReady(flavor) && flavor.isWeb) ||
-					(flavor.id !== "" && flavor.isWeb && (flavor.status === KalturaFlavorAssetStatus.exporting.toString() || flavor.status === KalturaFlavorAssetStatus.ready.toString()))){
+					(flavor.id !== "" && flavor.isWeb && (flavor.status === KontorolFlavorAssetStatus.exporting.toString() || flavor.status === KontorolFlavorAssetStatus.ready.toString()))){
 				this._actions.push({id: 'preview', label: this._appLocalization.get('applications.content.entryDetails.flavours.actions.preview'), command: (event) => {this.actionSelected("preview");}});
 			}
-			if (this._widgetService.sourceAvailable && !flavor.isSource && (flavor.status === KalturaFlavorAssetStatus.error.toString() || flavor.status === KalturaFlavorAssetStatus.exporting.toString() ||
-				flavor.status === KalturaFlavorAssetStatus.ready.toString() || flavor.status === KalturaFlavorAssetStatus.notApplicable.toString())){
+			if (this._widgetService.sourceAvailable && !flavor.isSource && (flavor.status === KontorolFlavorAssetStatus.error.toString() || flavor.status === KontorolFlavorAssetStatus.exporting.toString() ||
+				flavor.status === KontorolFlavorAssetStatus.ready.toString() || flavor.status === KontorolFlavorAssetStatus.notApplicable.toString())){
 				this._actions.push({id: 'reconvert', label: this._appLocalization.get('applications.content.entryDetails.flavours.actions.reconvert'), command: (event) => {this.actionSelected("reconvert");}});
 			}
-			if (flavor.isWidevine && flavor.status === KalturaFlavorAssetStatus.ready.toString()){
+			if (flavor.isWidevine && flavor.status === KontorolFlavorAssetStatus.ready.toString()){
 				this._actions.push({id: 'drm', label: this._appLocalization.get('applications.content.entryDetails.flavours.actions.drm'), command: (event) => {this.actionSelected("drm");}});
 			}
 
             if ((flavor.isSource && this.isSourceReady(flavor)) || ( !flavor.isSource && flavor.id !== '' &&
-                    (flavor.status === KalturaFlavorAssetStatus.exporting.toString() || flavor.status === KalturaFlavorAssetStatus.ready.toString() ))){
+                    (flavor.status === KontorolFlavorAssetStatus.exporting.toString() || flavor.status === KontorolFlavorAssetStatus.ready.toString() ))){
                 this._actions.push({id: 'delete', styleClass: 'kDanger', label: this._appLocalization.get('applications.content.entryDetails.flavours.actions.delete'), command: (event) => {this.actionSelected("delete");}});
             }
 
@@ -176,9 +176,9 @@ export class EntryFlavours implements AfterViewInit, OnInit, OnDestroy {
 	}
 
 	private isSourceReady(flavor: Flavor): boolean{
-		return (flavor.isSource && flavor.status !== KalturaFlavorAssetStatus.converting.toString() && flavor.status !== KalturaFlavorAssetStatus.waitForConvert.toString() &&
-			flavor.status !== KalturaFlavorAssetStatus.queued.toString() && flavor.status !== KalturaFlavorAssetStatus.importing.toString() &&
-			flavor.status !== KalturaFlavorAssetStatus.validating.toString());
+		return (flavor.isSource && flavor.status !== KontorolFlavorAssetStatus.converting.toString() && flavor.status !== KontorolFlavorAssetStatus.waitForConvert.toString() &&
+			flavor.status !== KontorolFlavorAssetStatus.queued.toString() && flavor.status !== KontorolFlavorAssetStatus.importing.toString() &&
+			flavor.status !== KontorolFlavorAssetStatus.validating.toString());
 	}
 
 	private actionSelected(action: string): void{
@@ -229,19 +229,19 @@ export class EntryFlavours implements AfterViewInit, OnInit, OnDestroy {
         }
     }
 
-	private _setUploadFilter(entry: KalturaMediaEntry): string{
+	private _setUploadFilter(entry: KontorolMediaEntry): string{
 		let filter = "";
-		if (entry.mediaType.toString() === KalturaMediaType.video.toString()){
+		if (entry.mediaType.toString() === KontorolMediaType.video.toString()){
 			filter = ".flv,.asf,.qt,.mov,.mpg,.avi,.wmv,.mp4,.3gp,.f4v,.m4v,.mpeg,.mxf,.rm,.rv,.rmvb,.ts,.ogg,.ogv,.vob,.webm,.mts,.arf,.mkv";
 		}
-		if (entry.mediaType.toString() === KalturaMediaType.audio.toString()){
+		if (entry.mediaType.toString() === KontorolMediaType.audio.toString()){
 			filter = ".flv,.asf,.qt,.mov,.mpg,.avi,.wmv,.mp3,.wav";
 		}
 		return filter;
 	}
 
   private _validateFileSize(file: File): boolean {
-    const maxFileSize = globalConfig.kalturaServer.maxUploadFileSize;
+    const maxFileSize = globalConfig.kontorolServer.maxUploadFileSize;
     const fileSize = file.size / 1024 / 1024; // convert to Mb
 
     return this._uploadManagement.supportChunkUpload(new NewEntryFlavourFile(null)) || fileSize < maxFileSize;

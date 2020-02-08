@@ -1,7 +1,7 @@
 import { Component, ElementRef, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { PermissionTreeNode } from '../roles-store/permission-tree-nodes';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { RolesStoreService } from '../roles-store/roles-store.service';
 
 export interface RolePermissionFormValue extends PermissionTreeNode {
@@ -16,7 +16,7 @@ export interface RolePermissionFormValue extends PermissionTreeNode {
   selector: 'kRolePermissionsTable',
   templateUrl: './permissions-table.component.html',
   styleUrls: ['./permissions-table.component.scss'],
-  providers: [KalturaLogger.createLogger('PermissionsTableComponent')]
+  providers: [KontorolLogger.createLogger('PermissionsTableComponent')]
 })
 export class PermissionsTableComponent implements OnInit {
   @Input() permissions: string[];
@@ -31,7 +31,7 @@ export class PermissionsTableComponent implements OnInit {
 
   constructor(private _permissionsService: KMCPermissionsService,
               private _rolesService: RolesStoreService,
-              private _logger: KalturaLogger) {
+              private _logger: KontorolLogger) {
   }
 
   ngOnInit() {

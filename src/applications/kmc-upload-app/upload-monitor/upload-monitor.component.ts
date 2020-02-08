@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { BulkUploadMonitorService } from './bulk-upload-monitor.service';
 import { NewUploadMonitorService } from './new-upload-monitor.service';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { DropFoldersMonitorService } from './drop-folders-monitor.service';
 import {
     ContentBulkUploadsMainViewService,

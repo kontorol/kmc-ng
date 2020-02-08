@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import { KMCPermissionsService } from '../../kmc-permissions';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { DetailsViewMetadata, KmcDetailsViewBaseService } from 'app-shared/kmc-shared/kmc-views/kmc-details-view-base.service';
 import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
-import { KalturaPlaylistType } from 'kaltura-ngx-client';
-import { KalturaPlaylist } from 'kaltura-ngx-client';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolPlaylistType } from 'kontorol-ngx-client';
+import { KontorolPlaylist } from 'kontorol-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { Title } from '@angular/platform-browser';
 import { ContextualHelpService } from 'app-shared/kmc-shared/contextual-help/contextual-help.service';
 
@@ -19,7 +19,7 @@ export enum ContentPlaylistViewSections {
 }
 
 export interface ContentPlaylistViewArgs {
-    playlist: KalturaPlaylist;
+    playlist: KontorolPlaylist;
     section: ContentPlaylistViewSections;
     activatedRoute?: ActivatedRoute;
 }
@@ -32,7 +32,7 @@ export class ContentPlaylistViewService extends KmcDetailsViewBaseService<Conten
                 private _appLocalization: AppLocalization,
                 private _router: Router,
                 _browserService: BrowserService,
-                _logger: KalturaLogger,
+                _logger: KontorolLogger,
                 _titleService: Title,
                 _contextualHelpService: ContextualHelpService) {
         super(_logger.subLogger('ContentPlaylistViewService'), _browserService, _titleService, _contextualHelpService);
@@ -55,7 +55,7 @@ export class ContentPlaylistViewService extends KmcDetailsViewBaseService<Conten
         return this._isSectionEnabled(section, args.playlist);
     }
 
-    private _getSectionFromActivatedRoute(activatedRoute: ActivatedRoute, playlist: KalturaPlaylist): ContentPlaylistViewSections {
+    private _getSectionFromActivatedRoute(activatedRoute: ActivatedRoute, playlist: KontorolPlaylist): ContentPlaylistViewSections {
         let result = null;
 
         if (activatedRoute) {
@@ -63,7 +63,7 @@ export class ContentPlaylistViewService extends KmcDetailsViewBaseService<Conten
                 const sectionToken = activatedRoute.snapshot.firstChild.url[0].path;
                 switch (sectionToken) {
                     case 'content':
-                        result = playlist.playlistType === KalturaPlaylistType.staticList
+                        result = playlist.playlistType === KontorolPlaylistType.staticList
                             ? ContentPlaylistViewSections.Content
                             : ContentPlaylistViewSections.ContentRuleBased;
                         break;
@@ -102,14 +102,14 @@ export class ContentPlaylistViewService extends KmcDetailsViewBaseService<Conten
         return result;
     }
 
-    private _isSectionEnabled(section: ContentPlaylistViewSections, playlist: KalturaPlaylist): boolean {
+    private _isSectionEnabled(section: ContentPlaylistViewSections, playlist: KontorolPlaylist): boolean {
         let result = false;
         switch (section) {
             case ContentPlaylistViewSections.Content:
-                result = playlist.playlistType === KalturaPlaylistType.staticList;
+                result = playlist.playlistType === KontorolPlaylistType.staticList;
                 break;
             case ContentPlaylistViewSections.ContentRuleBased:
-                result = playlist.playlistType === KalturaPlaylistType.dynamic;
+                result = playlist.playlistType === KontorolPlaylistType.dynamic;
                 break;
             case ContentPlaylistViewSections.Metadata:
                 // metadata section is always available to the user.

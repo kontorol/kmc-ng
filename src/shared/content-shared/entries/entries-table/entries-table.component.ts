@@ -8,10 +8,10 @@ import {
     OnInit,
     Output,
 } from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaExternalMediaSourceType, KalturaMediaType } from 'kaltura-ngx-client';
-import { KalturaEntryStatus } from 'kaltura-ngx-client';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolExternalMediaSourceType, KontorolMediaType } from 'kontorol-ngx-client';
+import { KontorolEntryStatus } from 'kontorol-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
 import { globalConfig } from 'config/global';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
 import { ColumnsResizeManagerService } from 'app-shared/kmc-shared/columns-resize-manager';
@@ -67,9 +67,9 @@ export class EntriesTableComponent implements AfterViewInit, OnInit {
   @Input() isTagsBarVisible = false;
 
   @Output() sortChanged = new EventEmitter<{ field: string, order: number }>();
-  @Output() actionSelected = new EventEmitter<{ action: string, entry: KalturaMediaEntry }>();
+  @Output() actionSelected = new EventEmitter<{ action: string, entry: KontorolMediaEntry }>();
   @Output() selectedEntriesChange = new EventEmitter<any>();
-  @Output() openActionsMenu = new EventEmitter<{ event: any, entry: KalturaMediaEntry }>();
+  @Output() openActionsMenu = new EventEmitter<{ event: any, entry: KontorolMediaEntry }>();
 
   private _deferredEntries: any[];
   private _defaultColumns: EntriesTableColumns = {
@@ -81,7 +81,7 @@ export class EntriesTableComponent implements AfterViewInit, OnInit {
   public _columns?: EntriesTableColumns = this._defaultColumns;
 
 
-  public _youtubeExternalSourceType = KalturaExternalMediaSourceType.youtube;
+  public _youtubeExternalSourceType = KontorolExternalMediaSourceType.youtube;
   public _entries: any[] = [];
   private _deferredLoading = true;
   public _emptyMessage = '';
@@ -122,7 +122,7 @@ export class EntriesTableComponent implements AfterViewInit, OnInit {
     this._columnsResizeManager.updateColumns(this._el.nativeElement);
   }
 
-  public _openActionsMenu(event: any, entry: KalturaMediaEntry): void {
+  public _openActionsMenu(event: any, entry: KontorolMediaEntry): void {
       this.openActionsMenu.emit({event, entry});
   }
 
@@ -130,17 +130,17 @@ export class EntriesTableComponent implements AfterViewInit, OnInit {
     return item.id;
   }
 
-  public _allowDrilldown(action: string, mediaType: KalturaMediaType, status: KalturaEntryStatus): boolean {
+  public _allowDrilldown(action: string, mediaType: KontorolMediaType, status: KontorolEntryStatus): boolean {
     if (action !== 'view') {
       return true;
     }
 
-    const isLiveStream = mediaType && mediaType === KalturaMediaType.liveStreamFlash;
-    const isReady = status !== KalturaEntryStatus.ready;
+    const isLiveStream = mediaType && mediaType === KontorolMediaType.liveStreamFlash;
+    const isReady = status !== KontorolEntryStatus.ready;
     return !(isLiveStream && isReady);
   }
 
-  public _onActionSelected(action: string, entry: KalturaMediaEntry): void {
+  public _onActionSelected(action: string, entry: KontorolMediaEntry): void {
     const actionAllowed = this._allowDrilldown(action, entry.mediaType, entry.status);
     if (actionAllowed) {
       this.actionSelected.emit({ action, entry });

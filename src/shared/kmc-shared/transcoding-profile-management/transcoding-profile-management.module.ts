@@ -1,10 +1,10 @@
 import { ModuleWithProviders, NgModule } from '@angular/core';
-import { KalturaClientModule } from 'kaltura-ngx-client';
+import { KontorolClientModule } from 'kontorol-ngx-client';
 import { TranscodingProfileManagement } from './transcoding-profile-management.service';
 
 @NgModule({
   imports: <any[]>[
-    KalturaClientModule,
+    KontorolClientModule,
   ],
   declarations: <any[]>[],
   exports: <any[]>[],

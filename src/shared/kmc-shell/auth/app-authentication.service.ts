@@ -2,34 +2,34 @@ import { Injectable } from '@angular/core';
 import { Location } from '@angular/common';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/map';
-import { KalturaAuthentication, KalturaClient, KalturaMultiRequest, KalturaRequestOptions, SsoLoginAction } from 'kaltura-ngx-client';
-import { UserLoginByLoginIdAction } from 'kaltura-ngx-client';
-import { UserGetByLoginIdAction } from 'kaltura-ngx-client';
-import { UserGetAction } from 'kaltura-ngx-client';
-import { PartnerGetInfoAction } from 'kaltura-ngx-client';
-import { PermissionListAction } from 'kaltura-ngx-client';
-import { KalturaResponseProfileType } from 'kaltura-ngx-client';
-import { KalturaDetachedResponseProfile } from 'kaltura-ngx-client';
-import { KalturaPermissionFilter } from 'kaltura-ngx-client';
-import { KalturaPermissionListResponse } from 'kaltura-ngx-client';
-import { KalturaUserRole } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
-import { KalturaPermissionStatus } from 'kaltura-ngx-client';
-import { UserRoleGetAction } from 'kaltura-ngx-client';
+import { KontorolAuthentication, KontorolClient, KontorolMultiRequest, KontorolRequestOptions, SsoLoginAction } from 'kontorol-ngx-client';
+import { UserLoginByLoginIdAction } from 'kontorol-ngx-client';
+import { UserGetByLoginIdAction } from 'kontorol-ngx-client';
+import { UserGetAction } from 'kontorol-ngx-client';
+import { PartnerGetInfoAction } from 'kontorol-ngx-client';
+import { PermissionListAction } from 'kontorol-ngx-client';
+import { KontorolResponseProfileType } from 'kontorol-ngx-client';
+import { KontorolDetachedResponseProfile } from 'kontorol-ngx-client';
+import { KontorolPermissionFilter } from 'kontorol-ngx-client';
+import { KontorolPermissionListResponse } from 'kontorol-ngx-client';
+import { KontorolUserRole } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
+import { KontorolPermissionStatus } from 'kontorol-ngx-client';
+import { UserRoleGetAction } from 'kontorol-ngx-client';
 import * as Immutable from 'seamless-immutable';
 import { AppUser } from './app-user';
-import { UserResetPasswordAction } from 'kaltura-ngx-client';
-import { AdminUserUpdatePasswordAction } from 'kaltura-ngx-client';
+import { UserResetPasswordAction } from 'kontorol-ngx-client';
+import { AdminUserUpdatePasswordAction } from 'kontorol-ngx-client';
 import { PageExitVerificationService } from 'app-shared/kmc-shell/page-exit-verification/page-exit-verification.service';
 import { UserLoginStatusEvent } from 'app-shared/kmc-shared/events';
-import { KalturaPartner } from 'kaltura-ngx-client';
-import { KalturaUser } from 'kaltura-ngx-client';
+import { KontorolPartner } from 'kontorol-ngx-client';
+import { KontorolUser } from 'kontorol-ngx-client';
 import { AppEventsService } from 'app-shared/kmc-shared/app-events';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { serverConfig } from 'config/server';
 import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
-import { UserLoginByKsAction } from 'kaltura-ngx-client';
+import { UserLoginByKsAction } from 'kontorol-ngx-client';
 import { KmcServerPolls } from '../../kmc-shared/server-polls';
 import { HttpClient } from '@angular/common/http';
 import { buildBaseUri } from 'config/server';
@@ -39,7 +39,7 @@ import { kmcAppConfig } from '../../../kmc-app/kmc-app-config';
 
 
 const ksSessionStorageKey = 'auth.login.ks';
-import { AdminUserSetInitialPasswordAction } from 'kaltura-ngx-client';
+import { AdminUserSetInitialPasswordAction } from 'kontorol-ngx-client';
 import { RestorePasswordViewService } from 'app-shared/kmc-shared/kmc-views/details-views/restore-password-view.service';
 import { switchMap, map } from 'rxjs/operators';
 import { of as ObservableOf } from 'rxjs';
@@ -84,7 +84,7 @@ export class AppAuthentication {
 
     private _defaultUrl: string;
     private _automaticLogin: {  ks: string, persistCredentials: boolean } = { ks: null, persistCredentials: false };
-    private _logger: KalturaLogger;
+    private _logger: KontorolLogger;
     private _appUser: Immutable.ImmutableObject<AppUser> = null;
     private _autoLoginAttempted = false;
 
@@ -92,10 +92,10 @@ export class AppAuthentication {
         return this._defaultUrl;
     }
 
-    constructor(private kalturaServerClient: KalturaClient,
+    constructor(private kontorolServerClient: KontorolClient,
                 private _browserService: BrowserService,
                 private _pageExitVerificationService: PageExitVerificationService,
-                logger: KalturaLogger,
+                logger: KontorolLogger,
                 private _serverPolls: KmcServerPolls,
                 private _permissionsService: KMCPermissionsService,
                 private _http: HttpClient,
@@ -154,12 +154,12 @@ export class AppAuthentication {
     }
 
     validateResetPasswordHash(hash: string): Observable<string> {
-        if (!serverConfig.kalturaServer.resetPasswordUri) {
+        if (!serverConfig.kontorolServer.resetPasswordUri) {
             this._logger.warn(`resetPasswordUri was not provided by configuration, abort request`);
             return Observable.of('RESET_URI_NOT_DEFINED');
         }
 
-        const url = serverConfig.kalturaServer.resetPasswordUri.replace('{hash}', hash);
+        const url = serverConfig.kontorolServer.resetPasswordUri.replace('{hash}', hash);
 
         this._logger.debug(`check if provided hash is valid`, { hash, url });
 
@@ -173,29 +173,29 @@ export class AppAuthentication {
 
     resetPassword(email: string): Observable<void> {
         if (!this.isLogged()) {
-            return this.kalturaServerClient.request(new UserResetPasswordAction({email}));
+            return this.kontorolServerClient.request(new UserResetPasswordAction({email}));
         } else {
             return Observable.throw(new Error('cannot reset password, user is logged'));
         }
     }
 
     updatePassword(payload: UpdatePasswordPayload): Observable<{ email: string, password: string }> {
-        return this.kalturaServerClient.request(new AdminUserUpdatePasswordAction(payload))
+        return this.kontorolServerClient.request(new AdminUserUpdatePasswordAction(payload))
             .catch(error => Observable.throw(this._getLoginErrorMessage({error})));
     }
 
-    setInitalPassword(payload: { newPassword: string, hashKey: string }): Observable<KalturaAuthentication> {
-        return this.kalturaServerClient.request(new AdminUserSetInitialPasswordAction(payload))
+    setInitalPassword(payload: { newPassword: string, hashKey: string }): Observable<KontorolAuthentication> {
+        return this.kontorolServerClient.request(new AdminUserSetInitialPasswordAction(payload))
             .catch(error => Observable.throw(this._getLoginErrorMessage({error})));
     }
 
     login(loginId: string, password: string, otp: string): Observable<LoginResponse> {
 
-        const expiry = kmcAppConfig.kalturaServer.expiry;
-        let privileges = kmcAppConfig.kalturaServer.privileges || '';
+        const expiry = kmcAppConfig.kontorolServer.expiry;
+        let privileges = kmcAppConfig.kontorolServer.privileges || '';
 
-        if (serverConfig.kalturaServer.defaultPrivileges) {
-            privileges += `${privileges ? ',' : ''}${serverConfig.kalturaServer.defaultPrivileges}`;
+        if (serverConfig.kontorolServer.defaultPrivileges) {
+            privileges += `${privileges ? ',' : ''}${serverConfig.kontorolServer.defaultPrivileges}`;
         }
 
         this._automaticLoginErrorReason = null;
@@ -203,7 +203,7 @@ export class AppAuthentication {
 
         const requestedPartnerId = this._browserService.getFromLocalStorage('loginPartnerId');
 
-        const request = new KalturaMultiRequest(
+        const request = new KontorolMultiRequest(
             new UserLoginByLoginIdAction(
                 {
                     loginId,
@@ -215,33 +215,33 @@ export class AppAuthentication {
                 }),
             new UserGetByLoginIdAction({loginId})
                 .setRequestOptions(
-                    new KalturaRequestOptions({})
+                    new KontorolRequestOptions({})
                         .setDependency(['ks', 0])
                 ),
             new PartnerGetInfoAction({}).setRequestOptions(
-                new KalturaRequestOptions({})
+                new KontorolRequestOptions({})
                     .setDependency(['ks', 0])
                     .setDependency(['id', 1, 'partnerId'])
             ),
             new UserRoleGetAction({userRoleId: 0})
                 .setRequestOptions(
-                    new KalturaRequestOptions({})
+                    new KontorolRequestOptions({})
                         .setDependency(['ks', 0])
                 )
                 .setDependency(['userRoleId', 1, 'roleIds']),
             new PermissionListAction({
-                filter: new KalturaPermissionFilter({
-                    statusEqual: KalturaPermissionStatus.active,
+                filter: new KontorolPermissionFilter({
+                    statusEqual: KontorolPermissionStatus.active,
                     typeIn: '2,3'
                 }),
-                pager: new KalturaFilterPager({
+                pager: new KontorolFilterPager({
                     pageSize: 500
                 })
             })
                 .setRequestOptions(
-                    new KalturaRequestOptions({
-                        responseProfile: new KalturaDetachedResponseProfile({
-                            type: KalturaResponseProfileType.includeFields,
+                    new KontorolRequestOptions({
+                        responseProfile: new KontorolDetachedResponseProfile({
+                            type: KontorolResponseProfileType.includeFields,
                             fields: 'name'
                         })
                     })
@@ -249,7 +249,7 @@ export class AppAuthentication {
                 )
         );
 
-        return <any>(this.kalturaServerClient.multiRequest(request)
+        return <any>(this.kontorolServerClient.multiRequest(request)
                 .pipe(
                     switchMap(response => {
                         if (!response.hasErrors()) {
@@ -284,11 +284,11 @@ export class AppAuthentication {
         );
     }
 
-    private _checkIfPartnerCanAccess(partner: KalturaPartner): Observable<boolean> {
-        if (!serverConfig.kalturaServer.limitAccess){
+    private _checkIfPartnerCanAccess(partner: KontorolPartner): Observable<boolean> {
+        if (!serverConfig.kontorolServer.limitAccess){
             return Observable.of(true);
         }
-        const serviceUrl = serverConfig.kalturaServer.limitAccess.serviceUrl;
+        const serviceUrl = serverConfig.kontorolServer.limitAccess.serviceUrl;
 
         const url = buildBaseUri(serviceUrl + partner.id);
         this._logger.debug(`check if partner can access the KMC`, {partnerId: partner.id, limitAccess: true, url});
@@ -310,7 +310,7 @@ export class AppAuthentication {
             });
     }
 
-    private _afterLogin(ks: string, storeCredentialsInSessionStorage: boolean, user: KalturaUser, partner: KalturaPartner, userRole: KalturaUserRole, permissionList: KalturaPermissionListResponse): void {
+    private _afterLogin(ks: string, storeCredentialsInSessionStorage: boolean, user: KontorolUser, partner: KontorolPartner, userRole: KontorolUserRole, permissionList: KontorolPermissionListResponse): void {
 
         if (storeCredentialsInSessionStorage) {
             this._browserService.setInSessionStorage(ksSessionStorageKey, ks);  // save ks in session storage
@@ -344,7 +344,7 @@ export class AppAuthentication {
         });
 
         this._kmcViewsManager.rebuildMenu();
-        this.kalturaServerClient.setDefaultRequestOptions({
+        this.kontorolServerClient.setDefaultRequestOptions({
             ks: appUser.ks
         });
         window['kmcng'] = {ks};
@@ -391,24 +391,24 @@ export class AppAuthentication {
                             })
                             .setDependency(['userRoleId', 0, 'roleIds']),
                         new PermissionListAction({
-                            filter: new KalturaPermissionFilter({
-                                statusEqual: KalturaPermissionStatus.active,
+                            filter: new KontorolPermissionFilter({
+                                statusEqual: KontorolPermissionStatus.active,
                                 typeIn: '2,3'
                             }),
-                            pager: new KalturaFilterPager({
+                            pager: new KontorolFilterPager({
                                 pageSize: 500
                             })
                         })
                             .setRequestOptions({
                                 ks: loginToken,
-                                responseProfile: new KalturaDetachedResponseProfile({
-                                    type: KalturaResponseProfileType.includeFields,
+                                responseProfile: new KontorolDetachedResponseProfile({
+                                    type: KontorolResponseProfileType.includeFields,
                                     fields: 'name'
                                 })
                             })
                     ];
 
-                    this.kalturaServerClient.multiRequest(requests)
+                    this.kontorolServerClient.multiRequest(requests)
                         .pipe(
                             switchMap(
                                 response => {
@@ -514,7 +514,7 @@ export class AppAuthentication {
 
     public switchPartnerId(partnerId: number): Observable<void> {
         return Observable.create((observer: any) => {
-            return this.kalturaServerClient.request(new UserLoginByKsAction({requestedPartnerId: partnerId}))
+            return this.kontorolServerClient.request(new UserLoginByKsAction({requestedPartnerId: partnerId}))
                 .subscribe(
                     result => {
                         this._logger.info(`switch partner account`, { partnerId });
@@ -551,7 +551,7 @@ export class AppAuthentication {
 
     private _logout(reloadPage = true) {
         this._logger.info(`log out user from the application`, { forceReload: reloadPage });
-        this.kalturaServerClient.setDefaultRequestOptions({});
+        this.kontorolServerClient.setDefaultRequestOptions({});
         this._permissionsService.flushPermissions();
         delete window['kmcng'];
         this._appUser = null;
@@ -577,7 +577,7 @@ export class AppAuthentication {
     public _ssoLogin(userId: string): Observable<{}>{
         const applicationType = 'kmc';
         const requestedPartnerId = this._browserService.getFromLocalStorage('loginPartnerId');
-        return this.kalturaServerClient.request(new SsoLoginAction({
+        return this.kontorolServerClient.request(new SsoLoginAction({
             userId,
             applicationType,
             partnerId: requestedPartnerId ? requestedPartnerId : null

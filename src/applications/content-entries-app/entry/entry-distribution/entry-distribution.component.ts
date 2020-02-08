@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { EntryDistributionWidget, ExtendedKalturaEntryDistribution } from './entry-distribution-widget.service';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
-import { KalturaDistributionProfile } from 'kaltura-ngx-client';
+import { EntryDistributionWidget, ExtendedKontorolEntryDistribution } from './entry-distribution-widget.service';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
+import { KontorolDistributionProfile } from 'kontorol-ngx-client';
 
 
 @Component({
@@ -14,8 +14,8 @@ export class EntryDistributionComponent implements OnInit, OnDestroy {
 
   public _loading = false;
   public _loadingError = null;
-  public _selectedDistributedProfile: ExtendedKalturaEntryDistribution;
-  public _selectedUndistributedProfile: KalturaDistributionProfile;
+  public _selectedDistributedProfile: ExtendedKontorolEntryDistribution;
+  public _selectedUndistributedProfile: KontorolDistributionProfile;
 
   constructor(public _widgetService: EntryDistributionWidget) {
   }
@@ -29,7 +29,7 @@ export class EntryDistributionComponent implements OnInit, OnDestroy {
     this._widgetService.detachForm();
   }
 
-  private _openDistributedProfile(profile: ExtendedKalturaEntryDistribution): void {
+  private _openDistributedProfile(profile: ExtendedKontorolEntryDistribution): void {
     this._selectedDistributedProfile = profile;
     this._selectedUndistributedProfile = this._widgetService.getPartnerProfileById(profile.distributionProfileId);
     this._editProfilePopup.open();
@@ -41,13 +41,13 @@ export class EntryDistributionComponent implements OnInit, OnDestroy {
     });
   }
 
-  private _updateSelectedProfile(profile: ExtendedKalturaEntryDistribution): void {
+  private _updateSelectedProfile(profile: ExtendedKontorolEntryDistribution): void {
     this._widgetService.updateProfile(profile, () => {
       this._editProfilePopup.close();
     });
   }
 
-  public _openUndistributedProfile(profile: KalturaDistributionProfile): void {
+  public _openUndistributedProfile(profile: KontorolDistributionProfile): void {
     this._selectedUndistributedProfile = profile;
     this._selectedDistributedProfile = null;
     this._editProfilePopup.open();

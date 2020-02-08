@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { KalturaClient } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
 
 @Injectable()
 export class SettingsTranscodingSettingsService {
 
-  constructor(private _kalturaServerClient: KalturaClient) {
+  constructor(private _kontorolServerClient: KontorolClient) {
   }
 }

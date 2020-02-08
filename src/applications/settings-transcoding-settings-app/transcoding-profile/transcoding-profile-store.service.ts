@@ -1,38 +1,38 @@
 import { Host, Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, NavigationStart, Router } from '@angular/router';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 import { ISubscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs';
-import { KalturaClient, KalturaMultiRequest, KalturaObjectBaseFactory } from 'kaltura-ngx-client';
+import { KontorolClient, KontorolMultiRequest, KontorolObjectBaseFactory } from 'kontorol-ngx-client';
 import { TranscodingProfileWidgetsManager } from './transcoding-profile-widgets-manager';
 import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
 import { PageExitVerificationService } from 'app-shared/kmc-shell/page-exit-verification';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { KalturaConversionProfileFilter } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
-import { KalturaConversionProfileAssetParamsFilter } from 'kaltura-ngx-client';
-import { ConversionProfileAssetParamsListAction } from 'kaltura-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { KontorolConversionProfileFilter } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
+import { KontorolConversionProfileAssetParamsFilter } from 'kontorol-ngx-client';
+import { ConversionProfileAssetParamsListAction } from 'kontorol-ngx-client';
 import {
   BaseTranscodingProfilesStore,
-  KalturaConversionProfileWithAsset
+  KontorolConversionProfileWithAsset
 } from '../transcoding-profiles/transcoding-profiles-store/base-transcoding-profiles-store.service';
-import { ConversionProfileGetAction } from 'kaltura-ngx-client';
-import { KalturaConversionProfile } from 'kaltura-ngx-client';
+import { ConversionProfileGetAction } from 'kontorol-ngx-client';
+import { KontorolConversionProfile } from 'kontorol-ngx-client';
 import { TranscodingProfileCreationService } from 'app-shared/kmc-shared/events/transcoding-profile-creation';
-import { OnDataSavingReasons } from '@kaltura-ng/kaltura-ui';
-import { ConversionProfileAddAction } from 'kaltura-ngx-client';
-import { ConversionProfileUpdateAction } from 'kaltura-ngx-client';
+import { OnDataSavingReasons } from '@kontorol-ng/kontorol-ui';
+import { ConversionProfileAddAction } from 'kontorol-ngx-client';
+import { ConversionProfileUpdateAction } from 'kontorol-ngx-client';
 import { MediaTranscodingProfilesStore } from '../transcoding-profiles/transcoding-profiles-store/media-transcoding-profiles-store.service';
 import { LiveTranscodingProfilesStore } from '../transcoding-profiles/transcoding-profiles-store/live-transcoding-profiles-store.service';
-import { KalturaConversionProfileType } from 'kaltura-ngx-client';
+import { KontorolConversionProfileType } from 'kontorol-ngx-client';
 import {
     SettingsTranscodingProfileViewSections,
     SettingsTranscodingProfileViewService
 } from 'app-shared/kmc-shared/kmc-views/details-views';
 import { SettingsTranscodingMainViewService } from 'app-shared/kmc-shared/kmc-views/main-views/settings-transcoding-main-view.service';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { TranscodingProfilesUpdatedEvent } from 'app-shared/kmc-shared/events';
 import { AppEventsService } from 'app-shared/kmc-shared';
 
@@ -63,7 +63,7 @@ export class TranscodingProfileStore implements OnDestroy {
   private _pageExitVerificationToken: string;
   private _saveProfileInvoked = false;
   private _profile = {
-    data: new BehaviorSubject<KalturaConversionProfileWithAsset>(null),
+    data: new BehaviorSubject<KontorolConversionProfileWithAsset>(null),
     state: new BehaviorSubject<StatusArgs>({ action: ActionTypes.ProfileLoading, error: null })
   };
   private _profileId: string;
@@ -84,7 +84,7 @@ export class TranscodingProfileStore implements OnDestroy {
   };
 
   constructor(@Host() private _widgetsManager: TranscodingProfileWidgetsManager,
-              private _kalturaServerClient: KalturaClient,
+              private _kontorolServerClient: KontorolClient,
               private _router: Router,
               private _appEvents: AppEventsService,
               private _browserService: BrowserService,
@@ -96,7 +96,7 @@ export class TranscodingProfileStore implements OnDestroy {
               private _liveTranscodingProfilesStore: LiveTranscodingProfilesStore,
               private _settingsTranscodingProfileViewService: SettingsTranscodingProfileViewService,
               private _settingsTranscodingMainViewService: SettingsTranscodingMainViewService,
-              private _logger: KalturaLogger) {
+              private _logger: KontorolLogger) {
 
 
     this._widgetsManager.profileStore = this;
@@ -153,13 +153,13 @@ export class TranscodingProfileStore implements OnDestroy {
     }
   }
 
-  private _setProfilesStoreServiceByType(serviceType: KalturaConversionProfileType): void {
-    if (serviceType === KalturaConversionProfileType.media) {
+  private _setProfilesStoreServiceByType(serviceType: KontorolConversionProfileType): void {
+    if (serviceType === KontorolConversionProfileType.media) {
       this._profilesStore = this._mediaTranscodingProfilesStore;
-    } else if (serviceType === KalturaConversionProfileType.liveStream) {
+    } else if (serviceType === KontorolConversionProfileType.liveStream) {
       this._profilesStore = this._liveTranscodingProfilesStore;
     } else {
-      throw Error('Incorrect serviceType provided. It can be either KalturaConversionProfileType.media or KalturaConversionProfileType.liveStream type');
+      throw Error('Incorrect serviceType provided. It can be either KontorolConversionProfileType.media or KontorolConversionProfileType.liveStream type');
     }
   }
 
@@ -213,7 +213,7 @@ export class TranscodingProfileStore implements OnDestroy {
       );
   }
 
-  private _checkFlavors(newProfile: KalturaConversionProfileWithAsset): Observable<{ proceedSave: boolean }> {
+  private _checkFlavors(newProfile: KontorolConversionProfileWithAsset): Observable<{ proceedSave: boolean }> {
     if (newProfile.flavorParamsIds && newProfile.flavorParamsIds.trim().length) {
       return Observable.of({ proceedSave: true });
     }
@@ -233,14 +233,14 @@ export class TranscodingProfileStore implements OnDestroy {
     });
   }
 
-  private _transmitSaveRequest(newProfile: KalturaConversionProfileWithAsset): void {
+  private _transmitSaveRequest(newProfile: KontorolConversionProfileWithAsset): void {
     this._profile.state.next({ action: ActionTypes.ProfileSaving });
 
     const id = this.profileId;
     const action = id === 'new'
       ? new ConversionProfileAddAction({ conversionProfile: newProfile })
       : new ConversionProfileUpdateAction({ id: Number(id), conversionProfile: newProfile });
-    const request = new KalturaMultiRequest(action);
+    const request = new KontorolMultiRequest(action);
 
     this._widgetsManager.notifyDataSaving(newProfile, request, this.profile.data())
       .pipe(cancelOnDestroy(this))
@@ -253,7 +253,7 @@ export class TranscodingProfileStore implements OnDestroy {
                 return Observable.empty();
               }
 
-              return this._kalturaServerClient.multiRequest(request)
+              return this._kontorolServerClient.multiRequest(request)
                 .pipe(tag('block-shell'))
                 .map(multiResponse => {
                   if (multiResponse.hasErrors()) {
@@ -310,8 +310,8 @@ export class TranscodingProfileStore implements OnDestroy {
 
   public saveProfile(): void {
       const profile = this.profile.data();
-      const newProfile = <KalturaConversionProfileWithAsset>KalturaObjectBaseFactory.createObject(profile);
-      if (newProfile && newProfile instanceof KalturaConversionProfile) {
+      const newProfile = <KontorolConversionProfileWithAsset>KontorolObjectBaseFactory.createObject(profile);
+      if (newProfile && newProfile instanceof KontorolConversionProfile) {
           if (this.profileId === 'new') {
               newProfile.type = profile.type;
           }
@@ -381,20 +381,20 @@ export class TranscodingProfileStore implements OnDestroy {
      this._settingsTranscodingProfileViewService.open({ section: sectionKey, profile: this.profile.data() });
   }
 
-  private _getProfile(profileId: string): Observable<KalturaConversionProfileWithAsset> {
+  private _getProfile(profileId: string): Observable<KontorolConversionProfileWithAsset> {
     if (profileId) {
       const id = Number(profileId);
       const conversionProfileAction = new ConversionProfileGetAction({ id });
       const conversionProfileAssetParamsAction = new ConversionProfileAssetParamsListAction({
-        filter: new KalturaConversionProfileAssetParamsFilter({
-          conversionProfileIdFilter: new KalturaConversionProfileFilter({ idEqual: id })
+        filter: new KontorolConversionProfileAssetParamsFilter({
+          conversionProfileIdFilter: new KontorolConversionProfileFilter({ idEqual: id })
         }),
-        pager: new KalturaFilterPager({ pageSize: 1000 })
+        pager: new KontorolFilterPager({ pageSize: 1000 })
       });
 
       // build the request
-      return this._kalturaServerClient
-        .multiRequest(new KalturaMultiRequest(conversionProfileAction, conversionProfileAssetParamsAction))
+      return this._kontorolServerClient
+        .multiRequest(new KontorolMultiRequest(conversionProfileAction, conversionProfileAssetParamsAction))
         .map(([profilesResponse, assetsResponse]) => {
           if (profilesResponse.error) {
             throw Error(profilesResponse.error.message);
@@ -415,7 +415,7 @@ export class TranscodingProfileStore implements OnDestroy {
     }
   }
 
-  public openProfile(profile: KalturaConversionProfileWithAsset): void {
+  public openProfile(profile: KontorolConversionProfileWithAsset): void {
     this.canLeave()
         .filter(({ allowed }) => allowed)
         .pipe(cancelOnDestroy(this))

@@ -1,44 +1,44 @@
 import { AfterViewInit, Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 import { SelectItem } from 'primeng/primeng';
-import { UploadManagement } from '@kaltura-ng/kaltura-common';
-import { KalturaMediaType } from 'kaltura-ngx-client';
+import { UploadManagement } from '@kontorol-ng/kontorol-common';
+import { KontorolMediaType } from 'kontorol-ngx-client';
 import { NewEntryUploadFile } from 'app-shared/kmc-shell';
-import { AreaBlockerMessage, FileDialogComponent } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerMessage, FileDialogComponent } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { TranscodingProfileManagement } from 'app-shared/kmc-shared/transcoding-profile-management';
 import { globalConfig } from 'config/global';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
 import { Flavor } from '../../flavor';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaEntryStatus } from 'kaltura-ngx-client';
-import { KalturaClient } from 'kaltura-ngx-client';
-import { ConversionProfileAssetParamsListAction } from 'kaltura-ngx-client';
-import { KalturaConversionProfileAssetParamsFilter } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
-import { KalturaConversionProfileFilter } from 'kaltura-ngx-client';
-import { KalturaConversionProfileOrderBy } from 'kaltura-ngx-client';
-import { KalturaConversionProfileType } from 'kaltura-ngx-client';
-import { KalturaConversionProfile } from 'kaltura-ngx-client';
-import { KalturaConversionProfileAssetParams } from 'kaltura-ngx-client';
-import { KalturaAssetParamsOrigin } from 'kaltura-ngx-client';
+import { KontorolEntryStatus } from 'kontorol-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { ConversionProfileAssetParamsListAction } from 'kontorol-ngx-client';
+import { KontorolConversionProfileAssetParamsFilter } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
+import { KontorolConversionProfileFilter } from 'kontorol-ngx-client';
+import { KontorolConversionProfileOrderBy } from 'kontorol-ngx-client';
+import { KontorolConversionProfileType } from 'kontorol-ngx-client';
+import { KontorolConversionProfile } from 'kontorol-ngx-client';
+import { KontorolConversionProfileAssetParams } from 'kontorol-ngx-client';
+import { KontorolAssetParamsOrigin } from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
-import { KalturaFlavorReadyBehaviorType } from 'kaltura-ngx-client';
-import { urlRegex } from '@kaltura-ng/kaltura-ui';
+import { KontorolFlavorReadyBehaviorType } from 'kontorol-ngx-client';
+import { urlRegex } from '@kontorol-ng/kontorol-ui';
 import { NewReplaceVideoUploadService } from 'app-shared/kmc-shell/new-replace-video-upload';
 import { EntryFlavoursWidget } from '../../entry-flavours-widget.service';
 import { UploadMenuType } from '../replace-media-button/replace-media-button.component';
-import { StorageProfileListAction } from 'kaltura-ngx-client';
-import { KalturaStorageProfile } from 'kaltura-ngx-client';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { StorageProfileListAction } from 'kontorol-ngx-client';
+import { KontorolStorageProfile } from 'kontorol-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { Observer } from 'rxjs/Observer';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { switchMap, map } from 'rxjs/operators';
 import { of as ObservableOf} from 'rxjs';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
-export interface KalturaTranscodingProfileWithAsset extends Partial<KalturaConversionProfile> {
-    assets: KalturaConversionProfileAssetParams[];
+export interface KontorolTranscodingProfileWithAsset extends Partial<KontorolConversionProfile> {
+    assets: KontorolConversionProfileAssetParams[];
 }
 
 export interface UploadReplacementFile {
@@ -55,18 +55,18 @@ export interface UploadReplacementFile {
     selector: 'kFlavorReplaceFile',
     templateUrl: './replace-file.component.html',
     styleUrls: ['./replace-file.component.scss'],
-    providers: [KalturaLogger.createLogger('ReplaceFileComponent')]
+    providers: [KontorolLogger.createLogger('ReplaceFileComponent')]
 })
 export class ReplaceFileComponent implements OnInit, AfterViewInit, OnDestroy {
     @Input() parentPopupWidget: PopupWidgetComponent;
-    @Input() entry: KalturaMediaEntry;
+    @Input() entry: KontorolMediaEntry;
     @Input() flavors: Flavor[] = [];
     @Input() replaceType: UploadMenuType;
 
     @ViewChild('fileDialog') _fileDialog: FileDialogComponent;
 
-    private _storageProfiles: KalturaStorageProfile[] = [];
-    private _transcodingProfiles: KalturaTranscodingProfileWithAsset[] = [];
+    private _storageProfiles: KontorolStorageProfile[] = [];
+    private _transcodingProfiles: KontorolTranscodingProfileWithAsset[] = [];
     private _replacementResultHandler: Observer<void> = {
         next: () => {
             this._logger.info(`handle successful replace files action, reload widget data`);
@@ -120,12 +120,12 @@ export class ReplaceFileComponent implements OnInit, AfterViewInit, OnDestroy {
 
     constructor(private _newReplaceVideoUpload: NewReplaceVideoUploadService,
                 private _formBuilder: FormBuilder,
-                private _kalturaClient: KalturaClient,
+                private _kontorolClient: KontorolClient,
                 private _widgetService: EntryFlavoursWidget,
                 private _transcodingProfileManagement: TranscodingProfileManagement,
                 private _uploadManagement: UploadManagement,
                 private _permissionsService: KMCPermissionsService,
-                private _logger: KalturaLogger,
+                private _logger: KontorolLogger,
                 private _appLocalization: AppLocalization) {
         this._buildForm();
     }
@@ -153,14 +153,14 @@ export class ReplaceFileComponent implements OnInit, AfterViewInit, OnDestroy {
 
     private _prepare(): void {
         this._logger.info(`prepare replace file view`, { type: this.replaceType, entryId: this.entry.id, mediaType: this.entry.mediaType });
-        if (this.entry.mediaType === KalturaMediaType.video) {
+        if (this.entry.mediaType === KontorolMediaType.video) {
             this._allowedExtensions = this._allowedVideoExtensions;
-            this._title = this.entry.status === KalturaEntryStatus.noContent
+            this._title = this.entry.status === KontorolEntryStatus.noContent
                 ? this._appLocalization.get('applications.content.entryDetails.flavours.replaceVideo.addVideo')
                 : this._appLocalization.get('applications.content.entryDetails.flavours.replaceVideo.updateVideo');
-        } else if (this.entry.mediaType === KalturaMediaType.audio) {
+        } else if (this.entry.mediaType === KontorolMediaType.audio) {
             this._allowedExtensions = this._allowedAudioExtensions;
-            this._title = this.entry.status === KalturaEntryStatus.noContent
+            this._title = this.entry.status === KontorolEntryStatus.noContent
                 ? this._appLocalization.get('applications.content.entryDetails.flavours.replaceVideo.addAudio')
                 : this._appLocalization.get('applications.content.entryDetails.flavours.replaceVideo.updateAudio');
         }
@@ -196,17 +196,17 @@ export class ReplaceFileComponent implements OnInit, AfterViewInit, OnDestroy {
         this._files = [...this._files, ...newItems];
     }
 
-    private _loadConversionProfiles(): Observable<KalturaConversionProfileAssetParams[]> {
-        const filter = new KalturaConversionProfileFilter({
-            orderBy: KalturaConversionProfileOrderBy.createdAtDesc.toString(),
-            typeEqual: KalturaConversionProfileType.media
+    private _loadConversionProfiles(): Observable<KontorolConversionProfileAssetParams[]> {
+        const filter = new KontorolConversionProfileFilter({
+            orderBy: KontorolConversionProfileOrderBy.createdAtDesc.toString(),
+            typeEqual: KontorolConversionProfileType.media
         });
 
         // build the request
-        return this._kalturaClient
+        return this._kontorolClient
             .request(new ConversionProfileAssetParamsListAction({
-                filter: new KalturaConversionProfileAssetParamsFilter({ conversionProfileIdFilter: filter }),
-                pager: new KalturaFilterPager({ pageSize: 1000 })
+                filter: new KontorolConversionProfileAssetParamsFilter({ conversionProfileIdFilter: filter }),
+                pager: new KontorolFilterPager({ pageSize: 1000 })
             })).map(res => res.objects);
     }
 
@@ -225,7 +225,7 @@ export class ReplaceFileComponent implements OnInit, AfterViewInit, OnDestroy {
                             isDefault: profile.isDefault,
                             storageProfileId: profile.storageProfileId,
                             assets: assets.filter(item => {
-                                return item.conversionProfileId === profile.id && item.origin !== KalturaAssetParamsOrigin.convert;
+                                return item.conversionProfileId === profile.id && item.origin !== KontorolAssetParamsOrigin.convert;
                             })
                         };
                     });
@@ -236,7 +236,7 @@ export class ReplaceFileComponent implements OnInit, AfterViewInit, OnDestroy {
                     let result;
                     if (this.replaceType === 'link') {
                         this._logger.debug(`link replace type detected, load storage profiles list`);
-                        result = this._kalturaClient
+                        result = this._kontorolClient
                             .request(new StorageProfileListAction())
                             .map(response => response.objects);
                     }else {
@@ -513,7 +513,7 @@ export class ReplaceFileComponent implements OnInit, AfterViewInit, OnDestroy {
     private _validateFiles(files: UploadReplacementFile[]): { isValid: boolean, code?: string } {
         let isValid = true;
         let code = null;
-        const maxFileSize = globalConfig.kalturaServer.maxUploadFileSize;
+        const maxFileSize = globalConfig.kontorolServer.maxUploadFileSize;
         const selectedProfile = this._transcodingProfiles.find(profile => profile.id === this._transcodingProfileField.value);
         const conversionProfileAssetParams = selectedProfile ? selectedProfile.assets : [];
         const filesFlavors = files.map(({ flavor }) => flavor);
@@ -555,8 +555,8 @@ export class ReplaceFileComponent implements OnInit, AfterViewInit, OnDestroy {
             }
 
             conversionProfileAssetParams.forEach(asset => {
-                if (asset.readyBehavior === KalturaFlavorReadyBehaviorType.required
-                    && asset.origin === KalturaAssetParamsOrigin.ingest
+                if (asset.readyBehavior === KontorolFlavorReadyBehaviorType.required
+                    && asset.origin === KontorolAssetParamsOrigin.ingest
                     && file.flavor !== asset.assetParamsId) {
                     isValid = false;
                     code = 'missingFlavors';

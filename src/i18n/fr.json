@@ -115,11 +115,11 @@
             "redirect3": "ici"
         },
         "openMail":{
-            "supportMailTitle": "Contacter l'assistance technique de Kaltura",
+            "supportMailTitle": "Contacter l'assistance technique de Kontorol",
             "supportMailMsg": "Veuillez envoyer un courriel à l'adresse suivante :",
-            "supportMailMsgNoMail": "Veuillez envoyer un courriel à l'équipe d'assistance technique de Kaltura.",
-            "customerCare": "Le service d'assistance à la clientèle de Kaltura est disponible 24/7, 365 jours par an via le portail client :",
-            "customerPortal": "Le portail client de Kaltura est le moyen le plus simple et le plus rapide de soumettre une nouvelle demande, de communiquer avec le service d'assistance à la clientèle et de suivre le statut de vos demandes :"
+            "supportMailMsgNoMail": "Veuillez envoyer un courriel à l'équipe d'assistance technique de Kontorol.",
+            "customerCare": "Le service d'assistance à la clientèle de Kontorol est disponible 24/7, 365 jours par an via le portail client :",
+            "customerPortal": "Le portail client de Kontorol est le moyen le plus simple et le plus rapide de soumettre une nouvelle demande, de communiquer avec le service d'assistance à la clientèle et de suivre le statut de vos demandes :"
         },
         "login": {
             "login": {
@@ -171,9 +171,9 @@
                 }
             },
             "restorePassword": {
-                "welcome": "Bienvenue sur Kaltura.",
+                "welcome": "Bienvenue sur Kontorol.",
                 "selectPassword": "Veuillez sélectionner votre mot de passe.",
-                "restored": "Votre nouveau mot de passe a été établi, veuillez vous connecter à la console de gestion de Kaltura.",
+                "restored": "Votre nouveau mot de passe a été établi, veuillez vous connecter à la console de gestion de Kontorol.",
                 "error": {
                     "equal": "Les mots de passe ne correspondent pas",
                     "required": "Le champ est requis",
@@ -188,21 +188,21 @@
                 "email": "Format d'adresse électronique incorrect",
                 "badCredentials": "Le nom d'utilisateur ou le mot de passe que vous avez saisi est incorrect.",
                 "retriesExceeded": {
-                    "yourAccountHasBeenLocked":"Votre compte a été verrouillé et ne sera pas disponible durant 24 heures. Contactez l'assistance technique de Kaltura à ",
+                    "yourAccountHasBeenLocked":"Votre compte a été verrouillé et ne sera pas disponible durant 24 heures. Contactez l'assistance technique de Kontorol à ",
                     "toUnblockYourAccount": " pour débloquer votre compte."
                 },
                 "userNotFound": "Le nom d'utilisateur ou le mot de passe que vous avez saisi est incorrect.",
                 "invalidStructure": "Le mot de passe que vous avez saisi a une structure non valide. Les mots de passe doivent obéir aux règles suivantes : - Ils doivent être d'une longueur de 8 à 14 caractères. - Ils ne doivent pas contenir votre nom. - Ils doivent contenir au moins une lettre minuscule (entre a et z). - Ils doivent contenir au moins un chiffre (entre 0 et 9). - Ils doivent contenir au moins un des symboles suivants : %~!@#\\$^*=+?[]{}. - Ils ne doivent pas contenir les caractères suivants : &lt; ou >",
                 "alreadyUsed": "Mot de passe incorrect. <br> Ce mot de passe a été utilisé dans le passé. Veuillez sélectionner un nouveau mot de passe.",
                 "loginBlocked": {
-                    "loginDenied":"Connexion refusée. Vous avez dépassé le nombre de tentatives de connexion non valides. Vous pouvez contacter l'assistance technique de Kaltura à ",
+                    "loginDenied":"Connexion refusée. Vous avez dépassé le nombre de tentatives de connexion non valides. Vous pouvez contacter l'assistance technique de Kontorol à ",
                     "toUnblockYourAccount": " pour débloquer votre compte."
                 },
                 "newPasswordHashKeyInvalid": "Ce lien n'est pas valide.",
                 "newPasswordHashKeyExpired": "Ce lien date de plus de 24 heures et n'est plus valide.",
                 "wrongOldPassword": "L'ancien mot de passe est incorrect.",
                 "invalidField": "La valeur du champ {{value}} n'est pas valide.",
-                "userForbiddenForBeta": "Ceci est une version bêta fermée de la nouvelle console de gestion de Kaltura. Restez à l'écoute pour être prochainement informé de sa disponibilité au public."
+                "userForbiddenForBeta": "Ceci est une version bêta fermée de la nouvelle console de gestion de Kontorol. Restez à l'écoute pour être prochainement informé de sa disponibilité au public."
             },
             "send": "Envoyer",
             "wait": "Veuillez patienter…",
@@ -218,8 +218,8 @@
         },
         "UnpermittedActionReasons": {
             "header": "Vue désactivée",
-            "message": "Cette vue ne peut pas être chargée. Si le problème persiste, contactez le service d'assistance de Kaltura.",
-            "messageNav": "Cette vue ne peut pas être chargée. Si le problème persiste, contactez le service d'assistance de Kaltura. Cliquez sur OK pour accéder à la vue principale."
+            "message": "Cette vue ne peut pas être chargée. Si le problème persiste, contactez le service d'assistance de Kontorol.",
+            "messageNav": "Cette vue ne peut pas être chargée. Si le problème persiste, contactez le service d'assistance de Kontorol. Cliquez sur OK pour accéder à la vue principale."
         }
     },
     "applications": {
@@ -247,7 +247,7 @@
             "helpTip1": "L'intégration automatique est le type de code d'intégration par défaut qui est recommandé pour ajouter rapidement un lecteur sur une page sans aucune personnalisation d'exécution.",
             "helpTip2": "Lire plus d'informations",
             "helpTip3": "sur les différents types de code d'intégration.",
-            "helpTip4": "La logique de définition de la méthode de diffusion est automatisée par le lecteur Kaltura pour garantir la meilleure expérience utilisateur possible. ",
+            "helpTip4": "La logique de définition de la méthode de diffusion est automatisée par le lecteur Kontorol pour garantir la meilleure expérience utilisateur possible. ",
             "helpTip5": "En savoir plus sur l'application ",
             "helpTip6": "de protocoles de diffusion spécifiques.",
             "playersErrorPlaylist": "Impossible de trouver des lecteurs de liste sur ce compte. Vous pouvez créer de nouveaux joueurs en utilisant l'onglet Studio.",
@@ -416,12 +416,12 @@
                 "createLiveStreamTitle": "Créer une entrée de diffusion en direct",
                 "streamTypeLabel": "Type de diffusion",
                 "streamTypes": {
-                    "kaltura": "Diffusion Kaltura en direct (HDS/HLS/DASH)",
+                    "kontorol": "Diffusion Kontorol en direct (HDS/HLS/DASH)",
                     "universal": "Diffusion universelle, Flash et Mobile (HDS/HLS)",
                     "manual": "URL de diffusion en direct manuelle"
                 },
                 "create": "Créer",
-                "kalturaStreamType": {
+                "kontorolStreamType": {
                     "name": "Nom",
                     "description": "Description",
                     "transcodingProfile": "Profils de transcodage en direct",
@@ -454,7 +454,7 @@
                     "description": "Description",
                     "primaryEncoderIp": "IP de l'encodeur principal",
                     "secondaryEncoderIp": "IP de l'encodeur secondaire",
-                    "secondaryEncoderIp_message": "Par défaut, Kaltura utilise votre adresse IP publique pour accéder à ce KMC.",
+                    "secondaryEncoderIp_message": "Par défaut, Kontorol utilise votre adresse IP publique pour accéder à ce KMC.",
                     "broadcastPassword": "Mot de passe de la diffusion",
                     "liveDvr": "Enregistreur en direct",
                     "liveDVR_message": "Recherche de parties précédentes de la diffusion en direct. L'intervalle par défaut de l'enregistreur est de 2 heures.",
@@ -466,7 +466,7 @@
                 "confirmEntryNavigation": {
                     "title": "Réussite",
                     "generalMessage": "L'entrée de diffusion en direct a été créée avec succès.",
-                    "kalturaMessage": "L'entrée de diffusion en direct a été créée avec succès. Désirez-vous consulter les détails de l'entrée ?",
+                    "kontorolMessage": "L'entrée de diffusion en direct a été créée avec succès. Désirez-vous consulter les détails de l'entrée ?",
                     "universalMessage": "L'activation du flux pour la diffusion avec le CDN peut prendre jusqu'à 3 heures.",
                     "manualMessage": "Les URL fournies ont été associées à l'entrée.{{0}}."
                 }
@@ -516,7 +516,7 @@
                     "fileSize": "Taille de fichier",
                     "entryId": "ID d'entrée",
                     "status": "Statut",
-                    "datesTooltip": "Début de chargement détecté sur : {{0}} Fin de chargement détectée sur : {{1}} Le transfert de fichiers du dossier de chargement vers Kaltura a commencé à : {{2}} Le transfert de fichiers du dossier de chargement vers Kaltura s'est terminé à : {{3}}",
+                    "datesTooltip": "Début de chargement détecté sur : {{0}} Fin de chargement détectée sur : {{1}} Le transfert de fichiers du dossier de chargement vers Kontorol a commencé à : {{2}} Le transfert de fichiers du dossier de chargement vers Kontorol s'est terminé à : {{3}}",
                     "notAvailable": "—",
                     "unknown": "Inconnu",
                     "delete": "Supprimer"
@@ -544,7 +544,7 @@
                 },
                 "dropFolderStatusTooltips": {
                     "uploading": "Le fichier est en cours de chargement dans le dossier de chargement.",
-                    "downloading": "Le fichier est en cours d'importation depuis le dossier de chargement vers Kaltura.",
+                    "downloading": "Le fichier est en cours d'importation depuis le dossier de chargement vers Kontorol.",
                     "pending": "Le chargement du fichier est terminé. En attente du début de traitement du dossier de chargement.",
                     "processing": "Le moteur du dossier de chargement traite actuellement ce fichier.",
                     "parsedFromXml": "La référence du fichier a été obtenue à partir du fichier XML. Le fichier est attendu mais n'est pas encore disponible dans le dossier de chargement.",
@@ -553,7 +553,7 @@
                     "error": "Le traitement du moteur du dossier de chargement a échoué.",
                     "deleteFailed": "Échec de suppression du fichier du dossier de chargement.",
                     "done": "Le traitement du dossier de chargement a été réussi pour ce fichier.",
-                    "downloadFailed": "Échec d'importation du fichier du dossier de chargement vers Kaltura."
+                    "downloadFailed": "Échec d'importation du fichier du dossier de chargement vers Kontorol."
                 },
                 "errors": {
                     "retry": "Recommencer",
@@ -1189,7 +1189,7 @@
                     "messages": {
                         "uploadError": {
                             "header": "Erreur",
-                            "message": "Une erreur d'autorisation inattendue s'est produite. Essayez d'actualiser votre navigateur. Si l'erreur persiste, veuillez contacter l'assistance technique de Kaltura pour obtenir plus d'informations. {{value}}"
+                            "message": "Une erreur d'autorisation inattendue s'est produite. Essayez d'actualiser votre navigateur. Si l'erreur persiste, veuillez contacter l'assistance technique de Kontorol pour obtenir plus d'informations. {{value}}"
                         },
                         "uploadSuccess": {
                             "body": "Votre requête à bien été envoyée. Suivez la progression de votre travail groupé sur la ",
@@ -1331,7 +1331,7 @@
                 "removePublishers": "Supprimer les co-éditeurs",
                 "removePublishersLabel": "Les co-éditeurs supprimés de cette liste seront supprimés de toutes les entrées sélectionnées.",
                 "noPublishersToRemove": "Aucun co-éditeur à supprimer",
-                "userTooltip": "L'utilisateur n'est pas encore listé dans Kaltura. {{0}} sera considéré comme l'identifiant de l'utilisateur",
+                "userTooltip": "L'utilisateur n'est pas encore listé dans Kontorol. {{0}} sera considéré comme l'identifiant de l'utilisateur",
                 "addRemoveEditors": "Ajouter/Supprimer des co-éditeurs",
                 "addEditors": "Ajouter des co-éditeurs",
                 "addEditorsLabel": "Saisissez des co-éditeurs à ajouter à toutes les entrées sélectionnées.",
@@ -1691,7 +1691,7 @@
                             "url": "URL de stockage :",
                             "directory": "Répertoire de base de stockage :",
                             "noteTitle": "Note",
-                            "note": "Lorsque la conversion par Kaltura est requise, le fichier défini comme source sera importé dans Kaltura."
+                            "note": "Lorsque la conversion par Kontorol est requise, le fichier défini comme source sera importé dans Kontorol."
                         },
                         "replacementStatus": {
                             "replacementInProcess": "Le remplacement de la vidéo est en cours.",
@@ -1822,7 +1822,7 @@
                 },
                 "advertisements": {
                     "title":"Publicités",
-                    "description": "Créez et gérez les publicités temporelles à l'aide de l'outil d'édition de vidéo de Kaltura.",
+                    "description": "Créez et gérez les publicités temporelles à l'aide de l'outil d'édition de vidéo de Kontorol.",
                     "manageAdvertisements": "Gérer les publicités",
                     "cancelEdit": "Annuler la modification",
                     "discard": "Ignorer tous les changements ?"
@@ -1837,7 +1837,7 @@
                     "save": "Enregistrer",
                     "co-editors": "Co-rédacteurs",
                     "co-publishers": "Co-éditeurs",
-                    "tooltip": "L'utilisateur n'est pas listé dans Kaltura. {{0}} sera considéré comme l'identifiant de l'utilisateur.",
+                    "tooltip": "L'utilisateur n'est pas listé dans Kontorol. {{0}} sera considéré comme l'identifiant de l'utilisateur.",
                     "noScreenName": "Impossible d'appliquer l'utilisateur, le pseudonyme est vierge."
 
                 },
@@ -1890,7 +1890,7 @@
                         "attUverse": "AttUverse",
                         "avn": "AVN",
                         "comcastMrss": "ComcastMrss",
-                        "crossKaltura": "CrossKaltura",
+                        "crossKontorol": "CrossKontorol",
                         "dailymotion": "Dailymotion",
                         "doubleclick": "Doubleclick",
                         "facebook": "Facebook",
@@ -2098,7 +2098,7 @@
                         "changeOwnerPlaceholder": "Saisissez le nom/ID d'utilisateur",
                         "cancelEdit": "Annuler la modification",
                         "discard": "Ignorer tous les changements ?",
-                        "tooltip": "L'utilisateur n'est pas encore listé dans Kaltura. {{0}} sera considéré comme l'identifiant de l'utilisateur",
+                        "tooltip": "L'utilisateur n'est pas encore listé dans Kontorol. {{0}} sera considéré comme l'identifiant de l'utilisateur",
                         "errors": {
                             "changeOwnerFailed" : "Une erreur s'est produite lors du chargement de propriétaire.",
                             "unableToChange": "Impossible de changer de propriétaire pour la catégorie actuelle.",
@@ -2478,7 +2478,7 @@
                     "schemaNameMaxLength": "Le nom doit être inférieur à {{0}} caractères."
                 },
                 "table": {
-                    "disabledLabel": "Le schéma de données a été configuré manuellement par les services professionnels de Kaltura. Veuillez contacter votre responsable de compte pour effectuer des mises à jour/modifications.",
+                    "disabledLabel": "Le schéma de données a été configuré manuellement par les services professionnels de Kontorol. Veuillez contacter votre responsable de compte pour effectuer des mises à jour/modifications.",
                     "name": "Titre du schéma personnalisé",
                     "id": "ID",
                     "systemName": "Nom du système",
@@ -2565,7 +2565,7 @@
                     },
                     "notifications": {
                         "title": "Notifications",
-                        "message": " Contactez votre représentant Kaltura pour configurer les paramètres de notification."
+                        "message": " Contactez votre représentant Kontorol pour configurer les paramètres de notification."
                     }
                 },
                 "entitlement": {
@@ -2580,7 +2580,7 @@
                         "title": "Ajouter un droit",
                         "explanation": "Sélectionnez la catégorie racine intégrée à votre application puis donnez-lui un nom ci-dessous.",
                         "addPrivacyContextLabel": "Ajouter une étiquette de contexte de confidentialité",
-                        "confirmation": "Les paramètres de droits seront ajoutés à toutes les sous-catégories grâce à un processus asynchrone. Cette opération peut prendre quelques minutes. Remarque : cette action peut avoir un impact sur l'accès au contenu de la catégorie sélectionnée via des applications existantes qui n'ont pas été mises à jour pour fonctionner avec les services de droits de Kaltura. Êtes-vous sûr de vouloir continuer ?",
+                        "confirmation": "Les paramètres de droits seront ajoutés à toutes les sous-catégories grâce à un processus asynchrone. Cette opération peut prendre quelques minutes. Remarque : cette action peut avoir un impact sur l'accès au contenu de la catégorie sélectionnée via des applications existantes qui n'ont pas été mises à jour pour fonctionner avec les services de droits de Kontorol. Êtes-vous sûr de vouloir continuer ?",
                         "apply": "Appliquer",
                         "errors": {
                             "requiredPrivacyContextLabel": "Vous devez saisir une étiquette de contexte de confidentialité."
@@ -2591,7 +2591,7 @@
                         "categoryName": "Nom de catégorie",
                         "privacyContextLabel": "Étiquette de contexte de confidentialité",
                         "confirmationTitle": "Confirmer la modification",
-                        "confirmation": "Les paramètres de droits seront ajoutés à toutes les sous-catégories grâce à un processus asynchrone. Cette opération peut prendre quelques minutes. Remarque : cette action peut avoir un impact sur l'accès au contenu de la catégorie {{0}} via des applications existantes qui n'ont pas été mises à jour pour fonctionner avec les services de droits de Kaltura. Êtes-vous sûr de vouloir continuer ?",
+                        "confirmation": "Les paramètres de droits seront ajoutés à toutes les sous-catégories grâce à un processus asynchrone. Cette opération peut prendre quelques minutes. Remarque : cette action peut avoir un impact sur l'accès au contenu de la catégorie {{0}} via des applications existantes qui n'ont pas été mises à jour pour fonctionner avec les services de droits de Kontorol. Êtes-vous sûr de vouloir continuer ?",
                         "errors": {
                             "privacyContextLabelRequired": "Veuillez saisir une étiquette de contexte de confidentialité.",
                             "privacyContextLabelExists": "La catégorie est déjà définie avec une étiquette de contexte de confidentialité.",
@@ -2792,7 +2792,7 @@
                     "profileName": "Nom du profil",
                     "flavorName": "Nom du type",
                     "impactOnEntryReadiness": "Impact sur la préparation de l'entrée",
-                    "useKalturaTranscoding": "Utiliser le transcodage Kaltura",
+                    "useKontorolTranscoding": "Utiliser le transcodage Kontorol",
                     "systemName": "Nom du système : (Optionnel)",
                     "flavorGenerationPolicy": "Politique de génération de type",
                     "intermediateFlavorHandling": "Manipulation de type intermédiaire",
@@ -2863,7 +2863,7 @@
                     "profileName": "Nom du profil",
                     "flavorName": "Nom du type",
                     "impactOnEntryReadiness": "Impact sur la préparation de l'entrée",
-                    "useKalturaTranscoding": "Utiliser le transcodage Kaltura",
+                    "useKontorolTranscoding": "Utiliser le transcodage Kontorol",
                     "systemName": "Nom du système : (Optionnel)",
                     "flavorGenerationPolicy": "Politique de génération de type",
                     "intermediateFlavorHandling": "Manipulation de type intermédiaire",
@@ -2873,7 +2873,7 @@
                     "always": "Toujours",
                     "asAFallback": "Comme option de secours",
                     "never": "Jamais",
-                    "useKalturaOptimization": "Utiliser l'optimisation de Kaltura",
+                    "useKontorolOptimization": "Utiliser l'optimisation de Kontorol",
                     "forceFlavorGeneration": "Forcer la génération du type",
                     "keepFlavor": "Garder le type",
                     "deleteFlavor": "Supprimer le type",

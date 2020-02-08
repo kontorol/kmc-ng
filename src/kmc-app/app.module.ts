@@ -7,14 +7,14 @@ import {CommonModule} from '@angular/common';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
-import {KalturaLogger, KalturaLoggerName} from '@kaltura-ng/kaltura-logger';
+import {KontorolLogger, KontorolLoggerName} from '@kontorol-ng/kontorol-logger';
 import {PreviewAndEmbedModule} from '../applications/preview-and-embed/preview-and-embed.module';
 import {EntriesModule} from 'app-shared/content-shared/entries/entries.module';
 import {CategoriesModule} from 'app-shared/content-shared/categories/categories.module';
 import {CategoriesStatusModule} from 'app-shared/content-shared/categories-status/categories-status.module';
 import { KMCPermissionsModule } from 'app-shared/kmc-shared/kmc-permissions';
-import { LocalizationModule } from '@kaltura-ng/mc-shared';
-import { KalturaLoggerInjectionToken } from '@kaltura-ng/kaltura-common';
+import { LocalizationModule } from '@kontorol-ng/mc-shared';
+import { KontorolLoggerInjectionToken } from '@kontorol-ng/kontorol-common';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './i18n/', '.json');
@@ -29,18 +29,18 @@ import {
 } from 'app-shared/kmc-shell';
 import {
   AppStorage,
-    KalturaCommonModule,
+    KontorolCommonModule,
   OperationTagModule,
   UploadManagement
-} from '@kaltura-ng/kaltura-common';
-import {AreaBlockerModule, StickyModule, TooltipModule} from '@kaltura-ng/kaltura-ui';
-import {KalturaClientModule, KalturaClientOptions} from 'kaltura-ngx-client';
-import {PopupWidgetModule} from '@kaltura-ng/kaltura-ui';
+} from '@kontorol-ng/kontorol-common';
+import {AreaBlockerModule, StickyModule, TooltipModule} from '@kontorol-ng/kontorol-ui';
+import {KontorolClientModule, KontorolClientOptions} from 'kontorol-ngx-client';
+import {PopupWidgetModule} from '@kontorol-ng/kontorol-ui';
 import {
   AccessControlProfileStore,
   AppEventsModule,
   FlavoursStore,
-  KalturaServerModule,
+  KontorolServerModule,
   MetadataProfileModule, PartnerProfileStore,
 } from 'app-shared/kmc-shared';
 
@@ -67,7 +67,7 @@ import {
 } from 'primeng/primeng';
 
 
-import { UploadManagementModule } from '@kaltura-ng/kaltura-common';
+import { UploadManagementModule } from '@kontorol-ng/kontorol-common';
 import { NgxPageScrollModule } from 'ngx-page-scroll';
 import { LoginComponent } from './components/login/login.component';
 import { ForgotPasswordFormComponent } from './components/login/forgot-password-form/forgot-password-form.component';
@@ -90,12 +90,12 @@ import { ViewCategoryEntriesModule } from 'app-shared/kmc-shared/events/view-cat
 import { AccessControlProfileModule } from 'app-shared/kmc-shared/access-control/access-control-profile.module';
 import {PlayersStore} from "app-shared/kmc-shared/players";
 import { globalConfig } from 'config/global';
-import { getKalturaServerUri } from 'config/server';
+import { getKontorolServerUri } from 'config/server';
 import { StorageProfilesStore } from 'app-shared/kmc-shared/storage-profiles';
 import { TranscodingProfileCreationModule } from 'app-shared/kmc-shared/events/transcoding-profile-creation/transcoding-profile-creation.module';
-import { APP_STORAGE_TOKEN } from '@kaltura-ng/kaltura-common';
+import { APP_STORAGE_TOKEN } from '@kontorol-ng/kontorol-common';
 import { KmcLogsModule } from 'app-shared/kmc-shell/kmc-logs/kmc-logs.module';
-import { KalturaLoggerModule } from '@kaltura-ng/kaltura-logger';
+import { KontorolLoggerModule } from '@kontorol-ng/kontorol-logger';
 import { KmcViewsModule } from 'app-shared/kmc-shared/kmc-views/kmc-views.module';
 import { AppDefaultViewComponent } from './components/app-default-view/app-default-view.component';
 import { LoginByKSComponent } from './components/app-actions/login-by-ks.component';
@@ -107,7 +107,7 @@ import { ProgressBarComponent } from './components/progress-bar/progress-bar.com
 import { RestorePasswordFormComponent } from './components/login/restore-password-form/restore-password-form.component';
 import { InvalidRestorePasswordHashFormComponent } from './components/login/invalid-restore-password-hash-form/invalid-restore-password-hash-form.component';
 
-import { CopyToClipboardModule } from '@kaltura-ng/mc-shared';
+import { CopyToClipboardModule } from '@kontorol-ng/mc-shared';
 import { ContextualHelpModule } from 'app-shared/kmc-shared/contextual-help/contextual-help.module';
 import { PersistLoginByKsComponent } from './components/app-actions/persist-login-by-ks.component';
 import { ColumnsResizeManagerModule } from 'app-shared/kmc-shared/columns-resize-manager';
@@ -116,10 +116,10 @@ import { NewEntryCreateFromUrlModule } from 'app-shared/kmc-shell/new-entry-crea
 
 const partnerProviders: PartnerProfileStore[] = [AccessControlProfileStore, FlavoursStore, PlayersStore, StorageProfilesStore];
 
-export function kalturaClientOptionsFactory(): KalturaClientOptions {
+export function kontorolClientOptionsFactory(): KontorolClientOptions {
 
     return  {
-        endpointUrl: getKalturaServerUri(),
+        endpointUrl: getKontorolServerUri(),
         clientTag: 'kmcng',
         chunkFileSize: 5 * 1024 * 1024
     };
@@ -142,7 +142,7 @@ export function kalturaClientOptionsFactory(): KalturaClientOptions {
     NgxPageScrollModule,
     AppEventsModule.forRoot(),
     KMCShellModule.forRoot(),
-    KalturaCommonModule.forRoot(),
+    KontorolCommonModule.forRoot(),
   TranslateModule.forRoot({
       loader: {
           provide: TranslateLoader,
@@ -158,7 +158,7 @@ export function kalturaClientOptionsFactory(): KalturaClientOptions {
     PreviewAndEmbedModule,
     TieredMenuModule,
     UploadManagementModule,
-    KalturaServerModule,
+    KontorolServerModule,
     AreaBlockerModule,
     CheckboxModule,
     ReactiveFormsModule,
@@ -180,9 +180,9 @@ export function kalturaClientOptionsFactory(): KalturaClientOptions {
     AccessControlProfileModule.forRoot(),
     KMCPermissionsModule.forRoot(),
     TranscodingProfileCreationModule.forRoot(),
-    KalturaClientModule.forRoot(kalturaClientOptionsFactory),
+    KontorolClientModule.forRoot(kontorolClientOptionsFactory),
       KmcLogsModule.forRoot(),
-      KalturaLoggerModule.forRoot('kmc'),
+      KontorolLoggerModule.forRoot('kmc'),
       ContextualHelpModule.forRoot(),
       KmcViewsModule.forRoot(),
       LocalizationModule.forRoot(),
@@ -228,19 +228,19 @@ export function kalturaClientOptionsFactory(): KalturaClientOptions {
       {
            provide: APP_STORAGE_TOKEN, useExisting: BrowserService },
     ConfirmationService,
-      { provide: KalturaLoggerInjectionToken, useClass: KalturaLogger }
+      { provide: KontorolLoggerInjectionToken, useClass: KontorolLogger }
   ]
 })
 export class AppModule {
-    constructor(kalturaLogger: KalturaLogger,
+    constructor(kontorolLogger: KontorolLogger,
                 uploadManagement: UploadManagement) {
         if (globalConfig.client.production) {
-            kalturaLogger.setOptions({level: 'Error'});
+            kontorolLogger.setOptions({level: 'Error'});
         } else {
-            kalturaLogger.setOptions({level: 'All'});
+            kontorolLogger.setOptions({level: 'All'});
         }
 
         // TODO [kmcng] move to a relevant location
-        uploadManagement.setMaxUploadRequests(globalConfig.kalturaServer.maxConcurrentUploads);
+        uploadManagement.setMaxUploadRequests(globalConfig.kontorolServer.maxConcurrentUploads);
     }
 }

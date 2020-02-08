@@ -2,17 +2,17 @@ import { Component, OnInit, OnDestroy, AfterViewInit, Input, Output, EventEmitte
 import { ISubscription } from 'rxjs/Subscription';
 import { Subject } from 'rxjs/Subject';
 
-import { KalturaClient } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
-import { SuggestionsProviderData } from '@kaltura-ng/kaltura-primeng-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
+import { SuggestionsProviderData } from '@kontorol-ng/kontorol-primeng-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BrowserService } from 'app-shared/kmc-shell';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
-import { KalturaUser } from 'kaltura-ngx-client';
-import { KalturaUserFilter } from 'kaltura-ngx-client';
-import { UserListAction } from 'kaltura-ngx-client';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
+import { KontorolUser } from 'kontorol-ngx-client';
+import { KontorolUserFilter } from 'kontorol-ngx-client';
+import { UserListAction } from 'kontorol-ngx-client';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export enum AppearInListType {
   NoRestriction = 0,
@@ -34,7 +34,7 @@ export class CategoriesBulkChangeCategoryListing implements OnInit, OnDestroy, A
   public _sectionBlockerMessage: AreaBlockerMessage;
 
   public _usersProvider = new Subject<SuggestionsProviderData>();
-  public _owner: KalturaUser = null;
+  public _owner: KontorolUser = null;
 
   private _searchUsersSubscription: ISubscription;
   private _parentPopupStateChangeSubscribe: ISubscription;
@@ -44,7 +44,7 @@ export class CategoriesBulkChangeCategoryListing implements OnInit, OnDestroy, A
   public _appearInListType = AppearInListType;
   public _appearInList = null;
 
-  constructor(private _kalturaServerClient: KalturaClient, private _appLocalization: AppLocalization, private _browserService: BrowserService) {
+  constructor(private _kontorolServerClient: KontorolClient, private _appLocalization: AppLocalization, private _browserService: BrowserService) {
   }
 
   ngOnInit() {
@@ -92,13 +92,13 @@ export class CategoriesBulkChangeCategoryListing implements OnInit, OnDestroy, A
       this._searchUsersSubscription = null;
     }
 
-    this._searchUsersSubscription = this._kalturaServerClient.request(
+    this._searchUsersSubscription = this._kontorolServerClient.request(
       new UserListAction(
         {
-          filter: new KalturaUserFilter({
+          filter: new KontorolUserFilter({
             idOrScreenNameStartsWith: event.query
           }),
-          pager: new KalturaFilterPager({
+          pager: new KontorolFilterPager({
             pageIndex: 0,
             pageSize: 30
           })
@@ -109,7 +109,7 @@ export class CategoriesBulkChangeCategoryListing implements OnInit, OnDestroy, A
       .subscribe(
       data => {
         const suggestions = [];
-        (data.objects || []).forEach((suggestedUser: KalturaUser) => {
+        (data.objects || []).forEach((suggestedUser: KontorolUser) => {
           let isSelectable = true;
           suggestions.push({
             name: `${suggestedUser.screenName} (${suggestedUser.id})`,
@@ -125,11 +125,11 @@ export class CategoriesBulkChangeCategoryListing implements OnInit, OnDestroy, A
       );
   }
 
-  public _convertUserInputToValidValue(value: string): KalturaUser {
+  public _convertUserInputToValidValue(value: string): KontorolUser {
     let result = null;
 
     if (value) {
-      result = new KalturaUser(
+      result = new KontorolUser(
         {
           id: value,
           screenName: value

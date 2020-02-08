@@ -1,14 +1,14 @@
 import { Component, Input } from '@angular/core';
-import { KalturaDistributionValidationError } from 'kaltura-ngx-client';
-import { KalturaDistributionValidationErrorConditionNotMet } from 'kaltura-ngx-client';
-import { KalturaDistributionValidationErrorMissingThumbnail } from 'kaltura-ngx-client';
-import { KalturaDistributionValidationErrorMissingMetadata } from 'kaltura-ngx-client';
-import { KalturaDistributionValidationErrorMissingFlavor } from 'kaltura-ngx-client';
-import { KalturaDistributionValidationErrorInvalidData } from 'kaltura-ngx-client';
+import { KontorolDistributionValidationError } from 'kontorol-ngx-client';
+import { KontorolDistributionValidationErrorConditionNotMet } from 'kontorol-ngx-client';
+import { KontorolDistributionValidationErrorMissingThumbnail } from 'kontorol-ngx-client';
+import { KontorolDistributionValidationErrorMissingMetadata } from 'kontorol-ngx-client';
+import { KontorolDistributionValidationErrorMissingFlavor } from 'kontorol-ngx-client';
+import { KontorolDistributionValidationErrorInvalidData } from 'kontorol-ngx-client';
 import { OverlayPanel } from 'primeng/primeng';
 
 export interface DistributedProfileErrorsGroup {
-  [key: string]: KalturaDistributionValidationError[]
+  [key: string]: KontorolDistributionValidationError[]
 }
 
 @Component({
@@ -17,7 +17,7 @@ export interface DistributedProfileErrorsGroup {
   styleUrls: ['./distributed-profile-errors.component.scss']
 })
 export class DistributedProfileErrorsComponent {
-  @Input() set errors(value: KalturaDistributionValidationError[]) {
+  @Input() set errors(value: KontorolDistributionValidationError[]) {
     if (value && value.length) {
       this._errors = this._mapErrors(value);
       this._errorsKeys = Object.keys(this._errors);
@@ -26,9 +26,9 @@ export class DistributedProfileErrorsComponent {
 
   public _errors: DistributedProfileErrorsGroup;
   public _errorsKeys: string[] = [];
-  public _selectedErrorGroup: { type: string, errors: KalturaDistributionValidationError[] };
+  public _selectedErrorGroup: { type: string, errors: KontorolDistributionValidationError[] };
 
-  private _mapErrors(errors: KalturaDistributionValidationError[]): DistributedProfileErrorsGroup {
+  private _mapErrors(errors: KontorolDistributionValidationError[]): DistributedProfileErrorsGroup {
     const updateErrorType = (acc, val, type) => {
       if (typeof acc === "undefined"){
           acc = {};
@@ -41,19 +41,19 @@ export class DistributedProfileErrorsComponent {
 
     return errors.reduce((acc, val) => {
       switch (true) {
-        case val instanceof KalturaDistributionValidationErrorInvalidData:
+        case val instanceof KontorolDistributionValidationErrorInvalidData:
           return updateErrorType(acc, val, 'metadataError');
 
-        case val instanceof KalturaDistributionValidationErrorMissingMetadata:
+        case val instanceof KontorolDistributionValidationErrorMissingMetadata:
           return updateErrorType(acc, val, 'missingMetadata');
 
-        case val instanceof KalturaDistributionValidationErrorMissingFlavor:
+        case val instanceof KontorolDistributionValidationErrorMissingFlavor:
           return updateErrorType(acc, val, 'missingFlavor');
 
-        case val instanceof KalturaDistributionValidationErrorMissingThumbnail:
+        case val instanceof KontorolDistributionValidationErrorMissingThumbnail:
           return updateErrorType(acc, val, 'missingThumbnail');
 
-        case val instanceof KalturaDistributionValidationErrorConditionNotMet:
+        case val instanceof KontorolDistributionValidationErrorConditionNotMet:
           return updateErrorType(acc, val, 'autoDistributionMetadataMissing');
 
         default:
@@ -62,7 +62,7 @@ export class DistributedProfileErrorsComponent {
     }, {})
   }
 
-  public _toggleErrorInfo($event: Event, errorGroup: KalturaDistributionValidationError[], type: string, panel: OverlayPanel): void {
+  public _toggleErrorInfo($event: Event, errorGroup: KontorolDistributionValidationError[], type: string, panel: OverlayPanel): void {
     this._selectedErrorGroup = { type, errors: errorGroup };
     panel.toggle($event);
   }

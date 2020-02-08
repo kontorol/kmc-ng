@@ -1,35 +1,35 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
 
-import { KalturaClient } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
 import { BrowserService } from 'app-shared/kmc-shell';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
 
 
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { SelectItem } from 'primeng/primeng';
 
-import { KalturaAccessControl } from 'kaltura-ngx-client';
-import { KalturaSiteRestriction } from 'kaltura-ngx-client';
-import { KalturaSiteRestrictionType } from 'kaltura-ngx-client';
-import { KalturaCountryRestriction } from 'kaltura-ngx-client';
-import { KalturaCountryRestrictionType } from 'kaltura-ngx-client';
-import { KalturaIpAddressRestriction } from 'kaltura-ngx-client';
-import { KalturaIpAddressRestrictionType } from 'kaltura-ngx-client';
-import { KalturaLimitFlavorsRestriction } from 'kaltura-ngx-client';
-import { KalturaLimitFlavorsRestrictionType } from 'kaltura-ngx-client';
-import { KalturaSessionRestriction } from 'kaltura-ngx-client';
-import { KalturaPreviewRestriction } from 'kaltura-ngx-client';
-import { KalturaFlavorParams } from 'kaltura-ngx-client';
-import { KalturaUtils } from '@kaltura-ng/kaltura-common';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolAccessControl } from 'kontorol-ngx-client';
+import { KontorolSiteRestriction } from 'kontorol-ngx-client';
+import { KontorolSiteRestrictionType } from 'kontorol-ngx-client';
+import { KontorolCountryRestriction } from 'kontorol-ngx-client';
+import { KontorolCountryRestrictionType } from 'kontorol-ngx-client';
+import { KontorolIpAddressRestriction } from 'kontorol-ngx-client';
+import { KontorolIpAddressRestrictionType } from 'kontorol-ngx-client';
+import { KontorolLimitFlavorsRestriction } from 'kontorol-ngx-client';
+import { KontorolLimitFlavorsRestrictionType } from 'kontorol-ngx-client';
+import { KontorolSessionRestriction } from 'kontorol-ngx-client';
+import { KontorolPreviewRestriction } from 'kontorol-ngx-client';
+import { KontorolFlavorParams } from 'kontorol-ngx-client';
+import { KontorolUtils } from '@kontorol-ng/kontorol-common';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { AccessControlProfileStore, FlavoursStore } from 'app-shared/kmc-shared';
 
 import 'rxjs/add/observable/forkJoin';
 import * as R from 'ramda';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
 	selector: 'kBulkAccessControl',
@@ -39,20 +39,20 @@ import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
 export class BulkAAccessControl implements OnInit, OnDestroy, AfterViewInit {
 
 	@Input() parentPopupWidget: PopupWidgetComponent;
-	@Output() accessControlChangedChanged = new EventEmitter<KalturaAccessControl>();
+	@Output() accessControlChangedChanged = new EventEmitter<KontorolAccessControl>();
 
 	public _loading = false;
 	public _sectionBlockerMessage: AreaBlockerMessage;
 
 
-	public accessControlProfiles: KalturaAccessControl[] = [];
+	public accessControlProfiles: KontorolAccessControl[] = [];
 
 
 	private _accessControlProfiles = new BehaviorSubject<{ items: SelectItem[]}>({items: []});
 	public _accessControlProfiles$ = this._accessControlProfiles.asObservable();
 
-	public _selectedProfile: KalturaAccessControl = null;
-	public set selectedProfile(profile: KalturaAccessControl) {
+	public _selectedProfile: KontorolAccessControl = null;
+	public set selectedProfile(profile: KontorolAccessControl) {
 		this._selectedProfile = profile;
 		this._setRestrictions();
 	}
@@ -67,13 +67,13 @@ export class BulkAAccessControl implements OnInit, OnDestroy, AfterViewInit {
 	public _flavourRestriction: string = "";
 	public _advancedRestriction: string = "";
 
-	private _flavourParams: KalturaFlavorParams[] = [];
+	private _flavourParams: KontorolFlavorParams[] = [];
 
 	private _parentPopupStateChangeSubscribe: ISubscription;
 	private _confirmClose: boolean = true;
 	private isDirty = false;
 
-	constructor(private _kalturaServerClient: KalturaClient, private _appLocalization: AppLocalization, private _browserService: BrowserService, private _accessControlProfileStore: AccessControlProfileStore, private _flavoursStore: FlavoursStore) {
+	constructor(private _kontorolServerClient: KontorolClient, private _appLocalization: AppLocalization, private _browserService: BrowserService, private _accessControlProfileStore: AccessControlProfileStore, private _flavoursStore: FlavoursStore) {
 	}
 
 	ngOnInit() {
@@ -90,11 +90,11 @@ export class BulkAAccessControl implements OnInit, OnDestroy, AfterViewInit {
 					const defaultIndex = R.findIndex(R.propEq('isDefault', 1))(ACProfiles);
 					if (defaultIndex > -1) {
 						// put the default profile at the beginning of the profiles array
-						const defaultProfile: KalturaAccessControl[] = ACProfiles.splice(defaultIndex, 1);
+						const defaultProfile: KontorolAccessControl[] = ACProfiles.splice(defaultIndex, 1);
 						ACProfiles.splice(0, 0, defaultProfile[0]);
 					}
 					let profilesDataProvider: SelectItem[] = [];
-					ACProfiles.forEach((profile: KalturaAccessControl) => {
+					ACProfiles.forEach((profile: KontorolAccessControl) => {
 						profilesDataProvider.push({"label": profile.name, "value": profile});
 						if (profile.isDefault === 1) {
 							this.selectedProfile = profile;
@@ -191,57 +191,57 @@ export class BulkAAccessControl implements OnInit, OnDestroy, AfterViewInit {
 		if (restrictions.length) {
 			restrictions.forEach(restriction => {
 				// domains restrictions
-				if (restriction instanceof KalturaSiteRestriction) {
-					if (restriction.siteRestrictionType === KalturaSiteRestrictionType.allowSiteList) {
+				if (restriction instanceof KontorolSiteRestriction) {
+					if (restriction.siteRestrictionType === KontorolSiteRestrictionType.allowSiteList) {
 						this._domainsRestriction = this._appLocalization.get('applications.content.entryDetails.accessControl.allowDomains', {"0": restriction.siteList});
 					}
-					if (restriction.siteRestrictionType === KalturaSiteRestrictionType.restrictSiteList) {
+					if (restriction.siteRestrictionType === KontorolSiteRestrictionType.restrictSiteList) {
 						this._domainsRestriction = this._appLocalization.get('applications.content.entryDetails.accessControl.blockDomains', {"0": restriction.siteList});
 					}
 				}
 				// countries restrictions
-				if (restriction instanceof KalturaCountryRestriction) {
-					if (restriction.countryRestrictionType === KalturaCountryRestrictionType.allowCountryList) {
+				if (restriction instanceof KontorolCountryRestriction) {
+					if (restriction.countryRestrictionType === KontorolCountryRestrictionType.allowCountryList) {
 						this._countriesRestriction = this._appLocalization.get('applications.content.entryDetails.accessControl.allowCountries', {"0": this._getCountriesByCode(restriction.countryList)});
 					}
-					if (restriction.countryRestrictionType === KalturaCountryRestrictionType.restrictCountryList) {
+					if (restriction.countryRestrictionType === KontorolCountryRestrictionType.restrictCountryList) {
 						this._countriesRestriction = this._appLocalization.get('applications.content.entryDetails.accessControl.blockCountries', {"0": this._getCountriesByCode(restriction.countryList)});
 					}
 				}
 				// IP restrictions
-				if (restriction instanceof KalturaIpAddressRestriction) {
-					if (restriction.ipAddressRestrictionType === KalturaIpAddressRestrictionType.allowList) {
+				if (restriction instanceof KontorolIpAddressRestriction) {
+					if (restriction.ipAddressRestrictionType === KontorolIpAddressRestrictionType.allowList) {
 						this._ipRestriction = this._appLocalization.get('applications.content.entryDetails.accessControl.allowIPs', {"0": restriction.ipAddressList});
 					}
-					if (restriction.ipAddressRestrictionType === KalturaIpAddressRestrictionType.restrictList) {
+					if (restriction.ipAddressRestrictionType === KontorolIpAddressRestrictionType.restrictList) {
 						this._ipRestriction = this._appLocalization.get('applications.content.entryDetails.accessControl.blockIPs', {"0": restriction.ipAddressList});
 					}
 				}
 				// Flavour restrictions
-				if (restriction instanceof KalturaLimitFlavorsRestriction && this._flavourParams.length) {
+				if (restriction instanceof KontorolLimitFlavorsRestriction && this._flavourParams.length) {
 					// convert flavour IDs to flavour names
 					let flavourIDs = restriction.flavorParamsIds.split(",");
 					let flavourNames = [];
 					flavourIDs.forEach(flavourId => {
-						let flavour: KalturaFlavorParams = R.find(R.propEq('id', parseInt(flavourId)))(this._flavourParams);
+						let flavour: KontorolFlavorParams = R.find(R.propEq('id', parseInt(flavourId)))(this._flavourParams);
 						if (flavour !== undefined) {
 							flavourNames.push(flavour.name);
 						}
 					});
 
-					if (restriction.limitFlavorsRestrictionType === KalturaLimitFlavorsRestrictionType.allowList) {
+					if (restriction.limitFlavorsRestrictionType === KontorolLimitFlavorsRestrictionType.allowList) {
 						this._flavourRestriction = this._appLocalization.get('applications.content.entryDetails.accessControl.allowFlavours', {"0": flavourNames.join(", ")});
 					}
-					if (restriction.limitFlavorsRestrictionType === KalturaLimitFlavorsRestrictionType.restrictList) {
+					if (restriction.limitFlavorsRestrictionType === KontorolLimitFlavorsRestrictionType.restrictList) {
 						this._flavourRestriction = this._appLocalization.get('applications.content.entryDetails.accessControl.blockFlavours', {"0": flavourNames.join(", ")});
 					}
 				}
 				// Advanced restrictions
-				if (restriction instanceof KalturaSessionRestriction) {
+				if (restriction instanceof KontorolSessionRestriction) {
 					this._advancedRestriction = this._appLocalization.get('applications.content.entryDetails.accessControl.ks');
 				}
-				if (restriction instanceof KalturaPreviewRestriction) {
-					this._advancedRestriction = this._appLocalization.get('applications.content.entryDetails.accessControl.freePreview', {"0": KalturaUtils.formatTime(restriction.previewLength, true)});
+				if (restriction instanceof KontorolPreviewRestriction) {
+					this._advancedRestriction = this._appLocalization.get('applications.content.entryDetails.accessControl.freePreview', {"0": KontorolUtils.formatTime(restriction.previewLength, true)});
 				}
 			});
 		}

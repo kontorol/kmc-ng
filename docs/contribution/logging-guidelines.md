@@ -56,16 +56,16 @@ this._logger.info(`abort action, role permissions has invalid selections`);
 ```
 
 ### Add logger instance to a component
-1. import `KalturaLogger`:
+1. import `KontorolLogger`:
 ```
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 ```
 
-2. add provider to `KalturaLogger`, use the same name as the component name:
+2. add provider to `KontorolLogger`, use the same name as the component name:
 ```
 @Component({
   providers: [
-      KalturaLogger.createLogger('EditRoleComponent')
+      KontorolLogger.createLogger('EditRoleComponent')
   ]
 })
 export class EditRoleComponent {
@@ -74,9 +74,9 @@ export class EditRoleComponent {
 
 
 ### Add logger instance to a service
-1. import `KalturaLogger`:
+1. import `KontorolLogger`:
 ```
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 ```
 
 2. create sub logger as shown below, use the same name as the service name:
@@ -84,9 +84,9 @@ import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
 @Injectable()
 export class YourServiceName {
 
-    private _logger: KalturaLogger;
+    private _logger: KontorolLogger;
 
-    constructor(logger: KalturaLogger) {
+    constructor(logger: KontorolLogger) {
         this._logger = logger.subLogger('YourServiceName');
     }
 }

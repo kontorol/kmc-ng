@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { KalturaClient } from 'kaltura-ngx-client';
-import { BulkUploadAddAction } from 'kaltura-ngx-client';
-import { KalturaBulkUploadType } from 'kaltura-ngx-client';
-import { KalturaBulkUploadCsvJobData } from 'kaltura-ngx-client';
-import { CategoryAddFromBulkUploadAction } from 'kaltura-ngx-client';
-import { KalturaBulkUploadCategoryData } from 'kaltura-ngx-client';
-import { KalturaBulkUploadUserData } from 'kaltura-ngx-client';
-import { KalturaBulkUploadCategoryUserData } from 'kaltura-ngx-client';
-import { UserAddFromBulkUploadAction } from 'kaltura-ngx-client';
-import { CategoryUserAddFromBulkUploadAction } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { BulkUploadAddAction } from 'kontorol-ngx-client';
+import { KontorolBulkUploadType } from 'kontorol-ngx-client';
+import { KontorolBulkUploadCsvJobData } from 'kontorol-ngx-client';
+import { CategoryAddFromBulkUploadAction } from 'kontorol-ngx-client';
+import { KontorolBulkUploadCategoryData } from 'kontorol-ngx-client';
+import { KontorolBulkUploadUserData } from 'kontorol-ngx-client';
+import { KontorolBulkUploadCategoryUserData } from 'kontorol-ngx-client';
+import { UserAddFromBulkUploadAction } from 'kontorol-ngx-client';
+import { CategoryUserAddFromBulkUploadAction } from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
-import { KalturaBulkUpload } from 'kaltura-ngx-client';
+import { KontorolBulkUpload } from 'kontorol-ngx-client';
 
 export enum BulkUploadTypes {
   entries,
@@ -21,20 +21,20 @@ export enum BulkUploadTypes {
 
 @Injectable()
 export class BulkUploadService {
-  constructor(private _kalturaServerClient: KalturaClient) {
+  constructor(private _kontorolServerClient: KontorolClient) {
   }
 
-  private _getKalturaBulkUploadType(file: File): KalturaBulkUploadType {
+  private _getKontorolBulkUploadType(file: File): KontorolBulkUploadType {
     const extension = /(?:\.([^.]+))?$/.exec(file.name)[1];
-    return 'csv' === extension ? KalturaBulkUploadType.csv : KalturaBulkUploadType.xml;
+    return 'csv' === extension ? KontorolBulkUploadType.csv : KontorolBulkUploadType.xml;
   }
 
-  private _getKalturaActionByType(fileData: File, type: BulkUploadTypes): BulkUploadAddAction
+  private _getKontorolActionByType(fileData: File, type: BulkUploadTypes): BulkUploadAddAction
     | CategoryAddFromBulkUploadAction
     | UserAddFromBulkUploadAction
     | CategoryUserAddFromBulkUploadAction {
 
-    const bulkUploadData = new KalturaBulkUploadCsvJobData();
+    const bulkUploadData = new KontorolBulkUploadCsvJobData();
     bulkUploadData.fileName = fileData.name;
 
     switch (type) {
@@ -42,25 +42,25 @@ export class BulkUploadService {
         return new BulkUploadAddAction({
           conversionProfileId: -1,
           csvFileData: fileData,
-          bulkUploadType: this._getKalturaBulkUploadType(fileData)
+          bulkUploadType: this._getKontorolBulkUploadType(fileData)
         });
       case BulkUploadTypes.categories:
         return new CategoryAddFromBulkUploadAction({
           fileData,
           bulkUploadData,
-          bulkUploadCategoryData: new KalturaBulkUploadCategoryData()
+          bulkUploadCategoryData: new KontorolBulkUploadCategoryData()
         });
       case BulkUploadTypes.endUsers:
         return new UserAddFromBulkUploadAction({
           fileData,
           bulkUploadData,
-          bulkUploadUserData: new KalturaBulkUploadUserData()
+          bulkUploadUserData: new KontorolBulkUploadUserData()
         });
       case BulkUploadTypes.endUsersEntitlement:
         return new CategoryUserAddFromBulkUploadAction({
           fileData,
           bulkUploadData,
-          bulkUploadCategoryUserData: new KalturaBulkUploadCategoryUserData()
+          bulkUploadCategoryUserData: new KontorolBulkUploadCategoryUserData()
         });
       default:
         return null;
@@ -72,14 +72,14 @@ export class BulkUploadService {
     | UserAddFromBulkUploadAction
     | CategoryUserAddFromBulkUploadAction)[] {
     return files
-      .map(file => this._getKalturaActionByType(file, type))
+      .map(file => this._getKontorolActionByType(file, type))
       .filter(Boolean);
   }
 
-  public upload(files: FileList, type: BulkUploadTypes): Observable<KalturaBulkUpload> {
+  public upload(files: FileList, type: BulkUploadTypes): Observable<KontorolBulkUpload> {
     const actions = this._getAction(Array.from(files), type);
 
     return Observable.from(actions)
-      .flatMap(action => this._kalturaServerClient.request(action));
+      .flatMap(action => this._kontorolServerClient.request(action));
   }
 }

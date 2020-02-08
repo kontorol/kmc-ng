@@ -7,21 +7,21 @@ import {
     DropFolderFileDeleteAction,
     DropFolderFileListAction,
     DropFolderListAction,
-    KalturaClient,
-    KalturaDropFolder,
-    KalturaDropFolderContentFileHandlerConfig,
-    KalturaDropFolderContentFileHandlerMatchPolicy,
-    KalturaDropFolderFile,
-    KalturaDropFolderFileFilter,
-    KalturaDropFolderFileHandlerType,
-    KalturaDropFolderFileListResponse,
-    KalturaDropFolderFileStatus,
-    KalturaDropFolderFilter,
-    KalturaDropFolderOrderBy,
-    KalturaDropFolderStatus,
-    KalturaFilterPager
-} from 'kaltura-ngx-client';
-import { cancelOnDestroy, KalturaUtils } from '@kaltura-ng/kaltura-common';
+    KontorolClient,
+    KontorolDropFolder,
+    KontorolDropFolderContentFileHandlerConfig,
+    KontorolDropFolderContentFileHandlerMatchPolicy,
+    KontorolDropFolderFile,
+    KontorolDropFolderFileFilter,
+    KontorolDropFolderFileHandlerType,
+    KontorolDropFolderFileListResponse,
+    KontorolDropFolderFileStatus,
+    KontorolDropFolderFilter,
+    KontorolDropFolderOrderBy,
+    KontorolDropFolderStatus,
+    KontorolFilterPager
+} from 'kontorol-ngx-client';
+import { cancelOnDestroy, KontorolUtils } from '@kontorol-ng/kontorol-common';
 import {
     AppLocalization,
     DatesRangeAdapter,
@@ -33,8 +33,8 @@ import {
     NumberTypeAdapter,
     StringTypeAdapter,
     TypeAdaptersMapping
-} from '@kaltura-ng/mc-shared';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+} from '@kontorol-ng/mc-shared';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { ISubscription } from 'rxjs/Subscription';
 import { subApplicationsConfig } from 'config/sub-applications';
 import { serverConfig } from 'config/server';
@@ -61,25 +61,25 @@ export interface DropFoldersFilters {
 @Injectable()
 export class DropFoldersStoreService extends FiltersStoreBase<DropFoldersFilters> implements OnDestroy {
   private _dropFolders = {
-    data: new BehaviorSubject<{ items: KalturaDropFolderFile[], totalCount: number }>({
+    data: new BehaviorSubject<{ items: KontorolDropFolderFile[], totalCount: number }>({
       items: [],
       totalCount: 0
     }),
     state: new BehaviorSubject<{ loading: boolean, errorMessage: string }>({ loading: false, errorMessage: null })
   };
   private _allStatusesList = [
-    KalturaDropFolderFileStatus.downloading,
-    KalturaDropFolderFileStatus.errorDeleting,
-    KalturaDropFolderFileStatus.errorDownloading,
-    KalturaDropFolderFileStatus.errorHandling,
-    KalturaDropFolderFileStatus.handled,
-    KalturaDropFolderFileStatus.noMatch,
-    KalturaDropFolderFileStatus.pending,
-    KalturaDropFolderFileStatus.processing,
-    KalturaDropFolderFileStatus.parsed,
-    KalturaDropFolderFileStatus.uploading,
-    KalturaDropFolderFileStatus.detected,
-    KalturaDropFolderFileStatus.waiting
+    KontorolDropFolderFileStatus.downloading,
+    KontorolDropFolderFileStatus.errorDeleting,
+    KontorolDropFolderFileStatus.errorDownloading,
+    KontorolDropFolderFileStatus.errorHandling,
+    KontorolDropFolderFileStatus.handled,
+    KontorolDropFolderFileStatus.noMatch,
+    KontorolDropFolderFileStatus.pending,
+    KontorolDropFolderFileStatus.processing,
+    KontorolDropFolderFileStatus.parsed,
+    KontorolDropFolderFileStatus.uploading,
+    KontorolDropFolderFileStatus.detected,
+    KontorolDropFolderFileStatus.waiting
   ].join(',');
   private _isReady = false;
   private _querySubscription: ISubscription;
@@ -87,11 +87,11 @@ export class DropFoldersStoreService extends FiltersStoreBase<DropFoldersFilters
 
   public readonly dropFolders = { data$: this._dropFolders.data.asObservable(), state$: this._dropFolders.state.asObservable() };
 
-  constructor(private _kalturaServerClient: KalturaClient,
+  constructor(private _kontorolServerClient: KontorolClient,
               private _browserService: BrowserService,
               private _appLocalization: AppLocalization,
               contentDropFoldersMainView: ContentDropFoldersMainViewService,
-              _logger: KalturaLogger) {
+              _logger: KontorolLogger) {
     super(_logger);
     if (contentDropFoldersMainView.isAvailable()) {
         this._prepare();
@@ -174,7 +174,7 @@ export class DropFoldersStoreService extends FiltersStoreBase<DropFoldersFilters
 
   }
 
-  private _buildQueryRequest(reloadFolders: boolean): Observable<KalturaDropFolderFileListResponse> {
+  private _buildQueryRequest(reloadFolders: boolean): Observable<KontorolDropFolderFileListResponse> {
     return this.loadDropFoldersList(reloadFolders)
       .switchMap(({ dropFoldersList, error }) => {
         if (!dropFoldersList.length || error) {
@@ -182,7 +182,7 @@ export class DropFoldersStoreService extends FiltersStoreBase<DropFoldersFilters
               header: this._appLocalization.get('app.common.attention'),
             message: error || this._appLocalization.get(
                 'applications.content.dropFolders.errors.dropFoldersAlert',
-                [serverConfig.externalLinks.kaltura.contactUs, serverConfig.externalLinks.kaltura.dropFoldersManual]
+                [serverConfig.externalLinks.kontorol.contactUs, serverConfig.externalLinks.kontorol.dropFoldersManual]
             )
           });
 
@@ -193,8 +193,8 @@ export class DropFoldersStoreService extends FiltersStoreBase<DropFoldersFilters
         }
 
         // create request items
-        const filter = new KalturaDropFolderFileFilter({});
-        let pager: KalturaFilterPager = null;
+        const filter = new KontorolDropFolderFileFilter({});
+        let pager: KontorolFilterPager = null;
 
         const data: DropFoldersFilters = this._getFiltersAsReadonly();
 
@@ -214,11 +214,11 @@ export class DropFoldersStoreService extends FiltersStoreBase<DropFoldersFilters
         // filter 'createdAt'
         if (data.createdAt) {
           if (data.createdAt.fromDate) {
-            filter.createdAtGreaterThanOrEqual = KalturaUtils.getStartDateValue(data.createdAt.fromDate);
+            filter.createdAtGreaterThanOrEqual = KontorolUtils.getStartDateValue(data.createdAt.fromDate);
           }
 
           if (data.createdAt.toDate) {
-            filter.createdAtLessThanOrEqual = KalturaUtils.getEndDateValue(data.createdAt.toDate);
+            filter.createdAtLessThanOrEqual = KontorolUtils.getEndDateValue(data.createdAt.toDate);
           }
         }
 
@@ -232,7 +232,7 @@ export class DropFoldersStoreService extends FiltersStoreBase<DropFoldersFilters
 
         // update pagination args
         if (data.pageIndex || data.pageSize) {
-          pager = new KalturaFilterPager(
+          pager = new KontorolFilterPager(
             {
               pageSize: data.pageSize,
               pageIndex: data.pageIndex + 1
@@ -245,7 +245,7 @@ export class DropFoldersStoreService extends FiltersStoreBase<DropFoldersFilters
         }
 
         // build the request
-        return <any>this._kalturaServerClient
+        return <any>this._kontorolServerClient
           .request(new DropFolderFileListAction({ filter, pager }))
           .map(response => {
             response.objects.forEach(object => {
@@ -262,7 +262,7 @@ export class DropFoldersStoreService extends FiltersStoreBase<DropFoldersFilters
 
   }
 
-  private _updateFilterWithJoinedList(list: string[], requestFilter: KalturaDropFolderFileFilter, requestFilterProperty: keyof KalturaDropFolderFileFilter): void {
+  private _updateFilterWithJoinedList(list: string[], requestFilter: KontorolDropFolderFileFilter, requestFilterProperty: keyof KontorolDropFolderFileFilter): void {
     const value = (list || []).map(item => item).join(',');
 
     if (value) {
@@ -270,45 +270,45 @@ export class DropFoldersStoreService extends FiltersStoreBase<DropFoldersFilters
     }
   }
 
-  public loadDropFoldersList(reloadFolders: boolean): Observable<{ dropFoldersList: KalturaDropFolder[], error?: string }> {
+  public loadDropFoldersList(reloadFolders: boolean): Observable<{ dropFoldersList: KontorolDropFolder[], error?: string }> {
     if (!reloadFolders && this._dropFoldersList$) {
       return this._dropFoldersList$;
     }
 
     this._dropFolders.state.next({ loading: true, errorMessage: null });
 
-    this._dropFoldersList$ = this._kalturaServerClient
+    this._dropFoldersList$ = this._kontorolServerClient
       .request(new DropFolderListAction({
-        filter: new KalturaDropFolderFilter({
-          orderBy: KalturaDropFolderOrderBy.createdAtDesc.toString(),
-          statusEqual: KalturaDropFolderStatus.enabled
+        filter: new KontorolDropFolderFilter({
+          orderBy: KontorolDropFolderOrderBy.createdAtDesc.toString(),
+          statusEqual: KontorolDropFolderStatus.enabled
         })
       }).setRequestOptions({
-          acceptedTypes: [KalturaDropFolder, KalturaDropFolderContentFileHandlerConfig]
+          acceptedTypes: [KontorolDropFolder, KontorolDropFolderContentFileHandlerConfig]
       }))
       .map(response => {
         this._dropFolders.state.next({ loading: false, errorMessage: null });
         if (response.objects.length) {
-          let df: KalturaDropFolder;
+          let df: KontorolDropFolder;
 
           const dropFoldersList = [];
           response.objects.forEach(object => {
-            if (object instanceof KalturaDropFolder) {
+            if (object instanceof KontorolDropFolder) {
               df = object;
-              if (df.fileHandlerType === KalturaDropFolderFileHandlerType.content) {
-                const cfg: KalturaDropFolderContentFileHandlerConfig = df.fileHandlerConfig as KalturaDropFolderContentFileHandlerConfig;
-                if (cfg.contentMatchPolicy === KalturaDropFolderContentFileHandlerMatchPolicy.addAsNew) {
+              if (df.fileHandlerType === KontorolDropFolderFileHandlerType.content) {
+                const cfg: KontorolDropFolderContentFileHandlerConfig = df.fileHandlerConfig as KontorolDropFolderContentFileHandlerConfig;
+                if (cfg.contentMatchPolicy === KontorolDropFolderContentFileHandlerMatchPolicy.addAsNew) {
                   dropFoldersList.push(df);
-                } else if (cfg.contentMatchPolicy === KalturaDropFolderContentFileHandlerMatchPolicy.matchExistingOrKeepInFolder) {
+                } else if (cfg.contentMatchPolicy === KontorolDropFolderContentFileHandlerMatchPolicy.matchExistingOrKeepInFolder) {
                   dropFoldersList.push(df);
-                } else if (cfg.contentMatchPolicy === KalturaDropFolderContentFileHandlerMatchPolicy.matchExistingOrAddAsNew) {
+                } else if (cfg.contentMatchPolicy === KontorolDropFolderContentFileHandlerMatchPolicy.matchExistingOrAddAsNew) {
                   dropFoldersList.push(df);
                 }
-              } else if (df.fileHandlerType === KalturaDropFolderFileHandlerType.xml) {
+              } else if (df.fileHandlerType === KontorolDropFolderFileHandlerType.xml) {
                 dropFoldersList.push(df);
               }
             } else {
-              throw new Error(`invalid type provided, expected KalturaDropFolder, got ${typeof object}`);
+              throw new Error(`invalid type provided, expected KontorolDropFolder, got ${typeof object}`);
             }
           });
 
@@ -318,7 +318,7 @@ export class DropFoldersStoreService extends FiltersStoreBase<DropFoldersFilters
               dropFoldersList: [],
               error: this._appLocalization.get(
                   'applications.content.dropFolders.errors.dropFoldersAlert',
-                  [serverConfig.externalLinks.kaltura.contactUs, serverConfig.externalLinks.kaltura.dropFoldersManual]
+                  [serverConfig.externalLinks.kontorol.contactUs, serverConfig.externalLinks.kontorol.dropFoldersManual]
               )
           };
         }
@@ -330,7 +330,7 @@ export class DropFoldersStoreService extends FiltersStoreBase<DropFoldersFilters
   }
 
   public isEntryExist(entryId: string): Observable<boolean> {
-    return this._kalturaServerClient.request(new BaseEntryGetAction({ entryId }))
+    return this._kontorolServerClient.request(new BaseEntryGetAction({ entryId }))
       .map(Boolean);
   }
 
@@ -390,7 +390,7 @@ export class DropFoldersStoreService extends FiltersStoreBase<DropFoldersFilters
       start = end;
     }
     const multiRequests = splittedRequests
-      .map(reqChunk => this._kalturaServerClient.multiRequest(reqChunk));
+      .map(reqChunk => this._kontorolServerClient.multiRequest(reqChunk));
 
     return Observable.forkJoin(multiRequests)
       .map(responses => {

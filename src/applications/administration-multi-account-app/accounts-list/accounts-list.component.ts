@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AccountFilters, MultiAccountStoreService, SortDirection } from '../multi-account-store/multi-account-store.service';
-import { PopupWidgetComponent, StickyComponent } from '@kaltura-ng/kaltura-ui';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent, StickyComponent } from '@kontorol-ng/kontorol-ui';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
 import { AppAuthentication, BrowserService } from 'app-shared/kmc-shell';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { AdminMultiAccountMainViewService } from 'app-shared/kmc-shared/kmc-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import { KalturaPartner, KalturaPartnerStatus } from "kaltura-ngx-client";
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import { KontorolPartner, KontorolPartnerStatus } from "kontorol-ngx-client";
 import { MultiAccountRefineFiltersService, RefineList } from '../multi-account-store/multi-account-refine-filters.service';
 import { serverConfig, buildBaseUri } from "config/server";
 
@@ -15,7 +15,7 @@ import { serverConfig, buildBaseUri } from "config/server";
   selector: 'kAccountsList',
   templateUrl: './accounts-list.component.html',
   styleUrls: ['./accounts-list.component.scss'],
-  providers: [MultiAccountRefineFiltersService, KalturaLogger.createLogger('AccountsListComponent')]
+  providers: [MultiAccountRefineFiltersService, KontorolLogger.createLogger('AccountsListComponent')]
 })
 
 export class AccountsListComponent implements OnInit, OnDestroy {
@@ -27,7 +27,7 @@ export class AccountsListComponent implements OnInit, OnDestroy {
   public _tableIsBusy = false;
   public _tableBlockerMessage: AreaBlockerMessage = null;
   public _refineFilters: RefineList[];
-  public _templateAccounts: KalturaPartner[] = [];
+  public _templateAccounts: KontorolPartner[] = [];
   public _usedAccounts = null;
   public _availableAccounts = null;
 
@@ -40,7 +40,7 @@ export class AccountsListComponent implements OnInit, OnDestroy {
   };
 
   constructor(public _accountsStore: MultiAccountStoreService,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _browserService: BrowserService,
               private _refineFiltersService: MultiAccountRefineFiltersService,
               private _adminMultiAccountMainViewService: AdminMultiAccountMainViewService,
@@ -184,16 +184,16 @@ export class AccountsListComponent implements OnInit, OnDestroy {
     }
   }
 
-  public _onActionSelected(event: { action: string, account: KalturaPartner }): void {
+  public _onActionSelected(event: { action: string, account: KontorolPartner }): void {
     switch (event.action) {
       case 'kmc':
           this._openKmc(event.account.id);
         break;
       case 'block':
-          this._updateAccountStatus(event.account, KalturaPartnerStatus.blocked);
+          this._updateAccountStatus(event.account, KontorolPartnerStatus.blocked);
         break;
       case 'unblock':
-          this._updateAccountStatus(event.account, KalturaPartnerStatus.active);
+          this._updateAccountStatus(event.account, KontorolPartnerStatus.active);
         break;
       case 'remove':
         this._logger.info(`handle delete account action by user, show confirmation`, { id: event.account.id });
@@ -203,7 +203,7 @@ export class AccountsListComponent implements OnInit, OnDestroy {
             message: this._appLocalization.get('applications.administration.accounts.confirmDeleteBody', { 0: event.account.name }),
             accept: () => {
               this._logger.info(`user confirmed, proceed action`);
-                this._updateAccountStatus(event.account, KalturaPartnerStatus.fullBlock);
+                this._updateAccountStatus(event.account, KontorolPartnerStatus.fullBlock);
             },
             reject: () => {
               this._logger.info(`user didn't confirmed, abort action`);
@@ -216,7 +216,7 @@ export class AccountsListComponent implements OnInit, OnDestroy {
     }
   }
 
-    private _updateAccountStatus(account: KalturaPartner, status: KalturaPartnerStatus): void {
+    private _updateAccountStatus(account: KontorolPartner, status: KontorolPartnerStatus): void {
         this._logger.info(`handle delete role request by user`);
         this._blockerMessage = null;
         this._accountsStore.updateAccountStatus(account.id, status)
@@ -323,6 +323,6 @@ export class AccountsListComponent implements OnInit, OnDestroy {
   }
 
   public _upgradeAccount(): void {
-      this._browserService.openLink(serverConfig.externalLinks.kaltura.contactUs, {}, '_blank');
+      this._browserService.openLink(serverConfig.externalLinks.kontorol.contactUs, {}, '_blank');
   }
 }

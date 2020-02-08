@@ -2,15 +2,15 @@ import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { UsersStore } from './users.service';
 import { subApplicationsConfig } from 'config/sub-applications';
 import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
-import { KalturaUser } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
+import { KontorolUser } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { Observer } from 'rxjs/Observer';
 import { serverConfig } from 'config/server';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
 import { AdminUsersMainViewService } from 'app-shared/kmc-shared/kmc-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export interface PartnerInfo {
   adminLoginUsersQuota: number,
@@ -31,9 +31,9 @@ export class UsersListComponent implements OnInit, OnDestroy {
   public _usersTotalCount: number;
   public _usersInfo = '';
   public _blockerMessage: AreaBlockerMessage = null;
-  public _users: KalturaUser[];
+  public _users: KontorolUser[];
   public _partnerInfo: PartnerInfo = { adminLoginUsersQuota: 0, adminUserId: null };
-  public _user: KalturaUser;
+  public _user: KontorolUser;
   public _filter = {
     pageIndex: 0,
     pageSize: null // pageSize is set to null by design. It will be modified after the first time loading users
@@ -119,7 +119,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
   }
 
   public _upgradeAccount(): void {
-    this._browserService.openLink(serverConfig.externalLinks.kaltura.upgradeAccount, {}, '_blank');
+    this._browserService.openLink(serverConfig.externalLinks.kontorol.upgradeAccount, {}, '_blank');
   }
 
   public _onPaginationChanged(state: any): void {
@@ -133,12 +133,12 @@ export class UsersListComponent implements OnInit, OnDestroy {
     }
   }
 
-  public _onEditUser(user: KalturaUser): void {
+  public _onEditUser(user: KontorolUser): void {
     this._user = user;
     this.editUserPopup.open();
   }
 
-  public _onToggleUserStatus(user: KalturaUser): void {
+  public _onToggleUserStatus(user: KontorolUser): void {
     const retryFn = () => this._onToggleUserStatus(user);
     this._usersStore.toggleUserStatus(user)
       .pipe(cancelOnDestroy(this))
@@ -146,7 +146,7 @@ export class UsersListComponent implements OnInit, OnDestroy {
       .subscribe(this._getObserver(retryFn));
   }
 
-  public _onDeleteUser(user: KalturaUser): void {
+  public _onDeleteUser(user: KontorolUser): void {
     const retryFn = () => this._onDeleteUser(user);
     this._usersStore.deleteUser(user)
       .pipe(cancelOnDestroy(this))

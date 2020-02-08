@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { PlaylistStore } from '../playlist-store.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { StickyComponent } from '@kaltura-ng/kaltura-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { StickyComponent } from '@kontorol-ng/kontorol-ui';
 import { PlaylistSectionsListWidget, SectionWidgetItem } from './playlist-sections-list-widget.service';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kPlaylistSectionsList',

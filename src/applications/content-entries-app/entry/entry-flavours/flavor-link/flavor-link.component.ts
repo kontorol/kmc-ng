@@ -1,42 +1,42 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { Flavor } from '../flavor';
-import { KalturaStorageProfile } from 'kaltura-ngx-client';
+import { KontorolStorageProfile } from 'kontorol-ngx-client';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { KalturaClient, KalturaMultiRequest } from 'kaltura-ngx-client';
-import { KalturaRemoteStorageResource } from 'kaltura-ngx-client';
-import { FlavorAssetSetContentAction } from 'kaltura-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { KontorolClient, KontorolMultiRequest } from 'kontorol-ngx-client';
+import { KontorolRemoteStorageResource } from 'kontorol-ngx-client';
+import { FlavorAssetSetContentAction } from 'kontorol-ngx-client';
 import { EntryFlavoursWidget } from '../entry-flavours-widget.service';
 import { BrowserService } from 'app-shared/kmc-shell';
 import { Observable } from 'rxjs';
-import { KalturaFlavorAsset } from 'kaltura-ngx-client';
-import { FlavorAssetAddAction } from 'kaltura-ngx-client';
-import { KalturaConversionProfileAssetParams } from 'kaltura-ngx-client';
-import { KalturaFlavorReadyBehaviorType } from 'kaltura-ngx-client';
-import { KalturaAssetParamsOrigin } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolFlavorAsset } from 'kontorol-ngx-client';
+import { FlavorAssetAddAction } from 'kontorol-ngx-client';
+import { KontorolConversionProfileAssetParams } from 'kontorol-ngx-client';
+import { KontorolFlavorReadyBehaviorType } from 'kontorol-ngx-client';
+import { KontorolAssetParamsOrigin } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
     selector: 'kFlavorLink',
     templateUrl: './flavor-link.component.html',
     styleUrls: ['./flavor-link.component.scss'],
-    providers: [KalturaLogger.createLogger('FlavorLinkComponent')]
+    providers: [KontorolLogger.createLogger('FlavorLinkComponent')]
 })
 export class FlavorLinkComponent implements OnDestroy {
     @Input() flavor: Flavor;
-    @Input() storageProfile: KalturaStorageProfile;
-    @Input() conversionProfileAsset: KalturaConversionProfileAssetParams;
+    @Input() storageProfile: KontorolStorageProfile;
+    @Input() conversionProfileAsset: KontorolConversionProfileAssetParams;
     @Input() parentPopupWidget: PopupWidgetComponent;
 
     public _form: FormGroup;
     public _filePathField: AbstractControl;
 
     constructor(private _appLocalization: AppLocalization,
-                private _logger: KalturaLogger,
+                private _logger: KontorolLogger,
                 private _widgetService: EntryFlavoursWidget,
-                private _kalturaClient: KalturaClient,
+                private _kontorolClient: KontorolClient,
                 private _browserService: BrowserService,
                 private _fb: FormBuilder) {
         this._buildForm();
@@ -58,10 +58,10 @@ export class FlavorLinkComponent implements OnDestroy {
             fileUrl: this._form.value.filePath,
             flavorAssetId: this.flavor.flavorAsset.id
         });
-        return this._kalturaClient
+        return this._kontorolClient
             .request(new FlavorAssetSetContentAction({
                 id: this.flavor.flavorAsset.id,
-                contentResource: new KalturaRemoteStorageResource({
+                contentResource: new KontorolRemoteStorageResource({
                     url: this._form.value.filePath,
                     storageProfileId: this.storageProfile.id
                 })
@@ -75,18 +75,18 @@ export class FlavorLinkComponent implements OnDestroy {
             fileUrl: this._form.value.filePath,
         });
         const entryId = this._widgetService.data.id;
-        const flavorAsset = new KalturaFlavorAsset({ flavorParamsId: this.flavor.flavorParams.id });
+        const flavorAsset = new KontorolFlavorAsset({ flavorParamsId: this.flavor.flavorParams.id });
         const flavorAssetAddAction = new FlavorAssetAddAction({ entryId, flavorAsset });
         const flavorAssetSetContentAction = new FlavorAssetSetContentAction({
             id: '0',
-            contentResource: new KalturaRemoteStorageResource({
+            contentResource: new KontorolRemoteStorageResource({
                 storageProfileId: this.storageProfile.id,
                 url: this._form.value.filePath
             })
         }).setDependency(['id', 0, 'id']);
 
-        return this._kalturaClient
-            .multiRequest(new KalturaMultiRequest(flavorAssetAddAction, flavorAssetSetContentAction))
+        return this._kontorolClient
+            .multiRequest(new KontorolMultiRequest(flavorAssetAddAction, flavorAssetSetContentAction))
             .map(responses => {
                 if (responses.hasErrors()) {
                     throw new Error(responses.reduce((acc, val) => `${acc}\n${val.error ? val.error.message : ''}`, ''));
@@ -97,7 +97,7 @@ export class FlavorLinkComponent implements OnDestroy {
 
     private _validate(): boolean {
         const asset = this.conversionProfileAsset;
-        if (!asset || asset.readyBehavior !== KalturaFlavorReadyBehaviorType.required || asset.origin !== KalturaAssetParamsOrigin.ingest) {
+        if (!asset || asset.readyBehavior !== KontorolFlavorReadyBehaviorType.required || asset.origin !== KontorolAssetParamsOrigin.ingest) {
             return true;
         }
 

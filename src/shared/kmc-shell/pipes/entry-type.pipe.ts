@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { KalturaMediaType } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolMediaType } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 
 @Pipe({name: 'entryType'})
 export class EntryTypePipe implements PipeTransform {
@@ -13,22 +13,22 @@ export class EntryTypePipe implements PipeTransform {
 		let tooltip = "";
 		if (typeof(value) !== 'undefined' && value !== null) {
 			switch (value) {
-				case KalturaMediaType.video:
+				case KontorolMediaType.video:
 					className = 'kIconvideo-small';
 					tooltip = this.appLocalization.get("applications.content.entryType.video");
 					break;
-				case KalturaMediaType.image:
+				case KontorolMediaType.image:
 					tooltip = this.appLocalization.get("applications.content.entryType.image");
 					className = 'kIconimage-small';
 					break;
-				case KalturaMediaType.audio:
+				case KontorolMediaType.audio:
 					tooltip = this.appLocalization.get("applications.content.entryType.audio");
 					className = 'kIconsound-small';
 					break;
-				case KalturaMediaType.liveStreamFlash:
-				case KalturaMediaType.liveStreamQuicktime:
-				case KalturaMediaType.liveStreamRealMedia:
-				case KalturaMediaType.liveStreamWindowsMedia:
+				case KontorolMediaType.liveStreamFlash:
+				case KontorolMediaType.liveStreamQuicktime:
+				case KontorolMediaType.liveStreamRealMedia:
+				case KontorolMediaType.liveStreamWindowsMedia:
 					tooltip = this.appLocalization.get("applications.content.entryType.live");
 					className = 'kIconlive_transcoding';
 					break;

@@ -1,10 +1,10 @@
 # Contributing
 
-Thank you for running Kaltura and pushing the limits of online video! By joining the Kaltura community and contributing you will help grow the platform, and keeping it open, stable and accessible to all.
+Thank you for running Kontorol and pushing the limits of online video! By joining the Kontorol community and contributing you will help grow the platform, and keeping it open, stable and accessible to all.
 
 
 ## Setup KMC-ng solution
-KMC-ng application is built on-top of several Kaltura infrastructures packages which are part of [kaltura-ng](https://github.com/kaltura/kaltura-ng) repository.
+KMC-ng application is built on-top of several Kontorol infrastructures packages which are part of [kontorol-ng](https://github.com/kontorol/kontorol-ng) repository.
 
 ### Prerequisites
  - [x] Ensure you have [node.js installed](https://nodejs.org/en/download/current/), version LTS or above.
@@ -12,9 +12,9 @@ KMC-ng application is built on-top of several Kaltura infrastructures packages w
  - [x] Ensure you have npm installed, version 5.0.0 or above.
 
 ### Getting started
-1. git clone [kaltura-ng](https://github.com/kaltura/kaltura-ng) repository 
-2. git clone [kmc-ng](https://github.com/kaltura/kmc-ng) repository
-3. in `kaltura-ng` local folder run the following:
+1. git clone [kontorol-ng](https://github.com/kontorol/kontorol-ng) repository 
+2. git clone [kmc-ng](https://github.com/kontorol/kmc-ng) repository
+3. in `kontorol-ng` local folder run the following:
 ```
 npm install
 npm run setup
@@ -66,8 +66,8 @@ Please sign our Contributor License Agreement (CLA) before sending pull requests
 
 [Contributor License Agreement (CLA)][cla]
 
-[cla]: https://agentcontribs.kaltura.org/
+[cla]: https://agentcontribs.kontorol.org/
 [dev-doc]: DEVELOPER.md
-[github]: https://github.com/kaltura/kmc-ng
-[github-issues]: https://github.com/kaltura/kmc-ng/issues
+[github]: https://github.com/kontorol/kmc-ng
+[github-issues]: https://github.com/kontorol/kmc-ng/issues
 [js-style-guide]: https://google.github.io/styleguide/javascriptguide.xml

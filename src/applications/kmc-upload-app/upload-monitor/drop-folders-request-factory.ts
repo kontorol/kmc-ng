@@ -1,11 +1,11 @@
-import { KalturaDetachedResponseProfile } from 'kaltura-ngx-client';
-import { KalturaResponseProfileType } from 'kaltura-ngx-client';
-import { RequestFactory } from '@kaltura-ng/kaltura-common';
-import { DropFolderFileListAction } from 'kaltura-ngx-client';
-import { KalturaDropFolderFileListResponse } from 'kaltura-ngx-client';
-import { KalturaDropFolderFileFilter } from 'kaltura-ngx-client';
+import { KontorolDetachedResponseProfile } from 'kontorol-ngx-client';
+import { KontorolResponseProfileType } from 'kontorol-ngx-client';
+import { RequestFactory } from '@kontorol-ng/kontorol-common';
+import { DropFolderFileListAction } from 'kontorol-ngx-client';
+import { KontorolDropFolderFileListResponse } from 'kontorol-ngx-client';
+import { KontorolDropFolderFileFilter } from 'kontorol-ngx-client';
 
-export class DropFoldersRequestFactory implements RequestFactory<DropFolderFileListAction, KalturaDropFolderFileListResponse> {
+export class DropFoldersRequestFactory implements RequestFactory<DropFolderFileListAction, KontorolDropFolderFileListResponse> {
   public uploadedOn: Date;
   public dropFolderIdIn: string;
 
@@ -18,13 +18,13 @@ export class DropFoldersRequestFactory implements RequestFactory<DropFolderFileL
     }
 
     return new DropFolderFileListAction({
-      filter: new KalturaDropFolderFileFilter({
+      filter: new KontorolDropFolderFileFilter({
         createdAtGreaterThanOrEqual: this.uploadedOn,
         dropFolderIdIn: this.dropFolderIdIn
       })
     }).setRequestOptions({
-        responseProfile: new KalturaDetachedResponseProfile({
-          type: KalturaResponseProfileType.includeFields,
+        responseProfile: new KontorolDetachedResponseProfile({
+          type: KontorolResponseProfileType.includeFields,
           fields: 'id,status,createdAt'
       })
     });

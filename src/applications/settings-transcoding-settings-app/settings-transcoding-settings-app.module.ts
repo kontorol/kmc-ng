@@ -5,16 +5,16 @@ import { routing } from './settings-transcoding-settings-app.routes';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ButtonModule, DropdownModule, InputTextModule, InputTextareaModule, PaginatorModule } from 'primeng/primeng';
-import { AreaBlockerModule } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerModule } from '@kontorol-ng/kontorol-ui';
 import { TranslateModule } from '@ngx-translate/core';
 import { TranscodingProfilesComponentsList } from './transcoding-profiles/components-list';
-import { KalturaUIModule, TooltipModule, StickyModule } from '@kaltura-ng/kaltura-ui';
+import { KontorolUIModule, TooltipModule, StickyModule } from '@kontorol-ng/kontorol-ui';
 import { MenuModule } from 'primeng/menu';
-import {LocalizationModule} from '@kaltura-ng/mc-shared';
+import {LocalizationModule} from '@kontorol-ng/mc-shared';
 import { TranscodingProfileComponentsList } from './transcoding-profile/components-list';
-import { DetailsBarModule } from '@kaltura-ng/kaltura-ui';
+import { DetailsBarModule } from '@kontorol-ng/kontorol-ui';
 import { TranscodingProfileCanDeactivate } from './transcoding-profile/transcoding-profile-can-deactivate.service';
-import { PopupWidgetModule } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetModule } from '@kontorol-ng/kontorol-ui';
 import { KMCPermissionsModule } from 'app-shared/kmc-shared/kmc-permissions';
 import { TableModule } from 'primeng/table';
 import { DateFormatModule } from 'app-shared/kmc-shared/date-format/date-format.module';
@@ -32,7 +32,7 @@ import { DateFormatModule } from 'app-shared/kmc-shared/date-format/date-format.
     TranslateModule,
     TooltipModule,
     LocalizationModule,
-    KalturaUIModule,
+    KontorolUIModule,
     PaginatorModule,
     StickyModule,
     MenuModule,

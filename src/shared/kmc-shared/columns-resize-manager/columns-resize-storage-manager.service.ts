@@ -1,5 +1,5 @@
 import { Inject, Injectable, InjectionToken, Renderer2 } from '@angular/core';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { BrowserService } from 'app-shared/kmc-shell';
 
 export interface ResizableColumns {
@@ -20,7 +20,7 @@ export class ColumnsResizeStorageManagerService {
         return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     }
 
-    constructor(private _logger: KalturaLogger,
+    constructor(private _logger: KontorolLogger,
                 private _browserService: BrowserService) {
         this._logger = _logger.subLogger('ColumnsResizeStorageManagerService');
     }

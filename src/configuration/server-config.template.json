@@ -1,15 +1,15 @@
 {
-  "kalturaServer": {
-    "uri" : "@kalturaServer.uri@",
-    "defaultPrivileges" : "@kalturaServer.defaultPrivileges@",
-    "deployUrl": "@kalturaServer.deployUrl@",
-    "previewUIConf": @kalturaServer.previewUIConf@,
-    "resetPasswordUri": "@kalturaServer.resetPasswordUri@",
+  "kontorolServer": {
+    "uri" : "@kontorolServer.uri@",
+    "defaultPrivileges" : "@kontorolServer.defaultPrivileges@",
+    "deployUrl": "@kontorolServer.deployUrl@",
+    "previewUIConf": @kontorolServer.previewUIConf@,
+    "resetPasswordUri": "@kontorolServer.resetPasswordUri@",
     "freeTrialExpiration": {
-      "trialPeriodInDays": @kalturaServer.freeTrialExpiration.trialPeriodInDays@
+      "trialPeriodInDays": @kontorolServer.freeTrialExpiration.trialPeriodInDays@
     },
       "limitAccess": {
-          "serviceUrl": "@kalturaServer.limitAccess.serviceUrl@"
+          "serviceUrl": "@kontorolServer.limitAccess.serviceUrl@"
       }
   },
   "cdnServers": {
@@ -52,16 +52,16 @@
       "embedTypes": "@externalLinks.previewAndEmbed.embedTypes@",
       "deliveryProtocols": "@externalLinks.previewAndEmbed.deliveryProtocols@"
     },
-    "kaltura": {
-      "userManual": "@externalLinks.kaltura.userManual@",
-      "support": "@externalLinks.kaltura.support@",
-      "signUp": "@externalLinks.kaltura.signUp@",
-      "contactUs": "@externalLinks.kaltura.contactUs@",
-      "upgradeAccount":"@externalLinks.kaltura.upgradeAccount@",
-      "contactSalesforce": "@externalLinks.kaltura.contactSalesforce@",
-      "dropFoldersManual": "@externalLinks.kaltura.dropFoldersManual@",
-      "customerCare": "@externalLinks.kaltura.customerCare@",
-      "customerPortal": "@externalLinks.kaltura.customerPortal@"
+    "kontorol": {
+      "userManual": "@externalLinks.kontorol.userManual@",
+      "support": "@externalLinks.kontorol.support@",
+      "signUp": "@externalLinks.kontorol.signUp@",
+      "contactUs": "@externalLinks.kontorol.contactUs@",
+      "upgradeAccount":"@externalLinks.kontorol.upgradeAccount@",
+      "contactSalesforce": "@externalLinks.kontorol.contactSalesforce@",
+      "dropFoldersManual": "@externalLinks.kontorol.dropFoldersManual@",
+      "customerCare": "@externalLinks.kontorol.customerCare@",
+      "customerPortal": "@externalLinks.kontorol.customerPortal@"
     },
     "uploads": {
       "highSpeedUpload": "@externalLinks.uploads.highSpeedUpload@",

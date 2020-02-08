@@ -1,36 +1,36 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import {KalturaRecordStatus} from 'kaltura-ngx-client';
-import {KalturaLiveStreamService} from './kaltura-live-stream.service';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import {KontorolRecordStatus} from 'kontorol-ngx-client';
+import {KontorolLiveStreamService} from './kontorol-live-stream.service';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
 import {BrowserService} from 'app-shared/kmc-shell';
-import {KalturaLive} from './kaltura-live-stream.interface';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import {KontorolLive} from './kontorol-live-stream.interface';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
-  selector: 'kKalturaLiveStream',
-  templateUrl: './kaltura-live-stream.component.html',
-  styleUrls: ['./kaltura-live-stream.component.scss'],
-  providers: [KalturaLiveStreamService]
+  selector: 'kKontorolLiveStream',
+  templateUrl: './kontorol-live-stream.component.html',
+  styleUrls: ['./kontorol-live-stream.component.scss'],
+  providers: [KontorolLiveStreamService]
 })
-export class KalturaLiveStreamComponent implements OnInit, OnDestroy {
+export class KontorolLiveStreamComponent implements OnInit, OnDestroy {
 
   public _form: FormGroup;
   public _availableTranscodingProfiles: Array<{ value: number, label: string }>;
-  public _enableRecordingOptions: Array<{ value: KalturaRecordStatus, label: string }>;
+  public _enableRecordingOptions: Array<{ value: KontorolRecordStatus, label: string }>;
   public _blockerMessage: AreaBlockerMessage = null;
   public _isBusy = false;
 
   @Input()
-  data: KalturaLive;
+  data: KontorolLive;
 
   @Output()
-  dataChange = new EventEmitter<KalturaLive>();
+  dataChange = new EventEmitter<KontorolLive>();
 
   constructor(private _appLocalization: AppLocalization,
               private _fb: FormBuilder,
-              private _kalturaLiveStreamService: KalturaLiveStreamService,
+              private _kontorolLiveStreamService: KontorolLiveStreamService,
               private _browserService: BrowserService) {
   }
 
@@ -56,7 +56,7 @@ export class KalturaLiveStreamComponent implements OnInit, OnDestroy {
 
   private _loadTranscodingProfiles(): void {
     this._updateAreaBlockerState(true, null);
-    this._kalturaLiveStreamService.getKalturaConversionProfiles()
+    this._kontorolLiveStreamService.getKontorolConversionProfiles()
       .pipe(cancelOnDestroy(this))
       .subscribe(transcodingProfilesList => {
         this._availableTranscodingProfiles = transcodingProfilesList.map(transcodingProfile => ({
@@ -80,7 +80,7 @@ export class KalturaLiveStreamComponent implements OnInit, OnDestroy {
       return null;
     }
 
-    const profileIdFromCache = this._browserService.getFromLocalStorage('kalturaStreamType.selectedTranscodingProfile');
+    const profileIdFromCache = this._browserService.getFromLocalStorage('kontorolStreamType.selectedTranscodingProfile');
     const profileExistsInList = transcodingProfilesList
       .findIndex((profile) => (profile.id === profileIdFromCache)) > -1;
 
@@ -88,7 +88,7 @@ export class KalturaLiveStreamComponent implements OnInit, OnDestroy {
     if (profileIdFromCache && profileExistsInList) {
       return profileIdFromCache;
     } else {
-      this._browserService.setInLocalStorage('kalturaStreamType.selectedTranscodingProfile', transcodingProfilesList[0].id);
+      this._browserService.setInLocalStorage('kontorolStreamType.selectedTranscodingProfile', transcodingProfilesList[0].id);
       return transcodingProfilesList[0].id;
     }
   }
@@ -96,12 +96,12 @@ export class KalturaLiveStreamComponent implements OnInit, OnDestroy {
   private _fillEnableRecordingOptions() {
     this._enableRecordingOptions = [
       {
-        value: KalturaRecordStatus.perSession,
-        label: this._appLocalization.get('applications.upload.prepareLive.kalturaStreamType.enableRecordingOptions.perSession')
+        value: KontorolRecordStatus.perSession,
+        label: this._appLocalization.get('applications.upload.prepareLive.kontorolStreamType.enableRecordingOptions.perSession')
       },
       {
-        value: KalturaRecordStatus.appended,
-        label: this._appLocalization.get('applications.upload.prepareLive.kalturaStreamType.enableRecordingOptions.appended')
+        value: KontorolRecordStatus.appended,
+        label: this._appLocalization.get('applications.upload.prepareLive.kontorolStreamType.enableRecordingOptions.appended')
       },
     ];
   }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SettingsTranscodingSettingsService } from './settings-transcoding-settings.service';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { MediaTranscodingProfilesStore } from './transcoding-profiles/transcoding-profiles-store/media-transcoding-profiles-store.service';
 import { LiveTranscodingProfilesStore } from './transcoding-profiles/transcoding-profiles-store/live-transcoding-profiles-store.service';
 
@@ -11,7 +11,7 @@ import { LiveTranscodingProfilesStore } from './transcoding-profiles/transcoding
     SettingsTranscodingSettingsService,
     MediaTranscodingProfilesStore,
     LiveTranscodingProfilesStore,
-    KalturaLogger.createLogger('SettingsTranscodingSettings')
+    KontorolLogger.createLogger('SettingsTranscodingSettings')
   ],
 })
 export class SettingsTranscodingSettingsComponent {

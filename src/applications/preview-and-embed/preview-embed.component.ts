@@ -1,26 +1,26 @@
 import { Component, OnInit, AfterViewInit, OnDestroy, Input, Output, ViewChild, EventEmitter, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup } from "@angular/forms";
 
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { AppAuthentication, BrowserService } from 'app-shared/kmc-shell';
 import { subApplicationsConfig } from 'config/sub-applications';
 import { PreviewEmbedService, EmbedConfig } from './preview-and-embed.service';
 
-import { KalturaPlaylist, UiConfListAction } from 'kaltura-ngx-client';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { KalturaUiConfListResponse } from 'kaltura-ngx-client';
-import { KalturaUiConf } from 'kaltura-ngx-client';
-import { KalturaShortLink } from 'kaltura-ngx-client';
-import { KalturaSourceType } from 'kaltura-ngx-client';
+import { KontorolPlaylist, UiConfListAction } from 'kontorol-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { KontorolUiConfListResponse } from 'kontorol-ngx-client';
+import { KontorolUiConf } from 'kontorol-ngx-client';
+import { KontorolShortLink } from 'kontorol-ngx-client';
+import { KontorolSourceType } from 'kontorol-ngx-client';
 import { serverConfig, buildCDNUrl } from 'config/server';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export type PlayerUIConf = {
     version: number,
-    uiConf: KalturaUiConf
+    uiConf: KontorolUiConf
 }
 
 @Component({
@@ -33,7 +33,7 @@ export class PreviewEmbedDetailsComponent implements OnInit, AfterViewInit, OnDe
 
   @Output() closePopup = new EventEmitter();
 
-  @Input() media: KalturaPlaylist | KalturaMediaEntry;
+  @Input() media: KontorolPlaylist | KontorolMediaEntry;
 
   @ViewChild('previewIframe') previewIframe: ElementRef;
 
@@ -61,8 +61,8 @@ export class PreviewEmbedDetailsComponent implements OnInit, AfterViewInit, OnDe
   private _previewLink = null;
 
   public get _showEmberCode(): boolean {
-    const showForPlaylist = this.media instanceof KalturaPlaylist && this._permissionsService.hasPermission(KMCPermissions.PLAYLIST_EMBED_CODE);
-    const showForEntry = this.media instanceof KalturaMediaEntry && this._permissionsService.hasPermission(KMCPermissions.CONTENT_MANAGE_EMBED_CODE);
+    const showForPlaylist = this.media instanceof KontorolPlaylist && this._permissionsService.hasPermission(KMCPermissions.PLAYLIST_EMBED_CODE);
+    const showForEntry = this.media instanceof KontorolMediaEntry && this._permissionsService.hasPermission(KMCPermissions.CONTENT_MANAGE_EMBED_CODE);
     return showForEntry || showForPlaylist;
   }
 
@@ -119,19 +119,19 @@ export class PreviewEmbedDetailsComponent implements OnInit, AfterViewInit, OnDe
 
   private listPlayers(){
 
-    const isPlaylist = this.media instanceof KalturaPlaylist;
+    const isPlaylist = this.media instanceof KontorolPlaylist;
     this._isBusy = true;
     this._blockerMessage = null;
 
     this._previewEmbedService.listPlayers(isPlaylist).pipe(cancelOnDestroy(this)).subscribe(
-        (res: KalturaUiConfListResponse) => {
+        (res: KontorolUiConfListResponse) => {
           // create players array from returned UICong list. Remove V1 players. Include V3 players (no html5Url, special tag)
           res.objects.filter( (uiConf) => {
               let showPlayer = true;
               if (uiConf.html5Url){
                   showPlayer = uiConf.html5Url.indexOf('html5lib/v1') === -1; // filter out V1 players
               } else {
-                  showPlayer = uiConf.tags.indexOf('kalturaPlayerJs') > -1 && this._permissionsService.hasPermission(KMCPermissions.FEATURE_V3_STUDIO_PERMISSION); // show V3 players if user has permissions
+                  showPlayer = uiConf.tags.indexOf('kontorolPlayerJs') > -1 && this._permissionsService.hasPermission(KMCPermissions.FEATURE_V3_STUDIO_PERMISSION); // show V3 players if user has permissions
               }
               // filter out by tags
               if (uiConf.tags && uiConf.tags.length){
@@ -142,7 +142,7 @@ export class PreviewEmbedDetailsComponent implements OnInit, AfterViewInit, OnDe
               }
               return showPlayer;
           }).forEach(uiConf => {
-              const version = uiConf.tags.indexOf('kalturaPlayerJs') > -1 ? 3 : 2;
+              const version = uiConf.tags.indexOf('kontorolPlayerJs') > -1 ? 3 : 2;
               const playerUIConf: PlayerUIConf = { uiConf, version }
             this._players.push({label: uiConf.name, value: playerUIConf});
           });
@@ -232,7 +232,7 @@ export class PreviewEmbedDetailsComponent implements OnInit, AfterViewInit, OnDe
     this._embedTypes.push({"label": this._appLocalization.get("applications.embed.embedDynamic"), "value": "dynamic"});
     this._embedTypes.push({"label": this._appLocalization.get("applications.embed.embedIframe"), "value": "iframe"});
     this._embedTypes.push({"label": this._appLocalization.get("applications.embed.embedAuto"), "value": "auto"});
-    if (this.media instanceof KalturaMediaEntry && this._selectedPlayerVersion === 2) {
+    if (this.media instanceof KontorolMediaEntry && this._selectedPlayerVersion === 2) {
       this._embedTypes.push({"label": this._appLocalization.get("applications.embed.embedThumb"), "value": "thumb"}); // no thumb embed for playlists and v3 players
     }
   }
@@ -277,12 +277,12 @@ export class PreviewEmbedDetailsComponent implements OnInit, AfterViewInit, OnDe
   private getGenerator():any{
     const baseCdnUrl = serverConfig.cdnServers.serverUri.replace("http://","");
     const securedCdnUrl = serverConfig.cdnServers.securedServerUri.replace("https://","");
-    // 'kEmbedCodeGenerator' is bundled with the app. Location: assets/js/KalturaEmbedCodeGenerator.min.js
+    // 'kEmbedCodeGenerator' is bundled with the app. Location: assets/js/KontorolEmbedCodeGenerator.min.js
     return new window['kEmbedCodeGenerator']({
       host: baseCdnUrl,
       securedHost: securedCdnUrl,
       partnerId: this._appAuthentication.appUser.partnerId,
-      includeKalturaLinks: subApplicationsConfig.previewAndEmbedApp.includeKalturaLinks
+      includeKontorolLinks: subApplicationsConfig.previewAndEmbedApp.includeKontorolLinks
     });
   }
 
@@ -298,11 +298,11 @@ export class PreviewEmbedDetailsComponent implements OnInit, AfterViewInit, OnDe
       height: this._previewForm.controls['selectedPlayer'].value.uiConf.height,
       entryMeta: this.getMediaMetadata(),
       includeSeoMetadata: this._previewForm.controls['seo'].value,
-      playerId: 'kaltura_player_' + cacheStr,
+      playerId: 'kontorol_player_' + cacheStr,
       cacheSt: cacheStr,
       flashVars: this.getEmbedFlashVars(isPreview)
     };
-    if (this.media instanceof KalturaMediaEntry){
+    if (this.media instanceof KontorolMediaEntry){
       params['entryId'] = this.media.id;
     }
     return this.generator.getCode(params);
@@ -332,12 +332,12 @@ export class PreviewEmbedDetailsComponent implements OnInit, AfterViewInit, OnDe
     try {
       if (isPreview) {
         flashVars['ks'] = this._appAuthentication.appUser.ks;
-        if (this.media instanceof KalturaMediaEntry) {
+        if (this.media instanceof KontorolMediaEntry) {
           const sourceType = this.media.sourceType.toString();
-          const isLive = (sourceType === KalturaSourceType.liveStream.toString() ||
-          sourceType === KalturaSourceType.akamaiLive.toString() ||
-          sourceType === KalturaSourceType.akamaiUniversalLive.toString() ||
-          sourceType === KalturaSourceType.manualLiveStream.toString());
+          const isLive = (sourceType === KontorolSourceType.liveStream.toString() ||
+          sourceType === KontorolSourceType.akamaiLive.toString() ||
+          sourceType === KontorolSourceType.akamaiUniversalLive.toString() ||
+          sourceType === KontorolSourceType.manualLiveStream.toString());
           if (isLive) {
             flashVars['disableEntryRedirect'] = true;
           }
@@ -352,7 +352,7 @@ export class PreviewEmbedDetailsComponent implements OnInit, AfterViewInit, OnDe
             "plugin": "false",                // prevent loading the kAnalony plugin in v2 players
         };
       }
-      if (this.media instanceof KalturaPlaylist) {
+      if (this.media instanceof KontorolPlaylist) {
         flashVars['playlistAPI.kpl0Id'] = this.media.id;
       }
     } catch (e) {
@@ -383,10 +383,10 @@ export class PreviewEmbedDetailsComponent implements OnInit, AfterViewInit, OnDe
   private createPreviewLink():void{
       let url = '';
       try {
-        url = this.getProtocol(false) + '://' + serverConfig.kalturaServer.uri + '/index.php/extwidget/preview';
+        url = this.getProtocol(false) + '://' + serverConfig.kontorolServer.uri + '/index.php/extwidget/preview';
         url += '/partner_id/' + this._appAuthentication.appUser.partnerId;
         url += '/uiconf_id/' + this._previewForm.controls['selectedPlayer'].value.uiConf.id;
-        if (this.media instanceof KalturaMediaEntry) {
+        if (this.media instanceof KontorolMediaEntry) {
           url += '/entry_id/' + this.media.id;
         }
         url += '/embed/' + this._previewForm.controls['selectedEmbedType'].value;
@@ -400,8 +400,8 @@ export class PreviewEmbedDetailsComponent implements OnInit, AfterViewInit, OnDe
 
       // create short link
       this._previewEmbedService.generateShortLink(url).pipe(cancelOnDestroy(this)).subscribe(
-          (res: KalturaShortLink) => {
-            this._shortLink = 'http://' + serverConfig.kalturaServer.uri + '/tiny/' + res.id;
+          (res: KontorolShortLink) => {
+            this._shortLink = 'http://' + serverConfig.kontorolServer.uri + '/tiny/' + res.id;
           },
           error => {
             console.log("could not generate short link for preview");

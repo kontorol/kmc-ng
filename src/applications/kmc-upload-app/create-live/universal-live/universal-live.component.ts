@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AreaBlockerMessage, KalturaValidators} from '@kaltura-ng/kaltura-ui';
+import {AreaBlockerMessage, KontorolValidators} from '@kontorol-ng/kontorol-ui';
 import {UniversalLiveService} from './universal-live.service';
 import {UniversalLive} from "./universal-live.interface";
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kUniversalLive',
@@ -29,7 +29,7 @@ export class UniversalLiveComponent implements OnInit, OnDestroy {
   blockerState: { isBusy: boolean, message: AreaBlockerMessage };
 
   constructor(private _fb: FormBuilder,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _appLocalization: AppLocalization,
               private universalLiveService: UniversalLiveService) {
   }
@@ -66,8 +66,8 @@ export class UniversalLiveComponent implements OnInit, OnDestroy {
     this._form = this._fb.group({
       name: ['', Validators.required],
       description: [''],
-      primaryEncoderIp: ['', [Validators.required, KalturaValidators.ip]],
-      secondaryEncoderIp: ['', [Validators.required, KalturaValidators.ip]],
+      primaryEncoderIp: ['', [Validators.required, KontorolValidators.ip]],
+      secondaryEncoderIp: ['', [Validators.required, KontorolValidators.ip]],
       broadcastPassword: [''],
       liveDvr: [true]
     });

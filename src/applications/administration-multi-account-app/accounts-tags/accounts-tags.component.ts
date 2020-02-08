@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {AccountFilters, MultiAccountStoreService} from '../multi-account-store/multi-account-store.service';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
 import {RefineList} from '../multi-account-store/multi-account-refine-filters.service';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { DatePipe } from 'app-shared/kmc-shared/date-format/date.pipe';
 import { BrowserService } from 'app-shared/kmc-shell';
 

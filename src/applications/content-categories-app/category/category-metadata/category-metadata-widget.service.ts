@@ -1,15 +1,15 @@
-import {MetadataAddAction} from 'kaltura-ngx-client';
-import {MetadataUpdateAction} from 'kaltura-ngx-client';
-import {KalturaTagFilter} from 'kaltura-ngx-client';
-import {TagSearchAction} from 'kaltura-ngx-client';
-import {KalturaFilterPager} from 'kaltura-ngx-client';
-import {KalturaTaggedObjectType} from 'kaltura-ngx-client';
-import {MetadataListAction} from 'kaltura-ngx-client';
-import {KalturaMetadataObjectType} from 'kaltura-ngx-client';
-import {KalturaClient, KalturaMultiRequest} from 'kaltura-ngx-client';
-import {KalturaCategory} from 'kaltura-ngx-client';
-import {KalturaMetadataFilter} from 'kaltura-ngx-client';
-import {KalturaMetadata} from 'kaltura-ngx-client';
+import {MetadataAddAction} from 'kontorol-ngx-client';
+import {MetadataUpdateAction} from 'kontorol-ngx-client';
+import {KontorolTagFilter} from 'kontorol-ngx-client';
+import {TagSearchAction} from 'kontorol-ngx-client';
+import {KontorolFilterPager} from 'kontorol-ngx-client';
+import {KontorolTaggedObjectType} from 'kontorol-ngx-client';
+import {MetadataListAction} from 'kontorol-ngx-client';
+import {KontorolMetadataObjectType} from 'kontorol-ngx-client';
+import {KontorolClient, KontorolMultiRequest} from 'kontorol-ngx-client';
+import {KontorolCategory} from 'kontorol-ngx-client';
+import {KontorolMetadataFilter} from 'kontorol-ngx-client';
+import {KontorolMetadata} from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
 import {
   DynamicMetadataForm,
@@ -24,21 +24,21 @@ import {CategoryWidget} from '../category-widget';
 import {async} from 'rxjs/scheduler/async';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { ContentCategoryViewSections } from 'app-shared/kmc-shared/kmc-views/details-views';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Injectable()
 export class CategoryMetadataWidget extends CategoryWidget implements OnDestroy {
 
     public metadataForm: FormGroup;
     public customDataForms: DynamicMetadataForm[] = [];
-    private _categoryMetadata: KalturaMetadata[] = [];
+    private _categoryMetadata: KontorolMetadata[] = [];
 
-    constructor(private _kalturaServerClient: KalturaClient,
+    constructor(private _kontorolServerClient: KontorolClient,
         private _formBuilder: FormBuilder,
         private _metadataProfileStore: MetadataProfileStore,
         private _permissionsService: KMCPermissionsService,
-        logger: KalturaLogger,
+        logger: KontorolLogger,
         private _dynamicMetadataFormFactory: DynamicMetadataFormFactory) {
         super(ContentCategoryViewSections.Metadata, logger);
         this._buildForm();
@@ -182,16 +182,16 @@ export class CategoryMetadataWidget extends CategoryWidget implements OnDestroy 
         }
     }
 
-    private _loadCategoryMetadata(category: KalturaCategory): Observable<boolean> {
+    private _loadCategoryMetadata(category: KontorolCategory): Observable<boolean> {
 
         this._categoryMetadata = [];
 
-        return this._kalturaServerClient.request(new MetadataListAction(
+        return this._kontorolServerClient.request(new MetadataListAction(
             {
-                filter: new KalturaMetadataFilter(
+                filter: new KontorolMetadataFilter(
                     {
                         objectIdEqual: category.id.toString(),
-                        metadataObjectTypeEqual: KalturaMetadataObjectType.category
+                        metadataObjectTypeEqual: KontorolMetadataObjectType.category
                     }
                 )
             }
@@ -230,7 +230,7 @@ export class CategoryMetadataWidget extends CategoryWidget implements OnDestroy 
             });
     }
 
-    protected onDataSaving(newData: KalturaCategory, request: KalturaMultiRequest): void {
+    protected onDataSaving(newData: KontorolCategory, request: KontorolMultiRequest): void {
 
         const metadataFormValue = this.metadataForm.value;
 
@@ -259,7 +259,7 @@ export class CategoryMetadataWidget extends CategoryWidget implements OnDestroy 
                             }));
                         } else {
                             request.requests.push(new MetadataAddAction({
-                                objectType: KalturaMetadataObjectType.category,
+                                objectType: KontorolMetadataObjectType.category,
                                 objectId: this.data.id.toString(),
                                 metadataProfileId: customDataForm.metadataProfile.id,
                                 xmlData: customDataValue.xml
@@ -274,16 +274,16 @@ export class CategoryMetadataWidget extends CategoryWidget implements OnDestroy 
     public searchTags(text: string): Observable<string[]> {
         return Observable.create(
             observer => {
-                const requestSubscription = this._kalturaServerClient.request(
+                const requestSubscription = this._kontorolServerClient.request(
                     new TagSearchAction(
                         {
-                            tagFilter: new KalturaTagFilter(
+                            tagFilter: new KontorolTagFilter(
                                 {
                                     tagStartsWith: text,
-                                    objectTypeEqual: KalturaTaggedObjectType.category
+                                    objectTypeEqual: KontorolTaggedObjectType.category
                                 }
                             ),
-                            pager: new KalturaFilterPager({
+                            pager: new KontorolFilterPager({
                                 pageIndex: 0,
                                 pageSize: 30
                             })

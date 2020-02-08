@@ -1,13 +1,13 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { SettingsMyUserSettingsService } from './settings-my-user-settings.service';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import { KalturaUser } from 'kaltura-ngx-client';
-import { KalturaUserRole } from 'kaltura-ngx-client';
-import { UserUpdateLoginDataActionArgs } from 'kaltura-ngx-client';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import { KontorolUser } from 'kontorol-ngx-client';
+import { KontorolUserRole } from 'kontorol-ngx-client';
+import { UserUpdateLoginDataActionArgs } from 'kontorol-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { SettingsMyUserSettingsMainViewService } from 'app-shared/kmc-shared/kmc-views';
 import { BrowserService } from 'shared/kmc-shell/providers/browser.service';
 
@@ -19,7 +19,7 @@ export type UserSettingsPopup = 'editUserNamePopup' | 'editEmailAddressPopup' | 
   styleUrls: ['./settings-my-user-settings.component.scss'],
   providers: [
     SettingsMyUserSettingsService,
-    KalturaLogger.createLogger('SettingsMyUserSettingsComponent')
+    KontorolLogger.createLogger('SettingsMyUserSettingsComponent')
   ]
 })
 export class SettingsMyUserSettingsComponent implements OnInit, OnDestroy {
@@ -31,13 +31,13 @@ export class SettingsMyUserSettingsComponent implements OnInit, OnDestroy {
 
   public _areaBlockerMessage: AreaBlockerMessage = null;
   public _updateBlockerMessage: AreaBlockerMessage = null;
-  public _user: KalturaUser = null;
-  public _role: KalturaUserRole = null;
+  public _user: KontorolUser = null;
+  public _role: KontorolUserRole = null;
   public _isBusy = false;
   public _showAuthenticator = false;
 
   constructor(private _myUserSettingsStore: SettingsMyUserSettingsService,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _settingsMyUserSettingsMainView: SettingsMyUserSettingsMainViewService,
               private _browserService: BrowserService,
               private _appLocalization: AppLocalization) {
@@ -109,7 +109,7 @@ export class SettingsMyUserSettingsComponent implements OnInit, OnDestroy {
 
       this._updateBlockerMessage = null;
       this._myUserSettingsStore
-          .updateEmail(new KalturaUser({ id: this._user.id, email }))
+          .updateEmail(new KontorolUser({ id: this._user.id, email }))
           .pipe(cancelOnDestroy(this))
           .pipe(tag('block-shell'))
           .subscribe(

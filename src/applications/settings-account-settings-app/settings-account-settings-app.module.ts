@@ -5,7 +5,7 @@ import {routing} from "./settings-account-settings-app.routes";
 import {RouterModule} from "@angular/router";
 import {ReactiveFormsModule} from "@angular/forms";
 import {ButtonModule, DropdownModule, InputTextModule} from "primeng/primeng";
-import {AreaBlockerModule} from "@kaltura-ng/kaltura-ui";
+import {AreaBlockerModule} from "@kontorol-ng/kontorol-ui";
 import {TranslateModule} from "@ngx-translate/core";
 import { KMCPermissionsModule } from 'app-shared/kmc-shared/kmc-permissions';
 import { SettingsAccountSettingsCanDeactivateService } from './settings-account-settings-can-deactivate.service';

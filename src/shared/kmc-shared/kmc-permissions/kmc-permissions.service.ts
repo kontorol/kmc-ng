@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
-import { AppPermissionsServiceBase } from '@kaltura-ng/mc-shared';
+import { AppPermissionsServiceBase } from '@kontorol-ng/mc-shared';
 import { KMCPermissions } from './kmc-permissions';
 import { KMCPermissionsRules } from 'app-shared/kmc-shared/kmc-permissions/kmc-permissions-rules';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 
 @Injectable()
 export class KMCPermissionsService extends AppPermissionsServiceBase<KMCPermissions> {
-    private _logger: KalturaLogger;
+    private _logger: KontorolLogger;
     private _restrictionsApplied = false;
     private _customPermissionNameToKeyMapping: { [name: string]: number} = {};
     get restrictionsApplied(): boolean {
         return this._restrictionsApplied;
     }
 
-    constructor(logger: KalturaLogger) {
+    constructor(logger: KontorolLogger) {
         super();
         this._logger = logger.subLogger('KMCPermissionsService');
 

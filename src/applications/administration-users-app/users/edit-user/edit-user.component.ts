@@ -1,16 +1,16 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SelectItem } from 'primeng/primeng';
 import { UsersStore } from '../users.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
 import { IsUserExistsStatuses } from '../user-exists-statuses';
 import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
-import { KalturaUser } from 'kaltura-ngx-client';
-import { KalturaUserRole } from 'kaltura-ngx-client';
+import { KontorolUser } from 'kontorol-ngx-client';
+import { KontorolUserRole } from 'kontorol-ngx-client';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export interface PartnerInfo {
   adminLoginUsersQuota: number;
@@ -25,11 +25,11 @@ export interface PartnerInfo {
 
 export class EditUserComponent implements OnInit, OnDestroy {
   @Input() parentPopupWidget: PopupWidgetComponent;
-  @Input() user: KalturaUser;
+  @Input() user: KontorolUser;
 
   private _partnerInfo: PartnerInfo = { adminLoginUsersQuota: 0, adminUserId: null };
-  private _roles: KalturaUserRole[] = [];
-  private _users: KalturaUser[];
+  private _roles: KontorolUserRole[] = [];
+  private _users: KontorolUser[];
 
   public _kmcPermissions = KMCPermissions;
   public _rolesList: SelectItem[] = [];
@@ -311,7 +311,7 @@ export class EditUserComponent implements OnInit, OnDestroy {
       );
   }
 
-  private _associateUserToAccount(userProvidedEmail: string, user: KalturaUser): void {
+  private _associateUserToAccount(userProvidedEmail: string, user: KontorolUser): void {
       const { roleIds } = this._userForm.value;
     this._usersStore.associateUserToAccount(userProvidedEmail, user, roleIds)
       .pipe(cancelOnDestroy(this))

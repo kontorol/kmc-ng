@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, OnChanges} from '@angular/core';
 import {AppAuthentication} from 'app-shared/kmc-shell/auth';
-import {getKalturaServerUri, serverConfig} from 'config/server';
+import {getKontorolServerUri, serverConfig} from 'config/server';
 import {KMCPermissions, KMCPermissionsService} from 'app-shared/kmc-shared/kmc-permissions';
 import {UpdateClipsEvent} from 'app-shared/kmc-shared/events/update-clips-event';
 import {AppEventsService} from 'app-shared/kmc-shared/app-events';
@@ -10,14 +10,14 @@ import {
     QuizAppViewService,
     HotspotsAppViewService
 } from 'app-shared/kmc-shared/kmc-views/component-views';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
 import { ContentEntryViewService } from 'app-shared/kmc-shared/kmc-views/details-views';
 import { ContentEntryViewSections } from 'app-shared/kmc-shared/kmc-views/details-views/content-entry-view.service';
 import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaLiveEntry } from 'kaltura-ngx-client';
-import { KalturaMediaType } from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolLiveEntry } from 'kontorol-ngx-client';
+import { KontorolMediaType } from 'kontorol-ngx-client';
 
 
 @Component({
@@ -25,12 +25,12 @@ import { KalturaMediaType } from 'kaltura-ngx-client';
   templateUrl: './kedit-hoster.component.html',
   styleUrls: ['./kedit-hoster.component.scss'],
     providers: [
-        KalturaLogger.createLogger('KeditHosterComponent')
+        KontorolLogger.createLogger('KeditHosterComponent')
     ]
 })
 export class KeditHosterComponent implements OnInit, OnDestroy, OnChanges {
 
-  @Input() entry: KalturaMediaEntry | KalturaLiveEntry = null;
+  @Input() entry: KontorolMediaEntry | KontorolLiveEntry = null;
   @Input() tab: 'quiz' | 'editor' | 'advertisements' | 'hotspots' = null;
     @Input() entryHasSource = false;
 
@@ -52,7 +52,7 @@ export class KeditHosterComponent implements OnInit, OnDestroy, OnChanges {
               private _permissionService: KMCPermissionsService,
               private _browserService: BrowserService,
               private _appLocalization: AppLocalization,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _appEvents: AppEventsService,
               ) {
   }
@@ -172,7 +172,7 @@ export class KeditHosterComponent implements OnInit, OnDestroy, OnChanges {
           this.keditUrl = null;
           this._keditConfig = null;
 
-          const serviceUrl = getKalturaServerUri();
+          const serviceUrl = getKontorolServerUri();
           const tabs = {};
           const clipAndTrimAvailable = this._clipAndTrimAppViewService.isAvailable({
               entry: this.entry,
@@ -280,23 +280,23 @@ export class KeditHosterComponent implements OnInit, OnDestroy, OnChanges {
           if (keditUrl) {
               this._logger.debug('show kedit application', {keditUrl: keditUrl, tab: this.tab});
               const isLiveEntry = [
-                  KalturaMediaType.liveStreamFlash,
-                  KalturaMediaType.liveStreamWindowsMedia,
-                  KalturaMediaType.liveStreamRealMedia,
-                  KalturaMediaType.liveStreamQuicktime
+                  KontorolMediaType.liveStreamFlash,
+                  KontorolMediaType.liveStreamWindowsMedia,
+                  KontorolMediaType.liveStreamRealMedia,
+                  KontorolMediaType.liveStreamQuicktime
               ].indexOf(this.entry.mediaType) !== -1;
-              const entryId = isLiveEntry ? (<KalturaLiveEntry>this.entry).recordedEntryId : this.entry.id;
+              const entryId = isLiveEntry ? (<KontorolLiveEntry>this.entry).recordedEntryId : this.entry.id;
               this.keditUrl = keditUrl;
               this._keditConfig = {
                   'messageType': 'kea-config',
                   'data': {
-                      /* URL of the Kaltura Server to use */
+                      /* URL of the Kontorol Server to use */
                       'service_url': serviceUrl,
 
                       /* the partner ID to use */
                       'partner_id': this._appAuthentication.appUser.partnerId,
 
-                      /* Kaltura session key to use */
+                      /* Kontorol session key to use */
                       'ks': this._appAuthentication.appUser.ks,
 
                       /* language - used by priority:
@@ -309,7 +309,7 @@ export class KeditHosterComponent implements OnInit, OnDestroy, OnChanges {
                       'locale_url': '',
 
                       /* URL to be used for "Go to User Manual" in KEdit help component */
-                      'help_link': 'https://knowledge.kaltura.com/node/1912',
+                      'help_link': 'https://knowledge.kontorol.com/node/1912',
 
                       /* tabs to show in navigation */
                       'tabs': tabs,

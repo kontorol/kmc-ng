@@ -1,22 +1,22 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BrowserService } from 'app-shared/kmc-shell';
 import { SchemasFilters, SchemasStore } from '../schemas-store/schemas-store.service';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { SettingsMetadataProfile } from '../schemas-store/settings-metadata-profile.interface';
 import { AppEventsService } from 'app-shared/kmc-shared';
 import { MetadataProfileUpdatedEvent } from 'app-shared/kmc-shared/events/metadata-profile-updated.event';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { SettingsMetadataMainViewService } from 'app-shared/kmc-shared/kmc-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kSchemasList',
   templateUrl: './schemas-list.component.html',
   styleUrls: ['./schemas-list.component.scss'],
-  providers: [KalturaLogger.createLogger('SchemasListComponent')]
+  providers: [KontorolLogger.createLogger('SchemasListComponent')]
 })
 export class SchemasListComponent implements OnInit, OnDestroy {
   @ViewChild('customSchema') _customSchemaPopup: PopupWidgetComponent;
@@ -36,7 +36,7 @@ export class SchemasListComponent implements OnInit, OnDestroy {
   constructor(public _schemasStore: SchemasStore,
               private _appEvents: AppEventsService,
               private _appLocalization: AppLocalization,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _settingsCustomDataMainViewService: SettingsMetadataMainViewService,
               private _browserService: BrowserService) {
   }

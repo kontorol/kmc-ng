@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReachFrameComponent } from './reach-frame.component';
-import { KalturaUIModule } from '@kaltura-ng/kaltura-ui';
-import { LocalizationModule } from '@kaltura-ng/mc-shared';
+import { KontorolUIModule } from '@kontorol-ng/kontorol-ui';
+import { LocalizationModule } from '@kontorol-ng/mc-shared';
 
 @NgModule({
     imports: [
         CommonModule,
-        KalturaUIModule,
+        KontorolUIModule,
         LocalizationModule
     ],
     declarations: [

@@ -1,5 +1,5 @@
-import { EnumTypeAdapter, TypeAdapterBase } from '@kaltura-ng/mc-shared';
-import { FiltersUtils } from '@kaltura-ng/mc-shared';
+import { EnumTypeAdapter, TypeAdapterBase } from '@kontorol-ng/mc-shared';
+import { FiltersUtils } from '@kontorol-ng/mc-shared';
 
 export enum CategoriesModes {
     Self,

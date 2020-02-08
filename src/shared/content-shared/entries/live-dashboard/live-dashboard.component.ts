@@ -1,6 +1,6 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
 
 @Component({
   selector: 'kLiveDashboard',
@@ -15,7 +15,7 @@ export class LiveDashboardComponent implements OnInit, OnDestroy {
   @Input() parentPopupWidget: PopupWidgetComponent;
 
 
-  constructor(private _logger: KalturaLogger) {
+  constructor(private _logger: KontorolLogger) {
   }
 
   ngOnInit() {

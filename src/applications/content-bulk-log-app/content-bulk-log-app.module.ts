@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { routing } from './content-bulk-log-app.routes';
 
-import { AreaBlockerModule, KalturaUIModule, TooltipModule, StickyModule } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerModule, KontorolUIModule, TooltipModule, StickyModule } from '@kontorol-ng/kontorol-ui';
 import {
   ButtonModule,
   CalendarModule,
@@ -18,11 +18,11 @@ import {
   TreeModule
 } from 'primeng/primeng';
 import { TableModule } from 'primeng/table';
-import {LocalizationModule} from '@kaltura-ng/mc-shared';
-import { KalturaPrimeNgUIModule } from '@kaltura-ng/kaltura-primeng-ui';
-import { AutoCompleteModule } from '@kaltura-ng/kaltura-primeng-ui';
-import { TagsModule } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetModule } from '@kaltura-ng/kaltura-ui';
+import {LocalizationModule} from '@kontorol-ng/mc-shared';
+import { KontorolPrimeNgUIModule } from '@kontorol-ng/kontorol-primeng-ui';
+import { AutoCompleteModule } from '@kontorol-ng/kontorol-primeng-ui';
+import { TagsModule } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetModule } from '@kontorol-ng/kontorol-ui';
 import { ContentBulkLogAppComponent } from './content-bulk-log-app.component';
 import { BulkLogTableComponent } from './bulk-log-table/bulk-log-table.component';
 import { BulkLogListComponent } from './bulk-log-list/bulk-log-list.component';
@@ -31,7 +31,7 @@ import { BulkLogStatusPipe } from './pipes/bulk-log-status.pipe';
 import { BulkLogRefineFiltersComponent } from './bulk-log-refine-filters/bulk-log-refine-filters.component';
 import { BulkLogStatusIconPipe } from './pipes/bulk-log-status-icon.pipe';
 import { BulkLogTagsComponent } from './bulk-log-tags/bulk-log-tags.component';
-import { FiltersModule } from '@kaltura-ng/mc-shared';
+import { FiltersModule } from '@kontorol-ng/mc-shared';
 import { KMCPermissionsModule } from 'app-shared/kmc-shared/kmc-permissions';
 import { DateFormatModule } from 'app-shared/kmc-shared/date-format/date-format.module';
 
@@ -40,7 +40,7 @@ import { DateFormatModule } from 'app-shared/kmc-shared/date-format/date-format.
     CommonModule,
     AreaBlockerModule,
     LocalizationModule,
-    KalturaUIModule,
+    KontorolUIModule,
     PaginatorModule,
     TooltipModule,
     ButtonModule,
@@ -53,7 +53,7 @@ import { DateFormatModule } from 'app-shared/kmc-shared/date-format/date-format.
     CalendarModule,
     MenuModule,
     TagsModule,
-    KalturaPrimeNgUIModule,
+    KontorolPrimeNgUIModule,
     AutoCompleteModule,
     SharedModule,
     RouterModule.forChild(routing),

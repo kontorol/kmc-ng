@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { EntriesStore, EntriesStorePaginationCacheToken } from 'app-shared/content-shared/entries/entries-store/entries-store.service';
 import { EntriesTableColumns } from 'app-shared/content-shared/entries/entries-table/entries-table.component';
 import { EntriesSelectorSelectionMode } from 'app-shared/content-shared/entries/entries-selector/entries-selector.component';
@@ -20,12 +20,12 @@ import { ColumnsResizeManagerService, ResizableColumnsTableName } from 'app-shar
 })
 export class LinkedEntriesAddEntriesComponent implements OnInit {
   @Input() parentPopup: PopupWidgetComponent;
-  @Input() selectedEntries: KalturaMediaEntry[];
+  @Input() selectedEntries: KontorolMediaEntry[];
   @Input() allowMultiple: boolean;
 
-  @Output() addEntries = new EventEmitter<KalturaMediaEntry[]>();
+  @Output() addEntries = new EventEmitter<KontorolMediaEntry[]>();
 
-  public _selectedEntries: KalturaMediaEntry[];
+  public _selectedEntries: KontorolMediaEntry[];
   public _selectionMode: EntriesSelectorSelectionMode;
   public _title: string;
   public _columns: EntriesTableColumns = {

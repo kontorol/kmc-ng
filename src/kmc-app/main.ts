@@ -17,9 +17,9 @@ if (environment.client.useSecuredProtocol && location.protocol !== 'https:') {
 // this feature reuires manipulation on the index.html as well so it should be used
 // in production only.
     (function () {
-        if (kmcConfig && kmcConfig.kalturaServer && kmcConfig.kalturaServer.deployUrl) {
+        if (kmcConfig && kmcConfig.kontorolServer && kmcConfig.kontorolServer.deployUrl) {
 
-            __webpack_require__.p = kmcConfig.kalturaServer.deployUrl;
+            __webpack_require__.p = kmcConfig.kontorolServer.deployUrl;
         }
     }());
 

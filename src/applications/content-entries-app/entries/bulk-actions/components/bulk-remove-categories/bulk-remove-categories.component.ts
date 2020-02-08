@@ -1,14 +1,14 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
 
-import { KalturaClient } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BrowserService } from 'app-shared/kmc-shell';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
 import { BulkRemoveCategoriesService } from '../../services/';
-import { KalturaCategory } from 'kaltura-ngx-client';
+import { KontorolCategory } from 'kontorol-ngx-client';
 
 @Component({
   selector: 'kBulkRemoveCategories',
@@ -17,7 +17,7 @@ import { KalturaCategory } from 'kaltura-ngx-client';
 })
 export class BulkRemoveCategories implements OnInit, OnDestroy, AfterViewInit {
 
-  @Input() selectedEntries: KalturaMediaEntry[];
+  @Input() selectedEntries: KontorolMediaEntry[];
   @Input() parentPopupWidget: PopupWidgetComponent;
   @Output() removeCategoriesChanged = new EventEmitter<string[]>();
 
@@ -30,7 +30,7 @@ export class BulkRemoveCategories implements OnInit, OnDestroy, AfterViewInit {
   private _parentPopupStateChangeSubscribe : ISubscription;
   private _confirmClose: boolean = true;
 
-  constructor(private _kalturaServerClient: KalturaClient, private _appLocalization: AppLocalization, private _browserService: BrowserService, private _bulkRemoveCategoriesService: BulkRemoveCategoriesService) {
+  constructor(private _kontorolServerClient: KontorolClient, private _appLocalization: AppLocalization, private _browserService: BrowserService, private _bulkRemoveCategoriesService: BulkRemoveCategoriesService) {
   }
 
   ngOnInit() {

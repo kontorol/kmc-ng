@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { SchemasStore } from './schemas/schemas-store/schemas-store.service';
-import { KalturaLogger, KalturaLoggerName } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger, KontorolLoggerName } from '@kontorol-ng/kontorol-logger';
 
 @Component({
   selector: 'kmc-settings-custom-data',
@@ -8,8 +8,8 @@ import { KalturaLogger, KalturaLoggerName } from '@kaltura-ng/kaltura-logger';
   styleUrls: ['./settings-custom-data.component.scss'],
   providers: [
     SchemasStore,
-    KalturaLogger,
-    { provide: KalturaLoggerName, useValue: 'CustomData' }
+    KontorolLogger,
+    { provide: KontorolLoggerName, useValue: 'CustomData' }
   ]
 })
 export class SettingsCustomDataComponent {

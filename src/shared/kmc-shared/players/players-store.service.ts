@@ -2,19 +2,19 @@ import {Injectable, OnDestroy} from '@angular/core';
 import { Observable } from 'rxjs';
 import {ISubscription} from 'rxjs/Subscription';
 import 'rxjs/add/observable/throw';
-import {KalturaClient} from 'kaltura-ngx-client';
-import {KalturaFilterPager} from 'kaltura-ngx-client';
-import {UiConfListAction} from 'kaltura-ngx-client';
-import {KalturaUiConfListResponse} from 'kaltura-ngx-client';
-import {KalturaUiConfFilter} from 'kaltura-ngx-client';
-import {KalturaUiConfObjType} from 'kaltura-ngx-client';
-import {KalturaUiConf} from 'kaltura-ngx-client';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import {KalturaDetachedResponseProfile} from 'kaltura-ngx-client';
-import {KalturaResponseProfileType} from 'kaltura-ngx-client';
+import {KontorolClient} from 'kontorol-ngx-client';
+import {KontorolFilterPager} from 'kontorol-ngx-client';
+import {UiConfListAction} from 'kontorol-ngx-client';
+import {KontorolUiConfListResponse} from 'kontorol-ngx-client';
+import {KontorolUiConfFilter} from 'kontorol-ngx-client';
+import {KontorolUiConfObjType} from 'kontorol-ngx-client';
+import {KontorolUiConf} from 'kontorol-ngx-client';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import {KontorolDetachedResponseProfile} from 'kontorol-ngx-client';
+import {KontorolResponseProfileType} from 'kontorol-ngx-client';
 import {AppEventsService} from "app-shared/kmc-shared";
 import {PlayersUpdatedEvent} from "app-shared/kmc-shared/events";
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 
 export enum PlayerTypes {
@@ -29,10 +29,10 @@ export interface GetFilters {
 
 @Injectable()
 export class PlayersStore implements OnDestroy {
-  private _cachedPlayers: { [key: string]: Observable<KalturaUiConf[]> } = {};
-  private _logger: KalturaLogger;
+  private _cachedPlayers: { [key: string]: Observable<KontorolUiConf[]> } = {};
+  private _logger: KontorolLogger;
 
-  constructor(private _kalturaServerClient: KalturaClient, logger: KalturaLogger, private _appEvents: AppEventsService, private _permissionsService: KMCPermissionsService) {
+  constructor(private _kontorolServerClient: KontorolClient, logger: KontorolLogger, private _appEvents: AppEventsService, private _permissionsService: KMCPermissionsService) {
     this._logger = logger.subLogger('PlayersStore');
 
     this._appEvents.event(PlayersUpdatedEvent)
@@ -48,7 +48,7 @@ export class PlayersStore implements OnDestroy {
 
   }
 
-  public get(filters: GetFilters): Observable<KalturaUiConf[]> {
+  public get(filters: GetFilters): Observable<KontorolUiConf[]> {
     const cacheToken = this._createCacheKey(filters);
     let cachedResponse = this._cachedPlayers[cacheToken];
 
@@ -71,7 +71,7 @@ export class PlayersStore implements OnDestroy {
                       if (uiConf.html5Url){
                           showPlayer = uiConf.html5Url.indexOf('html5lib/v1') === -1; // filter out V1 players
                       } else {
-                          showPlayer = uiConf.tags.indexOf('kalturaPlayerJs') > -1 && this._permissionsService.hasPermission(KMCPermissions.FEATURE_V3_STUDIO_PERMISSION); // show V3 players if user has permissions
+                          showPlayer = uiConf.tags.indexOf('kontorolPlayerJs') > -1 && this._permissionsService.hasPermission(KMCPermissions.FEATURE_V3_STUDIO_PERMISSION); // show V3 players if user has permissions
                       }
                       // filter out by tags
                       if (uiConf.tags && uiConf.tags.length){
@@ -117,25 +117,25 @@ export class PlayersStore implements OnDestroy {
     }
   }
 
-  private _buildRequest(filters: GetFilters, pageIndex: number): Observable<KalturaUiConfListResponse> {
+  private _buildRequest(filters: GetFilters, pageIndex: number): Observable<KontorolUiConfListResponse> {
     const tags = filters && filters.type === PlayerTypes.Playlist ? 'playlist' : 'player';
 
-    const filter: KalturaUiConfFilter = new KalturaUiConfFilter({
-      objTypeEqual: KalturaUiConfObjType.player,
+    const filter: KontorolUiConfFilter = new KontorolUiConfFilter({
+      objTypeEqual: KontorolUiConfObjType.player,
       tagsMultiLikeAnd: tags,
       'orderBy': '-updatedAt',
       'objTypeIn': '1,8',
       'creationModeEqual': 2
     });
 
-    const responseProfile: KalturaDetachedResponseProfile = new KalturaDetachedResponseProfile({
-      type: KalturaResponseProfileType.includeFields,
+    const responseProfile: KontorolDetachedResponseProfile = new KontorolDetachedResponseProfile({
+      type: KontorolResponseProfileType.includeFields,
       fields: 'id,name,html5Url,createdAt,updatedAt,width,height,tags'
     });
 
-    const pager = new KalturaFilterPager({pageSize: 500, pageIndex});
+    const pager = new KontorolFilterPager({pageSize: 500, pageIndex});
 
-    return this._kalturaServerClient.request(new UiConfListAction({filter, pager}).setRequestOptions({
+    return this._kontorolServerClient.request(new UiConfListAction({filter, pager}).setRequestOptions({
         responseProfile
     }));
   }

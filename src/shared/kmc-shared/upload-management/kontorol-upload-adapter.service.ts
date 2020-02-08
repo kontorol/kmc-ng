@@ -1,36 +1,36 @@
 import { Injectable } from '@angular/core';
-import { UploadFileAdapter, UploadFileData } from '@kaltura-ng/kaltura-common';
+import { UploadFileAdapter, UploadFileData } from '@kontorol-ng/kontorol-common';
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/throw';
-import { KalturaClient } from 'kaltura-ngx-client';
-import { UploadTokenAddAction } from 'kaltura-ngx-client';
-import { UploadTokenUploadAction } from 'kaltura-ngx-client';
-import { KalturaUploadToken } from 'kaltura-ngx-client';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import { KalturaUploadFile } from './kaltura-upload-file';
-import { KalturaRequest } from 'kaltura-ngx-client';
-import { UploadTokenListAction } from 'kaltura-ngx-client';
-import { KalturaUploadTokenFilter } from 'kaltura-ngx-client';
-import { KalturaUploadTokenListResponse } from 'kaltura-ngx-client';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { UploadTokenAddAction } from 'kontorol-ngx-client';
+import { UploadTokenUploadAction } from 'kontorol-ngx-client';
+import { KontorolUploadToken } from 'kontorol-ngx-client';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import { KontorolUploadFile } from './kontorol-upload-file';
+import { KontorolRequest } from 'kontorol-ngx-client';
+import { UploadTokenListAction } from 'kontorol-ngx-client';
+import { KontorolUploadTokenFilter } from 'kontorol-ngx-client';
+import { KontorolUploadTokenListResponse } from 'kontorol-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 
 @Injectable()
-export class KalturaUploadAdapter extends UploadFileAdapter<KalturaUploadFile> {
-    constructor(private _serverClient: KalturaClient,
-                private _logger: KalturaLogger) {
+export class KontorolUploadAdapter extends UploadFileAdapter<KontorolUploadFile> {
+    constructor(private _serverClient: KontorolClient,
+                private _logger: KontorolLogger) {
         super();
-        this._logger = _logger.subLogger('KalturaUploadAdapter');
+        this._logger = _logger.subLogger('KontorolUploadAdapter');
     }
 
     get label(): string {
-        return 'Kaltura OVP server';
+        return 'Kontorol OVP server';
     }
 
-    private _getUploadToken(uploadFile: KalturaUploadFile): Observable<string> {
+    private _getUploadToken(uploadFile: KontorolUploadFile): Observable<string> {
 
         return this._serverClient.request(
             new UploadTokenAddAction({
-                uploadToken: new KalturaUploadToken()
+                uploadToken: new KontorolUploadToken()
             })
         )
             .map(
@@ -47,13 +47,13 @@ export class KalturaUploadAdapter extends UploadFileAdapter<KalturaUploadFile> {
         }).supportChunkUpload();
     }
 
-    prepare(files: { id: string, data: KalturaUploadFile }[]): Observable<{ id: string, status: boolean }[]> {
-        const multiRequest: KalturaRequest<any>[] = [];
+    prepare(files: { id: string, data: KontorolUploadFile }[]): Observable<{ id: string, status: boolean }[]> {
+        const multiRequest: KontorolRequest<any>[] = [];
 
         files.forEach(file => {
             multiRequest.push(
                 new UploadTokenAddAction({
-                    uploadToken: new KalturaUploadToken()
+                    uploadToken: new KontorolUploadToken()
                 })
             );
         });
@@ -76,18 +76,18 @@ export class KalturaUploadAdapter extends UploadFileAdapter<KalturaUploadFile> {
     }
 
     canHandle(uploadFile: UploadFileData): boolean {
-        return uploadFile instanceof KalturaUploadFile;
+        return uploadFile instanceof KontorolUploadFile;
     }
 
-    resume(id: string, fileData: KalturaUploadFile): Observable<{ id: string, progress?: number }> {
-      if (!fileData || !(fileData instanceof KalturaUploadFile) || !fileData.serverUploadToken) {
+    resume(id: string, fileData: KontorolUploadFile): Observable<{ id: string, progress?: number }> {
+      if (!fileData || !(fileData instanceof KontorolUploadFile) || !fileData.serverUploadToken) {
         return Observable.throw('missing upload token');
       }
     }
 
-    upload(id: string, fileData: KalturaUploadFile): Observable<{ id: string, progress?: number }> {
+    upload(id: string, fileData: KontorolUploadFile): Observable<{ id: string, progress?: number }> {
         return Observable.create((observer) => {
-            if (fileData && fileData instanceof KalturaUploadFile) {
+            if (fileData && fileData instanceof KontorolUploadFile) {
                 this._logger.info(`starting upload for file '${id}'`);
 
                 let requestSubscription = Observable.of(fileData.serverUploadToken)
@@ -101,9 +101,9 @@ export class KalturaUploadAdapter extends UploadFileAdapter<KalturaUploadFile> {
                         {
                             return this._serverClient.request(
                                 new UploadTokenListAction({
-                                    filter: new KalturaUploadTokenFilter({ idIn: fileData.serverUploadToken })
+                                    filter: new KontorolUploadTokenFilter({ idIn: fileData.serverUploadToken })
                                 })
-                            ).map((response: KalturaUploadTokenListResponse) => {
+                            ).map((response: KontorolUploadTokenListResponse) => {
                                 const uploadedFileSize = response && response.objects && response.objects.length > 0 ? response.objects[0].uploadedFileSize : null;
 
                                 if (typeof uploadedFileSize === 'number') {

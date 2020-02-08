@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { KalturaClient } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
 import { CategoriesBulkActionBaseService } from "./categories-bulk-action-base.service";
-import { CategoryUpdateAction } from 'kaltura-ngx-client';
-import { KalturaCategory } from 'kaltura-ngx-client';
-import { KalturaAppearInListType } from 'kaltura-ngx-client';
+import { CategoryUpdateAction } from 'kontorol-ngx-client';
+import { KontorolCategory } from 'kontorol-ngx-client';
+import { KontorolAppearInListType } from 'kontorol-ngx-client';
 
 @Injectable()
-export class CategoriesBulkChangeCategoryListingService extends CategoriesBulkActionBaseService<KalturaAppearInListType> {
+export class CategoriesBulkChangeCategoryListingService extends CategoriesBulkActionBaseService<KontorolAppearInListType> {
 
-  constructor(_kalturaServerClient: KalturaClient) {
-    super(_kalturaServerClient);
+  constructor(_kontorolServerClient: KontorolClient) {
+    super(_kontorolServerClient);
   }
 
-  public execute(selectedCategories: KalturaCategory[], appearInListType : KalturaAppearInListType) : Observable<{}>{
+  public execute(selectedCategories: KontorolCategory[], appearInListType : KontorolAppearInListType) : Observable<{}>{
     return Observable.create(observer =>{
 
       let requests: CategoryUpdateAction[] = [];
 
       selectedCategories.forEach(category => {
-        let updatedCategory: KalturaCategory = new KalturaCategory();
+        let updatedCategory: KontorolCategory = new KontorolCategory();
         updatedCategory.appearInList  = appearInListType;
         requests.push(new CategoryUpdateAction({
           id: category.id,

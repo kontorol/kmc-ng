@@ -9,38 +9,38 @@ import {
 } from './services';
 import {CategoriesBulkActionBaseService} from './services/categories-bulk-action-base.service';
 import {MenuItem} from 'primeng/primeng';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
-import {KalturaCategory} from 'kaltura-ngx-client';
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
+import {KontorolCategory} from 'kontorol-ngx-client';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
 import {BrowserService} from 'app-shared/kmc-shell';
 import {subApplicationsConfig} from 'config/sub-applications';
-import {KalturaUser} from 'kaltura-ngx-client';
+import {KontorolUser} from 'kontorol-ngx-client';
 import {PrivacyMode} from './components/bulk-change-content-privacy/bulk-change-content-privacy.component';
-import {KalturaPrivacyType} from 'kaltura-ngx-client';
-import {KalturaAppearInListType} from 'kaltura-ngx-client';
+import {KontorolPrivacyType} from 'kontorol-ngx-client';
+import {KontorolAppearInListType} from 'kontorol-ngx-client';
 import {AppearInListType} from './components/bulk-change-category-listing/bulk-change-category-listing.component';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import {KalturaContributionPolicyType} from 'kaltura-ngx-client';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import {KontorolContributionPolicyType} from 'kontorol-ngx-client';
 import {CategoriesUtilsService} from "../../categories-utils.service";
 import {CategoriesStatusMonitorService} from 'app-shared/content-shared/categories-status/categories-status-monitor.service';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 
 @Component({
   selector: 'kCategoriesBulkActions',
   templateUrl: './categories-bulk-actions.component.html',
   styleUrls: ['./categories-bulk-actions.component.scss'],
-    providers: [KalturaLogger.createLogger('CategoriesBulkActionsComponent')]
+    providers: [KontorolLogger.createLogger('CategoriesBulkActionsComponent')]
 })
 export class CategoriesBulkActionsComponent implements OnInit, OnDestroy {
-  private _selectedCateogoriesWithPrivacyContext: KalturaCategory[] = [];
+  private _selectedCateogoriesWithPrivacyContext: KontorolCategory[] = [];
 
   public _bulkActionsMenu: MenuItem[] = [];
   public _kmcPermissions = KMCPermissions;
   public _bulkAction = '';
 
-  @Input() selectedCategories: KalturaCategory[];
+  @Input() selectedCategories: KontorolCategory[];
 
   @Output() onBulkChange = new EventEmitter<{ reload: boolean}>();
 
@@ -59,7 +59,7 @@ export class CategoriesBulkActionsComponent implements OnInit, OnDestroy {
               private _bulkChangeContributionPolicyService: CategoriesBulkChangeContributionPolicyService,
               private _categoriesUtilsService: CategoriesUtilsService,
               private _categoriesStatusMonitorService: CategoriesStatusMonitorService,
-              private _logger: KalturaLogger) {
+              private _logger: KontorolLogger) {
   }
 
   ngOnInit() {
@@ -168,7 +168,7 @@ export class CategoriesBulkActionsComponent implements OnInit, OnDestroy {
   }
 
   // owner changed
-  onOwnerChanged(owners: KalturaUser[]): void {
+  onOwnerChanged(owners: KontorolUser[]): void {
 
     const executeAction = () => {
       if (this._selectedCateogoriesWithPrivacyContext.length && owners && owners.length) {
@@ -196,16 +196,16 @@ export class CategoriesBulkActionsComponent implements OnInit, OnDestroy {
   // change content privacy
   onChangeContentPrivacyChanged(privacyMode: PrivacyMode): void {
       this._logger.info(`handle change content privacy action`, { privacyMode });
-    let privacyType: KalturaPrivacyType;
+    let privacyType: KontorolPrivacyType;
     switch (true) {
       case privacyMode === PrivacyMode.NoRestriction:
-        privacyType = KalturaPrivacyType.all;
+        privacyType = KontorolPrivacyType.all;
         break;
       case privacyMode === PrivacyMode.Private:
-        privacyType = KalturaPrivacyType.membersOnly;
+        privacyType = KontorolPrivacyType.membersOnly;
         break;
       case privacyMode === PrivacyMode.RequiresAuthentication:
-        privacyType = KalturaPrivacyType.authenticatedUsers;
+        privacyType = KontorolPrivacyType.authenticatedUsers;
         break;
       default:
         break;
@@ -236,11 +236,11 @@ export class CategoriesBulkActionsComponent implements OnInit, OnDestroy {
   // change category listing
   onChangeCategoryListingChanged(appearInList: AppearInListType): void {
       this._logger.info(`handle change category listing action`, { appearInList });
-    let appearInListType: KalturaAppearInListType;
+    let appearInListType: KontorolAppearInListType;
     if (appearInList === AppearInListType.NoRestriction) {
-      appearInListType = KalturaAppearInListType.partnerOnly;
+      appearInListType = KontorolAppearInListType.partnerOnly;
     } else if (appearInList === AppearInListType.Private) {
-      appearInListType = KalturaAppearInListType.categoryMembersOnly;
+      appearInListType = KontorolAppearInListType.categoryMembersOnly;
     }
 
     const executeAction = () => {
@@ -266,7 +266,7 @@ export class CategoriesBulkActionsComponent implements OnInit, OnDestroy {
   }
 
   // change contribution policy
-  onChangeContributionPolicyChanged(policyType: KalturaContributionPolicyType): void {
+  onChangeContributionPolicyChanged(policyType: KontorolContributionPolicyType): void {
       this._logger.info(`handle change contribution policy action`, { policyType });
     const executeAction = () => {
       if (this._selectedCateogoriesWithPrivacyContext.length) {
@@ -357,7 +357,7 @@ export class CategoriesBulkActionsComponent implements OnInit, OnDestroy {
   }
 
 
-  private executeService(selectedCategories: KalturaCategory[],
+  private executeService(selectedCategories: KontorolCategory[],
                          service: CategoriesBulkActionBaseService<any>,
                          data: any = {},
                          reloadCategories: boolean = true,

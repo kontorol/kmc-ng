@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { KalturaEntryReplacementStatus } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolEntryReplacementStatus } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 
 @Pipe({ name: 'kFlavorReplacementStatus' })
 export class FlavorReplacementStatusPipe implements PipeTransform {
@@ -8,7 +8,7 @@ export class FlavorReplacementStatusPipe implements PipeTransform {
 
     }
 
-    transform(replacementStatus: KalturaEntryReplacementStatus, type: 'icon' | 'label'): string {
+    transform(replacementStatus: KontorolEntryReplacementStatus, type: 'icon' | 'label'): string {
         const result = {
             icon: '',
             label: ''
@@ -19,16 +19,16 @@ export class FlavorReplacementStatusPipe implements PipeTransform {
         }
 
         switch (replacementStatus) {
-            case KalturaEntryReplacementStatus.approvedButNotReady:
-            case KalturaEntryReplacementStatus.notReadyAndNotApproved:
+            case KontorolEntryReplacementStatus.approvedButNotReady:
+            case KontorolEntryReplacementStatus.notReadyAndNotApproved:
                 result.label = this._appLocalization.get('applications.content.entryDetails.flavours.replaceVideo.replacementStatus.replacementInProcess');
                 result.icon = 'kIconsync';
                 break;
-            case KalturaEntryReplacementStatus.readyButNotApproved:
+            case KontorolEntryReplacementStatus.readyButNotApproved:
                 result.label = this._appLocalization.get('applications.content.entryDetails.flavours.replaceVideo.replacementStatus.readyForReplacement');
                 result.icon = 'kIconcomplete';
                 break;
-            case KalturaEntryReplacementStatus.failed:
+            case KontorolEntryReplacementStatus.failed:
                 result.label = this._appLocalization.get('applications.content.entryDetails.flavours.replaceVideo.replacementStatus.replacementFailed');
                 result.icon = 'kIconerror';
                 break;

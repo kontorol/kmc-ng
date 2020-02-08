@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {KalturaCategory} from 'kaltura-ngx-client';
+import {KontorolCategory} from 'kontorol-ngx-client';
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from "@angular/forms";
-import {AreaBlockerMessage} from "@kaltura-ng/kaltura-ui";
-import {AppLocalization} from '@kaltura-ng/mc-shared';
+import {AreaBlockerMessage} from "@kontorol-ng/kontorol-ui";
+import {AppLocalization} from '@kontorol-ng/mc-shared';
 import {BrowserService} from "app-shared/kmc-shell";
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
 import {EditEntitlementService} from "./edit-entitlement.service";
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 function privacyContextLabelValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: boolean } | null => {
@@ -27,12 +27,12 @@ function privacyContextLabelValidator(): ValidatorFn {
   styleUrls: ['./edit-entitlement.component.scss'],
   providers: [
     EditEntitlementService,
-    KalturaLogger.createLogger('EditEntitlementComponent')
+    KontorolLogger.createLogger('EditEntitlementComponent')
   ]
 })
 export class EditEntitlementComponent implements OnInit, OnDestroy {
 
-  @Input() entitlement: KalturaCategory = null;
+  @Input() entitlement: KontorolCategory = null;
   @Input() ownerPopup: PopupWidgetComponent;
   @Output() onEntitlementUpdated = new EventEmitter<void>();
 
@@ -43,7 +43,7 @@ export class EditEntitlementComponent implements OnInit, OnDestroy {
   constructor(private _editEntitlementService: EditEntitlementService,
               private _appLocalization: AppLocalization,
               private _fb: FormBuilder,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _browserService: BrowserService) {
   }
 

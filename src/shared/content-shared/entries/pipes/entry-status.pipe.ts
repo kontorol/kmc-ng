@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaEntryStatus } from 'kaltura-ngx-client';
-import { KalturaEntryModerationStatus } from 'kaltura-ngx-client';
-import { KalturaMediaType } from 'kaltura-ngx-client';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolEntryStatus } from 'kontorol-ngx-client';
+import { KontorolEntryModerationStatus } from 'kontorol-ngx-client';
+import { KontorolMediaType } from 'kontorol-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
 
 @Pipe({ name: 'entryStatus' })
 export class EntryStatusPipe implements PipeTransform {
@@ -11,52 +11,52 @@ export class EntryStatusPipe implements PipeTransform {
   constructor(private appLocalization: AppLocalization) {
   }
 
-  transform(entry: KalturaMediaEntry): string {
+  transform(entry: KontorolMediaEntry): string {
     let ret = '';
-    const isLive = entry.mediaType === KalturaMediaType.liveStreamFlash ||
-      entry.mediaType === KalturaMediaType.liveStreamQuicktime ||
-      entry.mediaType === KalturaMediaType.liveStreamRealMedia ||
-      entry.mediaType === KalturaMediaType.liveStreamWindowsMedia;
+    const isLive = entry.mediaType === KontorolMediaType.liveStreamFlash ||
+      entry.mediaType === KontorolMediaType.liveStreamQuicktime ||
+      entry.mediaType === KontorolMediaType.liveStreamRealMedia ||
+      entry.mediaType === KontorolMediaType.liveStreamWindowsMedia;
     if (typeof(entry) !== 'undefined' && entry !== null) {
       switch (entry.status.toString()) {
-        case KalturaEntryStatus.errorImporting.toString():
+        case KontorolEntryStatus.errorImporting.toString():
           ret = this.appLocalization.get('applications.content.entryStatus.errorImporting');
           break;
-        case KalturaEntryStatus.errorConverting.toString():
+        case KontorolEntryStatus.errorConverting.toString():
           ret = this.appLocalization.get('applications.content.entryStatus.errorConverting');
           break;
-        case KalturaEntryStatus.scanFailure.toString():
+        case KontorolEntryStatus.scanFailure.toString():
           ret = this.appLocalization.get('applications.content.entryStatus.scanFailure');
           break;
-        case KalturaEntryStatus.import.toString():
+        case KontorolEntryStatus.import.toString():
           if (isLive) {
             ret = this.appLocalization.get('applications.content.entryStatus.provisioning');
           } else {
             ret = this.appLocalization.get('applications.content.entryStatus.import');
           }
           break;
-        case KalturaEntryStatus.infected.toString():
+        case KontorolEntryStatus.infected.toString():
           ret = this.appLocalization.get('applications.content.entryStatus.infected');
           break;
-        case KalturaEntryStatus.preconvert.toString():
+        case KontorolEntryStatus.preconvert.toString():
           ret = this.appLocalization.get('applications.content.entryStatus.preconvert');
           break;
-        case KalturaEntryStatus.ready.toString():
+        case KontorolEntryStatus.ready.toString():
           ret = this.getReadyState(entry);
           break;
-        case KalturaEntryStatus.deleted.toString():
+        case KontorolEntryStatus.deleted.toString():
           ret = this.appLocalization.get('applications.content.entryStatus.deleted');
           break;
-        case KalturaEntryStatus.pending.toString():
+        case KontorolEntryStatus.pending.toString():
           ret = this.appLocalization.get('applications.content.entryStatus.pending');
           break;
-        case KalturaEntryStatus.moderate.toString():
+        case KontorolEntryStatus.moderate.toString():
           ret = this.appLocalization.get('applications.content.entryStatus.moderate');
           break;
-        case KalturaEntryStatus.blocked.toString():
+        case KontorolEntryStatus.blocked.toString():
           ret = this.appLocalization.get('applications.content.entryStatus.blocked');
           break;
-        case KalturaEntryStatus.noContent.toString():
+        case KontorolEntryStatus.noContent.toString():
           ret = this.appLocalization.get('applications.content.entryStatus.noContent');
           break;
       }
@@ -64,7 +64,7 @@ export class EntryStatusPipe implements PipeTransform {
     return ret;
   }
 
-  getReadyState(entry: KalturaMediaEntry) {
+  getReadyState(entry: KontorolMediaEntry) {
     const SCHEDULING_ALL_OR_IN_FRAME = 1;
     const SCHEDULING_BEFORE_FRAME = 2;
     const SCHEDULING_AFTER_FRAME = 3;
@@ -90,9 +90,9 @@ export class EntryStatusPipe implements PipeTransform {
 
     const moderationStatus: number = entry.moderationStatus;
     switch (moderationStatus) {
-      case KalturaEntryModerationStatus.approved:
-      case KalturaEntryModerationStatus.autoApproved:
-      case KalturaEntryModerationStatus.flaggedForReview:
+      case KontorolEntryModerationStatus.approved:
+      case KontorolEntryModerationStatus.autoApproved:
+      case KontorolEntryModerationStatus.flaggedForReview:
         if (schedulingType === SCHEDULING_ALL_OR_IN_FRAME) {
           result = this.appLocalization.get('applications.content.entryStatus.ready');
         } else if (schedulingType === SCHEDULING_BEFORE_FRAME) {
@@ -101,11 +101,11 @@ export class EntryStatusPipe implements PipeTransform {
           result = this.appLocalization.get('applications.content.entryStatus.finishedStatus');
         }
         break;
-      case KalturaEntryModerationStatus.pendingModeration:
+      case KontorolEntryModerationStatus.pendingModeration:
         result = this.appLocalization.get('applications.content.entryStatus.pendingStatus');
         break;
 
-      case KalturaEntryModerationStatus.rejected:
+      case KontorolEntryModerationStatus.rejected:
         result = this.appLocalization.get('applications.content.entryStatus.rejectedStatus');
         break;
 

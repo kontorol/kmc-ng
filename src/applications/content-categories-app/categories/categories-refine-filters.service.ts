@@ -4,7 +4,7 @@ import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/forkJoin';
 
-import {KalturaClient} from 'kaltura-ngx-client';
+import {KontorolClient} from 'kontorol-ngx-client';
 import {
   MetadataItemTypes,
   MetadataProfile,
@@ -17,7 +17,7 @@ import {EntitlementsFiltersList} from './default-filters-list';
 
 import * as R from 'ramda';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 
 export interface RefineGroupListItem {
   value: string,
@@ -43,10 +43,10 @@ export class CategoriesRefineFiltersService {
 
   private _getRefineFilters$: Observable<RefineGroup[]>;
 
-  constructor(private _kalturaServerClient: KalturaClient,
+  constructor(private _kontorolServerClient: KontorolClient,
               private _permissionsService: KMCPermissionsService,
               private _metadataProfileStore: MetadataProfileStore,
-              private _logger: KalturaLogger) {
+              private _logger: KontorolLogger) {
       this._logger = _logger.subLogger('CategoriesRefineFiltersService');
   }
 

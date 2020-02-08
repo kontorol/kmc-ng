@@ -9,10 +9,10 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
-import {KalturaCategory} from 'kaltura-ngx-client';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
+import {KontorolCategory} from 'kontorol-ngx-client';
 import {Menu, MenuItem} from 'primeng/primeng';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { globalConfig } from 'config/global';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
 
@@ -22,7 +22,7 @@ import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
   styleUrls: ['./category-subcategories-table.component.scss']
 })
 export class CategorySubcategoriesTableComponent implements OnInit, OnDestroy, AfterViewInit {
-  public _subcategories: KalturaCategory[] = [];
+  public _subcategories: KontorolCategory[] = [];
   public _emptyMessage: string = this._appLocalization.get('applications.content.table.noResults');
   private _deferredSubcategories: any[];
   public _items: MenuItem[];
@@ -32,11 +32,11 @@ export class CategorySubcategoriesTableComponent implements OnInit, OnDestroy, A
   public _kmcPermissions = KMCPermissions;
 
 
-  @Input() selectedSubcategories: KalturaCategory[] = [];
-  @Output() selectedSubcategoriesChange = new EventEmitter<KalturaCategory[]>();
+  @Input() selectedSubcategories: KontorolCategory[] = [];
+  @Output() selectedSubcategoriesChange = new EventEmitter<KontorolCategory[]>();
 
   @Input()
-  set subcategories(data: KalturaCategory[]) {
+  set subcategories(data: KontorolCategory[]) {
     if (!this.deferredLoading) {
       this._subcategories = [];
       this.cdRef.detectChanges();
@@ -47,7 +47,7 @@ export class CategorySubcategoriesTableComponent implements OnInit, OnDestroy, A
     }
   }
 
-  @Output() onActionSelected = new EventEmitter<{ action: string, subcategory: KalturaCategory }>();
+  @Output() onActionSelected = new EventEmitter<{ action: string, subcategory: KontorolCategory }>();
   @ViewChild('actionsmenu') private actionsMenu: Menu;
 
 
@@ -56,7 +56,7 @@ export class CategorySubcategoriesTableComponent implements OnInit, OnDestroy, A
 
   public rowTrackBy: Function = (index: number, item: any) => item;
 
-  public _openActionsMenu(event: any, rowIndex: number, category: KalturaCategory) {
+  public _openActionsMenu(event: any, rowIndex: number, category: KontorolCategory) {
     if (this.actionsMenu) {
       this._buildMenu(rowIndex, category);
       this.actionsMenu.toggle(event);
@@ -64,7 +64,7 @@ export class CategorySubcategoriesTableComponent implements OnInit, OnDestroy, A
   }
 
 
-  private _buildMenu(rowIndex: number, subcategory: KalturaCategory): void {
+  private _buildMenu(rowIndex: number, subcategory: KontorolCategory): void {
     this._items = [
       {
         label: this._appLocalization.get('applications.content.categoryDetails.subcategories.actions.moveUp'),

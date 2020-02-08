@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { TagsModule } from '@kaltura-ng/kaltura-ui';
+import { TagsModule } from '@kontorol-ng/kontorol-ui';
 import {
   AccordionModule,
   ButtonModule,
@@ -28,15 +28,15 @@ import { AdministrationMultiAccountComponent } from './administration-multi-acco
 
 import { DynamicMetadataFormModule } from 'app-shared/kmc-shared';
 
-import {LocalizationModule} from '@kaltura-ng/mc-shared';
-import { KalturaPrimeNgUIModule } from '@kaltura-ng/kaltura-primeng-ui';
-import { AreaBlockerModule, KalturaUIModule, StickyModule, TooltipModule } from '@kaltura-ng/kaltura-ui';
-import { AutoCompleteModule } from '@kaltura-ng/kaltura-primeng-ui';
-import { PopupWidgetModule } from '@kaltura-ng/kaltura-ui';
-import { DynamicFormModule } from '@kaltura-ng/kaltura-ui';
-import { DynamicFormModule as PrimeDynamicFormModule } from '@kaltura-ng/kaltura-primeng-ui';
+import {LocalizationModule} from '@kontorol-ng/mc-shared';
+import { KontorolPrimeNgUIModule } from '@kontorol-ng/kontorol-primeng-ui';
+import { AreaBlockerModule, KontorolUIModule, StickyModule, TooltipModule } from '@kontorol-ng/kontorol-ui';
+import { AutoCompleteModule } from '@kontorol-ng/kontorol-primeng-ui';
+import { PopupWidgetModule } from '@kontorol-ng/kontorol-ui';
+import { DynamicFormModule } from '@kontorol-ng/kontorol-ui';
+import { DynamicFormModule as PrimeDynamicFormModule } from '@kontorol-ng/kontorol-primeng-ui';
 import { TableModule } from 'primeng/table';
-import { MultiSelectModule } from '@kaltura-ng/kaltura-primeng-ui';
+import { MultiSelectModule } from '@kontorol-ng/kontorol-primeng-ui';
 import { AccountsListComponent } from './accounts-list/accounts-list.component';
 import { AccountsTableComponent } from './accounts-table/accounts-table.component';
 import { AccountsRefineFiltersComponent } from './accounts-refine-filters/accounts-refine-filters.component';
@@ -45,7 +45,7 @@ import { StatusPipe } from './pipes/status.pipe';
 import { AccountsTagsComponent } from './accounts-tags/accounts-tags.component';
 import { KMCPermissionsModule } from 'app-shared/kmc-shared/kmc-permissions';
 import { DateFormatModule } from 'app-shared/kmc-shared/date-format/date-format.module';
-import { FiltersModule } from '@kaltura-ng/mc-shared';
+import { FiltersModule } from '@kontorol-ng/mc-shared';
 
 @NgModule({
   imports: [
@@ -64,8 +64,8 @@ import { FiltersModule } from '@kaltura-ng/mc-shared';
     InputTextModule,
     LocalizationModule,
     DynamicMetadataFormModule,
-    KalturaPrimeNgUIModule,
-    KalturaUIModule,
+    KontorolPrimeNgUIModule,
+    KontorolUIModule,
     KMCShellModule,
     MenuModule,
     MultiSelectModule,

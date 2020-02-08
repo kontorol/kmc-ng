@@ -1,9 +1,9 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { CategoryData } from 'app-shared/content-shared/categories/categories-search.service';
-import { KalturaPrivacyType } from 'kaltura-ngx-client';
-import { KalturaAppearInListType } from 'kaltura-ngx-client';
-import { KalturaContributionPolicyType } from 'kaltura-ngx-client';
+import { KontorolPrivacyType } from 'kontorol-ngx-client';
+import { KontorolAppearInListType } from 'kontorol-ngx-client';
+import { KontorolContributionPolicyType } from 'kontorol-ngx-client';
 
 @Pipe({ name: 'kCategoryTooltip' })
 export class CategoryTooltipPipe implements PipeTransform {
@@ -26,13 +26,13 @@ export class CategoryTooltipPipe implements PipeTransform {
             const title = this._appLocalization.get('applications.entries.entryMetadata.categoryTooltip.contentPrivacy');
             let value = '';
             switch (category.privacy) {
-                case KalturaPrivacyType.all:
+                case KontorolPrivacyType.all:
                     value = this._appLocalization.get('applications.entries.entryMetadata.categoryTooltip.noRestriction');
                     break;
-                case KalturaPrivacyType.authenticatedUsers:
+                case KontorolPrivacyType.authenticatedUsers:
                     value = this._appLocalization.get('applications.entries.entryMetadata.categoryTooltip.requiresAuth');
                     break;
-                case KalturaPrivacyType.membersOnly:
+                case KontorolPrivacyType.membersOnly:
                     value = this._appLocalization.get('applications.entries.entryMetadata.categoryTooltip.noMembers');
                     break;
                 default:
@@ -48,10 +48,10 @@ export class CategoryTooltipPipe implements PipeTransform {
             let value = '';
             let title = this._appLocalization.get('applications.entries.entryMetadata.categoryTooltip.categoryListing');
             switch (category.appearInList) {
-                case KalturaAppearInListType.categoryMembersOnly:
+                case KontorolAppearInListType.categoryMembersOnly:
                     value = this._appLocalization.get('applications.entries.entryMetadata.categoryTooltip.private');
                     break;
-                case KalturaAppearInListType.partnerOnly:
+                case KontorolAppearInListType.partnerOnly:
                     value = this._appLocalization.get('applications.entries.entryMetadata.categoryTooltip.noRestriction');
                     break;
                 default:
@@ -66,10 +66,10 @@ export class CategoryTooltipPipe implements PipeTransform {
             title = this._appLocalization.get('applications.entries.entryMetadata.categoryTooltip.contributionPolicy');
 
             switch (category.contributionPolicy) {
-                case KalturaContributionPolicyType.all:
+                case KontorolContributionPolicyType.all:
                     value = this._appLocalization.get('applications.entries.entryMetadata.categoryTooltip.noRestriction');
                     break;
-                case KalturaContributionPolicyType.membersWithContributionPermission:
+                case KontorolContributionPolicyType.membersWithContributionPermission:
                     value = this._appLocalization.get('applications.entries.entryMetadata.categoryTooltip.private');
                     break;
                 default:

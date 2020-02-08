@@ -14,7 +14,7 @@
 
 export const ServerConfigSchema = {
     properties: {
-        kalturaServer: {
+        kontorolServer: {
             properties: {
                 uri: {type: 'string'},
                 defaultPrivileges: {type: ['string', 'null']},
@@ -147,7 +147,7 @@ export const ServerConfigSchema = {
                     required: [],
                     additionalProperties: true
                 },
-                kaltura: {
+                kontorol: {
                     properties: {
                         kmcOverview: {type: 'string'},
                         mediaManagement: {type: 'string'},
@@ -192,6 +192,6 @@ export const ServerConfigSchema = {
             additionalProperties: true
         }
     },
-    required: ['kalturaServer', 'cdnServers', 'externalApps', 'externalLinks'],
+    required: ['kontorolServer', 'cdnServers', 'externalApps', 'externalLinks'],
     additionalProperties: true
 };

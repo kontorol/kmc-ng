@@ -1,35 +1,35 @@
 import {Injectable} from '@angular/core';
-import {KalturaClient, KalturaMultiRequest} from 'kaltura-ngx-client';
-import {UserListAction} from 'kaltura-ngx-client';
-import {KalturaUserFilter} from 'kaltura-ngx-client';
-import {KalturaFilterPager} from 'kaltura-ngx-client';
-import {KalturaCategoryUserPermissionLevel} from 'kaltura-ngx-client';
+import {KontorolClient, KontorolMultiRequest} from 'kontorol-ngx-client';
+import {UserListAction} from 'kontorol-ngx-client';
+import {KontorolUserFilter} from 'kontorol-ngx-client';
+import {KontorolFilterPager} from 'kontorol-ngx-client';
+import {KontorolCategoryUserPermissionLevel} from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
-import {KalturaUpdateMethodType} from 'kaltura-ngx-client';
-import {CategoryUserAddAction} from 'kaltura-ngx-client';
-import {KalturaCategoryUser} from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import {CategoryUserCopyFromCategoryAction} from 'kaltura-ngx-client';
+import {KontorolUpdateMethodType} from 'kontorol-ngx-client';
+import {CategoryUserAddAction} from 'kontorol-ngx-client';
+import {KontorolCategoryUser} from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import {CategoryUserCopyFromCategoryAction} from 'kontorol-ngx-client';
 import 'rxjs/add/operator/delay';
 
 @Injectable()
 export class AddUsersService {
 
-  constructor(private _kalturaServerClient: KalturaClient,
+  constructor(private _kontorolServerClient: KontorolClient,
               private _appLocalization: AppLocalization) {
   }
 
 
-  public addUsers({usersIds, categoryId, permissionLevel, updateMethod}: { usersIds: string[], categoryId: number, permissionLevel: KalturaCategoryUserPermissionLevel, updateMethod: KalturaUpdateMethodType}): Observable<void> {
+  public addUsers({usersIds, categoryId, permissionLevel, updateMethod}: { usersIds: string[], categoryId: number, permissionLevel: KontorolCategoryUserPermissionLevel, updateMethod: KontorolUpdateMethodType}): Observable<void> {
     if (!usersIds || !usersIds.length) {
       return Observable.throw(
         new Error(this._appLocalization
           .get('applications.content.categoryDetails.entitlements.usersPermissions.addUsers.errors.missingUsers')));
     }
 
-    const multiRequest = new KalturaMultiRequest();
+    const multiRequest = new KontorolMultiRequest();
     usersIds.forEach(userId => {
-      const categoryUser = new KalturaCategoryUser({
+      const categoryUser = new KontorolCategoryUser({
         categoryId,
         userId,
         permissionLevel,
@@ -38,7 +38,7 @@ export class AddUsersService {
       multiRequest.requests.push(new CategoryUserAddAction({categoryUser}));
     });
 
-    return this._kalturaServerClient.multiRequest(multiRequest)
+    return this._kontorolServerClient.multiRequest(multiRequest)
       .map(response => {
           if (response.hasErrors()) {
             const errorMessage = (response.find(r => (r.error && r.error.code !== 'CATEGORY_USER_ALREADY_EXISTS'))) ?
@@ -55,20 +55,20 @@ export class AddUsersService {
 
 
   public copyUsersFromParent({categoryId}: {categoryId: number}): Observable<void> {
-    return this._kalturaServerClient.request(
+    return this._kontorolServerClient.request(
       new CategoryUserCopyFromCategoryAction({categoryId})
     ).delay(6000); // we delay the response for the server to be able to index the new users
   }
 
 
   public getUsersSuggestions(query: string) {
-    return this._kalturaServerClient.request(
+    return this._kontorolServerClient.request(
       new UserListAction(
         {
-          filter: new KalturaUserFilter({
+          filter: new KontorolUserFilter({
             idOrScreenNameStartsWith: query
           }),
-          pager: new KalturaFilterPager({
+          pager: new KontorolFilterPager({
             pageIndex: 0,
             pageSize: 30
           })

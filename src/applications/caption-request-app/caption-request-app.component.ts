@@ -1,17 +1,17 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { AppEventsService } from 'app-shared/kmc-shared';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
 import { CaptionRequestEvent } from 'app-shared/kmc-shared/events';
 import { ReachData } from 'app-shared/kmc-shared/reach-frame';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { ReachPages } from 'app-shared/kmc-shared/kmc-views/details-views';
 
 @Component({
     selector: 'kCaptionRequest',
     templateUrl: './caption-request-app.component.html',
     styleUrls: ['./caption-request-app.component.scss'],
-    providers: [KalturaLogger.createLogger('CaptionRequestAppComponent')]
+    providers: [KontorolLogger.createLogger('CaptionRequestAppComponent')]
 })
 export class CaptionRequestAppComponent implements OnDestroy {
     @ViewChild('captionRequest') captionRequest: PopupWidgetComponent;
@@ -19,7 +19,7 @@ export class CaptionRequestAppComponent implements OnDestroy {
     public _data: ReachData;
     public _page: ReachPages;
 
-    constructor(private _logger: KalturaLogger,
+    constructor(private _logger: KontorolLogger,
                 appEvents: AppEventsService) {
         appEvents.event(CaptionRequestEvent)
             .pipe(cancelOnDestroy(this))

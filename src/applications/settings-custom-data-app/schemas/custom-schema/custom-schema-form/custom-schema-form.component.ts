@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SettingsMetadataProfile } from '../../schemas-store/settings-metadata-profile.interface';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { KalturaMetadataObjectType } from 'kaltura-ngx-client';
-import { KalturaAPIException } from 'kaltura-ngx-client';
+import { KontorolMetadataObjectType } from 'kontorol-ngx-client';
+import { KontorolAPIException } from 'kontorol-ngx-client';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 
 @Component({
@@ -14,7 +14,7 @@ export class CustomSchemaFormComponent {
 
     public _kmcPermissions = KMCPermissions;
 
-  @Input() set serverValidationError(value: KalturaAPIException) {
+  @Input() set serverValidationError(value: KontorolAPIException) {
     if (value) {
       if (value.code === 'SYSTEM_NAME_ALREADY_EXISTS') {
         this._systemNameField.setErrors({ 'incorrect': true });
@@ -59,8 +59,8 @@ export class CustomSchemaFormComponent {
   public _systemNameField: AbstractControl;
   public _applyToField: AbstractControl;
   public _applyToValues = {
-    entry: KalturaMetadataObjectType.entry.toString(),
-    category: KalturaMetadataObjectType.category.toString()
+    entry: KontorolMetadataObjectType.entry.toString(),
+    category: KontorolMetadataObjectType.category.toString()
   };
     public _nameMaxLength = 32;
 
@@ -79,7 +79,7 @@ export class CustomSchemaFormComponent {
       name: ['', Validators.compose([Validators.required, Validators.maxLength(this._nameMaxLength)])],
       description: '',
       systemName: '',
-      applyTo: KalturaMetadataObjectType.entry.toString()
+      applyTo: KontorolMetadataObjectType.entry.toString()
     });
 
     this._nameField = this._schemaForm.controls['name'];

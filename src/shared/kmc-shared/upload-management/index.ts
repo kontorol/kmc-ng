@@ -1,3 +1,3 @@
-export * from './kaltura-upload-file';
-export * from './kaltura-upload-adapter.service';
-export * from './kaltura-server.module';
+export * from './kontorol-upload-file';
+export * from './kontorol-upload-adapter.service';
+export * from './kontorol-server.module';

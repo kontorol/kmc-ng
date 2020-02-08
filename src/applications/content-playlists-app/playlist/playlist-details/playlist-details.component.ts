@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { KalturaPlaylist } from 'kaltura-ngx-client';
+import { KontorolPlaylist } from 'kontorol-ngx-client';
 import { PlaylistDetailsWidget } from './playlist-details-widget.service';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kPlaylistDetails',
@@ -9,7 +9,7 @@ import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
   styleUrls: ['./playlist-details.component.scss']
 })
 export class PlaylistDetailsComponent implements OnInit, OnDestroy {
-  public _currentPlaylist: KalturaPlaylist;
+  public _currentPlaylist: KontorolPlaylist;
   public _isNew = false;
 
   constructor(public _widgetService: PlaylistDetailsWidget) {

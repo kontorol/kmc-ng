@@ -1,10 +1,10 @@
 const workspaceLibraries = [
-    '@kaltura-ng/kaltura-logger',
-    '@kaltura-ng/kaltura-common',
-    '@kaltura-ng/kaltura-ui',
-    '@kaltura-ng/kaltura-primeng-ui',
-    '@kaltura-ng/mc-shared',
-    '@kaltura-ng/mc-theme'
+    '@kontorol-ng/kontorol-logger',
+    '@kontorol-ng/kontorol-common',
+    '@kontorol-ng/kontorol-ui',
+    '@kontorol-ng/kontorol-primeng-ui',
+    '@kontorol-ng/mc-shared',
+    '@kontorol-ng/mc-theme'
 ];
 
 module.exports = { workspaceLibraries };

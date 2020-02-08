@@ -11,8 +11,8 @@ import {
     ViewChild
 } from '@angular/core';
 import {Menu, MenuItem} from 'primeng/primeng';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
-import {KalturaPartner, KalturaPartnerStatus} from 'kaltura-ngx-client';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
+import {KontorolPartner, KontorolPartnerStatus} from 'kontorol-ngx-client';
 import {ColumnsResizeManagerService, ResizableColumnsTableName} from 'app-shared/kmc-shared/columns-resize-manager';
 import {AppAuthentication} from "app-shared/kmc-shell";
 import {globalConfig} from "config/global";
@@ -28,7 +28,7 @@ import {globalConfig} from "config/global";
 })
 export class AccountsTableComponent implements AfterViewInit, OnInit, OnDestroy {
   @Input()
-  set accounts(data: KalturaPartner[]) {
+  set accounts(data: KontorolPartner[]) {
     if (!this._deferredLoading) {
       // the table uses 'rowTrackBy' to track changes by id. To be able to reflect changes of account
       // (ie when returning from entry page) - we should force detect changes on an empty list
@@ -41,14 +41,14 @@ export class AccountsTableComponent implements AfterViewInit, OnInit, OnDestroy 
     }
   }
 
-  @Output() actionSelected = new EventEmitter<{action: string, account: KalturaPartner}>();
+  @Output() actionSelected = new EventEmitter<{action: string, account: KontorolPartner}>();
   @Output() sortChanged = new EventEmitter<any>();
 
   @ViewChild('actionsmenu') private _actionsMenu: Menu;
 
-  private _deferredAccounts: KalturaPartner[];
+  private _deferredAccounts: KontorolPartner[];
 
-  public _accounts: KalturaPartner[] = [];
+  public _accounts: KontorolPartner[] = [];
   public _deferredLoading = true;
   public _emptyMessage = '';
   public _items: MenuItem[];
@@ -82,13 +82,13 @@ export class AccountsTableComponent implements AfterViewInit, OnInit, OnDestroy 
     }
   }
 
-  private _onActionSelected(action: string, account: KalturaPartner): void {
+  private _onActionSelected(action: string, account: KontorolPartner): void {
     this.actionSelected.emit({ action, account });
   }
 
-  private _buildMenu(partner: KalturaPartner): void {
+  private _buildMenu(partner: KontorolPartner): void {
       this._items = [];
-      if ( partner.status !== KalturaPartnerStatus.blocked && partner.status !== KalturaPartnerStatus.fullBlock) {
+      if ( partner.status !== KontorolPartnerStatus.blocked && partner.status !== KontorolPartnerStatus.fullBlock) {
           this._items.push({
                   id: 'kmc',
                   label: this._appLocalization.get('applications.administration.accounts.actions.kmc'),
@@ -96,7 +96,7 @@ export class AccountsTableComponent implements AfterViewInit, OnInit, OnDestroy 
               });
       }
       if ( partner.id.toString() !== this.currentPartnerId) {
-          if ( partner.status === KalturaPartnerStatus.blocked || partner.status === KalturaPartnerStatus.fullBlock) {
+          if ( partner.status === KontorolPartnerStatus.blocked || partner.status === KontorolPartnerStatus.fullBlock) {
               this._items.push({
                   id: 'unblock',
                   label: this._appLocalization.get('applications.administration.accounts.actions.unblock'),
@@ -118,7 +118,7 @@ export class AccountsTableComponent implements AfterViewInit, OnInit, OnDestroy 
       }
   }
 
-  public _openActionsMenu(event: any, account: KalturaPartner): void {
+  public _openActionsMenu(event: any, account: KontorolPartner): void {
     if (this._actionsMenu) {
       this._buildMenu(account);
       this._actionsMenu.toggle(event);

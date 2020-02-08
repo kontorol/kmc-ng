@@ -1,24 +1,24 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { KalturaClient } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs/Subscription';
-import { KalturaMediaType } from 'kaltura-ngx-client';
-import { TrackedFileStatuses, UploadManagement } from '@kaltura-ng/kaltura-common';
+import { KontorolMediaType } from 'kontorol-ngx-client';
+import { TrackedFileStatuses, UploadManagement } from '@kontorol-ng/kontorol-common';
 import { NewEntryUploadFile } from './new-entry-upload-file';
-import { MediaAddAction } from 'kaltura-ngx-client';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { KalturaUploadedFileTokenResource } from 'kaltura-ngx-client';
-import { KalturaAssetParamsResourceContainer } from 'kaltura-ngx-client';
-import { KalturaAssetsParamsResourceContainers } from 'kaltura-ngx-client';
-import { MediaUpdateContentAction } from 'kaltura-ngx-client';
-import { UploadTokenDeleteAction } from 'kaltura-ngx-client';
-import { TrackedFileData } from '@kaltura-ng/kaltura-common';
+import { MediaAddAction } from 'kontorol-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { KontorolUploadedFileTokenResource } from 'kontorol-ngx-client';
+import { KontorolAssetParamsResourceContainer } from 'kontorol-ngx-client';
+import { KontorolAssetsParamsResourceContainers } from 'kontorol-ngx-client';
+import { MediaUpdateContentAction } from 'kontorol-ngx-client';
+import { UploadTokenDeleteAction } from 'kontorol-ngx-client';
+import { TrackedFileData } from '@kontorol-ng/kontorol-common';
 import { Subject } from 'rxjs/Subject';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export interface KmcNewEntryUpload {
   file: File;
-  mediaType: KalturaMediaType;
+  mediaType: KontorolMediaType;
   entryName: string;
 }
 
@@ -27,7 +27,7 @@ export class NewEntryUploadService implements OnDestroy {
   public _mediaCreated = new Subject<{ id?: string, entryId?: string }>();
   public onMediaCreated$ = this._mediaCreated.asObservable();
 
-  constructor(private _kalturaServerClient: KalturaClient,
+  constructor(private _kontorolServerClient: KontorolClient,
               private _uploadManagement: UploadManagement) {
     this._monitorTrackedFilesChanges();
   }
@@ -83,7 +83,7 @@ export class NewEntryUploadService implements OnDestroy {
         (<NewEntryUploadFile>trackedFile.data).entryId = entry.id;
         this._mediaCreated.next({ id: trackedFile.id, entryId: entry.id });
       })
-      .switchMap((entry: KalturaMediaEntry) => this._updateMediaContent(entry, <NewEntryUploadFile>trackedFile.data))
+      .switchMap((entry: KontorolMediaEntry) => this._updateMediaContent(entry, <NewEntryUploadFile>trackedFile.data))
       .subscribe(
         () => {
         },
@@ -93,25 +93,25 @@ export class NewEntryUploadService implements OnDestroy {
       );
   }
 
-  private _updateMediaContent(entry: KalturaMediaEntry, file: NewEntryUploadFile): Observable<KalturaMediaEntry> {
+  private _updateMediaContent(entry: KontorolMediaEntry, file: NewEntryUploadFile): Observable<KontorolMediaEntry> {
     const entryId = entry.id;
     const conversionProfileId = file.transcodingProfileId;
-    const subSubResource = new KalturaUploadedFileTokenResource({ token: file.serverUploadToken });
+    const subSubResource = new KontorolUploadedFileTokenResource({ token: file.serverUploadToken });
     let resource = null;
 
-    if (file.mediaType === KalturaMediaType.image) {
+    if (file.mediaType === KontorolMediaType.image) {
       resource = subSubResource;
     } else {
-      const subResource = new KalturaAssetParamsResourceContainer({ resource: subSubResource, assetParamsId: 0 });
-      resource = new KalturaAssetsParamsResourceContainers({ resources: [subResource] });
+      const subResource = new KontorolAssetParamsResourceContainer({ resource: subSubResource, assetParamsId: 0 });
+      resource = new KontorolAssetsParamsResourceContainers({ resources: [subResource] });
     }
 
-    return this._kalturaServerClient.request(new MediaUpdateContentAction({ entryId, resource, conversionProfileId }));
+    return this._kontorolServerClient.request(new MediaUpdateContentAction({ entryId, resource, conversionProfileId }));
   }
 
-  private _createMediaEntry(file: NewEntryUploadFile): Observable<KalturaMediaEntry> {
-    return this._kalturaServerClient.request(new MediaAddAction({
-      entry: new KalturaMediaEntry({
+  private _createMediaEntry(file: NewEntryUploadFile): Observable<KontorolMediaEntry> {
+    return this._kontorolServerClient.request(new MediaAddAction({
+      entry: new KontorolMediaEntry({
         mediaType: file.mediaType,
         name: file.entryName,
         conversionProfileId: file.transcodingProfileId
@@ -120,7 +120,7 @@ export class NewEntryUploadService implements OnDestroy {
   }
 
   private _removeUploadToken(uploadTokenId: string): Observable<void> {
-    return this._kalturaServerClient.request(new UploadTokenDeleteAction({ uploadTokenId }))
+    return this._kontorolServerClient.request(new UploadTokenDeleteAction({ uploadTokenId }))
   }
 
   private _formatError(message: string, error: string | { message: string }): string {

@@ -2,12 +2,12 @@ import { Injectable } from '@angular/core';
 import {
     EntryWidget
 } from '../entry-widget';
-import { KalturaClient } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
 import { AppAuthentication } from 'app-shared/kmc-shell';
 import { subApplicationsConfig } from 'config/sub-applications';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { KalturaSourceType } from 'kaltura-ngx-client';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { KontorolSourceType } from 'kontorol-ngx-client';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 
 @Injectable()
 export class EntryDetailsWidget extends EntryWidget
@@ -15,9 +15,9 @@ export class EntryDetailsWidget extends EntryWidget
     public _landingPage : string;
 
     constructor(
-                kalturaServerClient: KalturaClient,
+                kontorolServerClient: KontorolClient,
                 private appAuthentication: AppAuthentication,
-                logger: KalturaLogger)
+                logger: KontorolLogger)
 
     {
         super('entryDetails', logger);
@@ -33,7 +33,7 @@ export class EntryDetailsWidget extends EntryWidget
     }
 
     protected onActivate(firstTimeActivating: boolean) {
-        const entry: KalturaMediaEntry = this.data;
+        const entry: KontorolMediaEntry = this.data;
 
 	    this._landingPage = null;
 

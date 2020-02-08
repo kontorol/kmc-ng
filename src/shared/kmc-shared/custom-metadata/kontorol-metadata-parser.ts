@@ -2,14 +2,14 @@
 import {
 	MetadataProfile, MetadataItemTypes, MetadataItem
 } from './metadata-profile';
-import { KalturaUtils, XmlParser } from '@kaltura-ng/kaltura-common';
+import { KontorolUtils, XmlParser } from '@kontorol-ng/kontorol-common';
 
 
-import { KalturaMetadataProfile } from 'kaltura-ngx-client';
+import { KontorolMetadataProfile } from 'kontorol-ngx-client';
 
 import {
-	KalturaMetadataProfileStatus
-} from 'kaltura-ngx-client';
+	KontorolMetadataProfileStatus
+} from 'kontorol-ngx-client';
 
 
 export class MetadataProfileParser {
@@ -90,23 +90,23 @@ export class MetadataProfileParser {
 		return result;
 	}
 
-	public parse(kalturaMetadataProfile: KalturaMetadataProfile): {  profile: MetadataProfile, error?: Error } {
+	public parse(kontorolMetadataProfile: KontorolMetadataProfile): {  profile: MetadataProfile, error?: Error } {
 
 		let result;
 
 		try {
-		    // DEVELOPER NOTICE: due to bug in kaltura server the parse logic should ignore empty string and 'false' value
-			if (kalturaMetadataProfile.xsd && kalturaMetadataProfile.xsd !== 'false' && kalturaMetadataProfile.xsd !== '<xml></xml>') {
+		    // DEVELOPER NOTICE: due to bug in kontorol server the parse logic should ignore empty string and 'false' value
+			if (kontorolMetadataProfile.xsd && kontorolMetadataProfile.xsd !== 'false' && kontorolMetadataProfile.xsd !== '<xml></xml>') {
 
-			    const escapedSchema = kalturaMetadataProfile.xsd.replace(/&(?![^ ]+;)/g, '&amp;');
+			    const escapedSchema = kontorolMetadataProfile.xsd.replace(/&(?![^ ]+;)/g, '&amp;');
 				const schemaContext: any = XmlParser.toJson(escapedSchema);
 				const metadataElement = schemaContext.schema.element;
 
 				if (metadataElement.attr.name.value === 'metadata') {
 					const parsedProfile: MetadataProfile = {
-						id: kalturaMetadataProfile.id,
-						name: kalturaMetadataProfile.name,
-						isActive: kalturaMetadataProfile.status === KalturaMetadataProfileStatus.active,
+						id: kontorolMetadataProfile.id,
+						name: kontorolMetadataProfile.name,
+						isActive: kontorolMetadataProfile.status === KontorolMetadataProfileStatus.active,
 						items: []
 					};
 
@@ -125,14 +125,14 @@ export class MetadataProfileParser {
 
 				} else {
 					result = {profile: null, error: new Error('missing metadata profile xsd')};
-					console.warn("[kaltura] -> invalid secnario. first element must be 'metadata'");
+					console.warn("[kontorol] -> invalid secnario. first element must be 'metadata'");
 				}
 			} else {
                 result = {profile: null};
 			}
 		}
 		catch (e) {
-            console.warn("[kaltura] -> Error occured: " + e.message);
+            console.warn("[kontorol] -> Error occured: " + e.message);
 			result = {profile: null};
 		}
 
@@ -202,7 +202,7 @@ export class MetadataProfileParser {
           'simpleType': {
             'restriction': {
               'attr': { 'base': this._extractMetadataItemType(item.type) },
-              'enumeration': [...item.optionalValues.map(option => ({ 'attr': { 'value': KalturaUtils.escapeXml(option.value) } }))]
+              'enumeration': [...item.optionalValues.map(option => ({ 'attr': { 'value': KontorolUtils.escapeXml(option.value) } }))]
             }
           }
         });

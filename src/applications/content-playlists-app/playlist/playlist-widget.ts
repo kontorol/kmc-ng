@@ -1,16 +1,16 @@
-import { AreaBlockerMessage, AreaBlockerMessageButton, WidgetBase } from '@kaltura-ng/kaltura-ui';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import { KalturaMultiRequest } from 'kaltura-ngx-client';
+import { AreaBlockerMessage, AreaBlockerMessageButton, WidgetBase } from '@kontorol-ng/kontorol-ui';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import { KontorolMultiRequest } from 'kontorol-ngx-client';
 import { PlaylistWidgetsManager } from './playlist-widgets-manager';
-import { KalturaPlaylist } from 'kaltura-ngx-client';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import { KontorolPlaylist } from 'kontorol-ngx-client';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 
 
-export abstract class PlaylistWidget extends WidgetBase<PlaylistWidgetsManager, KalturaPlaylist, KalturaMultiRequest> {
+export abstract class PlaylistWidget extends WidgetBase<PlaylistWidgetsManager, KontorolPlaylist, KontorolMultiRequest> {
   public sectionBlockerMessage: AreaBlockerMessage;
   public showSectionLoader: boolean;
 
-  constructor(private _widgetKey: string, logger: KalturaLogger) {
+  constructor(private _widgetKey: string, logger: KontorolLogger) {
     super(_widgetKey, logger);
   }
 

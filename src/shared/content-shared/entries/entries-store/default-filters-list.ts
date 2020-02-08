@@ -1,4 +1,4 @@
-import { KalturaEntryStatus } from 'kaltura-ngx-client';
+import { KontorolEntryStatus } from 'kontorol-ngx-client';
 
 export interface DefaultFilterList {
     label: string;
@@ -19,12 +19,12 @@ export const DefaultFiltersList: DefaultFilterList[] = [
     {
         name: 'ingestionStatuses', label: 'Ingestion Statuses',
         items: [
-            { value: KalturaEntryStatus.ready.toString(), label: 'Ready' },
-            { value: KalturaEntryStatus.noContent.toString(), label: 'No Media' },
-            { value: KalturaEntryStatus.pending.toString(), label: 'Pending' },
-            { value: KalturaEntryStatus.import.toString(), label: 'Uploading' },
-            { value: KalturaEntryStatus.preconvert.toString(), label: 'Transcoding' },
-            { value: [KalturaEntryStatus.errorConverting.toString(), KalturaEntryStatus.errorImporting.toString()].join(','), label: 'Error' }
+            { value: KontorolEntryStatus.ready.toString(), label: 'Ready' },
+            { value: KontorolEntryStatus.noContent.toString(), label: 'No Media' },
+            { value: KontorolEntryStatus.pending.toString(), label: 'Pending' },
+            { value: KontorolEntryStatus.import.toString(), label: 'Uploading' },
+            { value: KontorolEntryStatus.preconvert.toString(), label: 'Transcoding' },
+            { value: [KontorolEntryStatus.errorConverting.toString(), KontorolEntryStatus.errorImporting.toString()].join(','), label: 'Error' }
         ]
     },
     {

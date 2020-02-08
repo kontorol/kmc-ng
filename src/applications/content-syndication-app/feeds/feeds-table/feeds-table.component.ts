@@ -10,9 +10,9 @@ import {
     ViewChild
 } from '@angular/core';
 import {Menu, MenuItem} from 'primeng/primeng';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import {KalturaBaseSyndicationFeed} from 'kaltura-ngx-client';
-import {KalturaPlaylist} from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import {KontorolBaseSyndicationFeed} from 'kontorol-ngx-client';
+import {KontorolPlaylist} from 'kontorol-ngx-client';
 import { globalConfig } from 'config/global';
 import { KMCPermissionsService, KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
 import { ColumnsResizeManagerService, ResizableColumnsTableName } from 'app-shared/kmc-shared/columns-resize-manager';
@@ -28,10 +28,10 @@ import { ColumnsResizeManagerService, ResizableColumnsTableName } from 'app-shar
 })
 export class FeedsTableComponent implements AfterViewInit, OnInit, OnDestroy {
 
-  public _feeds: KalturaBaseSyndicationFeed[] = [];
+  public _feeds: KontorolBaseSyndicationFeed[] = [];
   private _deferredFeeds: any[];
   public _deferredLoading = true;
-  public _idToPlaylistMap: Map<string, KalturaPlaylist> = null; // map between KalturaPlaylist id to KalturaPlaylist.name object
+  public _idToPlaylistMap: Map<string, KontorolPlaylist> = null; // map between KontorolPlaylist id to KontorolPlaylist.name object
   public _copyToClipboardTooltips: { success: string, failure: string, idle: string, notSupported: string } = null;
 
   @Input()
@@ -49,9 +49,9 @@ export class FeedsTableComponent implements AfterViewInit, OnInit, OnDestroy {
   }
 
   @Input()
-  set playlists(data: KalturaPlaylist[]) {
+  set playlists(data: KontorolPlaylist[]) {
     if (data && data.length) {
-      this._idToPlaylistMap = new Map<string, KalturaPlaylist>();
+      this._idToPlaylistMap = new Map<string, KontorolPlaylist>();
       data.forEach(playlist => {
         this._idToPlaylistMap.set(playlist.id, playlist);
       });
@@ -60,12 +60,12 @@ export class FeedsTableComponent implements AfterViewInit, OnInit, OnDestroy {
 
   @Input() sortField: string = null;
   @Input() sortOrder: number = null;
-  @Input() selectedFeeds: KalturaBaseSyndicationFeed[] = [];
+  @Input() selectedFeeds: KontorolBaseSyndicationFeed[] = [];
 
   @Output()
   sortChanged = new EventEmitter<{ field: string, order: number}>();
   @Output()
-  actionSelected = new EventEmitter<{ action: string, feed: KalturaBaseSyndicationFeed }>();
+  actionSelected = new EventEmitter<{ action: string, feed: KontorolBaseSyndicationFeed }>();
   @Output()
   selectedFeedsChange = new EventEmitter<any>();
 
@@ -107,13 +107,13 @@ export class FeedsTableComponent implements AfterViewInit, OnInit, OnDestroy {
 
   public rowTrackBy: Function = (index: number, item: any) => item.id;
 
-  public _openActionsMenu(event: any, feed: KalturaBaseSyndicationFeed) {
+  public _openActionsMenu(event: any, feed: KontorolBaseSyndicationFeed) {
     if (this._actionsMenu) {
       this._buildMenu(feed);
       this._actionsMenu.toggle(event);
     }
   }
-  public _editFeed(feed: KalturaBaseSyndicationFeed) {
+  public _editFeed(feed: KontorolBaseSyndicationFeed) {
     this._onActionSelected('edit', feed);
   }
 
@@ -128,11 +128,11 @@ export class FeedsTableComponent implements AfterViewInit, OnInit, OnDestroy {
     }
   }
 
-  private _onActionSelected(action: string, feed: KalturaBaseSyndicationFeed) {
+  private _onActionSelected(action: string, feed: KontorolBaseSyndicationFeed) {
     this.actionSelected.emit({'action': action, 'feed': feed});
   }
 
-  private _buildMenu(feed: KalturaBaseSyndicationFeed): void {
+  private _buildMenu(feed: KontorolBaseSyndicationFeed): void {
     this._items = [
       {
         id: 'edit',

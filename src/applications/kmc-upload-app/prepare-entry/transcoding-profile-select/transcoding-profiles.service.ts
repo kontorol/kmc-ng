@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import { Observable } from 'rxjs';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import {KalturaNullableBoolean} from 'kaltura-ngx-client';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import {KontorolNullableBoolean} from 'kontorol-ngx-client';
 import {TranscodingProfileManagement} from 'app-shared/kmc-shared/transcoding-profile-management';
 
 
@@ -20,7 +20,7 @@ export class TranscodingProfilesService {
   public getTranscodingProfiles(): Observable<TranscodingProfile[]> {
     return this._transcodingProfileManagement.get()
       .map(profiles => {
-        const defaultProfileIndex = profiles.findIndex(x => (x.isDefault === KalturaNullableBoolean.trueValue));
+        const defaultProfileIndex = profiles.findIndex(x => (x.isDefault === KontorolNullableBoolean.trueValue));
         // Set default profile as first in array (if not already first)
         if (defaultProfileIndex > 0) {
           const defaultProfile = profiles[defaultProfileIndex];

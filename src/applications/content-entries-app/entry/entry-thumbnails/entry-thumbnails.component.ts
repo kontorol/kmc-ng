@@ -1,10 +1,10 @@
 import { Component, AfterViewInit, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { AppAuthentication } from 'app-shared/kmc-shell';
-import { KalturaUtils } from '@kaltura-ng/kaltura-common';
+import { KontorolUtils } from '@kontorol-ng/kontorol-common';
 import { BrowserService } from 'app-shared/kmc-shell';
-import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
 
 import { EntryThumbnailsWidget, ThumbnailRow } from './entry-thumbnails-widget.service';
 import { Menu, MenuItem } from 'primeng/primeng';
@@ -84,7 +84,7 @@ export class EntryThumbnails implements AfterViewInit, OnInit, OnDestroy {
 		x.open("GET", this.currentThumb.url, true);
 		x.responseType = 'blob';
 		x.onload = (e) => {
-			return KalturaUtils.download(x.response, this.currentThumb.id + "." + this.currentThumb.fileExt, "image/"+this.currentThumb.fileExt );
+			return KontorolUtils.download(x.response, this.currentThumb.id + "." + this.currentThumb.fileExt, "image/"+this.currentThumb.fileExt );
 		}
 		x.send();
 	}

@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { Menu, MenuItem } from 'primeng/primeng';
-import { KalturaExternalMediaSourceType, KalturaMediaEntry } from 'kaltura-ngx-client';
+import { KontorolExternalMediaSourceType, KontorolMediaEntry } from 'kontorol-ngx-client';
 import { ManualContentWidget } from '../manual-content-widget.service';
 import { globalConfig } from 'config/global';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
@@ -15,7 +15,7 @@ import { ContentEntryViewSections, ContentEntryViewService } from 'app-shared/km
 export class PlaylistEntriesTableComponent implements AfterViewInit, OnInit, OnDestroy {
   @ViewChild('actionsmenu') private actionsMenu: Menu;
 
-  @Input() selectedEntries: KalturaMediaEntry[] = [];
+  @Input() selectedEntries: KontorolMediaEntry[] = [];
   @Input() sortBy: string;
   @Input() sortDirection: number;
   @Input() isNewPlaylist: boolean;
@@ -34,16 +34,16 @@ export class PlaylistEntriesTableComponent implements AfterViewInit, OnInit, OnD
 
   @Output() sortChanged = new EventEmitter<any>();
   @Output() selectedEntriesChange = new EventEmitter<any>();
-  @Output() onActionSelected = new EventEmitter<{ action: string, entry: KalturaMediaEntry }>();
+  @Output() onActionSelected = new EventEmitter<{ action: string, entry: KontorolMediaEntry }>();
 
   public _kmcPermissions = KMCPermissions;
-  private _deferredEntries: KalturaMediaEntry[];
-  public _entries: KalturaMediaEntry[] = [];
+  private _deferredEntries: KontorolMediaEntry[];
+  public _entries: KontorolMediaEntry[] = [];
   public _emptyMessage: string;
   public _deferredLoading = true;
   public _items: MenuItem[];
   public _defaultSortOrder = globalConfig.client.views.tables.defaultSortOrder;
-    public _youtubeExternalSourceType = KalturaExternalMediaSourceType.youtube;
+    public _youtubeExternalSourceType = KontorolExternalMediaSourceType.youtube;
     public _sortBy: string;
     public _sortDirection: number;
 
@@ -74,7 +74,7 @@ export class PlaylistEntriesTableComponent implements AfterViewInit, OnInit, OnD
   ngOnDestroy() {
   }
 
-  private _buildMenu(rowIndex: number, entry: KalturaMediaEntry): void {
+  private _buildMenu(rowIndex: number, entry: KontorolMediaEntry): void {
     this._items = [
       {
         label: this._appLocalization.get('applications.content.bulkActions.removeFromPlaylist'),
@@ -115,13 +115,13 @@ export class PlaylistEntriesTableComponent implements AfterViewInit, OnInit, OnD
       }
   }
 
-  public _goToEntry(entry: KalturaMediaEntry): void {
+  public _goToEntry(entry: KontorolMediaEntry): void {
     if (this._permissionsService.hasPermission(KMCPermissions.CONTENT_MANAGE_BASE)) {
         this._contentEntryViewService.open({ entry, section: ContentEntryViewSections.Metadata });
     }
   }
 
-  public _openActionsMenu(event: any, rowIndex: number, entry: KalturaMediaEntry) {
+  public _openActionsMenu(event: any, rowIndex: number, entry: KontorolMediaEntry) {
     if (this.actionsMenu) {
       this._buildMenu(rowIndex, entry);
       this.actionsMenu.toggle(event);

@@ -1,15 +1,15 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormGroup, FormBuilder} from '@angular/forms';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {AppAuthentication, BrowserService} from 'app-shared/kmc-shell';
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
-import {KalturaClient} from 'kaltura-ngx-client';
-import {PartnerListPartnersForUserAction} from 'kaltura-ngx-client';
-import {KalturaPartnerFilter} from 'kaltura-ngx-client';
-import {KalturaPartnerStatus} from 'kaltura-ngx-client';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
+import {KontorolClient} from 'kontorol-ngx-client';
+import {PartnerListPartnersForUserAction} from 'kontorol-ngx-client';
+import {KontorolPartnerFilter} from 'kontorol-ngx-client';
+import {KontorolPartnerStatus} from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
 
 @Component({
   selector: 'kChangeAccount',
@@ -30,7 +30,7 @@ export class ChangeAccountComponent implements OnInit {
               private _appLocalization: AppLocalization,
               private _browserService: BrowserService,
               private _appAuthentication: AppAuthentication,
-              private _kalturaServerClient: KalturaClient,
+              private _kontorolServerClient: KontorolClient,
               private _userAuthentication: AppAuthentication) {
   }
 
@@ -113,12 +113,12 @@ export class ChangeAccountComponent implements OnInit {
   }
 
   private getAvailablePartners(): Observable<{ 'id': number, 'name': string }[]> {
-    const pager: KalturaFilterPager = new KalturaFilterPager({pageSize: 500});
-    const filter = new KalturaPartnerFilter({
-      statusEqual: KalturaPartnerStatus.active
+    const pager: KontorolFilterPager = new KontorolFilterPager({pageSize: 500});
+    const filter = new KontorolPartnerFilter({
+      statusEqual: KontorolPartnerStatus.active
     });
 
-    return this._kalturaServerClient.request(new PartnerListPartnersForUserAction({
+    return this._kontorolServerClient.request(new PartnerListPartnersForUserAction({
       partnerFilter: filter,
         pager: pager
     }))

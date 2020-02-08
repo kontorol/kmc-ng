@@ -1,9 +1,9 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
 import {BrowserService} from 'app-shared/kmc-shell';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
 
 @Component({
   selector: 'kEntryEditor',
@@ -16,7 +16,7 @@ export class EntryEditorComponent implements OnInit, OnDestroy {
     tab: string = null;
 
   @Input()
-  entry: KalturaMediaEntry = null;
+  entry: KontorolMediaEntry = null;
 
     @Input() entryHasSource = false;
 

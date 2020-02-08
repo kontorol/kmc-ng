@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { PlaylistsStore } from './playlists/playlists-store/playlists-store.service';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { KalturaLoggerName } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { KontorolLoggerName } from '@kontorol-ng/kontorol-logger';
 
 @Component({
     selector: 'kPlaylists',
@@ -9,9 +9,9 @@ import { KalturaLoggerName } from '@kaltura-ng/kaltura-logger';
     styleUrls: ['./content-playlists.component.scss'],
     providers: [
       PlaylistsStore,
-        KalturaLogger,
+        KontorolLogger,
         {
-            provide: KalturaLoggerName, useValue: 'playlists-store.service'
+            provide: KontorolLoggerName, useValue: 'playlists-store.service'
         }
     ]
 })

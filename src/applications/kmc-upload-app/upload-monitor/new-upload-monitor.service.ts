@@ -1,11 +1,11 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { TrackedFileStatuses, UploadManagement } from '@kaltura-ng/kaltura-common';
+import { TrackedFileStatuses, UploadManagement } from '@kontorol-ng/kontorol-common';
 import { NewEntryUploadFile } from 'app-shared/kmc-shell';
 import { UploadMonitorStatuses } from './upload-monitor.component';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { NewEntryFlavourFile } from 'app-shared/kmc-shell/new-entry-flavour-file';
 import { NewReplaceVideoUploadFile } from 'app-shared/kmc-shell/new-replace-video-upload';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Injectable()
 export class NewUploadMonitorService implements OnDestroy {

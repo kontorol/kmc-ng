@@ -4,7 +4,7 @@
     <div class="kFormSection">
 
       <div class="kRow">
-        <span class="kLabel">{{'applications.upload.prepareLive.kalturaStreamType.name' | translate}}</span>
+        <span class="kLabel">{{'applications.upload.prepareLive.kontorolStreamType.name' | translate}}</span>
         <div class="kRequired" [ngClass]="{'kHasError':!_form.controls['name'].valid &&
                    _form.controls['name'].touched}">*
         </div>
@@ -15,14 +15,14 @@
           <div *ngIf="_form.controls['name'].touched">
             <div *ngIf="_form.controls['name'].hasError('required')"
                  class="error">
-              {{'applications.upload.prepareLive.kalturaStreamType.errors.required' | translate}}
+              {{'applications.upload.prepareLive.kontorolStreamType.errors.required' | translate}}
             </div>
           </div>
         </div>
       </div>
 
       <div class="kRow">
-        <span class="kLabel">{{'applications.upload.prepareLive.kalturaStreamType.description' | translate}}</span>
+        <span class="kLabel">{{'applications.upload.prepareLive.kontorolStreamType.description' | translate}}</span>
         <div class="kRequired"></div>
         <div>
           <input class="kControl" formControlName="description" pInputText
@@ -31,14 +31,14 @@
           <div *ngIf="_form.controls['description'].touched">
             <div *ngIf="_form.controls['description'].hasError('required')"
                  class="error">
-              {{'applications.upload.prepareLive.kalturaStreamType.errors.required' | translate}}
+              {{'applications.upload.prepareLive.kontorolStreamType.errors.required' | translate}}
             </div>
           </div>
         </div>
       </div>
 
       <div class="kRow">
-        <span class="kLabel">{{'applications.upload.prepareLive.kalturaStreamType.transcodingProfile' | translate}}</span>
+        <span class="kLabel">{{'applications.upload.prepareLive.kontorolStreamType.transcodingProfile' | translate}}</span>
         <div class="kRequired"></div>
         <div>
           <p-dropdown class="kControl" formControlName="transcodingProfile"
@@ -47,18 +47,18 @@
       </div>
 
       <div class="kRow">
-        <span class="kLabel kInputSwitchLabel">{{'applications.upload.prepareLive.kalturaStreamType.liveDVR' | translate}}</span>
+        <span class="kLabel kInputSwitchLabel">{{'applications.upload.prepareLive.kontorolStreamType.liveDVR' | translate}}</span>
         <div class="kRequired"></div>
         <div>
           <p-inputSwitch class="kControl kInputSwitch" formControlName="liveDVR"></p-inputSwitch>
           <span>{{_form.controls['liveDVR'].value ? ( 'app.common.on' | translate) : ( 'app.common.off' | translate)}}</span>
-          <div class="kFieldMessage">{{'applications.upload.prepareLive.kalturaStreamType.liveDVR_message' | translate}}</div>
+          <div class="kFieldMessage">{{'applications.upload.prepareLive.kontorolStreamType.liveDVR_message' | translate}}</div>
 
         </div>
       </div>
 
       <div class="kRow">
-        <span class="kLabel kInputSwitchLabel">{{'applications.upload.prepareLive.kalturaStreamType.enableRecording' | translate}}</span>
+        <span class="kLabel kInputSwitchLabel">{{'applications.upload.prepareLive.kontorolStreamType.enableRecording' | translate}}</span>
         <div class="kRequired"></div>
         <div>
           <p-inputSwitch class="kControl kInputSwitch" formControlName="enableRecording" (onChange)="_toggleRecordingSelectedOption($event.checked)"></p-inputSwitch>
@@ -69,7 +69,7 @@
       </div>
 
         <div class="kRow">
-            <span class="kLabel kInputSwitchLabel">{{'applications.upload.prepareLive.kalturaStreamType.previewMode' | translate}}</span>
+            <span class="kLabel kInputSwitchLabel">{{'applications.upload.prepareLive.kontorolStreamType.previewMode' | translate}}</span>
             <div class="kRequired"></div>
             <div>
                 <p-inputSwitch class="kControl kInputSwitch" formControlName="previewMode"></p-inputSwitch>

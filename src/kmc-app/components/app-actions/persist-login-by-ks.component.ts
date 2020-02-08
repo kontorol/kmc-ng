@@ -1,19 +1,19 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { AppAuthentication, BrowserService } from 'app-shared/kmc-shell';
 
 @Component({
     selector: 'kPersistLoginByKs',
     template: '<k-area-blocker classes="kAreaBlockerCoverAll" [showLoader]="true"></k-area-blocker>',
-    providers: [KalturaLogger.createLogger('PersistLoginByKsComponent')]
+    providers: [KontorolLogger.createLogger('PersistLoginByKsComponent')]
 })
 export class PersistLoginByKsComponent implements OnInit, OnDestroy {
     constructor(private _route: ActivatedRoute,
                 private _router: Router,
                 private _appAuth: AppAuthentication,
                 private _browserService: BrowserService,
-                private _logger: KalturaLogger) {
+                private _logger: KontorolLogger) {
     }
 
     ngOnInit() {

@@ -1,4 +1,4 @@
-import { DynamicFormControlBase, DynamicFormControlArgs } from '@kaltura-ng/kaltura-ui';
+import { DynamicFormControlBase, DynamicFormControlArgs } from '@kontorol-ng/kontorol-ui';
 
 export interface LinkedEntriesControlArgs extends DynamicFormControlArgs<any>
 {

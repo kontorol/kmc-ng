@@ -1,50 +1,50 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { KalturaConversionProfileType } from 'kaltura-ngx-client';
+import { KontorolConversionProfileType } from 'kontorol-ngx-client';
 import {
   BaseTranscodingProfilesStore,
-  KalturaConversionProfileWithAsset,
+  KontorolConversionProfileWithAsset,
   TranscodingProfilesFilters
 } from '../transcoding-profiles-store/base-transcoding-profiles-store.service';
 import { MediaTranscodingProfilesStore } from '../transcoding-profiles-store/media-transcoding-profiles-store.service';
 import { LiveTranscodingProfilesStore } from '../transcoding-profiles-store/live-transcoding-profiles-store.service';
 import { Router } from '@angular/router';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { KalturaNullableBoolean } from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { KontorolNullableBoolean } from 'kontorol-ngx-client';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import {
     SettingsTranscodingProfileViewSections,
     SettingsTranscodingProfileViewService
 } from 'app-shared/kmc-shared/kmc-views/details-views';
 import { BrowserService } from 'app-shared/kmc-shell';
 import { SettingsTranscodingMainViewService } from 'app-shared/kmc-shared/kmc-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'k-transcoding-profiles-list',
   templateUrl: './transcoding-profiles-list.component.html',
   styleUrls: ['./transcoding-profiles-list.component.scss'],
-  providers: [KalturaLogger.createLogger('TranscodingProfilesListComponent')]
+  providers: [KontorolLogger.createLogger('TranscodingProfilesListComponent')]
 })
 export class TranscodingProfilesListComponent implements OnInit, OnDestroy {
   @Input() title = '';
     @Input() singleTableMode: boolean;
 
-  @Input() set storeFor(value: KalturaConversionProfileType) {
+  @Input() set storeFor(value: KontorolConversionProfileType) {
     if (value) {
       this._profilesType = value;
       this._setStoreServiceByType(value);
     }
   }
 
-  @Output() addProfile = new EventEmitter<KalturaConversionProfileType>();
+  @Output() addProfile = new EventEmitter<KontorolConversionProfileType>();
   @Output() setParentBlockerMessage = new EventEmitter<AreaBlockerMessage>();
 
-  public _profilesType: KalturaConversionProfileType;
-  public _profilesTypes = KalturaConversionProfileType;
+  public _profilesType: KontorolConversionProfileType;
+  public _profilesTypes = KontorolConversionProfileType;
   public _storeService: BaseTranscodingProfilesStore;
-  public _selectedProfiles: KalturaConversionProfileWithAsset[] = [];
+  public _selectedProfiles: KontorolConversionProfileWithAsset[] = [];
   public _tableIsBusy = false;
   public _tableBlockerMessage: AreaBlockerMessage;
   public _kmcPermissions = KMCPermissions;
@@ -56,7 +56,7 @@ export class TranscodingProfilesListComponent implements OnInit, OnDestroy {
 
   constructor(private _appLocalization: AppLocalization,
               private _router: Router,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _browserService: BrowserService,
               private _settingsTranscodingProfileViewService: SettingsTranscodingProfileViewService,
               private _settingsTranscodingProfilesMainViewService: SettingsTranscodingMainViewService,
@@ -90,15 +90,15 @@ export class TranscodingProfilesListComponent implements OnInit, OnDestroy {
       });
   }
 
-  private _setStoreServiceByType(serviceType: KalturaConversionProfileType): void {
-    if (serviceType === KalturaConversionProfileType.media) {
+  private _setStoreServiceByType(serviceType: KontorolConversionProfileType): void {
+    if (serviceType === KontorolConversionProfileType.media) {
       this._logger.info(`set 'MediaTranscodingProfilesStore' as store service`, { serviceType });
       this._storeService = this._mediaTranscodingProfilesStore;
-    } else if (serviceType === KalturaConversionProfileType.liveStream) {
+    } else if (serviceType === KontorolConversionProfileType.liveStream) {
       this._logger.info(`set 'LiveTranscodingProfilesStore' as store service`, { serviceType });
       this._storeService = this._liveTranscodingProfilesStore;
     } else {
-      throw Error('Incorrect serviceType provided. It can be either KalturaConversionProfileType.media or KalturaConversionProfileType.liveStream type');
+      throw Error('Incorrect serviceType provided. It can be either KontorolConversionProfileType.media or KontorolConversionProfileType.liveStream type');
     }
   }
 
@@ -171,7 +171,7 @@ export class TranscodingProfilesListComponent implements OnInit, OnDestroy {
     }
   }
 
-  private _setAsDefault(profile: KalturaConversionProfileWithAsset): void {
+  private _setAsDefault(profile: KontorolConversionProfileWithAsset): void {
     this._logger.info(`handle 'setAsDefault' request by the user`, { id: profile.id, name: profile.name });
     if (!profile.isDefault) {
       this._storeService.setAsDefault(profile)
@@ -212,7 +212,7 @@ export class TranscodingProfilesListComponent implements OnInit, OnDestroy {
     }
   }
 
-  private _proceedDeleteProfiles(profiles: KalturaConversionProfileWithAsset[]): void {
+  private _proceedDeleteProfiles(profiles: KontorolConversionProfileWithAsset[]): void {
     this._logger.info(
       `handle 'delete' profiles request by the user`,
       () => profiles.map(profile => ({ id: profile.id, name: profile.name }))
@@ -254,7 +254,7 @@ export class TranscodingProfilesListComponent implements OnInit, OnDestroy {
       );
   }
 
-  private _deleteProfiles(profiles: KalturaConversionProfileWithAsset[], includesDefault = false): void {
+  private _deleteProfiles(profiles: KontorolConversionProfileWithAsset[], includesDefault = false): void {
     this._logger.info(`handle 'delete profiles' action, show confirmation`);
     const profileNames = profiles.map(({ name }) => name).join('\n');
     const includesDefaultWarning = includesDefault
@@ -290,9 +290,9 @@ export class TranscodingProfilesListComponent implements OnInit, OnDestroy {
 
   public _deleteSelected(): void {
     this._logger.info(`handle 'deleteSelected' profiles action by the user`);
-    const includesDefault = this._selectedProfiles.some(({ isDefault }) => isDefault === KalturaNullableBoolean.trueValue);
+    const includesDefault = this._selectedProfiles.some(({ isDefault }) => isDefault === KontorolNullableBoolean.trueValue);
     const profiles = includesDefault
-      ? this._selectedProfiles.filter(({ isDefault }) => isDefault !== KalturaNullableBoolean.trueValue)
+      ? this._selectedProfiles.filter(({ isDefault }) => isDefault !== KontorolNullableBoolean.trueValue)
       : this._selectedProfiles;
 
     if (profiles.length) {
@@ -315,7 +315,7 @@ export class TranscodingProfilesListComponent implements OnInit, OnDestroy {
     }
   }
 
-  public _actionSelected(event: { action: string, profile: KalturaConversionProfileWithAsset }): void {
+  public _actionSelected(event: { action: string, profile: KontorolConversionProfileWithAsset }): void {
     switch (event.action) {
       case 'setAsDefault':
         this._setAsDefault(event.profile);
