@@ -1,0 +1,20 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+/*
+ * Public API Surface of kaltura-primeng-ui
+ */
+export { KalturaPrimeNgUIModule } from './lib/kaltura-primeng-ui.module';
+export { KALTURA_AUTOCOMPLETE_VALUE_ACCESSOR, AutoComplete, AutoCompleteModule } from './lib/auto-complete/index';
+export { DropdownCloseOnScroll, MenuCloseOnScroll, StickyDatatableHeaderDirective } from './lib/directives/index';
+export { CLEARABLE_INPUT_VALUE_ACCESSOR, ClearableInputComponent, ClearableInputModule } from './lib/clearable-input/index';
+export { DynamicFormModule } from './lib/dynamic-form/index';
+export { KALTURA_SLIDER_VALUE_ACCESSOR, SliderComponent, SliderModule } from './lib/slider/index';
+export { SPINNER_VALUE_ACCESSOR, TimeSpinnerComponent, TimeSpinnerModule } from './lib/time-spinner/index';
+export { KPSortableColumn, KPTableModule } from './lib/k-p-table/index';
+export { KALTURA_MULTISELECT_VALUE_ACCESSOR, MultiSelectComponent, MultiSelectModule } from './lib/multi-select/index';
+export {} from './lib/time-spinner/index';
+export { DraggableDataTableComponent, DraggableDataTableModule } from './lib/draggable-data-table/index';
+export { DropdownModule } from './lib/dropdown/index';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoicHVibGljX2FwaS5qcyIsInNvdXJjZVJvb3QiOiJuZzovL0BrYWx0dXJhLW5nL2thbHR1cmEtcHJpbWVuZy11aS8iLCJzb3VyY2VzIjpbInB1YmxpY19hcGkudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7OztBQUlBLE9BQU8sRUFBRSxzQkFBc0IsRUFBRSxNQUFNLGlDQUFpQyxDQUFDO0FBQ3pFLHNGQUFjLDJCQUEyQixDQUFDO0FBQzFDLHlGQUFjLHdCQUF3QixDQUFDO0FBQ3ZDLDhGQUFjLDZCQUE2QixDQUFDO0FBQzVDLGtDQUFjLDBCQUEwQixDQUFDO0FBQ3pDLDZFQUFjLG9CQUFvQixDQUFDO0FBQ25DLGdGQUFjLDBCQUEwQixDQUFDO0FBQ3pDLGdEQUFjLHVCQUF1QixDQUFDO0FBQ3RDLDRGQUFjLDBCQUEwQixDQUFDO0FBQ3pDLGVBQWMsMEJBQTBCLENBQUM7QUFDekMsc0VBQWMsa0NBQWtDLENBQUM7QUFDakQsK0JBQWMsc0JBQXNCLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKlxuICogUHVibGljIEFQSSBTdXJmYWNlIG9mIGthbHR1cmEtcHJpbWVuZy11aVxuICovXG5cbmV4cG9ydCB7IEthbHR1cmFQcmltZU5nVUlNb2R1bGUgfSBmcm9tICcuL2xpYi9rYWx0dXJhLXByaW1lbmctdWkubW9kdWxlJztcbmV4cG9ydCAqIGZyb20gJy4vbGliL2F1dG8tY29tcGxldGUvaW5kZXgnO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvZGlyZWN0aXZlcy9pbmRleCc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi9jbGVhcmFibGUtaW5wdXQvaW5kZXgnO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvZHluYW1pYy1mb3JtL2luZGV4JztcbmV4cG9ydCAqIGZyb20gJy4vbGliL3NsaWRlci9pbmRleCc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi90aW1lLXNwaW5uZXIvaW5kZXgnO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvay1wLXRhYmxlL2luZGV4JztcbmV4cG9ydCAqIGZyb20gJy4vbGliL211bHRpLXNlbGVjdC9pbmRleCc7XG5leHBvcnQgKiBmcm9tICcuL2xpYi90aW1lLXNwaW5uZXIvaW5kZXgnO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvZHJhZ2dhYmxlLWRhdGEtdGFibGUvaW5kZXgnO1xuZXhwb3J0ICogZnJvbSAnLi9saWIvZHJvcGRvd24vaW5kZXgnO1xuIl19

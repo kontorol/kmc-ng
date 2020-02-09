@@ -1,0 +1,7 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+export { SPINNER_VALUE_ACCESSOR, TimeSpinnerComponent } from './time-spinner.component';
+export { TimeSpinnerModule } from './time-spinner.module';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290Ijoibmc6Ly9Aa2FsdHVyYS1uZy9rYWx0dXJhLXByaW1lbmctdWkvIiwic291cmNlcyI6WyJsaWIvdGltZS1zcGlubmVyL2luZGV4LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7QUFBQSw2REFBYywwQkFBMEIsQ0FBQztBQUN6QyxrQ0FBYyx1QkFBdUIsQ0FBQyIsInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCAqIGZyb20gJy4vdGltZS1zcGlubmVyLmNvbXBvbmVudCc7XG5leHBvcnQgKiBmcm9tICcuL3RpbWUtc3Bpbm5lci5tb2R1bGUnOyJdfQ==

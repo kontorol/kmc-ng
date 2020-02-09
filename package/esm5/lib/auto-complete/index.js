@@ -1,0 +1,7 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+export { KALTURA_AUTOCOMPLETE_VALUE_ACCESSOR, AutoComplete } from './auto-complete.component';
+export { AutoCompleteModule } from './auto-complete.module';
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290Ijoibmc6Ly9Aa2FsdHVyYS1uZy9rYWx0dXJhLXByaW1lbmctdWkvIiwic291cmNlcyI6WyJsaWIvYXV0by1jb21wbGV0ZS9pbmRleC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7O0FBQUEsa0VBQWMsMkJBQTJCLENBQUM7QUFDMUMsbUNBQWMsd0JBQXdCLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyJleHBvcnQgKiBmcm9tICcuL2F1dG8tY29tcGxldGUuY29tcG9uZW50JztcbmV4cG9ydCAqIGZyb20gJy4vYXV0by1jb21wbGV0ZS5tb2R1bGUnOyJdfQ==

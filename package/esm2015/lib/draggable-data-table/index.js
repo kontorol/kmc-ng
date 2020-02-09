@@ -1,0 +1,7 @@
+/**
+ * @fileoverview added by tsickle
+ * @suppress {checkTypes,extraRequire,missingReturn,unusedPrivateMembers,uselessCode} checked by tsc
+ */
+export { DraggableDataTableComponent } from './draggable-data-table.component';
+export { DraggableDataTableModule } from "./draggable-data-table.module";
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiaW5kZXguanMiLCJzb3VyY2VSb290Ijoibmc6Ly9Aa2FsdHVyYS1uZy9rYWx0dXJhLXByaW1lbmctdWkvIiwic291cmNlcyI6WyJsaWIvZHJhZ2dhYmxlLWRhdGEtdGFibGUvaW5kZXgudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7OztBQUFBLDRDQUFjLGtDQUFrQyxDQUFDO0FBQ2pELHlDQUFjLCtCQUErQixDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiZXhwb3J0ICogZnJvbSAnLi9kcmFnZ2FibGUtZGF0YS10YWJsZS5jb21wb25lbnQnO1xuZXhwb3J0ICogZnJvbSBcIi4vZHJhZ2dhYmxlLWRhdGEtdGFibGUubW9kdWxlXCI7XG5cbiJdfQ==
