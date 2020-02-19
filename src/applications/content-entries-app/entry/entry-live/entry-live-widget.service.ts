@@ -2,31 +2,31 @@ import {Injectable, OnDestroy} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import { Observable, of as ObservableOf } from 'rxjs';
 
-import {KalturaClient, KalturaMultiRequest} from 'kaltura-ngx-client';
-import {KalturaSourceType} from 'kaltura-ngx-client';
-import {KalturaLiveStreamBitrate} from 'kaltura-ngx-client';
-import {KalturaRecordStatus} from 'kaltura-ngx-client';
-import {KalturaLiveStreamEntry} from 'kaltura-ngx-client';
-import {KalturaDVRStatus} from 'kaltura-ngx-client';
-import {KalturaMediaEntry} from 'kaltura-ngx-client';
-import {LiveStreamRegenerateStreamTokenAction} from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import {KontorolClient, KontorolMultiRequest} from 'kontorol-ngx-client';
+import {KontorolSourceType} from 'kontorol-ngx-client';
+import {KontorolLiveStreamBitrate} from 'kontorol-ngx-client';
+import {KontorolRecordStatus} from 'kontorol-ngx-client';
+import {KontorolLiveStreamEntry} from 'kontorol-ngx-client';
+import {KontorolDVRStatus} from 'kontorol-ngx-client';
+import {KontorolMediaEntry} from 'kontorol-ngx-client';
+import {LiveStreamRegenerateStreamTokenAction} from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {AppAuthentication, BrowserService} from 'app-shared/kmc-shell';
 import {LiveXMLExporter} from './live-xml-exporter';
 import {AVAIL_BITRATES} from './bitrates';
 import {EntryWidget} from '../entry-widget';
-import {ConversionProfileListAction} from 'kaltura-ngx-client';
-import {KalturaConversionProfileFilter} from 'kaltura-ngx-client';
-import {KalturaFilterPager} from 'kaltura-ngx-client';
-import {KalturaConversionProfileType} from 'kaltura-ngx-client';
-import {KalturaNullableBoolean} from 'kaltura-ngx-client';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
-import {BaseEntryGetAction} from 'kaltura-ngx-client';
+import {ConversionProfileListAction} from 'kontorol-ngx-client';
+import {KontorolConversionProfileFilter} from 'kontorol-ngx-client';
+import {KontorolFilterPager} from 'kontorol-ngx-client';
+import {KontorolConversionProfileType} from 'kontorol-ngx-client';
+import {KontorolNullableBoolean} from 'kontorol-ngx-client';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
+import {BaseEntryGetAction} from 'kontorol-ngx-client';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { ContentEntryViewSections } from 'app-shared/kmc-shared/kmc-views/details-views/content-entry-view.service';
 import { LiveDashboardAppViewService } from 'app-shared/kmc-shared/kmc-views/component-views';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export interface bitrate {
 	enabled: boolean,
@@ -62,12 +62,12 @@ export class EntryLiveWidget extends EntryWidget implements OnDestroy {
 		{label: this._appLocalization.get('applications.content.entryDetails.live.enabled'), value: false}
 	];
 
-	constructor(private _kalturaServerClient: KalturaClient,
+	constructor(private _kontorolServerClient: KontorolClient,
               private _appLocalization: AppLocalization,
               private _permissionsService: KMCPermissionsService,
               private _browserService: BrowserService,
                 private _liveDasboardAppViewService: LiveDashboardAppViewService,
-                logger: KalturaLogger) {
+                logger: KontorolLogger) {
 		super(ContentEntryViewSections.Live, logger);
 	}
 
@@ -82,24 +82,24 @@ export class EntryLiveWidget extends EntryWidget implements OnDestroy {
 		this.dirty = false;
 	}
 
-	protected onDataSaving(data: KalturaMediaEntry, request: KalturaMultiRequest) {
+	protected onDataSaving(data: KontorolMediaEntry, request: KontorolMultiRequest) {
 		if (this._liveType === "universal") {
 			// create bitrate array for saving
-			let bitrates: KalturaLiveStreamBitrate[] = [];
+			let bitrates: KontorolLiveStreamBitrate[] = [];
 			this._bitrates.forEach((br: bitrate) => {
 				if (br.enabled) {
-					bitrates.push(new KalturaLiveStreamBitrate({
+					bitrates.push(new KontorolLiveStreamBitrate({
 						bitrate: br.bitrate,
 						width: br.width,
 						height: br.height
 					}));
 				}
 			});
-			(data as KalturaLiveStreamEntry).bitrates = bitrates;
+			(data as KontorolLiveStreamEntry).bitrates = bitrates;
 		}
-		if (this._liveType === "kaltura") {
-			(data as KalturaLiveStreamEntry).explicitLive = this._explicitLive ? KalturaNullableBoolean.trueValue : KalturaNullableBoolean.falseValue;
-			(data as KalturaLiveStreamEntry).conversionProfileId = this._selectedConversionProfile;
+		if (this._liveType === "kontorol") {
+			(data as KontorolLiveStreamEntry).explicitLive = this._explicitLive ? KontorolNullableBoolean.trueValue : KontorolNullableBoolean.falseValue;
+			(data as KontorolLiveStreamEntry).conversionProfileId = this._selectedConversionProfile;
 		}
 	}
 
@@ -114,8 +114,8 @@ export class EntryLiveWidget extends EntryWidget implements OnDestroy {
 	protected onActivate(firstTimeActivating : boolean) {
 		// set live type and load data accordingly
 		switch (this.data.sourceType.toString()) {
-      case KalturaSourceType.liveStream.toString():
-				this._liveType = "kaltura";
+      case KontorolSourceType.liveStream.toString():
+				this._liveType = "kontorol";
         this._liveDashboardEnabled = this._liveDasboardAppViewService.isAvailable()
           && this._permissionsService.hasPermission(KMCPermissions.ANALYTICS_BASE);
 				this._setRecordStatus();
@@ -123,12 +123,12 @@ export class EntryLiveWidget extends EntryWidget implements OnDestroy {
 				super._showLoader();
 				this._conversionProfiles.next({items: []});
 
-        if (this._permissionsService.hasPermission(KMCPermissions.FEATURE_KALTURA_LIVE_STREAM)) {
-          return this._kalturaServerClient.request(new ConversionProfileListAction({
-            filter: new KalturaConversionProfileFilter({
-              typeEqual: KalturaConversionProfileType.liveStream
+        if (this._permissionsService.hasPermission(KMCPermissions.FEATURE_KONTOROL_LIVE_STREAM)) {
+          return this._kontorolServerClient.request(new ConversionProfileListAction({
+            filter: new KontorolConversionProfileFilter({
+              typeEqual: KontorolConversionProfileType.liveStream
             }),
-            pager: new KalturaFilterPager({
+            pager: new KontorolFilterPager({
               pageIndex: 1,
               pageSize: 500
             })
@@ -172,13 +172,13 @@ export class EntryLiveWidget extends EntryWidget implements OnDestroy {
           super._hideLoader();
           break;
         }
-			case KalturaSourceType.akamaiUniversalLive.toString():
+			case KontorolSourceType.akamaiUniversalLive.toString():
 				this._liveType = "universal";
 				this._showDVRWindow = true;
 				this._setDVRStatus();
 				this._setBitrates();
 				break;
-			case KalturaSourceType.manualLiveStream.toString():
+			case KontorolSourceType.manualLiveStream.toString():
 				this._liveType = "manual";
 				this._setManualStreams();
 				break;
@@ -188,36 +188,36 @@ export class EntryLiveWidget extends EntryWidget implements OnDestroy {
 	}
 
 	public _exportXML() {
-		const entry = this.data as KalturaLiveStreamEntry;
+		const entry = this.data as KontorolLiveStreamEntry;
 		const xml: string = LiveXMLExporter.exportXML(entry, this._liveType, this._bitrates);
 		this._browserService.download(xml, "export_" + entry.id + ".xml", "text/xml");
 	}
 
 	private _setDVRStatus(): void {
-		let entry = this.data as KalturaLiveStreamEntry;
-		if (!entry.dvrStatus || entry.dvrStatus.toString() === KalturaDVRStatus.disabled.toString()) {
+		let entry = this.data as KontorolLiveStreamEntry;
+		if (!entry.dvrStatus || entry.dvrStatus.toString() === KontorolDVRStatus.disabled.toString()) {
 			this._DVRStatus = this._appLocalization.get('app.common.off');
-		} else if (entry.dvrStatus.toString() == KalturaDVRStatus.enabled.toString()) {
+		} else if (entry.dvrStatus.toString() == KontorolDVRStatus.enabled.toString()) {
 			this._DVRStatus = this._appLocalization.get('app.common.on');
-			if (this._liveType === "kaltura") {
+			if (this._liveType === "kontorol") {
 				this._showDVRWindow = true;
 				this._dvrWindowAvailable = !isNaN(entry.dvrWindow);
 			}
 		}
-		this._explicitLive = entry.explicitLive === KalturaNullableBoolean.trueValue;
+		this._explicitLive = entry.explicitLive === KontorolNullableBoolean.trueValue;
 	}
 
 	private _setRecordStatus(): void {
-		let entry = this.data as KalturaLiveStreamEntry;
-		if (!entry.recordStatus || entry.recordStatus.toString() === KalturaRecordStatus.disabled.toString()) {
+		let entry = this.data as KontorolLiveStreamEntry;
+		if (!entry.recordStatus || entry.recordStatus.toString() === KontorolRecordStatus.disabled.toString()) {
 			this._recordStatus = this._appLocalization.get('app.common.off');
-		} else if (entry.recordStatus.toString() === KalturaRecordStatus.appended.toString() || entry.recordStatus.toString() === KalturaRecordStatus.perSession.toString()) {
+		} else if (entry.recordStatus.toString() === KontorolRecordStatus.appended.toString() || entry.recordStatus.toString() === KontorolRecordStatus.perSession.toString()) {
 			this._recordStatus = this._appLocalization.get('app.common.on');
 		}
 	}
 
 	private _setManualStreams(): void {
-		let entry: KalturaLiveStreamEntry = this.data as KalturaLiveStreamEntry;
+		let entry: KontorolLiveStreamEntry = this.data as KontorolLiveStreamEntry;
 		if (entry.liveStreamConfigurations) {
 			entry.liveStreamConfigurations.forEach(streamConfig => {
 				let protocol = streamConfig.protocol.toString();
@@ -229,9 +229,9 @@ export class EntryLiveWidget extends EntryWidget implements OnDestroy {
 
 	private _setBitrates(): void {
 		this._bitrates = [];
-		let entry: KalturaLiveStreamEntry = this.data as KalturaLiveStreamEntry;
+		let entry: KontorolLiveStreamEntry = this.data as KontorolLiveStreamEntry;
 		if (entry.bitrates) {
-			entry.bitrates.forEach((br: KalturaLiveStreamBitrate) => {
+			entry.bitrates.forEach((br: KontorolLiveStreamBitrate) => {
 				let bitRate: bitrate = {
 					enabled: true,
 					bitrate: br.bitrate,
@@ -282,13 +282,13 @@ export class EntryLiveWidget extends EntryWidget implements OnDestroy {
 	public regenerateStreamToken(): void {
 		this.sectionBlockerMessage = null;
 
-		const multiRequest = new KalturaMultiRequest(
+		const multiRequest = new KontorolMultiRequest(
 			new LiveStreamRegenerateStreamTokenAction({entryId: this.data.id}),
 			new BaseEntryGetAction({entryId: this.data.id})
 		);
 
 
-		this._kalturaServerClient.multiRequest(multiRequest)
+		this._kontorolServerClient.multiRequest(multiRequest)
 			.pipe(cancelOnDestroy(this, this.widgetReset$))
 			.pipe(tag('block-shell'))
 			.subscribe(
@@ -314,7 +314,7 @@ export class EntryLiveWidget extends EntryWidget implements OnDestroy {
 							}
 						), false);
 					}else {
-						let entry: KalturaLiveStreamEntry = this.data as KalturaLiveStreamEntry;
+						let entry: KontorolLiveStreamEntry = this.data as KontorolLiveStreamEntry;
 						entry.primaryBroadcastingUrl = response[1].result.primaryBroadcastingUrl;
 						entry.primaryRtspBroadcastingUrl =  response[1].result.primaryRtspBroadcastingUrl;
 						entry.secondaryBroadcastingUrl =  response[1].result.secondaryBroadcastingUrl;

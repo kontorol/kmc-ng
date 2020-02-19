@@ -1,13 +1,13 @@
 import {AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ISubscription} from 'rxjs/Subscription';
 
-import {KalturaClient} from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import {KontorolClient} from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {BrowserService} from 'app-shared/kmc-shell';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
-import {PopupWidgetComponent, PopupWidgetStates} from '@kaltura-ng/kaltura-ui';
-import {KalturaMediaEntry} from 'kaltura-ngx-client';
-import {KalturaUser} from 'kaltura-ngx-client';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
+import {PopupWidgetComponent, PopupWidgetStates} from '@kontorol-ng/kontorol-ui';
+import {KontorolMediaEntry} from 'kontorol-ngx-client';
+import {KontorolUser} from 'kontorol-ngx-client';
 
 @Component({
   selector: 'kBulkRemovePublishers',
@@ -16,20 +16,20 @@ import {KalturaUser} from 'kaltura-ngx-client';
 })
 export class BulkRemovePublishersComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  @Input() selectedEntries: KalturaMediaEntry[];
+  @Input() selectedEntries: KontorolMediaEntry[];
   @Input() parentPopupWidget: PopupWidgetComponent;
   @Output() removePublishersChanged = new EventEmitter<string[]>();
 
   public _loading = false;
   public _sectionBlockerMessage: AreaBlockerMessage;
 
-  public users: KalturaUser[] = [];
+  public users: KontorolUser[] = [];
   public usersToRemove: string[] = [];
 
   private _parentPopupStateChangeSubscribe: ISubscription;
   private _confirmClose = true;
 
-  constructor(private _kalturaServerClient: KalturaClient, private _appLocalization: AppLocalization, private _browserService: BrowserService) {
+  constructor(private _kontorolServerClient: KontorolClient, private _appLocalization: AppLocalization, private _browserService: BrowserService) {
   }
 
   ngOnInit() {

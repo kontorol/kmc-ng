@@ -1,13 +1,13 @@
-import {KalturaCategory} from 'kaltura-ngx-client';
+import {KontorolCategory} from 'kontorol-ngx-client';
 import {Injectable, OnDestroy} from '@angular/core';
 import { Observable } from 'rxjs';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {CategorySectionsList} from './category-sections-list';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import {CategoryWidget} from '../category-widget';
 import { ContentCategoryViewSections, ContentCategoryViewService } from 'app-shared/kmc-shared/kmc-views/details-views';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 
 export interface SectionWidgetItem {
   label: string;
@@ -23,7 +23,7 @@ export class CategorySectionsListWidget extends CategoryWidget implements OnDest
 
   constructor(private _appLocalization: AppLocalization,
               private _contentCategoryView: ContentCategoryViewService,
-              logger: KalturaLogger
+              logger: KontorolLogger
               ) {
     super('categorySectionsList', logger);
   }
@@ -38,7 +38,7 @@ export class CategorySectionsListWidget extends CategoryWidget implements OnDest
     }
   }
 
-  protected onDataLoaded(data: KalturaCategory): void {
+  protected onDataLoaded(data: KontorolCategory): void {
     this._reloadSections(data);
   }
 
@@ -73,7 +73,7 @@ export class CategorySectionsListWidget extends CategoryWidget implements OnDest
 
 
 
-  private _reloadSections(category: KalturaCategory): void {
+  private _reloadSections(category: KontorolCategory): void {
       const sections = [];
       const formWidgetsState = this.form.widgetsState;
 

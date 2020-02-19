@@ -1,8 +1,8 @@
-import { KalturaRequest } from 'kaltura-ngx-client';
-import { KalturaRequestArgs } from 'kaltura-ngx-client';
-import { KalturaObjectMetadata } from 'kaltura-ngx-client';
+import { KontorolRequest } from 'kontorol-ngx-client';
+import { KontorolRequestArgs } from 'kontorol-ngx-client';
+import { KontorolObjectMetadata } from 'kontorol-ngx-client';
 
-export interface XInternalXAddBulkDownloadActionArgs  extends KalturaRequestArgs {
+export interface XInternalXAddBulkDownloadActionArgs  extends KontorolRequestArgs {
     entryIds : string;
 	flavorParamsId? : string;
 }
@@ -15,7 +15,7 @@ export interface XInternalXAddBulkDownloadActionArgs  extends KalturaRequestArgs
 * flattened using the flavor params id   - Other entry types are not supported
 * Returns the admin email that the email message will be sent to
 **/
-export class XInternalXAddBulkDownloadAction extends KalturaRequest<string> {
+export class XInternalXAddBulkDownloadAction extends KontorolRequest<string> {
 
     entryIds : string;
 	flavorParamsId : string;
@@ -25,7 +25,7 @@ export class XInternalXAddBulkDownloadAction extends KalturaRequest<string> {
         super(data, {responseType : 's', responseSubType : '', responseConstructor : null });
     }
 
-    protected _getMetadata() : KalturaObjectMetadata
+    protected _getMetadata() : KontorolObjectMetadata
     {
         const result = super._getMetadata();
         Object.assign(

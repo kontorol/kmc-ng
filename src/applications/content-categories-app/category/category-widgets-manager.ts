@@ -1,17 +1,17 @@
-import { KalturaCategory } from 'kaltura-ngx-client';
+import { KontorolCategory } from 'kontorol-ngx-client';
 import { Injectable } from '@angular/core';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import { WidgetsManagerBase } from '@kaltura-ng/kaltura-ui'
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import { WidgetsManagerBase } from '@kontorol-ng/kontorol-ui'
 import { CategoryService } from './category.service';
-import { KalturaMultiRequest } from 'kaltura-ngx-client';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import { KontorolMultiRequest } from 'kontorol-ngx-client';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 
 @Injectable()
-export class CategoryWidgetsManager extends WidgetsManagerBase<KalturaCategory, KalturaMultiRequest>
+export class CategoryWidgetsManager extends WidgetsManagerBase<KontorolCategory, KontorolMultiRequest>
 {
     private _categoryStore: CategoryService;
 
-    constructor(logger: KalturaLogger) {
+    constructor(logger: KontorolLogger) {
         super(logger.subLogger('CategoryWidgetsManager'));
     }
 

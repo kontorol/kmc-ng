@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AppAuthentication, BrowserService } from 'app-shared/kmc-shell';
-import {getKalturaServerUri, serverConfig} from 'config/server';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import {getKontorolServerUri, serverConfig} from 'config/server';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 import { UsageDashboardMainViewService } from 'app-shared/kmc-shared/kmc-views';
 
 @Component({
@@ -14,7 +14,7 @@ export class UsageDashboardComponent implements OnInit, OnDestroy {
   public _usageDashboardUrl = null;
 
   constructor(private appAuthentication: AppAuthentication,
-              private logger: KalturaLogger,
+              private logger: KontorolLogger,
               private browserService: BrowserService,
               private _usageDashboardMainView: UsageDashboardMainViewService) {
   }
@@ -27,7 +27,7 @@ export class UsageDashboardComponent implements OnInit, OnDestroy {
               'vars': {
                   'ks': this.appAuthentication.appUser.ks,
                   'partner_id': this.appAuthentication.appUser.partnerId,
-                  'service_url': getKalturaServerUri()
+                  'service_url': getKontorolServerUri()
               }
           };
       }

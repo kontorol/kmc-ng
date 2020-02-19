@@ -1,11 +1,11 @@
-import {KalturaCategory} from 'kaltura-ngx-client';
+import {KontorolCategory} from 'kontorol-ngx-client';
 import {AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ISubscription} from 'rxjs/Subscription';
 
-import {KalturaClient} from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import {KontorolClient} from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {BrowserService} from 'app-shared/kmc-shell';
-import {PopupWidgetComponent, PopupWidgetStates} from '@kaltura-ng/kaltura-ui';
+import {PopupWidgetComponent, PopupWidgetStates} from '@kontorol-ng/kontorol-ui';
 
 @Component({
   selector: 'kCategoriesBulkRemoveTags',
@@ -14,7 +14,7 @@ import {PopupWidgetComponent, PopupWidgetStates} from '@kaltura-ng/kaltura-ui';
 })
 export class CategoriesBulkRemoveTags implements OnInit, OnDestroy, AfterViewInit {
 
-  @Input() selectedCategories: KalturaCategory[];
+  @Input() selectedCategories: KontorolCategory[];
   @Input() parentPopupWidget: PopupWidgetComponent;
   @Output() removeTagsChanged = new EventEmitter<string[]>();
 
@@ -26,7 +26,7 @@ export class CategoriesBulkRemoveTags implements OnInit, OnDestroy, AfterViewIni
   private _parentPopupStateChangeSubscribe : ISubscription;
   private _confirmClose: boolean = true;
 
-  constructor(private _kalturaServerClient: KalturaClient, private _appLocalization: AppLocalization, private _browserService: BrowserService) {
+  constructor(private _kontorolServerClient: KontorolClient, private _appLocalization: AppLocalization, private _browserService: BrowserService) {
   }
 
   ngOnInit() {

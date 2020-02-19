@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import { WidgetsManagerBase } from '@kaltura-ng/kaltura-ui'
-import { KalturaMultiRequest } from 'kaltura-ngx-client';
-import { KalturaPlaylist } from 'kaltura-ngx-client';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import { WidgetsManagerBase } from '@kontorol-ng/kontorol-ui'
+import { KontorolMultiRequest } from 'kontorol-ngx-client';
+import { KontorolPlaylist } from 'kontorol-ngx-client';
 import { PlaylistStore } from './playlist-store.service';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 
 @Injectable()
-export class PlaylistWidgetsManager extends WidgetsManagerBase<KalturaPlaylist, KalturaMultiRequest> {
+export class PlaylistWidgetsManager extends WidgetsManagerBase<KontorolPlaylist, KontorolMultiRequest> {
   private _playlistStore: PlaylistStore;
 
-  constructor(logger: KalturaLogger) {
+  constructor(logger: KontorolLogger) {
     super(logger.subLogger('PlaylistWidgetsManager'));
   }
 

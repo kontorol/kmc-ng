@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { EntriesListComponent } from 'app-shared/content-shared/entries/entries-list/entries-list.component';
 import { BrowserService, NewEntryUploadFile } from 'app-shared/kmc-shell';
 import { EntriesStore } from 'app-shared/content-shared/entries/entries-store/entries-store.service';
-import { AreaBlockerMessage, PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerMessage, PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { EntriesTableColumns } from 'app-shared/content-shared/entries/entries-table/entries-table.component';
 import { ContentEntriesAppService } from '../content-entries-app.service';
 import { AppEventsService } from 'app-shared/kmc-shared';
 import { PreviewAndEmbedEvent } from 'app-shared/kmc-shared/events';
-import { cancelOnDestroy, tag, TrackedFileStatuses, UploadManagement } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag, TrackedFileStatuses, UploadManagement } from '@kontorol-ng/kontorol-common';
 import { UpdateEntriesListEvent } from 'app-shared/kmc-shared/events/update-entries-list-event';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { EntriesListService } from './entries-list.service';

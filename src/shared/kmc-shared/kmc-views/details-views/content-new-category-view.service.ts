@@ -3,17 +3,17 @@ import { KMCPermissionsService } from '../../kmc-permissions';
 import { Observable } from 'rxjs';
 import { DetailsViewMetadata, KmcDetailsViewBaseService } from 'app-shared/kmc-shared/kmc-views/kmc-details-view-base.service';
 import {BrowserService} from 'app-shared/kmc-shell/providers/browser.service';
-import {KalturaMediaEntry} from 'kaltura-ngx-client';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import {KontorolMediaEntry} from 'kontorol-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { ContentCategoriesMainViewService } from '../main-views/content-categories-main-view.service';
 import { Title } from '@angular/platform-browser';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { ContentCategoryViewSections } from 'app-shared/kmc-shared/kmc-views/details-views/content-category-view.service';
 import { ContextualHelpService } from 'app-shared/kmc-shared/contextual-help/contextual-help.service';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export interface ContentNewCategoryViewArgs {
-    entries: KalturaMediaEntry[];
+    entries: KontorolMediaEntry[];
 }
 
 
@@ -24,7 +24,7 @@ export class ContentNewCategoryViewService extends KmcDetailsViewBaseService<Con
     constructor(private _appPermissions: KMCPermissionsService,
                 private _contentCategoriesMainView: ContentCategoriesMainViewService,
                 private _appLocalization: AppLocalization,
-                _logger: KalturaLogger,
+                _logger: KontorolLogger,
                 _browserService: BrowserService,
                 _titleService: Title,
                 _contextualHelpService: ContextualHelpService) {

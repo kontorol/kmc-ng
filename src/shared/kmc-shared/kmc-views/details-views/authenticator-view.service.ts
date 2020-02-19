@@ -3,14 +3,14 @@ import { KMCPermissionsService } from '../../kmc-permissions';
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/fromPromise';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {
     DetailsViewMetadata,
     KmcDetailsViewBaseService
 } from 'app-shared/kmc-shared/kmc-views/kmc-details-view-base.service';
 import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
 import { Title } from '@angular/platform-browser';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { ContextualHelpService } from 'app-shared/kmc-shared/contextual-help/contextual-help.service';
 
 export interface AuthenticatorViewArgs {
@@ -25,7 +25,7 @@ export class AuthenticatorViewService extends KmcDetailsViewBaseService<Authenti
                 private _appLocalization: AppLocalization,
                 private _router: Router,
                 _browserService: BrowserService,
-                _logger: KalturaLogger,
+                _logger: KontorolLogger,
                 _titleService: Title,
                 _contextualHelpService: ContextualHelpService) {
         super(_logger.subLogger('AuthenticatorViewService'), _browserService,

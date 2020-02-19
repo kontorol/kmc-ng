@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 
 @Component({
   selector: 'kChangelog',

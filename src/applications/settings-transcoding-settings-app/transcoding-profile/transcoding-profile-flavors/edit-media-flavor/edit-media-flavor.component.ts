@@ -1,82 +1,82 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
-import { KalturaFlavorReadyBehaviorType } from 'kaltura-ngx-client';
-import { KalturaAssetParamsOrigin } from 'kaltura-ngx-client';
-import { KalturaNullableBoolean } from 'kaltura-ngx-client';
-import { KalturaAssetParamsDeletePolicy } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
+import { KontorolFlavorReadyBehaviorType } from 'kontorol-ngx-client';
+import { KontorolAssetParamsOrigin } from 'kontorol-ngx-client';
+import { KontorolNullableBoolean } from 'kontorol-ngx-client';
+import { KontorolAssetParamsDeletePolicy } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {
-  ExtendedKalturaConversionProfileAssetParams,
-  KalturaConversionProfileWithAsset
+  ExtendedKontorolConversionProfileAssetParams,
+  KontorolConversionProfileWithAsset
 } from '../../../transcoding-profiles/transcoding-profiles-store/base-transcoding-profiles-store.service';
-import { KalturaFlavorParams } from 'kaltura-ngx-client';
-import { KalturaConversionProfileAssetParams } from 'kaltura-ngx-client';
-import { KalturaObjectBaseFactory } from 'kaltura-ngx-client';
+import { KontorolFlavorParams } from 'kontorol-ngx-client';
+import { KontorolConversionProfileAssetParams } from 'kontorol-ngx-client';
+import { KontorolObjectBaseFactory } from 'kontorol-ngx-client';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 
 @Component({
   selector: 'kEditMediaFlavor',
   templateUrl: './edit-media-flavor.component.html',
   styleUrls: ['./edit-media-flavor.component.scss'],
-  providers: [KalturaLogger.createLogger('EditMediaFlavorComponent')]
+  providers: [KontorolLogger.createLogger('EditMediaFlavorComponent')]
 })
 export class EditMediaFlavorComponent implements OnInit {
-  @Input() profile: KalturaConversionProfileWithAsset;
-  @Input() flavor: KalturaFlavorParams;
+  @Input() profile: KontorolConversionProfileWithAsset;
+  @Input() flavor: KontorolFlavorParams;
   @Input() parentPopupWidget: PopupWidgetComponent;
 
-  @Output() saveFlavor = new EventEmitter<ExtendedKalturaConversionProfileAssetParams>();
+  @Output() saveFlavor = new EventEmitter<ExtendedKontorolConversionProfileAssetParams>();
 
-  private _assetParams: ExtendedKalturaConversionProfileAssetParams;
+  private _assetParams: ExtendedKontorolConversionProfileAssetParams;
 
   public _kmcPermissions = KMCPermissions;
   public _availabilityOptions = [
     {
-      value: KalturaFlavorReadyBehaviorType.inheritFlavorParams,
+      value: KontorolFlavorReadyBehaviorType.inheritFlavorParams,
       label: this._appLocalization.get('applications.settings.transcoding.editFlavor.noImpact')
     },
     {
-      value: KalturaFlavorReadyBehaviorType.required,
+      value: KontorolFlavorReadyBehaviorType.required,
       label: this._appLocalization.get('applications.settings.transcoding.editFlavor.required')
     },
     {
-      value: KalturaFlavorReadyBehaviorType.optional,
+      value: KontorolFlavorReadyBehaviorType.optional,
       label: this._appLocalization.get('applications.settings.transcoding.editFlavor.optional')
     }
   ];
   public _originOptions = [
     {
-      value: KalturaAssetParamsOrigin.convert,
+      value: KontorolAssetParamsOrigin.convert,
       label: this._appLocalization.get('applications.settings.transcoding.editFlavor.always')
     },
     {
-      value: KalturaAssetParamsOrigin.convertWhenMissing,
+      value: KontorolAssetParamsOrigin.convertWhenMissing,
       label: this._appLocalization.get('applications.settings.transcoding.editFlavor.asAFallback')
     },
     {
-      value: KalturaAssetParamsOrigin.ingest,
+      value: KontorolAssetParamsOrigin.ingest,
       label: this._appLocalization.get('applications.settings.transcoding.editFlavor.never')
     }
   ];
   public _genOptions = [
     {
-      value: KalturaNullableBoolean.falseValue,
-      label: this._appLocalization.get('applications.settings.transcoding.editFlavor.useKalturaOptimization')
+      value: KontorolNullableBoolean.falseValue,
+      label: this._appLocalization.get('applications.settings.transcoding.editFlavor.useKontorolOptimization')
     },
     {
-      value: KalturaNullableBoolean.trueValue,
+      value: KontorolNullableBoolean.trueValue,
       label: this._appLocalization.get('applications.settings.transcoding.editFlavor.forceFlavorGeneration')
     },
   ];
   public _handleOptions = [
     {
-      value: KalturaAssetParamsDeletePolicy.keep,
+      value: KontorolAssetParamsDeletePolicy.keep,
       label: this._appLocalization.get('applications.settings.transcoding.editFlavor.keepFlavor')
     },
     {
-      value: KalturaAssetParamsDeletePolicy.delete,
+      value: KontorolAssetParamsDeletePolicy.delete,
       label: this._appLocalization.get('applications.settings.transcoding.editFlavor.deleteFlavor')
     },
   ];
@@ -91,7 +91,7 @@ export class EditMediaFlavorComponent implements OnInit {
 
   constructor(private _fb: FormBuilder,
               private _permissionsService: KMCPermissionsService,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _appLocalization: AppLocalization) {
     this._buildForm();
   }
@@ -111,24 +111,24 @@ export class EditMediaFlavorComponent implements OnInit {
     // default values:
     const isSourceAssetParam = this.flavor.tags && this.flavor.tags.indexOf('source') > -1;
     if (isSourceAssetParam) {
-      assetParams.origin = KalturaAssetParamsOrigin.ingest;
+      assetParams.origin = KontorolAssetParamsOrigin.ingest;
       if (typeof assetParams.readyBehavior === 'undefined') {
-        assetParams.readyBehavior = KalturaFlavorReadyBehaviorType.inheritFlavorParams;
+        assetParams.readyBehavior = KontorolFlavorReadyBehaviorType.inheritFlavorParams;
       }
       this._originField.disable({ onlySelf: true });
     }
 
     if (this.flavor.id === 0) {
       this._forceNoneCompliedField.disable({ onlySelf: true });
-      assetParams.forceNoneComplied = KalturaNullableBoolean.falseValue;
+      assetParams.forceNoneComplied = KontorolNullableBoolean.falseValue;
     }
 
     if (typeof assetParams.readyBehavior === 'undefined') {
-      assetParams.readyBehavior = KalturaFlavorReadyBehaviorType.optional;
+      assetParams.readyBehavior = KontorolFlavorReadyBehaviorType.optional;
     }
 
     if (typeof assetParams.origin === 'undefined') {
-      assetParams.origin = KalturaAssetParamsOrigin.convert;
+      assetParams.origin = KontorolAssetParamsOrigin.convert;
     }
 
     if (!assetParams.systemName) {
@@ -136,11 +136,11 @@ export class EditMediaFlavorComponent implements OnInit {
     }
 
     if (typeof assetParams.forceNoneComplied === 'undefined') {
-      assetParams.forceNoneComplied = KalturaNullableBoolean.falseValue;
+      assetParams.forceNoneComplied = KontorolNullableBoolean.falseValue;
     }
 
     if (typeof assetParams.deletePolicy === 'undefined') {
-      assetParams.deletePolicy = KalturaAssetParamsDeletePolicy.keep;
+      assetParams.deletePolicy = KontorolAssetParamsDeletePolicy.keep;
     }
 
     this._assetParams = assetParams;
@@ -161,14 +161,14 @@ export class EditMediaFlavorComponent implements OnInit {
     }
   }
 
-  private _getFlavorAssetParams(): ExtendedKalturaConversionProfileAssetParams {
+  private _getFlavorAssetParams(): ExtendedKontorolConversionProfileAssetParams {
     const assets = this.profile.assets || [];
     const relevantAssetParam = assets.find(({ assetParamsId }) => this.flavor.id === assetParamsId);
-    if (relevantAssetParam instanceof KalturaConversionProfileAssetParams) {
-      return Object.assign(KalturaObjectBaseFactory.createObject(relevantAssetParam), relevantAssetParam);
+    if (relevantAssetParam instanceof KontorolConversionProfileAssetParams) {
+      return Object.assign(KontorolObjectBaseFactory.createObject(relevantAssetParam), relevantAssetParam);
     }
 
-    const newAssetParam = new KalturaConversionProfileAssetParams();
+    const newAssetParam = new KontorolConversionProfileAssetParams();
     // bypass readonly mode
     (<any>newAssetParam).conversionProfileId = this.profile.id;
     (<any>newAssetParam).assetParamsId = this.flavor.id;

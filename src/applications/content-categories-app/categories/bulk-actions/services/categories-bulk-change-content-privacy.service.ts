@@ -1,25 +1,25 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { KalturaClient } from 'kaltura-ngx-client';
-import { KalturaUser } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { KontorolUser } from 'kontorol-ngx-client';
 import { CategoriesBulkActionBaseService } from "./categories-bulk-action-base.service";
-import { CategoryUpdateAction } from 'kaltura-ngx-client';
-import { KalturaCategory } from 'kaltura-ngx-client';
-import { KalturaPrivacyType } from 'kaltura-ngx-client';
+import { CategoryUpdateAction } from 'kontorol-ngx-client';
+import { KontorolCategory } from 'kontorol-ngx-client';
+import { KontorolPrivacyType } from 'kontorol-ngx-client';
 
 @Injectable()
-export class CategoriesBulkChangeContentPrivacyService extends CategoriesBulkActionBaseService<KalturaPrivacyType> {
+export class CategoriesBulkChangeContentPrivacyService extends CategoriesBulkActionBaseService<KontorolPrivacyType> {
 
-  constructor(_kalturaServerClient: KalturaClient) {
-    super(_kalturaServerClient);
+  constructor(_kontorolServerClient: KontorolClient) {
+    super(_kontorolServerClient);
   }
 
-  public execute(selectedCategories: KalturaCategory[], privacyType : KalturaPrivacyType) : Observable<{}>{
+  public execute(selectedCategories: KontorolCategory[], privacyType : KontorolPrivacyType) : Observable<{}>{
     return Observable.create(observer =>{
             let requests: CategoryUpdateAction[] = [];
 
       selectedCategories.forEach(category => {
-        let updatedCategory: KalturaCategory = new KalturaCategory();
+        let updatedCategory: KontorolCategory = new KontorolCategory();
         updatedCategory.privacy = privacyType;
         requests.push(new CategoryUpdateAction({
           id: category.id,

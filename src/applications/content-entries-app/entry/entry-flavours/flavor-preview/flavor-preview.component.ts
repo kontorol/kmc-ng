@@ -1,11 +1,11 @@
 import { Component, Input, AfterViewInit, OnDestroy } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
-import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
-import { KalturaClient } from 'kaltura-ngx-client';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { FlavorAssetGetUrlAction } from 'kaltura-ngx-client';
+import { PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { FlavorAssetGetUrlAction } from 'kontorol-ngx-client';
 import { Flavor } from '../flavor';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
 	selector: 'kFlavorPreview',
@@ -15,14 +15,14 @@ import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
 export class FlavorPreview implements AfterViewInit, OnDestroy {
 
 	@Input() currentFlavor: Flavor;
-	@Input() currentEntry: KalturaMediaEntry;
+	@Input() currentEntry: KontorolMediaEntry;
 	@Input() parentPopupWidget: PopupWidgetComponent;
 
 	private _parentPopupStateChangeSubscribe: ISubscription;
 	public _previewSource = "";
 	public _loadingError = "";
 
-	constructor(private _kalturaServerClient: KalturaClient) {
+	constructor(private _kontorolServerClient: KontorolClient) {
 
 	}
 
@@ -33,7 +33,7 @@ export class FlavorPreview implements AfterViewInit, OnDestroy {
 			this._parentPopupStateChangeSubscribe = this.parentPopupWidget.state$
 				.subscribe(event => {
 					if (event.state === PopupWidgetStates.Open) {
-						this._kalturaServerClient.request(new FlavorAssetGetUrlAction({
+						this._kontorolServerClient.request(new FlavorAssetGetUrlAction({
 							id: this.currentFlavor.id
 						}))
 							.pipe(cancelOnDestroy(this))

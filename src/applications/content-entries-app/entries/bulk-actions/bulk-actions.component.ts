@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { MenuItem } from 'primeng/api';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
 import { CategoriesStatus, CategoriesStatusMonitorService } from 'app-shared/content-shared/categories-status/categories-status-monitor.service';
 import { BulkAccessControlService, BulkAddCategoriesService, BulkAddTagsService, BulkChangeOwnerService, BulkDeleteService, BulkDownloadService, BulkRemoveCategoriesService, BulkRemoveTagsService, BulkSchedulingService, SchedulingParams } from './services';
-import { KalturaMediaEntry, KalturaMediaType, KalturaAccessControl, KalturaUser, KalturaPlaylistType, KalturaEntryStatus } from 'kaltura-ngx-client';
+import { KontorolMediaEntry, KontorolMediaType, KontorolAccessControl, KontorolUser, KontorolPlaylistType, KontorolEntryStatus } from 'kontorol-ngx-client';
 import { BulkActionBaseService } from './services/bulk-action-base.service';
 import { subApplicationsConfig } from 'config/sub-applications';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { AppEventsService } from 'app-shared/kmc-shared';
 import {CreateNewPlaylistEvent } from 'app-shared/kmc-shared/events/playlist-creation';
 import { CategoryData } from 'app-shared/content-shared/categories/categories-search.service';
@@ -19,7 +19,7 @@ import { BulkRemoveEditorsService } from './services/bulk-remove-editors.service
 import { BulkRemovePublishersService } from './services/bulk-remove-publishers.service';
 import { ContentNewCategoryViewService } from 'app-shared/kmc-shared/kmc-views/details-views/content-new-category-view.service';
 import { ContentPlaylistViewSections, ReachAppViewService, ReachPages } from 'app-shared/kmc-shared/kmc-views/details-views';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
 import { BulkAddViewersService } from './services/bulk-add-viewers.service';
 import { BulkRemoveViewersService } from './services/bulk-remove-viewers.service';
 
@@ -47,9 +47,9 @@ import { BulkRemoveViewersService } from './services/bulk-remove-viewers.service
 })
 export class BulkActionsComponent implements OnInit, OnDestroy {
   private _allowedStatusesForPlaylist = [
-    KalturaEntryStatus.ready.toString(),
-    KalturaEntryStatus.moderate.toString(),
-    KalturaEntryStatus.blocked.toString()
+    KontorolEntryStatus.ready.toString(),
+    KontorolEntryStatus.moderate.toString(),
+    KontorolEntryStatus.blocked.toString()
   ];
 
   public _kmcPermissions = KMCPermissions;
@@ -60,7 +60,7 @@ export class BulkActionsComponent implements OnInit, OnDestroy {
 
   private _categoriesLocked = false;
 
-  @Input() selectedEntries: KalturaMediaEntry[];
+  @Input() selectedEntries: KontorolMediaEntry[];
   @Input() blockerMessage: AreaBlockerMessage;
 
   @Output() onBulkChange = new EventEmitter<{ reload: boolean }>();
@@ -108,7 +108,7 @@ export class BulkActionsComponent implements OnInit, OnDestroy {
 
   private _onAddToNewPlaylist(): void {
     const creationEvent = new CreateNewPlaylistEvent({
-      type: KalturaPlaylistType.staticList,
+      type: KontorolPlaylistType.staticList,
       name: this._appLocalization.get('applications.content.bulkActions.newPlaylist'),
     }, ContentPlaylistViewSections.Metadata);
     const invalidEntries = this.selectedEntries.filter(entry => {
@@ -123,7 +123,7 @@ export class BulkActionsComponent implements OnInit, OnDestroy {
     }
   }
 
-  private _handlePlaylistCreationErrors(invalidEntries: KalturaMediaEntry[], creationEvent: CreateNewPlaylistEvent): void {
+  private _handlePlaylistCreationErrors(invalidEntries: KontorolMediaEntry[], creationEvent: CreateNewPlaylistEvent): void {
     const canCreate = this.selectedEntries.length !== invalidEntries.length;
 
     if (canCreate) {
@@ -196,7 +196,7 @@ export class BulkActionsComponent implements OnInit, OnDestroy {
   }
 
   // set access control changes
-  onAccessControlChanged(profile: KalturaAccessControl): void {
+  onAccessControlChanged(profile: KontorolAccessControl): void {
     this.executeService(this._bulkAccessControlService, profile);
   }
 
@@ -211,7 +211,7 @@ export class BulkActionsComponent implements OnInit, OnDestroy {
   }
 
   // add editors changed
-  onAddEditorsChanged(editors: KalturaUser[]): void {
+  onAddEditorsChanged(editors: KontorolUser[]): void {
     this.executeService(this._bulkAddEditorsService, editors.map(editor => editor.id));
   }
 
@@ -221,7 +221,7 @@ export class BulkActionsComponent implements OnInit, OnDestroy {
   }
 
   // add publishers changed
-  onAddPublishersChanged(publishers: KalturaUser[]): void {
+  onAddPublishersChanged(publishers: KontorolUser[]): void {
     this.executeService(this._bulkAddPublishersService, publishers.map(publisher => publisher.id));
   }
 
@@ -231,7 +231,7 @@ export class BulkActionsComponent implements OnInit, OnDestroy {
   }
 
     // add publishers changed
-    onAddViewersChanged(viewers: KalturaUser[]): void {
+    onAddViewersChanged(viewers: KontorolUser[]): void {
         this.executeService(this._bulkAddViewersService, viewers.map(viewer => viewer.id));
     }
 
@@ -251,7 +251,7 @@ export class BulkActionsComponent implements OnInit, OnDestroy {
   }
 
   // owner changed
-  onOwnerChanged(owner: KalturaUser): void {
+  onOwnerChanged(owner: KontorolUser): void {
     this.executeService(this._bulkChangeOwnerService, owner);
   }
   // download changed
@@ -290,7 +290,7 @@ export class BulkActionsComponent implements OnInit, OnDestroy {
   // bulk download initial check
   private downloadEntries(): void {
     // check for single image selection - immediate download
-    if (this.selectedEntries.length === 1 && this.selectedEntries[0].mediaType === KalturaMediaType.image) {
+    if (this.selectedEntries.length === 1 && this.selectedEntries[0].mediaType === KontorolMediaType.image) {
       this._browserService.openLink(this.selectedEntries[0].downloadUrl + '/file_name/name');
     } else {
       this.openBulkActionWindow('download', 570, 500);

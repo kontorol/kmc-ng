@@ -1,9 +1,9 @@
 import {Component, Input, OnChanges, OnDestroy, OnInit, ViewChild, ViewChildren} from '@angular/core';
-import {RefinePrimeTree} from '@kaltura-ng/mc-shared';
+import {RefinePrimeTree} from '@kontorol-ng/mc-shared';
 import { subApplicationsConfig } from 'config/sub-applications';
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import {ScrollToTopContainerComponent} from '@kaltura-ng/kaltura-ui';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import {ScrollToTopContainerComponent} from '@kontorol-ng/kontorol-ui';
 import {ManageEndUserPermissionsService, UsersFilters} from '../manage-end-user-permissions.service';
 import {
     RefineList

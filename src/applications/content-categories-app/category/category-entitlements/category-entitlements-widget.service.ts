@@ -2,34 +2,34 @@ import { Observable } from 'rxjs';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {Injectable, OnDestroy} from '@angular/core';
 import {CategoryWidget} from '../category-widget';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {CategoryService} from '../category.service';
-import {KalturaClient, KalturaMultiRequest} from 'kaltura-ngx-client';
-import {KalturaCategory} from 'kaltura-ngx-client';
-import {CategoryGetAction} from 'kaltura-ngx-client';
-import {KalturaInheritanceType} from 'kaltura-ngx-client';
-import {KalturaNullableBoolean} from 'kaltura-ngx-client';
-import {KalturaUser} from 'kaltura-ngx-client';
-import {UserGetAction} from 'kaltura-ngx-client';
+import {KontorolClient, KontorolMultiRequest} from 'kontorol-ngx-client';
+import {KontorolCategory} from 'kontorol-ngx-client';
+import {CategoryGetAction} from 'kontorol-ngx-client';
+import {KontorolInheritanceType} from 'kontorol-ngx-client';
+import {KontorolNullableBoolean} from 'kontorol-ngx-client';
+import {KontorolUser} from 'kontorol-ngx-client';
+import {UserGetAction} from 'kontorol-ngx-client';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { ContentCategoryViewSections } from 'app-shared/kmc-shared/kmc-views/details-views';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Injectable()
 export class CategoryEntitlementsWidget extends CategoryWidget implements OnDestroy {
 
   public entitlementsForm: FormGroup;
-  public parentCategory: KalturaCategory = null;
+  public parentCategory: KontorolCategory = null;
 
   public inheritUsersPermissionsOriginalValue: boolean;
 
-  constructor(private _kalturaClient: KalturaClient,
+  constructor(private _kontorolClient: KontorolClient,
               private _formBuilder: FormBuilder,
               private _appLocalization: AppLocalization,
               private _permissionsService: KMCPermissionsService,
               private _categoryService: CategoryService,
-              logger: KalturaLogger) {
+              logger: KontorolLogger) {
     super(ContentCategoryViewSections.Entitlements, logger);
 
     this._buildForm();
@@ -37,7 +37,7 @@ export class CategoryEntitlementsWidget extends CategoryWidget implements OnDest
 
   public fetchUpdatedMembersCount(): Observable<number> {
       if (this.data) {
-          return this._kalturaClient.request(
+          return this._kontorolClient.request(
               new CategoryGetAction({id: this.data.id})
           ).pipe(cancelOnDestroy(this, this.widgetReset$))
               .map(value => {
@@ -72,9 +72,9 @@ export class CategoryEntitlementsWidget extends CategoryWidget implements OnDest
   }
 
 
-  private _fetchAdditionalData(): Observable<{owner: KalturaUser, parentCategory?: KalturaCategory}> {
+  private _fetchAdditionalData(): Observable<{owner: KontorolUser, parentCategory?: KontorolCategory}> {
 
-      const multiRequest = new KalturaMultiRequest();
+      const multiRequest = new KontorolMultiRequest();
       if (this.data.owner) {
           multiRequest.requests.push(
               new UserGetAction({userId: this.data.owner})
@@ -88,7 +88,7 @@ export class CategoryEntitlementsWidget extends CategoryWidget implements OnDest
       }
 
       if (multiRequest.requests.length) {
-          return this._kalturaClient.multiRequest(multiRequest)
+          return this._kontorolClient.multiRequest(multiRequest)
               .map(
                   data => {
                       if (data.hasErrors()) {
@@ -105,12 +105,12 @@ export class CategoryEntitlementsWidget extends CategoryWidget implements OnDest
                           }
                       }
 
-                      let owner: KalturaUser = null;
+                      let owner: KontorolUser = null;
                       let parentCategory = null;
                       data.forEach(response => {
-                          if (response.result instanceof KalturaCategory) {
+                          if (response.result instanceof KontorolCategory) {
                               parentCategory = response.result;
-                          } else if (response.result instanceof KalturaUser) {
+                          } else if (response.result instanceof KontorolUser) {
                               owner = response.result;
                           }
                       });
@@ -158,17 +158,17 @@ export class CategoryEntitlementsWidget extends CategoryWidget implements OnDest
     });
   }
 
-  private _resetFormData(owner: KalturaUser) {
+  private _resetFormData(owner: KontorolUser) {
 
       const hasCanModifyPermission = this._permissionsService.hasPermission(KMCPermissions.CONTENT_MANAGE_CATEGORY_USERS);
 
-    this.inheritUsersPermissionsOriginalValue = this.parentCategory && this.data.inheritanceType === KalturaInheritanceType.inherit;
+    this.inheritUsersPermissionsOriginalValue = this.parentCategory && this.data.inheritanceType === KontorolInheritanceType.inherit;
     this.entitlementsForm.reset(
       {
         contentPrivacy: this.data.privacy,
         categoryListing: this.data.appearInList,
         contentPublishPermissions: this.data.contributionPolicy,
-        moderateContent: this.data.moderation === KalturaNullableBoolean.trueValue,
+        moderateContent: this.data.moderation === KontorolNullableBoolean.trueValue,
         inheritUsersPermissions: this.inheritUsersPermissionsOriginalValue,
         defaultPermissionLevel: {
           value: this.data.defaultPermissionLevel,
@@ -184,7 +184,7 @@ export class CategoryEntitlementsWidget extends CategoryWidget implements OnDest
   }
 
 
-  protected onDataSaving(newData: KalturaCategory, request: KalturaMultiRequest): void {
+  protected onDataSaving(newData: KontorolCategory, request: KontorolMultiRequest): void {
 
     if (!this.entitlementsForm.valid) {
       throw new Error('Cannot perform save operation since the entitlement form is invalid');
@@ -195,8 +195,8 @@ export class CategoryEntitlementsWidget extends CategoryWidget implements OnDest
     newData.privacy = metadataFormValue.contentPrivacy;
     newData.appearInList = metadataFormValue.categoryListing;
     newData.contributionPolicy = metadataFormValue.contentPublishPermissions;
-    newData.moderation = metadataFormValue.moderateContent !== true ? KalturaNullableBoolean.falseValue : KalturaNullableBoolean.trueValue;
-    newData.inheritanceType = metadataFormValue.inheritUsersPermissions ? KalturaInheritanceType.inherit : KalturaInheritanceType.manual;
+    newData.moderation = metadataFormValue.moderateContent !== true ? KontorolNullableBoolean.falseValue : KontorolNullableBoolean.trueValue;
+    newData.inheritanceType = metadataFormValue.inheritUsersPermissions ? KontorolInheritanceType.inherit : KontorolInheritanceType.manual;
     if (!metadataFormValue.inheritUsersPermissions) {
       newData.defaultPermissionLevel = metadataFormValue.defaultPermissionLevel;
 
@@ -228,7 +228,7 @@ export class CategoryEntitlementsWidget extends CategoryWidget implements OnDest
   ngOnDestroy() {
   }
 
-  public openCategory(category: KalturaCategory): void {
+  public openCategory(category: KontorolCategory): void {
     if (category && category.id) {
       this._categoryService.openCategory(category);
     }

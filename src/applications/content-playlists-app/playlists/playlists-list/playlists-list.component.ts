@@ -3,11 +3,11 @@ import { Router } from '@angular/router';
 import { subApplicationsConfig } from 'config/sub-applications';
 import { PlaylistsFilters, PlaylistsStore, SortDirection } from '../playlists-store/playlists-store.service';
 import { BulkDeleteService } from '../bulk-service/bulk-delete.service';
-import { KalturaPlaylist } from 'kaltura-ngx-client';
-import { StickyComponent } from '@kaltura-ng/kaltura-ui';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolPlaylist } from 'kontorol-ngx-client';
+import { StickyComponent } from '@kontorol-ng/kontorol-ui';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
 import { PreviewAndEmbedEvent } from 'app-shared/kmc-shared/events';
 import { AppEventsService } from 'app-shared/kmc-shared';
@@ -16,7 +16,7 @@ import { async } from 'rxjs/scheduler/async';
 import { ContentPlaylistViewSections } from 'app-shared/kmc-shared/kmc-views/details-views/content-playlist-view.service';
 import { ContentPlaylistViewService } from 'app-shared/kmc-shared/kmc-views/details-views';
 import { ContentPlaylistsMainViewService } from 'app-shared/kmc-shared/kmc-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kPlaylistsList',
@@ -46,7 +46,7 @@ export class PlaylistsListComponent implements OnInit, OnDestroy {
     sortDirection: SortDirection.Desc
   };
 
-  public _selectedPlaylists: KalturaPlaylist[] = [];
+  public _selectedPlaylists: KontorolPlaylist[] = [];
 
   constructor(public _playlistsStore: PlaylistsStore,
               private _appLocalization: AppLocalization,
@@ -227,7 +227,7 @@ export class PlaylistsListComponent implements OnInit, OnDestroy {
     this.tags.updateLayout();
   }
 
-  public _onActionSelected(event: { action: string, playlist: KalturaPlaylist }): void {
+  public _onActionSelected(event: { action: string, playlist: KontorolPlaylist }): void {
       switch (event.action) {
           case 'preview':
               this._appEvents.publish(new PreviewAndEmbedEvent(event.playlist));
@@ -290,7 +290,7 @@ export class PlaylistsListComponent implements OnInit, OnDestroy {
     this._selectedPlaylists = [];
   }
 
-  public _deletePlaylists(selectedPlaylists: KalturaPlaylist[]): void {
+  public _deletePlaylists(selectedPlaylists: KontorolPlaylist[]): void {
     const playlistsToDelete = selectedPlaylists.map((playlist, index) => `${index + 1}: ${playlist.name}`);
     const playlists = selectedPlaylists.length <= 10 ? playlistsToDelete.join(',').replace(/,/gi, '\n') : '';
     const message = selectedPlaylists.length > 1 ?

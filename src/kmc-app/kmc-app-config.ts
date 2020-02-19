@@ -1,7 +1,7 @@
 
 export interface KmcAppConfig {
   storageNamespace: string;
-  kalturaServer: {
+  kontorolServer: {
       expiry: number;
       privileges: string;
   },
@@ -19,7 +19,7 @@ export interface KmcAppConfig {
 
 export const kmcAppConfig: KmcAppConfig = {
   'storageNamespace': 'kmc-ng',
-  'kalturaServer': {
+  'kontorolServer': {
       "expiry": 86400,
       "privileges": "disableentitlement,appid:kmc"
   },

@@ -1,8 +1,8 @@
 import { MetadataItemTypes, MetadataItem, MetadataProfile } from '../custom-metadata';
-import { KalturaMetadata } from 'kaltura-ngx-client';
-import { XmlParser } from '@kaltura-ng/kaltura-common';
-import { DynamicSectionControl, DynamicFormService } from '@kaltura-ng/kaltura-ui';
-import { KalturaUtils } from '@kaltura-ng/kaltura-common';
+import { KontorolMetadata } from 'kontorol-ngx-client';
+import { XmlParser } from '@kontorol-ng/kontorol-common';
+import { DynamicSectionControl, DynamicFormService } from '@kontorol-ng/kontorol-ui';
+import { KontorolUtils } from '@kontorol-ng/kontorol-common';
 import { FormGroup } from '@angular/forms';
 
 export class DynamicMetadataForm
@@ -32,7 +32,7 @@ export class DynamicMetadataForm
     constructor(private _metadataProfile : MetadataProfile, public formSectionControl : DynamicSectionControl, private _dynamicFormService : DynamicFormService)
     {
     }
-    resetForm(serverMetadata? : KalturaMetadata) : void
+    resetForm(serverMetadata? : KontorolMetadata) : void
     {
         if (this.formSectionControl && this._metadataProfile) {
 
@@ -83,7 +83,7 @@ export class DynamicMetadataForm
         {
             // ignore null values
         }else if (date instanceof Date) {
-            return KalturaUtils.toServerDate(date);
+            return KontorolUtils.toServerDate(date);
         }else {
             throw new Error("expected value to be of type number")
         }
@@ -220,14 +220,14 @@ export class DynamicMetadataForm
                         if (field.allowMultiple) {
                             if (fieldJSON instanceof Array) {
                                 value = fieldJSON.map(fieldItem => {
-                                    return {[fieldKey]: KalturaUtils.fromServerDate(fieldItem.text)};
+                                    return {[fieldKey]: KontorolUtils.fromServerDate(fieldItem.text)};
                                 });
                             } else {
-                                value = [{[fieldKey]: KalturaUtils.fromServerDate(fieldJSON.text)}];
+                                value = [{[fieldKey]: KontorolUtils.fromServerDate(fieldJSON.text)}];
                             }
 
                         } else if (!field.allowMultiple && fieldJSON.text) {
-                            value = KalturaUtils.fromServerDate(fieldJSON.text);
+                            value = KontorolUtils.fromServerDate(fieldJSON.text);
                         }
                     }
 

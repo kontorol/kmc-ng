@@ -9,10 +9,10 @@ import {
   Output,
   ViewChild
 } from '@angular/core';
-import {KalturaCategory} from 'kaltura-ngx-client';
+import {KontorolCategory} from 'kontorol-ngx-client';
 import { Menu } from 'primeng/menu';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { MenuItem } from 'primeng/api';
 
@@ -23,15 +23,15 @@ import { MenuItem } from 'primeng/api';
 })
 export class EntitlementTableComponent implements OnInit, OnDestroy, AfterViewInit {
 
-  public _entitlements: KalturaCategory[] = [];
+  public _entitlements: KontorolCategory[] = [];
   public _emptyMessage: string = this._appLocalization.get('applications.content.table.noResults');
-  private _deferredEntitlements: KalturaCategory[];
+  private _deferredEntitlements: KontorolCategory[];
   public _items: MenuItem[];
   public _deferredLoading = true;
   public _blockerMessage: AreaBlockerMessage = null;
 
   @Input()
-  set entitlements(data: KalturaCategory[]) {
+  set entitlements(data: KontorolCategory[]) {
     if (!this._deferredLoading) {
       this._entitlements = [];
       this.cdRef.detectChanges();
@@ -42,7 +42,7 @@ export class EntitlementTableComponent implements OnInit, OnDestroy, AfterViewIn
     }
   }
 
-  @Output() onActionSelected = new EventEmitter<{ action: string, entitlement: KalturaCategory }>();
+  @Output() onActionSelected = new EventEmitter<{ action: string, entitlement: KontorolCategory }>();
   @ViewChild('actionsmenu', { static: true }) private actionsMenu: Menu;
 
 
@@ -53,7 +53,7 @@ export class EntitlementTableComponent implements OnInit, OnDestroy, AfterViewIn
 
   public rowTrackBy: Function = (index: number, item: any) => item;
 
-  public _openActionsMenu(event: any, category: KalturaCategory) {
+  public _openActionsMenu(event: any, category: KontorolCategory) {
     if (this.actionsMenu) {
       this._buildMenu(category);
       this.actionsMenu.toggle(event);
@@ -61,7 +61,7 @@ export class EntitlementTableComponent implements OnInit, OnDestroy, AfterViewIn
   }
 
 
-  private _buildMenu(entitlement: KalturaCategory): void {
+  private _buildMenu(entitlement: KontorolCategory): void {
     const hasEditPermission = this._permissionsService.hasPermission(KMCPermissions.INTEGRATION_UPDATE_SETTINGS);
     this._items = [
       {

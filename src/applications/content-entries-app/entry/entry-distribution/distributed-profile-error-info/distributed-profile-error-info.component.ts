@@ -1,16 +1,16 @@
 import { Component, Input, OnDestroy } from '@angular/core';
-import { KalturaDistributionValidationError } from 'kaltura-ngx-client';
-import { KalturaDistributionValidationErrorInvalidData } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaDistributionValidationErrorType } from 'kaltura-ngx-client';
-import { KalturaDistributionValidationErrorMissingMetadata } from 'kaltura-ngx-client';
-import { KalturaDistributionValidationErrorMissingFlavor } from 'kaltura-ngx-client';
-import { KalturaDistributionValidationErrorMissingThumbnail } from 'kaltura-ngx-client';
-import { KalturaDistributionValidationErrorConditionNotMet } from 'kaltura-ngx-client';
+import { KontorolDistributionValidationError } from 'kontorol-ngx-client';
+import { KontorolDistributionValidationErrorInvalidData } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolDistributionValidationErrorType } from 'kontorol-ngx-client';
+import { KontorolDistributionValidationErrorMissingMetadata } from 'kontorol-ngx-client';
+import { KontorolDistributionValidationErrorMissingFlavor } from 'kontorol-ngx-client';
+import { KontorolDistributionValidationErrorMissingThumbnail } from 'kontorol-ngx-client';
+import { KontorolDistributionValidationErrorConditionNotMet } from 'kontorol-ngx-client';
 import { EntryDistributionWidget } from '../entry-distribution-widget.service';
 import { EntryStore } from '../../entry-store.service';
 import { ContentEntryViewSections } from 'app-shared/kmc-shared/kmc-views/details-views/content-entry-view.service';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kEntryDistributedProfileErrorInfo',
@@ -18,7 +18,7 @@ import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
   styleUrls: ['./distributed-profile-error-info.component.scss']
 })
 export class DistributedProfileErrorInfoComponent implements OnDestroy {
-  @Input() set errors(value: { type: string, errors: KalturaDistributionValidationError[] }) {
+  @Input() set errors(value: { type: string, errors: KontorolDistributionValidationError[] }) {
     if (value) {
       this._parseError(value.type, value.errors);
     }
@@ -38,26 +38,26 @@ export class DistributedProfileErrorInfoComponent implements OnDestroy {
 
   }
 
-  private _parseError(type: string, errors: KalturaDistributionValidationError[]): void {
+  private _parseError(type: string, errors: KontorolDistributionValidationError[]): void {
     switch (type) {
       case 'metadataError':
-        this._handleMetadataError(<KalturaDistributionValidationErrorInvalidData[]>errors);
+        this._handleMetadataError(<KontorolDistributionValidationErrorInvalidData[]>errors);
         break;
 
       case 'missingMetadata':
-        this._handleMissingMetadata(<KalturaDistributionValidationErrorMissingMetadata[]>errors);
+        this._handleMissingMetadata(<KontorolDistributionValidationErrorMissingMetadata[]>errors);
         break;
 
       case 'missingFlavor':
-        this._handleMissingFlavor(<KalturaDistributionValidationErrorMissingFlavor[]>errors);
+        this._handleMissingFlavor(<KontorolDistributionValidationErrorMissingFlavor[]>errors);
         break;
 
       case 'missingThumbnail':
-        this._handleMissingThumbnail(<KalturaDistributionValidationErrorMissingThumbnail[]>errors);
+        this._handleMissingThumbnail(<KontorolDistributionValidationErrorMissingThumbnail[]>errors);
         break;
 
       case 'autoDistributionMetadataMissing':
-        this._handleAutoDistributionMetadataMissing(<KalturaDistributionValidationErrorConditionNotMet[]>errors);
+        this._handleAutoDistributionMetadataMissing(<KontorolDistributionValidationErrorConditionNotMet[]>errors);
         break;
 
 
@@ -66,39 +66,39 @@ export class DistributedProfileErrorInfoComponent implements OnDestroy {
     }
   }
 
-  private _handleMetadataError(errors: KalturaDistributionValidationErrorInvalidData[]): void {
+  private _handleMetadataError(errors: KontorolDistributionValidationErrorInvalidData[]): void {
     let details = '';
     errors.forEach(error => {
       switch (error.validationErrorType) {
-        case KalturaDistributionValidationErrorType.stringEmpty:
+        case KontorolDistributionValidationErrorType.stringEmpty:
           details += this._appLocalization.get(
             'applications.content.entryDetails.distribution.errorTypes.stringEmpty',
             [error.fieldName]
           );
           break;
 
-        case KalturaDistributionValidationErrorType.stringTooLong:
+        case KontorolDistributionValidationErrorType.stringTooLong:
           details += this._appLocalization.get(
             'applications.content.entryDetails.distribution.errorTypes.stringTooLong',
             [error.fieldName, error.validationErrorParam]
           );
           break;
 
-        case KalturaDistributionValidationErrorType.stringTooShort:
+        case KontorolDistributionValidationErrorType.stringTooShort:
           details += this._appLocalization.get(
             'applications.content.entryDetails.distribution.errorTypes.stringTooShort',
             [error.fieldName, error.validationErrorParam]
           );
           break;
 
-        case KalturaDistributionValidationErrorType.invalidFormat:
+        case KontorolDistributionValidationErrorType.invalidFormat:
           details += this._appLocalization.get(
             'applications.content.entryDetails.distribution.errorTypes.stringEmpty',
             [error.fieldName, error.validationErrorParam]
           );
           break;
 
-        case KalturaDistributionValidationErrorType.customError:
+        case KontorolDistributionValidationErrorType.customError:
           details += `${error.fieldName} - ${error.validationErrorParam}\n`;
           break;
 
@@ -117,7 +117,7 @@ export class DistributedProfileErrorInfoComponent implements OnDestroy {
     this._goToLink = ContentEntryViewSections.Metadata;
   }
 
-  private _handleMissingMetadata(errors: KalturaDistributionValidationErrorMissingMetadata[]): void {
+  private _handleMissingMetadata(errors: KontorolDistributionValidationErrorMissingMetadata[]): void {
     const details = errors.map(({ fieldName }) => `${fieldName}`).join('\n');
     this._errorInfo = this._appLocalization.get(
       'applications.content.entryDetails.distribution.errorsInfo.missingMetadata',
@@ -129,9 +129,9 @@ export class DistributedProfileErrorInfoComponent implements OnDestroy {
     this._goToLink = ContentEntryViewSections.Metadata;
   }
 
-  private _handleMissingFlavor(errors: KalturaDistributionValidationErrorMissingFlavor[]): void {
+  private _handleMissingFlavor(errors: KontorolDistributionValidationErrorMissingFlavor[]): void {
     /* Go through the loaded flavors list and find the flavor in which
-       Flavor.paramsId === KalturaDistributionValidationErrorMissingFlavor.flavorParamsId.
+       Flavor.paramsId === KontorolDistributionValidationErrorMissingFlavor.flavorParamsId.
        Add this Flavor.name to the list of flavor names.
     */
     this._widget.flavors$
@@ -155,7 +155,7 @@ export class DistributedProfileErrorInfoComponent implements OnDestroy {
       });
   }
 
-  private _handleMissingThumbnail(errors: KalturaDistributionValidationErrorMissingThumbnail[]): void {
+  private _handleMissingThumbnail(errors: KontorolDistributionValidationErrorMissingThumbnail[]): void {
     const details = errors.map(({ dimensions }) => `${dimensions.width} X ${dimensions.height}`).join('\n');
     this._errorInfo = this._appLocalization.get(
       'applications.content.entryDetails.distribution.errorsInfo.missingThumbnail',
@@ -167,7 +167,7 @@ export class DistributedProfileErrorInfoComponent implements OnDestroy {
     this._goToLink = ContentEntryViewSections.Thumbnails;
   }
 
-  private _handleAutoDistributionMetadataMissing(errors: KalturaDistributionValidationErrorConditionNotMet[]): void {
+  private _handleAutoDistributionMetadataMissing(errors: KontorolDistributionValidationErrorConditionNotMet[]): void {
     const details = errors.map(({ conditionName }) => `${conditionName}`).join('\n');
     this._errorInfo = this._appLocalization.get(
       'applications.content.entryDetails.distribution.errorsInfo.autoDistributionMetadataMissing',

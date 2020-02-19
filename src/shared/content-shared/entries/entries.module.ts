@@ -1,11 +1,11 @@
 import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {AreaBlockerModule, KalturaUIModule, StickyModule, TooltipModule} from '@kaltura-ng/kaltura-ui';
+import {AreaBlockerModule, KontorolUIModule, StickyModule, TooltipModule} from '@kontorol-ng/kontorol-ui';
 import {TableModule} from 'primeng/table';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {LocalizationModule} from '@kaltura-ng/mc-shared';
-import {AutoCompleteModule, KalturaPrimeNgUIModule, KPTableModule} from '@kaltura-ng/kaltura-primeng-ui';
-import {PopupWidgetModule} from '@kaltura-ng/kaltura-ui';
+import {LocalizationModule} from '@kontorol-ng/mc-shared';
+import {AutoCompleteModule, KontorolPrimeNgUIModule, KPTableModule} from '@kontorol-ng/kontorol-primeng-ui';
+import {PopupWidgetModule} from '@kontorol-ng/kontorol-ui';
 
 import {EntryStatusPipe} from './pipes/entry-status.pipe';
 import {SchedulingComponent} from './scheduling/scheduling.component';
@@ -15,12 +15,12 @@ import {MaxEntriesPipe} from './pipes/max-entries.pipe';
 import {EntriesRefineFiltersComponent} from './entries-refine-filters/entries-refine-filters.component';
 import {EntriesTableComponent} from './entries-table/entries-table.component';
 import {EntriesListComponent} from './entries-list/entries-list.component';
-import {TagsModule} from '@kaltura-ng/kaltura-ui';
+import {TagsModule} from '@kontorol-ng/kontorol-ui';
 import {PrimeTableSortTransformPipe} from './pipes/prime-table-sort-transform.pipe';
 import {ModerationPipe} from './pipes/moderation.pipe';
 import {EntriesSelectorComponent} from './entries-selector/entries-selector.component';
 import {EntriesListTagsComponent} from './entries-list/entries-list-tags.component';
-import {FiltersModule} from '@kaltura-ng/mc-shared';
+import {FiltersModule} from '@kontorol-ng/mc-shared';
 import {CategoriesModule} from '../categories/categories.module';
 import {EntriesStoreDataProvider} from 'app-shared/content-shared/entries/entries-store/entries-store-data-provider.service';
 import {EntriesDataProviderToken} from 'app-shared/content-shared/entries/entries-store/entries-store.service';
@@ -52,9 +52,9 @@ import { InputTextModule } from 'primeng/inputtext';
     ReactiveFormsModule,
     TreeModule,
     LocalizationModule,
-    KalturaPrimeNgUIModule,
+    KontorolPrimeNgUIModule,
     KPTableModule,
-    KalturaUIModule,
+    KontorolUIModule,
     DropdownModule,
     ButtonModule,
     CalendarModule,

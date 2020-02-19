@@ -1,17 +1,17 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import {
-    KalturaAssetParamsResourceContainer,
-    KalturaAssetsParamsResourceContainers,
-    KalturaClient,
-    KalturaMediaEntry,
-    KalturaMediaType,
-    KalturaMultiRequest,
-    KalturaUrlResource,
+    KontorolAssetParamsResourceContainer,
+    KontorolAssetsParamsResourceContainers,
+    KontorolClient,
+    KontorolMediaEntry,
+    KontorolMediaType,
+    KontorolMultiRequest,
+    KontorolUrlResource,
     MediaAddAction,
     MediaUpdateContentAction,
-} from 'kaltura-ngx-client';
+} from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 
 
 export interface KmcNewEntryUpload {
@@ -21,7 +21,7 @@ export interface KmcNewEntryUpload {
 
 @Injectable()
 export class NewEntryCreateFromUrlService implements OnDestroy {
-    constructor(private _kalturaServerClient: KalturaClient,
+    constructor(private _kontorolServerClient: KontorolClient,
                 private _appLocalization: AppLocalization) {
     }
 
@@ -29,7 +29,7 @@ export class NewEntryCreateFromUrlService implements OnDestroy {
 
     }
 
-    private _getMediaTypeFromExtension(extension: string): KalturaMediaType {
+    private _getMediaTypeFromExtension(extension: string): KontorolMediaType {
 
          const imageFiles = ['jpg', 'jpeg', 'gif', 'png'];
          const audioFiles = [
@@ -47,19 +47,19 @@ export class NewEntryCreateFromUrlService implements OnDestroy {
 
         switch (true) {
             case videoFiles.indexOf(extension) !== -1:
-                return KalturaMediaType.video;
+                return KontorolMediaType.video;
             case audioFiles.indexOf(extension) !== -1:
-                return KalturaMediaType.audio;
+                return KontorolMediaType.audio;
             case imageFiles.indexOf(extension) !== -1:
-                return KalturaMediaType.image;
+                return KontorolMediaType.image;
             default:
-                return KalturaMediaType.video;
+                return KontorolMediaType.video;
         }
 
     }
 
     private _getUpdateMediaContentAction(file: KmcNewEntryUpload): MediaUpdateContentAction {
-        const resource = new KalturaUrlResource({ url: file.fileUrl });
+        const resource = new KontorolUrlResource({ url: file.fileUrl });
         return new MediaUpdateContentAction({ entryId: '0', resource });
     }
 
@@ -69,7 +69,7 @@ export class NewEntryCreateFromUrlService implements OnDestroy {
         let name = url.substr(url.lastIndexOf("/")+1);
         name = name.lastIndexOf(".") !== -1 ? name.substr(0, name.lastIndexOf(".")) : name;
         return new MediaAddAction({
-            entry: new KalturaMediaEntry({ conversionProfileId, name, mediaType: this._getMediaTypeFromExtension(extension) })
+            entry: new KontorolMediaEntry({ conversionProfileId, name, mediaType: this._getMediaTypeFromExtension(extension) })
         });
     }
 
@@ -78,7 +78,7 @@ export class NewEntryCreateFromUrlService implements OnDestroy {
         const updateMediaContentActions = files.map((file, index) =>
             this._getUpdateMediaContentAction(file).setDependency(['entryId', index, 'id'])
         );
-        return this._kalturaServerClient.multiRequest(new KalturaMultiRequest(
+        return this._kontorolServerClient.multiRequest(new KontorolMultiRequest(
             ...createMediaEntryActions,
             ...updateMediaContentActions
         )).map(responses => {

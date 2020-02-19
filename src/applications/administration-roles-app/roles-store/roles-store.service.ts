@@ -1,29 +1,29 @@
 import { BrowserService } from 'shared/kmc-shell/providers/browser.service';
-import { KalturaUserRoleFilter } from 'kaltura-ngx-client';
+import { KontorolUserRoleFilter } from 'kontorol-ngx-client';
 import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs';
 import { ISubscription } from 'rxjs/Subscription';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
-import { KalturaClient, KalturaMultiRequest } from 'kaltura-ngx-client';
-import { KalturaUserRoleListResponse } from 'kaltura-ngx-client';
-import { KalturaUserRole } from 'kaltura-ngx-client';
-import { UserRoleListAction } from 'kaltura-ngx-client';
-import { KalturaUserRoleStatus } from 'kaltura-ngx-client';
-import { KalturaUserRoleOrderBy } from 'kaltura-ngx-client';
-import { UserRoleDeleteAction } from 'kaltura-ngx-client';
-import { UserRoleUpdateAction } from 'kaltura-ngx-client';
-import { UserRoleCloneAction } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { UserRoleAddAction } from 'kaltura-ngx-client';
-import { FiltersStoreBase, TypeAdaptersMapping } from '@kaltura-ng/mc-shared';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
+import { KontorolClient, KontorolMultiRequest } from 'kontorol-ngx-client';
+import { KontorolUserRoleListResponse } from 'kontorol-ngx-client';
+import { KontorolUserRole } from 'kontorol-ngx-client';
+import { UserRoleListAction } from 'kontorol-ngx-client';
+import { KontorolUserRoleStatus } from 'kontorol-ngx-client';
+import { KontorolUserRoleOrderBy } from 'kontorol-ngx-client';
+import { UserRoleDeleteAction } from 'kontorol-ngx-client';
+import { UserRoleUpdateAction } from 'kontorol-ngx-client';
+import { UserRoleCloneAction } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { UserRoleAddAction } from 'kontorol-ngx-client';
+import { FiltersStoreBase, TypeAdaptersMapping } from '@kontorol-ng/mc-shared';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { globalConfig } from 'config/global';
-import { NumberTypeAdapter } from '@kaltura-ng/mc-shared';
+import { NumberTypeAdapter } from '@kontorol-ng/mc-shared';
 import { AdminRolesMainViewService } from 'app-shared/kmc-shared/kmc-views';
 import { PermissionTreeNodes, PermissionTreeNode } from './permission-tree-nodes';
 import { KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export enum SortDirection {
   Desc = -1,
@@ -42,7 +42,7 @@ export class RolesStoreService extends FiltersStoreBase<RolesFilters> implements
     static permissionsTree: PermissionTreeNode[] = null;
 
     private _roles = {
-    data: new BehaviorSubject<{ items: KalturaUserRole[], totalCount: number }>({ items: [], totalCount: 0 }),
+    data: new BehaviorSubject<{ items: KontorolUserRole[], totalCount: number }>({ items: [], totalCount: 0 }),
     state: new BehaviorSubject<{ loading: boolean, errorMessage: string }>({ loading: false, errorMessage: null })
   };
   private _isReady = false;
@@ -50,12 +50,12 @@ export class RolesStoreService extends FiltersStoreBase<RolesFilters> implements
 
   public readonly roles = { data$: this._roles.data.asObservable(), state$: this._roles.state.asObservable() };
 
-  constructor(private _kalturaClient: KalturaClient,
+  constructor(private _kontorolClient: KontorolClient,
               private _browserService: BrowserService,
               private _appLocalization: AppLocalization,
               private _kmcPermissionsService: KMCPermissionsService,
               adminRolesMainViewService: AdminRolesMainViewService,
-              _logger: KalturaLogger) {
+              _logger: KontorolLogger) {
     super(_logger.subLogger('RolesStoreService'));
     if (adminRolesMainViewService.isAvailable()) {
         this._prepare();
@@ -170,11 +170,11 @@ export class RolesStoreService extends FiltersStoreBase<RolesFilters> implements
         });
   }
 
-  private _getDuplicatedRole(role: KalturaUserRole) {
+  private _getDuplicatedRole(role: KontorolUserRole) {
     const duplicateName = this._appLocalization.get('applications.administration.roles.copyOf') + ' ' + role.name;
     role.tags = 'kmc';
 
-    const duplicatedRole = new KalturaUserRole();
+    const duplicatedRole = new KontorolUserRole();
     duplicatedRole.name = this._isNameExist(duplicateName) ? undefined : duplicateName;
     return duplicatedRole;
   }
@@ -183,20 +183,20 @@ export class RolesStoreService extends FiltersStoreBase<RolesFilters> implements
     return this._roles.data.value.items.find(item => item['name'] === name) !== undefined;
   }
 
-  private _buildQueryRequest(): Observable<KalturaUserRoleListResponse> {
+  private _buildQueryRequest(): Observable<KontorolUserRoleListResponse> {
     try {
-      const filter: KalturaUserRoleFilter = new KalturaUserRoleFilter({
-        statusEqual: KalturaUserRoleStatus.active,
-        orderBy: KalturaUserRoleOrderBy.idAsc.toString(),
+      const filter: KontorolUserRoleFilter = new KontorolUserRoleFilter({
+        statusEqual: KontorolUserRoleStatus.active,
+        orderBy: KontorolUserRoleOrderBy.idAsc.toString(),
         tagsMultiLikeOr: 'kmc'
       });
-      let pager: KalturaFilterPager = null;
+      let pager: KontorolFilterPager = null;
 
       const data: RolesFilters = this._getFiltersAsReadonly();
 
       // update pagination args
       if (data.pageIndex || data.pageSize) {
-        pager = new KalturaFilterPager(
+        pager = new KontorolFilterPager(
           {
             pageSize: data.pageSize,
             pageIndex: data.pageIndex + 1
@@ -205,7 +205,7 @@ export class RolesStoreService extends FiltersStoreBase<RolesFilters> implements
       }
 
       // build the request
-      return this._kalturaClient.request(
+      return this._kontorolClient.request(
         new UserRoleListAction({ filter, pager })
       );
     } catch (err) {
@@ -214,7 +214,7 @@ export class RolesStoreService extends FiltersStoreBase<RolesFilters> implements
 
   }
 
-  public deleteRole(role: KalturaUserRole): Observable<void> {
+  public deleteRole(role: KontorolUserRole): Observable<void> {
     if (!role) {
       return Observable.throw(new Error(this._appLocalization.get('applications.administration.roles.errors.cantDeleteRole')));
     }
@@ -222,7 +222,7 @@ export class RolesStoreService extends FiltersStoreBase<RolesFilters> implements
       return Observable.throw(new Error(this._appLocalization.get('applications.administration.roles.errors.cantDeleteAdminRole')));
     }
 
-    return this._kalturaClient.request(new UserRoleDeleteAction({
+    return this._kontorolClient.request(new UserRoleDeleteAction({
       userRoleId: role.id
     }))
       .map(() => {
@@ -236,12 +236,12 @@ export class RolesStoreService extends FiltersStoreBase<RolesFilters> implements
       });
   }
 
-  public duplicateRole(role: KalturaUserRole): Observable<KalturaUserRole> {
+  public duplicateRole(role: KontorolUserRole): Observable<KontorolUserRole> {
     if (!role) {
       return Observable.throw(new Error(this._appLocalization.get('applications.administration.roles.errors.cantDuplicateRole')));
     }
 
-    const multiRequest = new KalturaMultiRequest(
+    const multiRequest = new KontorolMultiRequest(
       new UserRoleCloneAction({ userRoleId: role.id }),
       new UserRoleUpdateAction({
         userRoleId: 0,
@@ -249,7 +249,7 @@ export class RolesStoreService extends FiltersStoreBase<RolesFilters> implements
       }).setDependency(['userRoleId', 0, 'id'])
     );
 
-    return this._kalturaClient.multiRequest(multiRequest)
+    return this._kontorolClient.multiRequest(multiRequest)
       .map(
         data => {
           if (data.hasErrors()) {
@@ -262,7 +262,7 @@ export class RolesStoreService extends FiltersStoreBase<RolesFilters> implements
       });
   }
 
-  public updateRole(id: number, role: KalturaUserRole): Observable<void> {
+  public updateRole(id: number, role: KontorolUserRole): Observable<void> {
     if (!role) {
       return Observable.throw(new Error('Unable to update role'));
     }
@@ -270,7 +270,7 @@ export class RolesStoreService extends FiltersStoreBase<RolesFilters> implements
       return Observable.throw(new Error('Unable to update Administrator role'));
     }
 
-    return this._kalturaClient.request(new UserRoleUpdateAction({
+    return this._kontorolClient.request(new UserRoleUpdateAction({
       userRoleId: id,
       userRole: role
     }))
@@ -280,13 +280,13 @@ export class RolesStoreService extends FiltersStoreBase<RolesFilters> implements
 
   }
 
-  public addRole(role: KalturaUserRole): Observable<void> {
+  public addRole(role: KontorolUserRole): Observable<void> {
     if (!role) {
       return Observable.throw(new Error('Unable to add role'));
     }
     role.tags = 'kmc';
 
-    return this._kalturaClient.request(new UserRoleAddAction({ userRole: role }))
+    return this._kontorolClient.request(new UserRoleAddAction({ userRole: role }))
       .map(() => {
         return;
       });

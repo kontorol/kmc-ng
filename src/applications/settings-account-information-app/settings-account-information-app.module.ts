@@ -4,7 +4,7 @@ import {SettingsAccountInformationComponent} from './settings-account-informatio
 import {routing} from './settings-account-information-app.routes';
 import {RouterModule} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
-import {AreaBlockerModule, KalturaUIModule} from '@kaltura-ng/kaltura-ui';
+import {AreaBlockerModule, KontorolUIModule} from '@kontorol-ng/kontorol-ui';
 import {TranslateModule} from '@ngx-translate/core';
 import {AccountInfoComponent} from './account-info/account-info.component';
 import { InputTextModule } from 'primeng/inputtext';
@@ -21,7 +21,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
     AreaBlockerModule,
     TranslateModule,
     InputTextareaModule,
-    KalturaUIModule
+    KontorolUIModule
   ],
   declarations: [SettingsAccountInformationComponent, AccountInfoComponent]
 })

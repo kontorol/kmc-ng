@@ -1,13 +1,13 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { EntryStore } from '../entry-store.service';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { KalturaEntryStatus } from 'kaltura-ngx-client';
-import { KalturaSourceType } from 'kaltura-ngx-client';
-import { KalturaMediaType } from 'kaltura-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { KontorolEntryStatus } from 'kontorol-ngx-client';
+import { KontorolSourceType } from 'kontorol-ngx-client';
+import { KontorolMediaType } from 'kontorol-ngx-client';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
 import { EntryDetailsWidget } from './entry-details-widget.service';
 
-export interface EntryDetailsKalturaMediaEntry extends KalturaMediaEntry {
+export interface EntryDetailsKontorolMediaEntry extends KontorolMediaEntry {
   recordedEntryId?: string
 }
 
@@ -25,9 +25,9 @@ export class EntryDetails implements OnInit, OnDestroy {
 	public _hasDuration: boolean = false;
 	public _isClip: boolean = false;
 
-	public _currentEntry: EntryDetailsKalturaMediaEntry;
+	public _currentEntry: EntryDetailsKontorolMediaEntry;
 
-	get currentEntry(): EntryDetailsKalturaMediaEntry {
+	get currentEntry(): EntryDetailsKontorolMediaEntry {
 		return this._currentEntry;
 	}
 
@@ -46,15 +46,15 @@ export class EntryDetails implements OnInit, OnDestroy {
 			data => {
 				if (data) {
 					this._currentEntry = data;
-					this._entryHasContent = this._currentEntry.status.toString() !== KalturaEntryStatus.noContent.toString();
-					this._entryReady = this._currentEntry.status.toString() === KalturaEntryStatus.ready.toString();
+					this._entryHasContent = this._currentEntry.status.toString() !== KontorolEntryStatus.noContent.toString();
+					this._entryReady = this._currentEntry.status.toString() === KontorolEntryStatus.ready.toString();
 					const sourceType = this._currentEntry.sourceType.toString();
-					this._isLive = (sourceType === KalturaSourceType.liveStream.toString() ||
-					sourceType === KalturaSourceType.akamaiLive.toString() ||
-					sourceType === KalturaSourceType.akamaiUniversalLive.toString() ||
-					sourceType === KalturaSourceType.manualLiveStream.toString());
-					this._isRecordedLive = (sourceType === KalturaSourceType.recordedLive.toString());
-					this._hasDuration = (this._currentEntry.status !== KalturaEntryStatus.noContent && !this._isLive && this._currentEntry.mediaType.toString() !== KalturaMediaType.image.toString());
+					this._isLive = (sourceType === KontorolSourceType.liveStream.toString() ||
+					sourceType === KontorolSourceType.akamaiLive.toString() ||
+					sourceType === KontorolSourceType.akamaiUniversalLive.toString() ||
+					sourceType === KontorolSourceType.manualLiveStream.toString());
+					this._isRecordedLive = (sourceType === KontorolSourceType.recordedLive.toString());
+					this._hasDuration = (this._currentEntry.status !== KontorolEntryStatus.noContent && !this._isLive && this._currentEntry.mediaType.toString() !== KontorolMediaType.image.toString());
 					this._isClip = !this._isRecordedLive && (this._currentEntry.id !== this._currentEntry.rootEntryId);
 				}
 			}

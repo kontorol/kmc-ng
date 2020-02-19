@@ -1,21 +1,21 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { Observable } from 'rxjs';
 import { subApplicationsConfig } from 'config/sub-applications';
-import { KalturaClient, KalturaRequest } from 'kaltura-ngx-client';
-import { BaseEntryApproveAction } from 'kaltura-ngx-client';
-import { BaseEntryRejectAction } from 'kaltura-ngx-client';
+import { KontorolClient, KontorolRequest } from 'kontorol-ngx-client';
+import { BaseEntryApproveAction } from 'kontorol-ngx-client';
+import { BaseEntryRejectAction } from 'kontorol-ngx-client';
 
 @Injectable()
 export class BulkService implements OnDestroy {
-  constructor(private _kalturaServerClient: KalturaClient,
+  constructor(private _kontorolServerClient: KontorolClient,
               private _appLocalization: AppLocalization) {
   }
 
   ngOnDestroy() {
   }
 
-  private _transmit(requests: KalturaRequest<any>[], chunk: boolean): Observable<{}> {
+  private _transmit(requests: KontorolRequest<any>[], chunk: boolean): Observable<{}> {
     let maxRequestsPerMultiRequest = requests.length;
     if (chunk) {
       maxRequestsPerMultiRequest = subApplicationsConfig.shared.bulkActionsLimit;
@@ -30,7 +30,7 @@ export class BulkService implements OnDestroy {
       start = end;
     }
     const multiRequests = splittedRequests
-      .map(reqChunk => this._kalturaServerClient.multiRequest(reqChunk));
+      .map(reqChunk => this._kontorolServerClient.multiRequest(reqChunk));
 
     return Observable.forkJoin(multiRequests)
       .map(responses => {

@@ -4,27 +4,27 @@ import {
     EndUserPermissionsUser, ManageEndUserPermissionsService,
     UsersFilters
 } from './manage-end-user-permissions.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {BrowserService} from 'app-shared/kmc-shell';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
-import {KalturaCategory} from 'kaltura-ngx-client';
-import {KalturaCategoryUserPermissionLevel} from 'kaltura-ngx-client';
-import {KalturaUpdateMethodType} from 'kaltura-ngx-client';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
+import {KontorolCategory} from 'kontorol-ngx-client';
+import {KontorolCategoryUserPermissionLevel} from 'kontorol-ngx-client';
+import {KontorolUpdateMethodType} from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
 import {
     ManageEndUserPermissionsRefineFiltersService,
     RefineList
 } from './manage-end-user-permissions-refine-filters.service';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export interface UserActionData {
   action: 'activate' | 'deactivate' | 'permissionLevel'| 'updateMethod' | 'delete',
   users: EndUserPermissionsUser | EndUserPermissionsUser[],
   payload: {
-    level?: KalturaCategoryUserPermissionLevel, method?: KalturaUpdateMethodType
+    level?: KontorolCategoryUserPermissionLevel, method?: KontorolUpdateMethodType
   }
 }
 
@@ -35,7 +35,7 @@ export interface UserActionData {
   providers: [
       ManageEndUserPermissionsService,
       ManageEndUserPermissionsRefineFiltersService,
-      KalturaLogger.createLogger('ManageEndUserPermissionsComponent')
+      KontorolLogger.createLogger('ManageEndUserPermissionsComponent')
   ]
 })
 export class ManageEndUserPermissionsComponent implements OnInit, OnDestroy {
@@ -44,8 +44,8 @@ export class ManageEndUserPermissionsComponent implements OnInit, OnDestroy {
   public _users: EndUserPermissionsUser[];
   public _usersCount: number;
   public _actualUsersCount = { updated: false, total: 0};
-  @Input() category: KalturaCategory = null;
-  @Input() parentCategory: KalturaCategory = null;
+  @Input() category: KontorolCategory = null;
+  @Input() parentCategory: KontorolCategory = null;
   @Input() parentPopupWidget: PopupWidgetComponent;
   @Input() categoryInheritUserPermissions = false;
 
@@ -68,7 +68,7 @@ export class ManageEndUserPermissionsComponent implements OnInit, OnDestroy {
               private _refineFiltersService: ManageEndUserPermissionsRefineFiltersService,
               private _browserService: BrowserService,
               private _appLocalization: AppLocalization,
-              private _logger: KalturaLogger) {
+              private _logger: KontorolLogger) {
   }
 
   ngOnInit() {

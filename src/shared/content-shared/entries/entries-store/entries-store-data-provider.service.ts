@@ -2,34 +2,34 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { EntriesDataProvider, EntriesFilters, MetadataProfileData, SortDirection } from './entries-store.service';
 import {
     BaseEntryListAction,
-    KalturaBaseEntry,
-    KalturaClient,
-    KalturaContentDistributionSearchItem,
-    KalturaDetachedResponseProfile,
-    KalturaExternalMediaEntry,
-    KalturaFilterPager,
-    KalturaLiveStreamAdminEntry,
-    KalturaLiveStreamEntry,
-    KalturaMediaEntryFilter,
-    KalturaMetadataSearchItem,
-    KalturaNullableBoolean,
-    KalturaQuizAdvancedFilter,
-    KalturaResponseProfileType,
-    KalturaSearchCondition,
-    KalturaSearchOperator,
-    KalturaSearchOperatorType,
-    KalturaExternalMediaSourceType,
-    KalturaExternalMediaEntryFilter
-} from 'kaltura-ngx-client';
+    KontorolBaseEntry,
+    KontorolClient,
+    KontorolContentDistributionSearchItem,
+    KontorolDetachedResponseProfile,
+    KontorolExternalMediaEntry,
+    KontorolFilterPager,
+    KontorolLiveStreamAdminEntry,
+    KontorolLiveStreamEntry,
+    KontorolMediaEntryFilter,
+    KontorolMetadataSearchItem,
+    KontorolNullableBoolean,
+    KontorolQuizAdvancedFilter,
+    KontorolResponseProfileType,
+    KontorolSearchCondition,
+    KontorolSearchOperator,
+    KontorolSearchOperatorType,
+    KontorolExternalMediaSourceType,
+    KontorolExternalMediaEntryFilter
+} from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
-import { cancelOnDestroy, KalturaUtils } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, KontorolUtils } from '@kontorol-ng/kontorol-common';
 import { CategoriesModes } from 'app-shared/content-shared/categories/categories-mode-type';
 import { MetadataProfileCreateModes, MetadataProfileStore, MetadataProfileTypes } from 'app-shared/kmc-shared';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 
 @Injectable()
 export class EntriesStoreDataProvider implements EntriesDataProvider, OnDestroy {
-  constructor(private _kalturaServerClient: KalturaClient,
+  constructor(private _kontorolServerClient: KontorolClient,
               private _appPermissions: KMCPermissionsService,
               private _metadataProfileService: MetadataProfileStore) {
   }
@@ -39,8 +39,8 @@ export class EntriesStoreDataProvider implements EntriesDataProvider, OnDestroy 
   }
 
   private _updateFilterWithJoinedList(list: any[],
-                                      requestFilter: KalturaMediaEntryFilter,
-                                      requestFilterProperty: keyof KalturaMediaEntryFilter): void {
+                                      requestFilter: KontorolMediaEntryFilter,
+                                      requestFilterProperty: keyof KontorolMediaEntryFilter): void {
     const value = (list || []).map(item => item).join(',');
 
     if (value) {
@@ -64,17 +64,17 @@ export class EntriesStoreDataProvider implements EntriesDataProvider, OnDestroy 
       });
   }
 
-  public getServerFilter(data: EntriesFilters): Observable<KalturaMediaEntryFilter> {
+  public getServerFilter(data: EntriesFilters): Observable<KontorolMediaEntryFilter> {
     try {
       return this._getMetadataProfiles()
         .map(metadataProfiles => {
           // create request items
             const filter = data.youtubeVideo
-                ? new KalturaExternalMediaEntryFilter({ externalSourceTypeEqual: KalturaExternalMediaSourceType.youtube })
-                : new KalturaMediaEntryFilter({});
+                ? new KontorolExternalMediaEntryFilter({ externalSourceTypeEqual: KontorolExternalMediaSourceType.youtube })
+                : new KontorolMediaEntryFilter({});
 
-          const advancedSearch = filter.advancedSearch = new KalturaSearchOperator({});
-          advancedSearch.type = KalturaSearchOperatorType.searchAnd;
+          const advancedSearch = filter.advancedSearch = new KontorolSearchOperator({});
+          advancedSearch.type = KontorolSearchOperatorType.searchAnd;
 
           // filter 'freeText'
           if (data.freetext) {
@@ -84,11 +84,11 @@ export class EntriesStoreDataProvider implements EntriesDataProvider, OnDestroy 
           // filter 'createdAt'
           if (data.createdAt) {
             if (data.createdAt.fromDate) {
-              filter.createdAtGreaterThanOrEqual = KalturaUtils.getStartDateValue(data.createdAt.fromDate);
+              filter.createdAtGreaterThanOrEqual = KontorolUtils.getStartDateValue(data.createdAt.fromDate);
             }
 
             if (data.createdAt.toDate) {
-              filter.createdAtLessThanOrEqual = KalturaUtils.getEndDateValue(data.createdAt.toDate);
+              filter.createdAtLessThanOrEqual = KontorolUtils.getEndDateValue(data.createdAt.toDate);
             }
           }
 
@@ -103,16 +103,16 @@ export class EntriesStoreDataProvider implements EntriesDataProvider, OnDestroy 
 
           // filter video quiz
             if (data.videoQuiz) {
-                advancedSearch.items.push(new KalturaSearchOperator({
-                    type: KalturaSearchOperatorType.searchOr,
-                    items: [new KalturaQuizAdvancedFilter({ isQuiz: KalturaNullableBoolean.trueValue })]
+                advancedSearch.items.push(new KontorolSearchOperator({
+                    type: KontorolSearchOperatorType.searchOr,
+                    items: [new KontorolQuizAdvancedFilter({ isQuiz: KontorolNullableBoolean.trueValue })]
                 }));
             }
 
           // filter 'distribution'
           if (data.distributions && data.distributions.length > 0) {
-            const distributionItem = new KalturaSearchOperator({
-              type: KalturaSearchOperatorType.searchOr
+            const distributionItem = new KontorolSearchOperator({
+              type: KontorolSearchOperatorType.searchOr
             });
 
             advancedSearch.items.push(distributionItem);
@@ -120,7 +120,7 @@ export class EntriesStoreDataProvider implements EntriesDataProvider, OnDestroy 
             data.distributions.forEach(item => {
               // very complex way to make sure the value is number (an also bypass both typescript and tslink checks)
               if (isFinite(+item) && parseInt(item) == <any>item) { // tslint:disable-line
-                const newItem = new KalturaContentDistributionSearchItem(
+                const newItem = new KontorolContentDistributionSearchItem(
                   {
                     distributionProfileId: +item,
                     hasEntryDistributionValidationErrors: false,
@@ -135,22 +135,22 @@ export class EntriesStoreDataProvider implements EntriesDataProvider, OnDestroy 
 
           // filter 'originalClippedEntries'
           if (data.originalClippedEntries && data.originalClippedEntries.length > 0) {
-            let originalClippedEntriesValue: KalturaNullableBoolean = null;
+            let originalClippedEntriesValue: KontorolNullableBoolean = null;
 
             data.originalClippedEntries.forEach(item => {
               switch (item) {
                 case '0':
                   if (originalClippedEntriesValue == null) {
-                    originalClippedEntriesValue = KalturaNullableBoolean.falseValue;
-                  } else if (originalClippedEntriesValue === KalturaNullableBoolean.trueValue) {
-                    originalClippedEntriesValue = KalturaNullableBoolean.nullValue;
+                    originalClippedEntriesValue = KontorolNullableBoolean.falseValue;
+                  } else if (originalClippedEntriesValue === KontorolNullableBoolean.trueValue) {
+                    originalClippedEntriesValue = KontorolNullableBoolean.nullValue;
                   }
                   break;
                 case '1':
                   if (originalClippedEntriesValue == null) {
-                    originalClippedEntriesValue = KalturaNullableBoolean.trueValue;
-                  } else if (originalClippedEntriesValue === KalturaNullableBoolean.falseValue) {
-                    originalClippedEntriesValue = KalturaNullableBoolean.nullValue;
+                    originalClippedEntriesValue = KontorolNullableBoolean.trueValue;
+                  } else if (originalClippedEntriesValue === KontorolNullableBoolean.falseValue) {
+                    originalClippedEntriesValue = KontorolNullableBoolean.nullValue;
                   }
                   break;
               }
@@ -186,17 +186,17 @@ export class EntriesStoreDataProvider implements EntriesDataProvider, OnDestroy 
                 case 'scheduled':
                   if (data.scheduledAt.fromDate) {
                     if (filter.startDateGreaterThanOrEqual === undefined
-                      || filter.startDateGreaterThanOrEqual > (KalturaUtils.getStartDateValue(data.scheduledAt.fromDate))
+                      || filter.startDateGreaterThanOrEqual > (KontorolUtils.getStartDateValue(data.scheduledAt.fromDate))
                     ) {
-                      filter.startDateGreaterThanOrEqual = (KalturaUtils.getStartDateValue(data.scheduledAt.fromDate));
+                      filter.startDateGreaterThanOrEqual = (KontorolUtils.getStartDateValue(data.scheduledAt.fromDate));
                     }
                   }
 
                   if (data.scheduledAt.toDate) {
                     if (filter.endDateLessThanOrEqual === undefined
-                      || filter.endDateLessThanOrEqual < (KalturaUtils.getEndDateValue(data.scheduledAt.toDate))
+                      || filter.endDateLessThanOrEqual < (KontorolUtils.getEndDateValue(data.scheduledAt.toDate))
                     ) {
-                      filter.endDateLessThanOrEqual = (KalturaUtils.getEndDateValue(data.scheduledAt.toDate));
+                      filter.endDateLessThanOrEqual = (KontorolUtils.getEndDateValue(data.scheduledAt.toDate));
                     }
                   }
 
@@ -213,10 +213,10 @@ export class EntriesStoreDataProvider implements EntriesDataProvider, OnDestroy 
             metadataProfiles.forEach(metadataProfile => {
               // create advanced item for all metadata profiles regardless if the user filtered by them or not.
               // this is needed so freetext will include all metadata profiles while searching.
-              const metadataItem: KalturaMetadataSearchItem = new KalturaMetadataSearchItem(
+              const metadataItem: KontorolMetadataSearchItem = new KontorolMetadataSearchItem(
                 {
                   metadataProfileId: metadataProfile.id,
-                  type: KalturaSearchOperatorType.searchAnd,
+                  type: KontorolSearchOperatorType.searchAnd,
                   items: []
                 }
               );
@@ -225,15 +225,15 @@ export class EntriesStoreDataProvider implements EntriesDataProvider, OnDestroy 
               metadataProfile.lists.forEach(list => {
                 const metadataProfileFilters = data.customMetadata[list.id];
                 if (metadataProfileFilters && metadataProfileFilters.length > 0) {
-                  const innerMetadataItem: KalturaMetadataSearchItem = new KalturaMetadataSearchItem({
+                  const innerMetadataItem: KontorolMetadataSearchItem = new KontorolMetadataSearchItem({
                     metadataProfileId: metadataProfile.id,
-                    type: KalturaSearchOperatorType.searchOr,
+                    type: KontorolSearchOperatorType.searchOr,
                     items: []
                   });
                   metadataItem.items.push(innerMetadataItem);
 
                   metadataProfileFilters.forEach(filterItem => {
-                    const searchItem = new KalturaSearchCondition({
+                    const searchItem = new KontorolSearchCondition({
                       field: `/*[local-name()='metadata']/*[local-name()='${list.name}']`,
                       value: filterItem
                     });
@@ -285,16 +285,16 @@ export class EntriesStoreDataProvider implements EntriesDataProvider, OnDestroy 
     }
   }
 
-  public executeQuery(data: EntriesFilters): Observable<{ entries: KalturaBaseEntry[], totalCount?: number }> {
-    const responseProfile: KalturaDetachedResponseProfile = new KalturaDetachedResponseProfile({
-      type: KalturaResponseProfileType.includeFields,
+  public executeQuery(data: EntriesFilters): Observable<{ entries: KontorolBaseEntry[], totalCount?: number }> {
+    const responseProfile: KontorolDetachedResponseProfile = new KontorolDetachedResponseProfile({
+      type: KontorolResponseProfileType.includeFields,
       fields: 'id,name,thumbnailUrl,mediaType,plays,createdAt,duration,status,startDate,endDate,moderationStatus,moderationCount,tags,categoriesIds,downloadUrl,sourceType,entitledUsersPublish,entitledUsersView,entitledUsersEdit,externalSourceType,capabilities'
     });
-    let pagination: KalturaFilterPager = null;
+    let pagination: KontorolFilterPager = null;
 
     // update pagination args
     if (data.pageIndex || data.pageSize) {
-      pagination = new KalturaFilterPager(
+      pagination = new KontorolFilterPager(
         {
           pageSize: data.pageSize,
           pageIndex: data.pageIndex + 1
@@ -305,13 +305,13 @@ export class EntriesStoreDataProvider implements EntriesDataProvider, OnDestroy 
     // build the request
     return <any>
       this.getServerFilter(data)
-        .switchMap(filter => this._kalturaServerClient.request(
+        .switchMap(filter => this._kontorolServerClient.request(
           new BaseEntryListAction({
             filter,
             pager: pagination,
           }).setRequestOptions({
                   responseProfile,
-                  acceptedTypes: [KalturaLiveStreamAdminEntry, KalturaLiveStreamEntry, KalturaExternalMediaEntry]
+                  acceptedTypes: [KontorolLiveStreamAdminEntry, KontorolLiveStreamEntry, KontorolExternalMediaEntry]
               })
         )).map(response => ({ entries: response.objects, totalCount: response.totalCount })
       );

@@ -1,6 +1,6 @@
-import { KalturaUploadFile } from 'app-shared/kmc-shared';
+import { KontorolUploadFile } from 'app-shared/kmc-shared';
 
-export class NewEntryRelatedFile extends KalturaUploadFile {
+export class NewEntryRelatedFile extends KontorolUploadFile {
   public assetId?: string;
   constructor(file: File) {
     super(file);

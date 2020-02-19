@@ -1,11 +1,11 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
 import {TranscodingProfilesService} from './transcoding-profiles.service';
 import {BrowserService} from 'app-shared/kmc-shell';
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
-import {KalturaMediaType} from 'kaltura-ngx-client';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
+import {KontorolMediaType} from 'kontorol-ngx-client';
 
 @Component({
   selector: 'kTranscodingProfileSelect',
@@ -16,7 +16,7 @@ import {KalturaMediaType} from 'kaltura-ngx-client';
 export class TranscodingProfileSelectComponent implements OnInit {
   @Output() onTranscodingProfileSelected = new EventEmitter<{ profileId?: number }>();
   @Input() parentPopupWidget: PopupWidgetComponent;
-  @Input() mediaType: KalturaMediaType.video | KalturaMediaType.audio;
+  @Input() mediaType: KontorolMediaType.video | KontorolMediaType.audio;
   public _title: string;
   public transcodingProfileSelectForm: FormGroup;
   public _profiles: { label: string, value: number }[] = [];
@@ -31,7 +31,7 @@ export class TranscodingProfileSelectComponent implements OnInit {
   }
 
   ngOnInit() {
-    this._title = this.mediaType === KalturaMediaType.video ?
+    this._title = this.mediaType === KontorolMediaType.video ?
       this._appLocalization.get('applications.upload.transcodingProfilesSelect.titleVideo') :
       this._appLocalization.get('applications.upload.transcodingProfilesSelect.titleAudio');
     this._updateAreaBlockerState(true, null);

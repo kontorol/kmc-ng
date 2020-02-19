@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { KalturaClient } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
 
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { KalturaBaseEntry } from 'kaltura-ngx-client';
-import { BaseEntryUpdateAction } from 'kaltura-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { KontorolBaseEntry } from 'kontorol-ngx-client';
+import { BaseEntryUpdateAction } from 'kontorol-ngx-client';
 import { BulkActionBaseService } from './bulk-action-base.service';
 
 export type SchedulingParams = {
@@ -17,17 +17,17 @@ export type SchedulingParams = {
 @Injectable()
 export class BulkSchedulingService extends BulkActionBaseService<SchedulingParams> {
 
-  constructor(_kalturaServerClient: KalturaClient) {
-    super(_kalturaServerClient);
+  constructor(_kontorolServerClient: KontorolClient) {
+    super(_kontorolServerClient);
   }
 
-  public execute(selectedEntries: KalturaMediaEntry[], schedulingParams : SchedulingParams) : Observable<{}>{
+  public execute(selectedEntries: KontorolMediaEntry[], schedulingParams : SchedulingParams) : Observable<{}>{
     return Observable.create(observer =>{
 
       let requests: BaseEntryUpdateAction[] = [];
 
       selectedEntries.forEach(entry => {
-        let updatedEntry: KalturaBaseEntry = new KalturaBaseEntry();
+        let updatedEntry: KontorolBaseEntry = new KontorolBaseEntry();
         if (schedulingParams.scheduling === "scheduled"){
           if (schedulingParams.startDate) {
             updatedEntry.startDate = schedulingParams.startDate;

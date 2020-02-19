@@ -2,26 +2,26 @@ import {Injectable, OnDestroy} from '@angular/core';
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs';
 
-import {KalturaClient} from 'kaltura-ngx-client';
-import {KalturaMediaEntryFilter} from 'kaltura-ngx-client';
-import {KalturaFilterPager} from 'kaltura-ngx-client';
-import {KalturaDetachedResponseProfile} from 'kaltura-ngx-client';
-import {KalturaResponseProfileType} from 'kaltura-ngx-client';
-import {KalturaMediaEntry} from 'kaltura-ngx-client';
-import {KalturaClipAttributes} from 'kaltura-ngx-client';
-import {KalturaOperationAttributes} from 'kaltura-ngx-client';
-import {BaseEntryListAction} from 'kaltura-ngx-client';
-import {KalturaUtils} from '@kaltura-ng/kaltura-common';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
+import {KontorolClient} from 'kontorol-ngx-client';
+import {KontorolMediaEntryFilter} from 'kontorol-ngx-client';
+import {KontorolFilterPager} from 'kontorol-ngx-client';
+import {KontorolDetachedResponseProfile} from 'kontorol-ngx-client';
+import {KontorolResponseProfileType} from 'kontorol-ngx-client';
+import {KontorolMediaEntry} from 'kontorol-ngx-client';
+import {KontorolClipAttributes} from 'kontorol-ngx-client';
+import {KontorolOperationAttributes} from 'kontorol-ngx-client';
+import {BaseEntryListAction} from 'kontorol-ngx-client';
+import {KontorolUtils} from '@kontorol-ng/kontorol-common';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
 
 
 import {EntryStore} from '../entry-store.service';
 import {BrowserService} from "app-shared/kmc-shell/providers/browser.service";
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 import {EntryWidget} from '../entry-widget';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 import { ContentEntryViewSections } from 'app-shared/kmc-shared/kmc-views/details-views/content-entry-view.service';
 import { AppEventsService } from 'app-shared/kmc-shared';
 import { UpdateClipsEvent } from 'app-shared/kmc-shared/events/update-clips-event';
@@ -53,11 +53,11 @@ export class EntryClipsWidget extends EntryWidget implements OnDestroy {
   public pageSizesAvailable = [25, 50, 75, 100];
 
   constructor(private _store: EntryStore,
-              private _kalturaServerClient: KalturaClient,
+              private _kontorolServerClient: KontorolClient,
               private browserService: BrowserService,
               private _appLocalization: AppLocalization,
               private _appEvents: AppEventsService,
-              logger: KalturaLogger) {
+              logger: KontorolLogger) {
     super(ContentEntryViewSections.Clips, logger);
 
       this._appEvents.event(UpdateClipsEvent)
@@ -97,7 +97,7 @@ export class EntryClipsWidget extends EntryWidget implements OnDestroy {
     }
   }
 
-  public navigateToEntry(entry: KalturaMediaEntry): void {
+  public navigateToEntry(entry: KontorolMediaEntry): void {
     this._store.openEntry(entry);
   }
 
@@ -109,47 +109,47 @@ export class EntryClipsWidget extends EntryWidget implements OnDestroy {
     return clips;
   }
 
-  private _getClipOffset(entry: KalturaMediaEntry): string {
+  private _getClipOffset(entry: KontorolMediaEntry): string {
     let offset: number = -1;
     if (entry.operationAttributes && entry.operationAttributes.length) {
-      entry.operationAttributes.forEach((attr: KalturaOperationAttributes) => {
-        if (attr instanceof KalturaClipAttributes) {
+      entry.operationAttributes.forEach((attr: KontorolOperationAttributes) => {
+        if (attr instanceof KontorolClipAttributes) {
           if (attr.offset && offset === -1) { // take the first offset we find as in legacy KMC
             offset = attr.offset / 1000;
           }
         }
       });
     }
-    return offset !== -1 ? KalturaUtils.formatTime(offset) : this._appLocalization.get('applications.content.entryDetails.clips.n_a');
+    return offset !== -1 ? KontorolUtils.formatTime(offset) : this._appLocalization.get('applications.content.entryDetails.clips.n_a');
   }
 
-  private _getClipDuration(entry: KalturaMediaEntry): string {
-    return entry.duration ? KalturaUtils.formatTime(entry.duration) : this._appLocalization.get('applications.content.entryDetails.clips.n_a');
+  private _getClipDuration(entry: KontorolMediaEntry): string {
+    return entry.duration ? KontorolUtils.formatTime(entry.duration) : this._appLocalization.get('applications.content.entryDetails.clips.n_a');
   }
 
   private _getEntryClips(origin: 'activation' | 'reload'): Observable<{ failed: boolean, error?: Error }> {
     return Observable.create(observer => {
-      const entry: KalturaMediaEntry = this.data;
+      const entry: KontorolMediaEntry = this.data;
 
       super._showLoader();
 
       // build the request
-      let requestSubscription = this._kalturaServerClient.request(new BaseEntryListAction({
-        filter: new KalturaMediaEntryFilter(
+      let requestSubscription = this._kontorolServerClient.request(new BaseEntryListAction({
+        filter: new KontorolMediaEntryFilter(
           {
             rootEntryIdEqual: entry.id,
             orderBy: `${this.sortOrder === 1 ? '+' : '-'}${this.sortBy}`
           }
         ),
-        pager: new KalturaFilterPager(
+        pager: new KontorolFilterPager(
           {
             pageSize: this.pageSize,
             pageIndex: this.pageIndex + 1
           }
         )
       }).setRequestOptions({
-        responseProfile: new KalturaDetachedResponseProfile({
-          type: KalturaResponseProfileType.includeFields,
+        responseProfile: new KontorolDetachedResponseProfile({
+          type: KontorolResponseProfileType.includeFields,
           fields: 'id,name,plays,createdAt,duration,status,offset,operationAttributes,moderationStatus'
         })
       }))
@@ -199,7 +199,7 @@ export class EntryClipsWidget extends EntryWidget implements OnDestroy {
   }
 
   protected onActivate(firstTimeActivating: boolean) {
-    const entry: KalturaMediaEntry = this.data ? this.data as KalturaMediaEntry : null;
+    const entry: KontorolMediaEntry = this.data ? this.data as KontorolMediaEntry : null;
     return this._getEntryClips('activation');
   }
 

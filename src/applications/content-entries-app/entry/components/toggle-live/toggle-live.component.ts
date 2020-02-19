@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { KalturaLiveStreamEntry } from 'kaltura-ngx-client';
+import { KontorolLiveStreamEntry } from 'kontorol-ngx-client';
 import { ToggleLiveService } from './toggle-live.service';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
 
 @Component({
     selector: 'k-toggle-live-btn',
@@ -10,7 +10,7 @@ import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
     providers: [ToggleLiveService],
 })
 export class ToggleLiveComponent implements OnInit, OnDestroy {
-    @Input() entry: KalturaLiveStreamEntry;
+    @Input() entry: KontorolLiveStreamEntry;
 
     public _isPreview = false;
     public _canToggle$ = this._toggleLiveService.canToggle$;

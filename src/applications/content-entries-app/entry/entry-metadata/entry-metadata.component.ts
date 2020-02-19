@@ -2,17 +2,17 @@ import { Component,  QueryList, ViewChildren, ElementRef, Inject, ViewChild, Aft
 import { DOCUMENT } from '@angular/common';
 
 import { Subject } from 'rxjs/Subject';
-import { SuggestionsProviderData } from '@kaltura-ng/kaltura-primeng-ui';
-import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
+import { SuggestionsProviderData } from '@kontorol-ng/kontorol-primeng-ui';
+import { PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
 
 import { MenuItem } from 'primeng/api';
 import { ISubscription } from 'rxjs/Subscription';
 import { EntryMetadataWidget } from './entry-metadata-widget.service';
 import { PageScrollService, PageScrollInstance } from 'ngx-page-scroll';
 import { JumpToSection } from './jump-to-section.component';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { CategoryTooltipPipe } from 'app-shared/content-shared/categories/category-tooltip.pipe';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
 import { CategoriesStatusMonitorService, CategoriesStatus } from 'app-shared/content-shared/categories-status/categories-status-monitor.service';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';

@@ -4,39 +4,39 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs';
 import {ISubscription} from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
-import {KalturaFilterPager, PlaylistGetAction} from 'kaltura-ngx-client';
-import {KalturaClient, KalturaMultiRequest, KalturaMultiResponse, KalturaRequest} from 'kaltura-ngx-client';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import {KontorolFilterPager, PlaylistGetAction} from 'kontorol-ngx-client';
+import {KontorolClient, KontorolMultiRequest, KontorolMultiResponse, KontorolRequest} from 'kontorol-ngx-client';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 import {
   FiltersStoreBase,
   NumberTypeAdapter,
   StringTypeAdapter,
   TypeAdaptersMapping
-} from '@kaltura-ng/mc-shared';
-import {KalturaSearchOperator} from 'kaltura-ngx-client';
-import {KalturaSearchOperatorType} from 'kaltura-ngx-client';
-import {SyndicationFeedListAction} from 'kaltura-ngx-client';
-import {KalturaBaseSyndicationFeedFilter} from 'kaltura-ngx-client';
-import {KalturaTubeMogulSyndicationFeedOrderBy} from 'kaltura-ngx-client';
-import {KalturaBaseSyndicationFeed} from 'kaltura-ngx-client';
-import {KalturaGenericSyndicationFeed} from 'kaltura-ngx-client';
-import {KalturaGenericXsltSyndicationFeed} from 'kaltura-ngx-client';
-import {KalturaBaseSyndicationFeedListResponse} from 'kaltura-ngx-client';
-import {KalturaPlaylistFilter} from 'kaltura-ngx-client';
-import {KalturaPlaylist} from 'kaltura-ngx-client';
-import {PlaylistListAction} from 'kaltura-ngx-client';
-import {KalturaPlaylistOrderBy} from 'kaltura-ngx-client';
-import {KalturaPlaylistListResponse} from 'kaltura-ngx-client';
-import {SyndicationFeedDeleteAction} from 'kaltura-ngx-client';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
-import {KalturaSyndicationFeedEntryCount} from 'kaltura-ngx-client';
-import {SyndicationFeedGetEntryCountAction} from 'kaltura-ngx-client';
-import {SyndicationFeedAddAction} from 'kaltura-ngx-client';
-import {SyndicationFeedUpdateAction} from 'kaltura-ngx-client';
+} from '@kontorol-ng/mc-shared';
+import {KontorolSearchOperator} from 'kontorol-ngx-client';
+import {KontorolSearchOperatorType} from 'kontorol-ngx-client';
+import {SyndicationFeedListAction} from 'kontorol-ngx-client';
+import {KontorolBaseSyndicationFeedFilter} from 'kontorol-ngx-client';
+import {KontorolTubeMogulSyndicationFeedOrderBy} from 'kontorol-ngx-client';
+import {KontorolBaseSyndicationFeed} from 'kontorol-ngx-client';
+import {KontorolGenericSyndicationFeed} from 'kontorol-ngx-client';
+import {KontorolGenericXsltSyndicationFeed} from 'kontorol-ngx-client';
+import {KontorolBaseSyndicationFeedListResponse} from 'kontorol-ngx-client';
+import {KontorolPlaylistFilter} from 'kontorol-ngx-client';
+import {KontorolPlaylist} from 'kontorol-ngx-client';
+import {PlaylistListAction} from 'kontorol-ngx-client';
+import {KontorolPlaylistOrderBy} from 'kontorol-ngx-client';
+import {KontorolPlaylistListResponse} from 'kontorol-ngx-client';
+import {SyndicationFeedDeleteAction} from 'kontorol-ngx-client';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
+import {KontorolSyndicationFeedEntryCount} from 'kontorol-ngx-client';
+import {SyndicationFeedGetEntryCountAction} from 'kontorol-ngx-client';
+import {SyndicationFeedAddAction} from 'kontorol-ngx-client';
+import {SyndicationFeedUpdateAction} from 'kontorol-ngx-client';
 import { subApplicationsConfig } from 'config/sub-applications';
 import { ContentSyndicationMainViewService } from 'app-shared/kmc-shared/kmc-views';
 import { globalConfig } from 'config/global';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export interface UpdateStatus {
   loading: boolean;
@@ -44,7 +44,7 @@ export interface UpdateStatus {
 }
 
 export interface Feeds {
-  items: KalturaBaseSyndicationFeed[],
+  items: KontorolBaseSyndicationFeed[],
   totalCount: number
 }
 
@@ -83,11 +83,11 @@ export class FeedsService extends FiltersStoreBase<FeedsFilters> implements OnDe
   private readonly _pageSizeCacheKey = 'feeds.list.pageSize';
 
 
-  constructor(private _kalturaClient: KalturaClient,
+  constructor(private _kontorolClient: KontorolClient,
               contentSyndicationMainView: ContentSyndicationMainViewService,
               private _browserService: BrowserService,
               private _appLocalization: AppLocalization,
-              _logger: KalturaLogger) {
+              _logger: KontorolLogger) {
     super(_logger);
     if (contentSyndicationMainView.isAvailable()) {
         this._prepare();
@@ -166,13 +166,13 @@ export class FeedsService extends FiltersStoreBase<FeedsFilters> implements OnDe
   private buildQueryRequest(): Observable<Feeds> {
     try {
       // create request items
-      const filter: KalturaBaseSyndicationFeedFilter = new KalturaBaseSyndicationFeedFilter({
-        orderBy: KalturaTubeMogulSyndicationFeedOrderBy.createdAtDesc.toString()
+      const filter: KontorolBaseSyndicationFeedFilter = new KontorolBaseSyndicationFeedFilter({
+        orderBy: KontorolTubeMogulSyndicationFeedOrderBy.createdAtDesc.toString()
       });
-      let pagination: KalturaFilterPager = null;
+      let pagination: KontorolFilterPager = null;
 
-      const advancedSearch = filter.advancedSearch = new KalturaSearchOperator({});
-      advancedSearch.type = KalturaSearchOperatorType.searchAnd;
+      const advancedSearch = filter.advancedSearch = new KontorolSearchOperator({});
+      advancedSearch.type = KontorolSearchOperatorType.searchAnd;
 
       const data: FeedsFilters = this._getFiltersAsReadonly();
 
@@ -184,7 +184,7 @@ export class FeedsService extends FiltersStoreBase<FeedsFilters> implements OnDe
 
       // update pagination args
       if (data.pageIndex || data.pageSize) {
-        pagination = new KalturaFilterPager(
+        pagination = new KontorolFilterPager(
           {
             pageSize: data.pageSize,
             pageIndex: data.pageIndex + 1
@@ -198,16 +198,16 @@ export class FeedsService extends FiltersStoreBase<FeedsFilters> implements OnDe
       }
 
       // build the request
-      return this._kalturaClient.request(
+      return this._kontorolClient.request(
         new SyndicationFeedListAction({
           filter,
           pager: pagination
         })
-      ).map((response: KalturaBaseSyndicationFeedListResponse) => {
-        const feedsArray: KalturaBaseSyndicationFeed[] = [];
+      ).map((response: KontorolBaseSyndicationFeedListResponse) => {
+        const feedsArray: KontorolBaseSyndicationFeed[] = [];
         response.objects.forEach(feed => {
-          if (feed instanceof KalturaBaseSyndicationFeed) {
-            if (feed instanceof KalturaGenericSyndicationFeed && !(feed instanceof KalturaGenericXsltSyndicationFeed)) {
+          if (feed instanceof KontorolBaseSyndicationFeed) {
+            if (feed instanceof KontorolGenericSyndicationFeed && !(feed instanceof KontorolGenericXsltSyndicationFeed)) {
               this._logger.warn(
                 `feed was removed from list since it's a generic syndication feed with XSLT type which is not generic.`, { id: feed.id });
               return undefined; // stop processing this iteration if it's a generic syndication feed with XSLT type which is not generic
@@ -225,20 +225,20 @@ export class FeedsService extends FiltersStoreBase<FeedsFilters> implements OnDe
 
   }
 
-  public getPlaylists(freeText = ''): Observable<KalturaPlaylist[]> {
-    const filter = new KalturaPlaylistFilter({orderBy: KalturaPlaylistOrderBy.createdAtDesc.toString(), freeText: freeText || ''});
-    const pager = new KalturaFilterPager({pageSize: 500});
+  public getPlaylists(freeText = ''): Observable<KontorolPlaylist[]> {
+    const filter = new KontorolPlaylistFilter({orderBy: KontorolPlaylistOrderBy.createdAtDesc.toString(), freeText: freeText || ''});
+    const pager = new KontorolFilterPager({pageSize: 500});
 
-    return this._kalturaClient.request(
+    return this._kontorolClient.request(
       new PlaylistListAction({filter, pager})
     )
-      .map((response: KalturaPlaylistListResponse) => {
-        return response.objects.filter( (playlist: KalturaPlaylist) => !playlist.adminTags || (playlist.adminTags && playlist.adminTags.split(',').indexOf('raptentry') === -1));
+      .map((response: KontorolPlaylistListResponse) => {
+        return response.objects.filter( (playlist: KontorolPlaylist) => !playlist.adminTags || (playlist.adminTags && playlist.adminTags.split(',').indexOf('raptentry') === -1));
       });
 
   }
-  public getPlaylist(id: string): Observable<KalturaPlaylist> {
-    return this._kalturaClient.request(
+  public getPlaylist(id: string): Observable<KontorolPlaylist> {
+    return this._kontorolClient.request(
       new PlaylistGetAction({id})
     );
   }
@@ -273,26 +273,26 @@ export class FeedsService extends FiltersStoreBase<FeedsFilters> implements OnDe
       });
   }
 
-  private _transmit(requests: KalturaRequest<any>[], chunk: boolean): Observable<{}> {
+  private _transmit(requests: KontorolRequest<any>[], chunk: boolean): Observable<{}> {
     let maxRequestsPerMultiRequest = requests.length;
     if (chunk) {
       maxRequestsPerMultiRequest = subApplicationsConfig.shared.bulkActionsLimit;
     }
 
-    const multiRequests: Observable<KalturaMultiResponse>[] = [];
-    let mr: KalturaMultiRequest = new KalturaMultiRequest();
+    const multiRequests: Observable<KontorolMultiResponse>[] = [];
+    let mr: KontorolMultiRequest = new KontorolMultiRequest();
 
     let counter = 0;
     for (let i = 0; i < requests.length; i++) {
       if (counter === maxRequestsPerMultiRequest) {
-        multiRequests.push(this._kalturaClient.multiRequest(mr));
-        mr = new KalturaMultiRequest();
+        multiRequests.push(this._kontorolClient.multiRequest(mr));
+        mr = new KontorolMultiRequest();
         counter = 0;
       }
       mr.requests.push(requests[i]);
       counter++;
     }
-    multiRequests.push(this._kalturaClient.multiRequest(mr));
+    multiRequests.push(this._kontorolClient.multiRequest(mr));
 
     return Observable.forkJoin(multiRequests)
       .map(responses => {
@@ -342,7 +342,7 @@ export class FeedsService extends FiltersStoreBase<FeedsFilters> implements OnDe
     };
   }
 
-  public confirmDelete(feeds: KalturaBaseSyndicationFeed[]): Observable<{ confirmed: boolean, error?: Error }> {
+  public confirmDelete(feeds: KontorolBaseSyndicationFeed[]): Observable<{ confirmed: boolean, error?: Error }> {
 
     if (!feeds || !feeds.length) {
       return Observable.throw(new Error(this._appLocalization.get('applications.content.syndication.errors.deleteAttemptFailed')))
@@ -376,28 +376,28 @@ export class FeedsService extends FiltersStoreBase<FeedsFilters> implements OnDe
     });
   }
 
-  public getFeedEntryCount(feedId: string): Observable<KalturaSyndicationFeedEntryCount> {
+  public getFeedEntryCount(feedId: string): Observable<KontorolSyndicationFeedEntryCount> {
     if (!feedId) {
       return Observable.throw(new Error(this._appLocalization.get('applications.content.syndication.errors.getFeedEntryCount')))
     }
 
-    return this._kalturaClient.request(
+    return this._kontorolClient.request(
       new SyndicationFeedGetEntryCountAction({feedId})
     );
   }
 
-  public update(id: string, syndicationFeed: KalturaBaseSyndicationFeed): Observable<void> {
-    return this._kalturaClient.request(
+  public update(id: string, syndicationFeed: KontorolBaseSyndicationFeed): Observable<void> {
+    return this._kontorolClient.request(
       new SyndicationFeedUpdateAction({id, syndicationFeed})
     )
       .map(() => undefined);
   }
 
-  public create(syndicationFeed: KalturaBaseSyndicationFeed): Observable<KalturaBaseSyndicationFeed> {
+  public create(syndicationFeed: KontorolBaseSyndicationFeed): Observable<KontorolBaseSyndicationFeed> {
     if (syndicationFeed.id) {
       return Observable.throw(new Error('An error occurred while trying to Add Feed. \n Unable to add feed that already exists.'));
     }
-    return this._kalturaClient.request(
+    return this._kontorolClient.request(
       new SyndicationFeedAddAction({syndicationFeed})
     );
   }

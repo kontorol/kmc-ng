@@ -1,15 +1,15 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import {KalturaCategory} from 'kaltura-ngx-client';
+import {KontorolCategory} from 'kontorol-ngx-client';
 import {EntitlementSectionData, EntitlementService} from './entitlement.service';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
 import {BrowserService} from "app-shared/kmc-shell";
 import { serverConfig } from 'config/server';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { SettingsIntegrationSettingsMainViewService } from 'app-shared/kmc-shared/kmc-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kEntitlement',
@@ -17,16 +17,16 @@ import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
   styleUrls: ['./entitlement.component.scss'],
   providers: [
     EntitlementService,
-    KalturaLogger.createLogger('EntitlementComponent')
+    KontorolLogger.createLogger('EntitlementComponent')
   ]
 })
 export class EntitlementComponent implements OnInit, OnDestroy {
 
-  public _entitlements: KalturaCategory[];
+  public _entitlements: KontorolCategory[];
   public _partnerDefaultEntitlementEnforcement: boolean;
   public _blockerMessage: AreaBlockerMessage = null;
   public _isBusy = false;
-  public _currentEditEntitlement: KalturaCategory = null;
+  public _currentEditEntitlement: KontorolCategory = null;
   public _kmcPermissions = KMCPermissions;
   public _manageHelpLinkExists = !!serverConfig.externalLinks.entitlements && !!serverConfig.externalLinks.entitlements.manage;
 
@@ -36,7 +36,7 @@ export class EntitlementComponent implements OnInit, OnDestroy {
 
   constructor(private _entitlementService: EntitlementService,
               private _appLocalization: AppLocalization,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _settingsIntegrationSettingsMainView: SettingsIntegrationSettingsMainViewService,
               private _browserService: BrowserService) {
   }
@@ -50,7 +50,7 @@ export class EntitlementComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  public _onActionSelected({action, entitlement}: { action: string, entitlement: KalturaCategory }) {
+  public _onActionSelected({action, entitlement}: { action: string, entitlement: KontorolCategory }) {
     switch (action) {
       case 'edit':
         this._logger.info(`handle edit entitlement action by user`, { id: entitlement.id, name: entitlement.name });
@@ -81,7 +81,7 @@ export class EntitlementComponent implements OnInit, OnDestroy {
     }
   }
 
-  private _deleteEntitlement(entitlement: KalturaCategory) {
+  private _deleteEntitlement(entitlement: KontorolCategory) {
     this._logger.info(`handle delete entitlement request by user`);
     this._updateAreaBlockerState(true, null);
     this._entitlementService.deleteEntitlement({

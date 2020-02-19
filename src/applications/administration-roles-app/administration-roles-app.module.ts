@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { TagsModule } from '@kaltura-ng/kaltura-ui';
+import { TagsModule } from '@kontorol-ng/kontorol-ui';
 import { KMCShellModule } from 'app-shared/kmc-shell';
 
 import { routing } from './administration-roles-app.routes';
@@ -11,17 +11,17 @@ import { AdministrationRolesComponent } from './administration-roles.component';
 
 import { DynamicMetadataFormModule } from 'app-shared/kmc-shared';
 
-import {LocalizationModule} from '@kaltura-ng/mc-shared';
-import { KalturaPrimeNgUIModule } from '@kaltura-ng/kaltura-primeng-ui';
-import { AreaBlockerModule, KalturaUIModule, StickyModule, TooltipModule } from '@kaltura-ng/kaltura-ui';
-import { AutoCompleteModule } from '@kaltura-ng/kaltura-primeng-ui';
-import { PopupWidgetModule } from '@kaltura-ng/kaltura-ui';
-import { DynamicFormModule } from '@kaltura-ng/kaltura-ui';
-import { DynamicFormModule as PrimeDynamicFormModule } from '@kaltura-ng/kaltura-primeng-ui';
+import {LocalizationModule} from '@kontorol-ng/mc-shared';
+import { KontorolPrimeNgUIModule } from '@kontorol-ng/kontorol-primeng-ui';
+import { AreaBlockerModule, KontorolUIModule, StickyModule, TooltipModule } from '@kontorol-ng/kontorol-ui';
+import { AutoCompleteModule } from '@kontorol-ng/kontorol-primeng-ui';
+import { PopupWidgetModule } from '@kontorol-ng/kontorol-ui';
+import { DynamicFormModule } from '@kontorol-ng/kontorol-ui';
+import { DynamicFormModule as PrimeDynamicFormModule } from '@kontorol-ng/kontorol-primeng-ui';
 import { EditRoleComponent } from './edit-role/edit-role.component';
 import { PermissionsTableComponent } from './permissions-table/permissions-table.component';
 import { TableModule } from 'primeng/table';
-import { MultiSelectModule } from '@kaltura-ng/kaltura-primeng-ui';
+import { MultiSelectModule } from '@kontorol-ng/kontorol-primeng-ui';
 import { RolesListComponent } from './roles-list/roles-list.component';
 import { RolesTableComponent } from './roles-table/roles-table.component';
 import { KMCPermissionsModule } from 'app-shared/kmc-shared/kmc-permissions';
@@ -60,8 +60,8 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     InputTextModule,
     LocalizationModule,
     DynamicMetadataFormModule,
-    KalturaPrimeNgUIModule,
-    KalturaUIModule,
+    KontorolPrimeNgUIModule,
+    KontorolUIModule,
     KMCShellModule,
     MenuModule,
     MultiSelectModule,

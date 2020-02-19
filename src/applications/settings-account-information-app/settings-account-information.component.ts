@@ -1,11 +1,11 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {SettingsAccountInformationService} from './settings-account-information.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import {BrowserService} from 'app-shared/kmc-shell/providers/browser.service';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 import { AppAuthentication } from 'app-shared/kmc-shell';
 import { SettingsAccountInformationMainViewService } from 'app-shared/kmc-shared/kmc-views';
 
@@ -27,7 +27,7 @@ function phoneValidator(): ValidatorFn {
   styleUrls: ['./settings-account-information.component.scss'],
   providers: [
     SettingsAccountInformationService,
-    KalturaLogger.createLogger('SettingsAccountInformationComponent')
+    KontorolLogger.createLogger('SettingsAccountInformationComponent')
   ],
 })
 export class SettingsAccountInformationComponent implements OnInit, OnDestroy {
@@ -42,7 +42,7 @@ export class SettingsAccountInformationComponent implements OnInit, OnDestroy {
               private _appLocalization: AppLocalization,
               private _fb: FormBuilder,
               private _browserService: BrowserService,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _appAuthentication: AppAuthentication,
               private _settingsAccountInformationMainView: SettingsAccountInformationMainViewService) {
   }

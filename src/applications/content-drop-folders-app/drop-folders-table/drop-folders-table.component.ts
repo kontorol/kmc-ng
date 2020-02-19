@@ -10,8 +10,8 @@ import {
     ViewChild
 } from '@angular/core';
 import {Menu} from 'primeng/menu';
-import {KalturaDropFolderFile} from 'kaltura-ngx-client';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
+import {KontorolDropFolderFile} from 'kontorol-ngx-client';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
 import { globalConfig } from 'config/global';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
 import { ColumnsResizeManagerService, ResizableColumnsTableName } from 'app-shared/kmc-shared/columns-resize-manager';
@@ -30,9 +30,9 @@ import { MenuItem } from 'primeng/api';
 })
 
 export class DropFoldersTableComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Input() selectedDropFolders: KalturaDropFolderFile[] = [];
+  @Input() selectedDropFolders: KontorolDropFolderFile[] = [];
 
-  @Input() set dropFolders(data: KalturaDropFolderFile[]) {
+  @Input() set dropFolders(data: KontorolDropFolderFile[]) {
     if (!this._deferredLoading) {
       this._dropFolders = [];
       this.cdRef.detectChanges();
@@ -50,10 +50,10 @@ export class DropFoldersTableComponent implements OnInit, AfterViewInit, OnDestr
 
   @ViewChild('actionsmenu', { static: true }) private actionsMenu: Menu;
 
-  private _deferredDropFolders: KalturaDropFolderFile[];
+  private _deferredDropFolders: KontorolDropFolderFile[];
 
   public _deferredLoading = true;
-  public _dropFolders: KalturaDropFolderFile[] = [];
+  public _dropFolders: KontorolDropFolderFile[] = [];
   public _items: MenuItem[];
   public _emptyMessage = '';
   public _defaultSortOrder = globalConfig.client.views.tables.defaultSortOrder;
@@ -88,7 +88,7 @@ export class DropFoldersTableComponent implements OnInit, AfterViewInit, OnDestr
     this.actionsMenu.hide();
   }
 
-  private _buildMenu(rowIndex: number, folder: KalturaDropFolderFile): void {
+  private _buildMenu(rowIndex: number, folder: KontorolDropFolderFile): void {
     this._items = [
       {
         label: this._appLocalization.get('applications.content.dropFolders.table.delete'),
@@ -98,7 +98,7 @@ export class DropFoldersTableComponent implements OnInit, AfterViewInit, OnDestr
     ];
   }
 
-  private _onActionSelected(action: string, rowIndex: number, folder: KalturaDropFolderFile) {
+  private _onActionSelected(action: string, rowIndex: number, folder: KontorolDropFolderFile) {
     switch (action) {
       case 'remove':
         this.deleteDropFolderFiles.emit(folder);
@@ -115,14 +115,14 @@ export class DropFoldersTableComponent implements OnInit, AfterViewInit, OnDestr
     }
   }
 
-  public _openActionsMenu(event: any, rowIndex: number, folder: KalturaDropFolderFile) {
+  public _openActionsMenu(event: any, rowIndex: number, folder: KontorolDropFolderFile) {
     if (this.actionsMenu) {
       this._buildMenu(rowIndex, folder);
       this.actionsMenu.toggle(event);
     }
   }
 
-  public _dateTooltip(dropFolder: KalturaDropFolderFile) {
+  public _dateTooltip(dropFolder: KontorolDropFolderFile) {
     return this._appLocalization.get('applications.content.dropFolders.table.datesTooltip',
       {
         0: dropFolder.uploadStartDetectedAt ? (new DatePipe(this._browserService)).transform(dropFolder.uploadStartDetectedAt.getTime(), 'dateAndTime') : this._appLocalization.get('applications.content.dropFolders.table.notAvailable'),

@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import {KalturaCategory} from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import {KontorolCategory} from 'kontorol-ngx-client';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
 
 @Component({
@@ -9,13 +9,13 @@ import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
   styleUrls: ['./bulk-operations.component.scss'],
 })
 export class BulkOperationsComponent {
-  @Input() selectedItems: KalturaCategory[] = [];
+  @Input() selectedItems: KontorolCategory[] = [];
   @Input() itemsTotalCount = 0;
 
   @Output() addItem = new EventEmitter<void>();
   @Output() clearSelection = new EventEmitter<void>();
-  @Output() deleteItems = new EventEmitter<KalturaCategory[]>();
-  @Output() moveItems = new EventEmitter<{ items: KalturaCategory[], direction: 'up' | 'down' }>();
+  @Output() deleteItems = new EventEmitter<KontorolCategory[]>();
+  @Output() moveItems = new EventEmitter<{ items: KontorolCategory[], direction: 'up' | 'down' }>();
 
   public _kmcPermissions = KMCPermissions;
 

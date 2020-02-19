@@ -1,26 +1,26 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import {KalturaPlaylist} from 'kaltura-ngx-client';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
-import {KalturaBaseSyndicationFeed} from 'kaltura-ngx-client';
-import {KalturaUiConf} from 'kaltura-ngx-client';
-import {KalturaFlavorParams} from 'kaltura-ngx-client';
+import {KontorolPlaylist} from 'kontorol-ngx-client';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
+import {KontorolBaseSyndicationFeed} from 'kontorol-ngx-client';
+import {KontorolUiConf} from 'kontorol-ngx-client';
+import {KontorolFlavorParams} from 'kontorol-ngx-client';
 import {FeedsService} from 'applications/content-syndication-app/feeds/feeds.service';
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
-import {KalturaSyndicationFeedType} from 'kaltura-ngx-client';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
+import {KontorolSyndicationFeedType} from 'kontorol-ngx-client';
 import {FlavoursStore} from 'app-shared/kmc-shared';
 import { Observable } from 'rxjs';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import {KalturaSyndicationFeedEntryCount} from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import {KontorolSyndicationFeedEntryCount} from 'kontorol-ngx-client';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {PlayersStore} from 'app-shared/kmc-shared/players/players-store.service';
-import {KalturaPlaylistType} from 'kaltura-ngx-client';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import {KontorolPlaylistType} from 'kontorol-ngx-client';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 import {PlayerTypes} from 'app-shared/kmc-shared/players';
 import { KMCPermissions , KMCPermissionsService} from 'app-shared/kmc-shared/kmc-permissions';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export abstract class DestinationComponentBase {
-  abstract getData(): KalturaBaseSyndicationFeed;
+  abstract getData(): KontorolBaseSyndicationFeed;
 }
 
 export type FeedFormMode = 'edit' | 'new';
@@ -29,21 +29,21 @@ export type FeedFormMode = 'edit' | 'new';
   selector: 'kFeedDetails',
   templateUrl: './feed-details.component.html',
   styleUrls: ['./feed-details.component.scss'],
-    providers: [KalturaLogger.createLogger('FeedDetailsComponent')]
+    providers: [KontorolLogger.createLogger('FeedDetailsComponent')]
 })
 export class FeedDetailsComponent implements OnInit, OnDestroy {
   public _kmcPermissions = KMCPermissions;
   @Input() parentPopupWidget: PopupWidgetComponent;
 
   @Input()
-  feed: KalturaBaseSyndicationFeed = null;
+  feed: KontorolBaseSyndicationFeed = null;
 
     @Input() loadingPlaylists = false;
 
     @Input()
-    set playlists(data: KalturaPlaylist[]) {
+    set playlists(data: KontorolPlaylist[]) {
         if (data && data.length) {
-            this._idToPlaylistMap = new Map<string, KalturaPlaylist>();
+            this._idToPlaylistMap = new Map<string, KontorolPlaylist>();
             data.forEach(playlist => {
                 this._idToPlaylistMap.set(playlist.id, playlist);
             });
@@ -62,16 +62,16 @@ export class FeedDetailsComponent implements OnInit, OnDestroy {
 
   @ViewChild(DestinationComponentBase, { static: false }) destinationComponent: DestinationComponentBase;
 
-    public _playlists: KalturaPlaylist[] = [];
-    public _idToPlaylistMap: Map<string, KalturaPlaylist> = null; // map between KalturaPlaylist id to KalturaPlaylist.name object
+    public _playlists: KontorolPlaylist[] = [];
+    public _idToPlaylistMap: Map<string, KontorolPlaylist> = null; // map between KontorolPlaylist id to KontorolPlaylist.name object
   public _form: FormGroup;
-  public _players: KalturaUiConf[] = null;
-  public _flavors: KalturaFlavorParams[] = null;
+  public _players: KontorolUiConf[] = null;
+  public _flavors: KontorolFlavorParams[] = null;
   public _entriesCountData: { count: number, showWarning: boolean, warningCount: number, flavorName: string } =
     {count: 0, showWarning: false, warningCount: 0, flavorName: null};
-  public _availableDestinations: Array<{ value: KalturaSyndicationFeedType, label: string }> = [];
+  public _availableDestinations: Array<{ value: KontorolSyndicationFeedType, label: string }> = [];
   public _availablePlaylists: Array<{ value: string, label: string }> = [];
-  public _kalturaSyndicationFeedType = KalturaSyndicationFeedType;
+  public _kontorolSyndicationFeedType = KontorolSyndicationFeedType;
   public _currentDestinationFormState: { isValid: boolean, isDirty: boolean } = {isValid: true, isDirty: false};
   public _isBusy = false;
   public _blockerMessage: AreaBlockerMessage = null;
@@ -97,7 +97,7 @@ export class FeedDetailsComponent implements OnInit, OnDestroy {
               private _flavorsStore: FlavoursStore,
               private _playersStore: PlayersStore,
               private _permissionsService: KMCPermissionsService,
-              private _logger: KalturaLogger) {
+              private _logger: KontorolLogger) {
     // prepare form
     this._createForm();
   }
@@ -116,32 +116,32 @@ export class FeedDetailsComponent implements OnInit, OnDestroy {
     private _fillAvailableDestinations(): void {
     this._availableDestinations = [
       {
-        value: KalturaSyndicationFeedType.googleVideo,
+        value: KontorolSyndicationFeedType.googleVideo,
         label: this._appLocalization
           .get('applications.content.syndication.details.availableDestinations.google')
       },
       {
-        value: KalturaSyndicationFeedType.yahoo,
+        value: KontorolSyndicationFeedType.yahoo,
         label: this._appLocalization
           .get('applications.content.syndication.details.availableDestinations.yahoo')
       },
       {
-        value: KalturaSyndicationFeedType.itunes,
+        value: KontorolSyndicationFeedType.itunes,
         label: this._appLocalization
           .get('applications.content.syndication.details.availableDestinations.itunes')
       },
       {
-        value: KalturaSyndicationFeedType.rokuDirectPublisher,
+        value: KontorolSyndicationFeedType.rokuDirectPublisher,
         label: this._appLocalization
           .get('applications.content.syndication.details.availableDestinations.roku')
       },
       {
-        value: KalturaSyndicationFeedType.operaTvSnap,
+        value: KontorolSyndicationFeedType.operaTvSnap,
         label: this._appLocalization
           .get('applications.content.syndication.details.availableDestinations.opera')
       },
       {
-        value: KalturaSyndicationFeedType.kalturaXslt,
+        value: KontorolSyndicationFeedType.kontorolXslt,
         label: this._appLocalization
           .get('applications.content.syndication.details.availableDestinations.flexibleFormat')
       }
@@ -167,7 +167,7 @@ export class FeedDetailsComponent implements OnInit, OnDestroy {
         if (this._isPlaylistMissing) {
             this._feedsService.getPlaylist(this.feed.playlistId)
                 .pipe(cancelOnDestroy(this))
-                .subscribe((playlist: KalturaPlaylist) => {
+                .subscribe((playlist: KontorolPlaylist) => {
                     this._idToPlaylistMap.set(playlist.id, playlist);
                     this._playlists.push(playlist);
                     this._availablePlaylists.push({
@@ -230,7 +230,7 @@ export class FeedDetailsComponent implements OnInit, OnDestroy {
   private setEntriesCount(response): void{
       if (response.entriesCount) {
           const showEntriesCountWarning: boolean =
-              [KalturaSyndicationFeedType.googleVideo, KalturaSyndicationFeedType.itunes, KalturaSyndicationFeedType.yahoo].indexOf(this.feed.type) >= 0;
+              [KontorolSyndicationFeedType.googleVideo, KontorolSyndicationFeedType.itunes, KontorolSyndicationFeedType.yahoo].indexOf(this.feed.type) >= 0;
 
           const getFlavorName = () => {
               if (!showEntriesCountWarning) {
@@ -253,7 +253,7 @@ export class FeedDetailsComponent implements OnInit, OnDestroy {
       }
   }
 
-  private _queryData(): Observable<{ players: KalturaUiConf[], flavors: KalturaFlavorParams[], entriesCount?: KalturaSyndicationFeedEntryCount }> {
+  private _queryData(): Observable<{ players: KontorolUiConf[], flavors: KontorolFlavorParams[], entriesCount?: KontorolSyndicationFeedEntryCount }> {
       this._logger.debug(`query data`, { mode: this._mode });
     if (this._mode === 'edit' && (!this.feed || !this.feed.id)) {
         this._logger.warn(`cannot load data for edit mode without feedId`);
@@ -274,7 +274,7 @@ export class FeedDetailsComponent implements OnInit, OnDestroy {
       .map(response => {
         const players = response[0].items.map(player => ({
           id: player.id,
-          version: player.tags.indexOf('kalturaPlayerJs') > -1 ? '3' : '2',
+          version: player.tags.indexOf('kontorolPlayerJs') > -1 ? '3' : '2',
           name: player.name || this._appLocalization.get('applications.content.syndication.details.playerName', {0: player.id})
         }));
 
@@ -360,7 +360,7 @@ export class FeedDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  private _addNewFeed(syndicationFeed: KalturaBaseSyndicationFeed): void {
+  private _addNewFeed(syndicationFeed: KontorolBaseSyndicationFeed): void {
       this._logger.info(`handle add new feed request`);
     this._blockerMessage = null;
 
@@ -400,7 +400,7 @@ export class FeedDetailsComponent implements OnInit, OnDestroy {
       });
   }
 
-  private _updateFeed(id: string, syndicationFeed: KalturaBaseSyndicationFeed): void {
+  private _updateFeed(id: string, syndicationFeed: KontorolBaseSyndicationFeed): void {
       this._logger.info(`handle update feed request`, { feedId: id });
     this._blockerMessage = null;
 

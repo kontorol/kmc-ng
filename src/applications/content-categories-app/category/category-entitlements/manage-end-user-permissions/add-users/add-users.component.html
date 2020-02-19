@@ -2,13 +2,13 @@
   <div class="kContent kOverrideFAIcons">
     <span class="kTitle">{{'applications.content.categoryDetails.entitlements.usersPermissions.addUsers.title' | translate}}</span>
     <div class="kContainer">
-      <div class="kBlock" *ngIf="category.parentId > 0 && category.inheritanceType === _kalturaInheritanceType.manual">
+      <div class="kBlock" *ngIf="category.parentId > 0 && category.inheritanceType === _kontorolInheritanceType.manual">
         <p-radioButton class="kRadio" [(ngModel)]="_selectedPermissionSettings" [value]="'setPermissions'"
                        name="permissionSettings"
                        label="{{'applications.content.categoryDetails.entitlements.usersPermissions.addUsers.setUserPermissions' | translate}}"></p-radioButton>
         <p-radioButton class="kRadio" [(ngModel)]="_selectedPermissionSettings" [value]="'inherit'"
                        name="permissionSettings"
-                       [disabled]="!(category.inheritanceType === _kalturaInheritanceType.manual &&
+                       [disabled]="!(category.inheritanceType === _kontorolInheritanceType.manual &&
                                      parentCategoryMembersCount > 0 && !usersCount)"
                        name="policy"
                        label="{{'applications.content.categoryDetails.entitlements.usersPermissions.addUsers.inheritUser' | translate}}"

@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, OnDestroy } from '@angular/core';
 import { KMCAppMenuItem } from 'app-shared/kmc-shared/kmc-views';
 import { Router, NavigationEnd } from '@angular/router';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kKMCAppContentMenu',

@@ -1,9 +1,9 @@
 import { Observable } from 'rxjs';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { Router } from '@angular/router';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
 import { Title } from '@angular/platform-browser';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { ContextualHelpService } from 'app-shared/kmc-shared/contextual-help/contextual-help.service';
 
 export interface ViewMetadata {
@@ -14,7 +14,7 @@ export interface ViewMetadata {
 
 export abstract class KmcMainViewBaseService {
 
-    constructor(protected _logger: KalturaLogger,
+    constructor(protected _logger: KontorolLogger,
                 protected _browserService: BrowserService,
                 private _router: Router,
                 private _titleService: Title,

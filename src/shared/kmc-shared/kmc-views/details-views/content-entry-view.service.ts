@@ -2,20 +2,20 @@ import { Injectable } from '@angular/core';
 import { KMCPermissionsService, KMCPermissions } from '../../kmc-permissions';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { DetailsViewMetadata, KmcDetailsViewBaseService } from 'app-shared/kmc-shared/kmc-views/kmc-details-view-base.service';
 import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { KalturaMediaType } from 'kaltura-ngx-client';
-import { KalturaExternalMediaEntry } from 'kaltura-ngx-client';
-import { BaseEntryGetAction } from 'kaltura-ngx-client';
-import { KalturaClient } from 'kaltura-ngx-client';
-import { KalturaResponseProfileType } from 'kaltura-ngx-client';
-import { KalturaDetachedResponseProfile } from 'kaltura-ngx-client';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { KontorolMediaType } from 'kontorol-ngx-client';
+import { KontorolExternalMediaEntry } from 'kontorol-ngx-client';
+import { BaseEntryGetAction } from 'kontorol-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { KontorolResponseProfileType } from 'kontorol-ngx-client';
+import { KontorolDetachedResponseProfile } from 'kontorol-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { Title } from '@angular/platform-browser';
 import { ContextualHelpService } from 'app-shared/kmc-shared/contextual-help/contextual-help.service';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export enum ContentEntryViewSections {
     Metadata = 'Metadata',
@@ -34,7 +34,7 @@ export enum ContentEntryViewSections {
 }
 
 export interface ContentEntryViewArgs {
-    entry: KalturaMediaEntry;
+    entry: KontorolMediaEntry;
     section: ContentEntryViewSections;
     activatedRoute?: ActivatedRoute;
     reloadEntriesListOnNavigateOut?: boolean;
@@ -46,10 +46,10 @@ export interface ContentEntryViewArgs {
 export class ContentEntryViewService extends KmcDetailsViewBaseService<ContentEntryViewArgs> {
     constructor(private _appPermissions: KMCPermissionsService,
                 private _appLocalization: AppLocalization,
-                private _kalturaClient: KalturaClient,
+                private _kontorolClient: KontorolClient,
                 private _router: Router,
                 _browserService: BrowserService,
-                _logger: KalturaLogger,
+                _logger: KontorolLogger,
                 _titleService: Title,
                 _contextualHelpService: ContextualHelpService) {
         super(_logger.subLogger('ContentEntryViewService'), _browserService, _titleService, _contextualHelpService);
@@ -72,11 +72,11 @@ export class ContentEntryViewService extends KmcDetailsViewBaseService<ContentEn
         return this._isSectionEnabled(section, args.entry);
     }
 
-    private _isLiveMediaEntry(mediaType: KalturaMediaType): boolean {
-        return mediaType === KalturaMediaType.liveStreamFlash ||
-            mediaType === KalturaMediaType.liveStreamWindowsMedia ||
-            mediaType === KalturaMediaType.liveStreamRealMedia ||
-            mediaType === KalturaMediaType.liveStreamQuicktime;
+    private _isLiveMediaEntry(mediaType: KontorolMediaType): boolean {
+        return mediaType === KontorolMediaType.liveStreamFlash ||
+            mediaType === KontorolMediaType.liveStreamWindowsMedia ||
+            mediaType === KontorolMediaType.liveStreamRealMedia ||
+            mediaType === KontorolMediaType.liveStreamQuicktime;
     }
 
     private _getSectionFromActivatedRoute(activatedRoute: ActivatedRoute): ContentEntryViewSections {
@@ -182,7 +182,7 @@ export class ContentEntryViewService extends KmcDetailsViewBaseService<ContentEn
         return result;
     }
 
-    private _isSectionEnabled(section: ContentEntryViewSections, entry: KalturaMediaEntry): boolean {
+    private _isSectionEnabled(section: ContentEntryViewSections, entry: KontorolMediaEntry): boolean {
         const availableByData = this._isAvailableByData(section, entry);
         const availableByPermission = this._isAvailableByPermission(section);
 
@@ -190,30 +190,30 @@ export class ContentEntryViewService extends KmcDetailsViewBaseService<ContentEn
         return availableByData && availableByPermission;
     }
 
-    private _isAvailableByData(section: ContentEntryViewSections, entry: KalturaMediaEntry): boolean {
+    private _isAvailableByData(section: ContentEntryViewSections, entry: KontorolMediaEntry): boolean {
         this._logger.debug(`check section availability by data for entry`, { categoryId: entry.id, section });
         const mediaType = entry.mediaType;
-        const externalMedia = entry instanceof KalturaExternalMediaEntry;
+        const externalMedia = entry instanceof KontorolExternalMediaEntry;
         let result = false;
         switch (section) {
             case ContentEntryViewSections.Thumbnails:
-                result = mediaType !== KalturaMediaType.image;
+                result = mediaType !== KontorolMediaType.image;
                 break;
             case ContentEntryViewSections.Flavours:
-                result = mediaType !== KalturaMediaType.image && !this._isLiveMediaEntry(entry.mediaType) && !externalMedia;
+                result = mediaType !== KontorolMediaType.image && !this._isLiveMediaEntry(entry.mediaType) && !externalMedia;
                 break;
             case ContentEntryViewSections.Captions:
             case ContentEntryViewSections.Advertisements:
-                result = mediaType !== KalturaMediaType.image && !this._isLiveMediaEntry(entry.mediaType);
+                result = mediaType !== KontorolMediaType.image && !this._isLiveMediaEntry(entry.mediaType);
                 break;
             case ContentEntryViewSections.Live:
                 result = this._isLiveMediaEntry(entry.mediaType);
                 break;
             case ContentEntryViewSections.Clips:
-                result = mediaType !== KalturaMediaType.image && !externalMedia;
+                result = mediaType !== KontorolMediaType.image && !externalMedia;
                 break;
             case ContentEntryViewSections.Distribution:
-                result = !this._isLiveMediaEntry(entry.mediaType) && mediaType !== KalturaMediaType.audio && mediaType !== KalturaMediaType.image;
+                result = !this._isLiveMediaEntry(entry.mediaType) && mediaType !== KontorolMediaType.audio && mediaType !== KontorolMediaType.image;
                 break;
             case ContentEntryViewSections.AccessControl:
             case ContentEntryViewSections.Scheduling:
@@ -286,20 +286,20 @@ export class ContentEntryViewService extends KmcDetailsViewBaseService<ContentEn
         this._logger.info('handle open entry view by id request by the user, load entry data', { entryId });
         const baseEntryAction = new BaseEntryGetAction({ entryId })
             .setRequestOptions({
-                responseProfile: new KalturaDetachedResponseProfile({
-                    type: KalturaResponseProfileType.includeFields,
+                responseProfile: new KontorolDetachedResponseProfile({
+                    type: KontorolResponseProfileType.includeFields,
                     fields: 'id,mediaType'
                 })
             });
 
-        this._kalturaClient
+        this._kontorolClient
             .request(baseEntryAction)
             .pipe(tag('block-shell'))
             .map(response => {
-                if (response instanceof KalturaMediaEntry) {
+                if (response instanceof KontorolMediaEntry) {
                     return response;
                 } else {
-                    throw new Error(`invalid type provided, expected KalturaMediaEntry, got ${typeof response}`);
+                    throw new Error(`invalid type provided, expected KontorolMediaEntry, got ${typeof response}`);
                 }
             })
             .subscribe(

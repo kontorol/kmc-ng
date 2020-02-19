@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError as ObservableThrowError } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { KalturaClient, BaseEntryDeleteAction } from 'kaltura-ngx-client';
+import { KontorolClient, BaseEntryDeleteAction } from 'kontorol-ngx-client';
 import { XInternalXAddBulkDownloadAction } from './entries/bulk-actions/services/XInternalXAddBulkDownloadAction';
 
 @Injectable()
 export class ContentEntriesAppService {
-  constructor(private _kalturaServerClient: KalturaClient) {
+  constructor(private _kontorolServerClient: KontorolClient) {
 
   }
 
@@ -14,13 +14,13 @@ export class ContentEntriesAppService {
       if (!entryId) {
           return ObservableThrowError('missing entryId argument');
       }
-      return this._kalturaServerClient
+      return this._kontorolServerClient
           .request(new BaseEntryDeleteAction({ entryId: entryId }))
           .pipe(map(() => {}));
   }
 
   public downloadEntry(entryIds: string, flavorParamsId: string): Observable<{ email: string }> {
-      return this._kalturaServerClient
+      return this._kontorolServerClient
           .request(new XInternalXAddBulkDownloadAction({ entryIds, flavorParamsId }))
           .pipe(map(email => ({ email })));
   }

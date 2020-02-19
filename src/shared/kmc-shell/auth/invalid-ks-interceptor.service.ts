@@ -3,7 +3,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } fr
 import { Observable } from 'rxjs';
 import { AppAuthentication } from './app-authentication.service';
 import { BrowserService } from '../providers/browser.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 
 @Injectable()
 export class InvalidKsInterceptorService implements HttpInterceptor {
@@ -30,7 +30,7 @@ export class InvalidKsInterceptorService implements HttpInterceptor {
         return next.handle(request)
             .switchMap((event: HttpResponse<any>) => {
 
-                if (event.body && event.body.objectType === "KalturaAPIException" && event.body.code === 'INVALID_KS') {
+                if (event.body && event.body.objectType === "KontorolAPIException" && event.body.code === 'INVALID_KS') {
                     return this._createAlert();
                 }
 

@@ -1,13 +1,13 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {GroupedListType} from '@kaltura-ng/mc-shared';
+import {GroupedListType} from '@kontorol-ng/mc-shared';
 import {EntriesFilters, EntriesStore} from 'app-shared/content-shared/entries/entries-store/entries-store.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {
   RefineGroup,
   RefineGroupList
 } from 'app-shared/content-shared/entries/entries-store/entries-refine-filters.service';
 import {CategoriesSearchService} from 'app-shared/content-shared/categories/categories-search.service';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
 import { Unsubscribable } from 'rxjs';
 import { DatePipe } from 'app-shared/kmc-shared/date-format/date.pipe';
 import { BrowserService } from 'app-shared/kmc-shell/providers';

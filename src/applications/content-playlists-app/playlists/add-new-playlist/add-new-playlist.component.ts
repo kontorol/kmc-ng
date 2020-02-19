@@ -1,13 +1,13 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { AppEventsService } from 'app-shared/kmc-shared';
 import { CreateNewPlaylistEvent } from 'app-shared/kmc-shared/events/playlist-creation';
-import { KalturaPlaylistType } from 'kaltura-ngx-client';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolPlaylistType } from 'kontorol-ngx-client';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kAddNewPlaylist',
@@ -20,7 +20,7 @@ export class AddNewPlaylistComponent implements OnInit, AfterViewInit, OnDestroy
   addNewPlaylistForm: FormGroup;
   private _showConfirmationOnClose = true;
 
-  public _playlistTypes = KalturaPlaylistType;
+  public _playlistTypes = KontorolPlaylistType;
 
   constructor(private _formBuilder: FormBuilder,
               public router: Router,
@@ -31,7 +31,7 @@ export class AddNewPlaylistComponent implements OnInit, AfterViewInit, OnDestroy
     this.addNewPlaylistForm = _formBuilder.group({
       name: ['', Validators.required],
       description: '',
-      playlistType: KalturaPlaylistType.staticList
+      playlistType: KontorolPlaylistType.staticList
     });
   }
 

@@ -1,5 +1,5 @@
-import { KalturaBulkUploadObjectType } from 'kaltura-ngx-client';
-import { KalturaBatchJobStatus } from 'kaltura-ngx-client';
+import { KontorolBulkUploadObjectType } from 'kontorol-ngx-client';
+import { KontorolBatchJobStatus } from 'kontorol-ngx-client';
 
 export const DefaultFiltersList: {
   name: string;
@@ -10,30 +10,30 @@ export const DefaultFiltersList: {
     name: 'uploadedItem',
     label: 'uploadedItems',
     items: [
-      { value: KalturaBulkUploadObjectType.entry, label: 'entries' },
-      { value: KalturaBulkUploadObjectType.category, label: 'categories' },
-      { value: KalturaBulkUploadObjectType.categoryUser, label: 'endUserEntitlements' },
-      { value: KalturaBulkUploadObjectType.user, label: 'endUsers' }
+      { value: KontorolBulkUploadObjectType.entry, label: 'entries' },
+      { value: KontorolBulkUploadObjectType.category, label: 'categories' },
+      { value: KontorolBulkUploadObjectType.categoryUser, label: 'endUserEntitlements' },
+      { value: KontorolBulkUploadObjectType.user, label: 'endUsers' }
     ]
   },
   {
     name: 'status',
     label: 'statuses',
     items: [
-      { value: `${KalturaBatchJobStatus.finished}`, label: 'successFinish' },
-      { value: `${KalturaBatchJobStatus.finishedPartially}`, label: 'errorFinish' },
-      { value: [KalturaBatchJobStatus.failed, KalturaBatchJobStatus.fatal].join(','), label: 'failed' },
+      { value: `${KontorolBatchJobStatus.finished}`, label: 'successFinish' },
+      { value: `${KontorolBatchJobStatus.finishedPartially}`, label: 'errorFinish' },
+      { value: [KontorolBatchJobStatus.failed, KontorolBatchJobStatus.fatal].join(','), label: 'failed' },
       {
         value: [
-          KalturaBatchJobStatus.pending,
-          KalturaBatchJobStatus.queued,
-          KalturaBatchJobStatus.finished,
-          KalturaBatchJobStatus.processed,
-          KalturaBatchJobStatus.movefile,
-          KalturaBatchJobStatus.aborted,
-          KalturaBatchJobStatus.almostDone,
-          KalturaBatchJobStatus.retry,
-          KalturaBatchJobStatus.dontProcess
+          KontorolBatchJobStatus.pending,
+          KontorolBatchJobStatus.queued,
+          KontorolBatchJobStatus.finished,
+          KontorolBatchJobStatus.processed,
+          KontorolBatchJobStatus.movefile,
+          KontorolBatchJobStatus.aborted,
+          KontorolBatchJobStatus.almostDone,
+          KontorolBatchJobStatus.retry,
+          KontorolBatchJobStatus.dontProcess
         ].join(','),
         label: 'otherStatuses'
       }

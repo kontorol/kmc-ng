@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
 
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { EntryLiveWidget } from './entry-live-widget.service';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
 

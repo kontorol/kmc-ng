@@ -1,30 +1,30 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import {
     ExternalMediaAddAction,
-    KalturaClient,
-    KalturaExternalMediaEntry,
-    KalturaExternalMediaSourceType,
-    KalturaMediaType,
-    KalturaMultiRequest,
-    KalturaThumbAsset,
-    KalturaUrlResource,
+    KontorolClient,
+    KontorolExternalMediaEntry,
+    KontorolExternalMediaSourceType,
+    KontorolMediaType,
+    KontorolMultiRequest,
+    KontorolThumbAsset,
+    KontorolUrlResource,
     ThumbAssetAddAction,
     ThumbAssetSetAsDefaultAction,
     ThumbAssetSetContentAction
-} from 'kaltura-ngx-client';
+} from 'kontorol-ngx-client';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import * as moment from 'moment';
 import { UpdateEntriesListEvent } from 'app-shared/kmc-shared/events/update-entries-list-event';
 import { ContentEntryViewSections, ContentEntryViewService } from 'app-shared/kmc-shared/kmc-views/details-views';
 import { AppEventsService } from 'app-shared/kmc-shared';
 import { serverConfig } from 'config/server';
-import { KalturaMultiResponse } from 'kaltura-ngx-client/lib/api/kaltura-multi-response';
+import { KontorolMultiResponse } from 'kontorol-ngx-client/lib/api/kontorol-multi-response';
 
 export interface YoutubeMetadata {
     title: string;
@@ -47,7 +47,7 @@ export class UploadFromYoutubeComponent implements OnDestroy {
                 private _contentEntryViewService: ContentEntryViewService,
                 private _appEvents: AppEventsService,
                 private _browserService: BrowserService,
-                private _serverClient: KalturaClient) {
+                private _serverClient: KontorolClient) {
         if (!serverConfig.externalAPI || !serverConfig.externalAPI
             || !serverConfig.externalAPI.youtube || !serverConfig.externalAPI.youtube.uri) {
             this._browserService.alert({

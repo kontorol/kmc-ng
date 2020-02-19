@@ -1,5 +1,5 @@
 import {Component, Output, OnInit, EventEmitter} from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BrowserService} from 'app-shared/kmc-shell';
 import { MenuItem } from 'primeng/api';
 

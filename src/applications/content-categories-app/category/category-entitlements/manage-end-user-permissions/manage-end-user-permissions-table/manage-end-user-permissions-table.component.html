@@ -45,13 +45,13 @@
                 </td>
                 <td class="permissionLevelColumn">
                     <p-dropdown [options]="_permissionLevelOptions"
-                                [disabled]="user['status'] !== _kalturaCategoryUserStatus.active || categoryInheritUserPermissions || _kmcPermissions.CONTENT_MANAGE_CATEGORY_USERS | kDisabledIfNotPermitted"
+                                [disabled]="user['status'] !== _kontorolCategoryUserStatus.active || categoryInheritUserPermissions || _kmcPermissions.CONTENT_MANAGE_CATEGORY_USERS | kDisabledIfNotPermitted"
                                 [(ngModel)]="user.permissionLevel"
                                 (onChange)="_onActionSelected({action: 'permissionLevel', users: user, payload: { level: user.permissionLevel}})"></p-dropdown>
                 </td>
                 <td class="updateMethodColumn">
                     <p-dropdown [options]="_updateMethodOptions"
-                                [disabled]="user['status'] !== _kalturaCategoryUserStatus.active || categoryInheritUserPermissions || _kmcPermissions.CONTENT_MANAGE_CATEGORY_USERS | kDisabledIfNotPermitted"
+                                [disabled]="user['status'] !== _kontorolCategoryUserStatus.active || categoryInheritUserPermissions || _kmcPermissions.CONTENT_MANAGE_CATEGORY_USERS | kDisabledIfNotPermitted"
                                 [(ngModel)]="user.updateMethod"
                                 (onChange)="_onActionSelected({action: 'updateMethod', users: user, payload: { method: user.updateMethod} })"></p-dropdown>
                 </td>
@@ -60,9 +60,9 @@
                 </td>
                 <td class="statusColumn">
                     <p-inputSwitch
-                        *ngIf="user.status === _kalturaCategoryUserStatus.active || user.status === _kalturaCategoryUserStatus.notActive || user.status === _kalturaCategoryUserStatus.pending"
+                        *ngIf="user.status === _kontorolCategoryUserStatus.active || user.status === _kontorolCategoryUserStatus.notActive || user.status === _kontorolCategoryUserStatus.pending"
                         class="kInputSwitch"
-                        [ngModel]="user.status === _kalturaCategoryUserStatus.active"
+                        [ngModel]="user.status === _kontorolCategoryUserStatus.active"
                         (onChange)="_onActionSelected({action: $event.checked ? 'activate': 'deactivate', users: user, payload: {} })"
                         [disabled]="categoryInheritUserPermissions || _kmcPermissions.CONTENT_MANAGE_CATEGORY_USERS | kDisabledIfNotPermitted"></p-inputSwitch>
                     <span class="kCategoryUserStatus">{{user.status | kCategoryUserStatus}}</span>

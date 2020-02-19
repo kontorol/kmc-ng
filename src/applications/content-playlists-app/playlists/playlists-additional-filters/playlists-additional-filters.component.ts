@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
 import { subApplicationsConfig } from 'config/sub-applications';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
 

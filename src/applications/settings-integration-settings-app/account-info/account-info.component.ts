@@ -1,12 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import {
   AccountInfo,
   AccountInfoService
 } from 'applications/settings-integration-settings-app/account-info/account-info.service';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { SettingsIntegrationSettingsMainViewService } from 'app-shared/kmc-shared/kmc-views';
 
 @Component({
@@ -15,7 +15,7 @@ import { SettingsIntegrationSettingsMainViewService } from 'app-shared/kmc-share
   styleUrls: ['./account-info.component.scss'],
   providers: [
     AccountInfoService,
-    KalturaLogger.createLogger('AccountInfoComponent')
+    KontorolLogger.createLogger('AccountInfoComponent')
   ],
 })
 export class AccountInfoComponent implements OnInit, OnDestroy {
@@ -26,7 +26,7 @@ export class AccountInfoComponent implements OnInit, OnDestroy {
   public _isBusy = false;
 
   constructor(private _accountInfoService: AccountInfoService,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _settingsIntegrationSettingsMainView: SettingsIntegrationSettingsMainViewService,
               private _appLocalization: AppLocalization) {
   }

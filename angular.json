@@ -36,7 +36,7 @@
                   ]
               },
             "scripts": [
-              "src/assets/js/KalturaEmbedCodeGenerator.min.js"
+              "src/assets/js/KontorolEmbedCodeGenerator.min.js"
             ]
           },
           "configurations": {
@@ -84,7 +84,7 @@
             "polyfills": "src/polyfills.ts",
             "tsConfig": "src/tsconfig.spec.json",
             "scripts": [
-              "src/assets/js/KalturaEmbedCodeGenerator.min.js"
+              "src/assets/js/KontorolEmbedCodeGenerator.min.js"
             ],
             "styles": [
               "src/styles/app-theme/styles.scss"

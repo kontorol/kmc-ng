@@ -1,8 +1,8 @@
-import { UploadFileData } from '@kaltura-ng/kaltura-common';
+import { UploadFileData } from '@kontorol-ng/kontorol-common';
 import 'rxjs/add/observable/throw';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
-export class KalturaUploadFile implements UploadFileData {
+export class KontorolUploadFile implements UploadFileData {
   serverUploadToken: string;
 
 

@@ -4,18 +4,18 @@ import { routing } from './settings-access-control-app.routes';
 import { RouterModule } from '@angular/router';
 import { SettingsAccessControlComponent } from './settings-access-control.component';
 import { ProfilesComponentsList } from './profiles/profiles-components-list';
-import { AreaBlockerModule, KalturaUIModule, StickyModule, TooltipModule } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerModule, KontorolUIModule, StickyModule, TooltipModule } from '@kontorol-ng/kontorol-ui';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TagsModule } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetModule } from '@kaltura-ng/kaltura-ui';
-import { FiltersModule } from '@kaltura-ng/mc-shared';
-import { AutoCompleteModule } from '@kaltura-ng/kaltura-primeng-ui';
-import { KalturaPrimeNgUIModule } from '@kaltura-ng/kaltura-primeng-ui';
-import {LocalizationModule} from '@kaltura-ng/mc-shared';
-import { TimeSpinnerModule } from '@kaltura-ng/kaltura-primeng-ui';
+import { TagsModule } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetModule } from '@kontorol-ng/kontorol-ui';
+import { FiltersModule } from '@kontorol-ng/mc-shared';
+import { AutoCompleteModule } from '@kontorol-ng/kontorol-primeng-ui';
+import { KontorolPrimeNgUIModule } from '@kontorol-ng/kontorol-primeng-ui';
+import {LocalizationModule} from '@kontorol-ng/mc-shared';
+import { TimeSpinnerModule } from '@kontorol-ng/kontorol-primeng-ui';
 import { KMCPermissionsModule } from 'app-shared/kmc-shared/kmc-permissions';
 import { TableModule } from 'primeng/table';
-import { KPTableModule } from '@kaltura-ng/kaltura-primeng-ui';
+import { KPTableModule } from '@kontorol-ng/kontorol-primeng-ui';
 import { DateFormatModule } from 'app-shared/kmc-shared/date-format/date-format.module';
 import { PaginatorModule } from 'primeng/paginator';
 import { ButtonModule } from 'primeng/button';
@@ -36,7 +36,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     CommonModule,
     AreaBlockerModule,
     LocalizationModule,
-    KalturaUIModule,
+    KontorolUIModule,
     PaginatorModule,
     TooltipModule,
     ButtonModule,
@@ -49,7 +49,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     CalendarModule,
     MenuModule,
     TagsModule,
-    KalturaPrimeNgUIModule,
+    KontorolPrimeNgUIModule,
     AutoCompleteModule,
     SharedModule,
     RouterModule.forChild(routing),

@@ -1,12 +1,12 @@
-import { KalturaMediaEntryFilterForPlaylist } from 'kaltura-ngx-client';
-import { KalturaPlayableEntryOrderBy } from 'kaltura-ngx-client';
+import { KontorolMediaEntryFilterForPlaylist } from 'kontorol-ngx-client';
+import { KontorolPlayableEntryOrderBy } from 'kontorol-ngx-client';
 
 export interface PlaylistRule {
   selectionId?: string;
   name: string;
   entriesCount: number;
   entriesDuration: number;
-  orderBy: KalturaPlayableEntryOrderBy;
+  orderBy: KontorolPlayableEntryOrderBy;
   limit: number;
-  originalFilter: KalturaMediaEntryFilterForPlaylist
+  originalFilter: KontorolMediaEntryFilterForPlaylist
 }

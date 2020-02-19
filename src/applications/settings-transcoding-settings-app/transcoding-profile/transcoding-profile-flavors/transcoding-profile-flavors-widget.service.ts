@@ -1,32 +1,32 @@
 import { Injectable, IterableChangeRecord, IterableDiffer, IterableDiffers, OnDestroy } from '@angular/core';
-import { KalturaClient, KalturaMultiRequest } from 'kaltura-ngx-client';
+import { KontorolClient, KontorolMultiRequest } from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
 import { TranscodingProfileWidget } from '../transcoding-profile-widget';
 import {
-  ExtendedKalturaConversionProfileAssetParams,
-  KalturaConversionProfileWithAsset
+  ExtendedKontorolConversionProfileAssetParams,
+  KontorolConversionProfileWithAsset
 } from '../../transcoding-profiles/transcoding-profiles-store/base-transcoding-profiles-store.service';
 import { FlavoursStore } from 'app-shared/kmc-shared';
-import { KalturaConversionProfileType } from 'kaltura-ngx-client';
-import { KalturaLiveParams } from 'kaltura-ngx-client';
-import { KalturaFlavorParams } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolConversionProfileType } from 'kontorol-ngx-client';
+import { KontorolLiveParams } from 'kontorol-ngx-client';
+import { KontorolFlavorParams } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
-import { ConversionProfileAssetParamsUpdateAction } from 'kaltura-ngx-client';
+import { ConversionProfileAssetParamsUpdateAction } from 'kontorol-ngx-client';
 import { SettingsTranscodingProfileViewSections } from 'app-shared/kmc-shared/kmc-views/details-views';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Injectable()
 export class TranscodingProfileFlavorsWidget extends TranscodingProfileWidget implements OnDestroy {
   private _flavorParamsIds: string[] = [];
   private _flavorParasIdsListDiffer: IterableDiffer<string>;
-  public flavors: KalturaFlavorParams[] = [];
-  public selectedFlavors: KalturaFlavorParams[] = [];
+  public flavors: KontorolFlavorParams[] = [];
+  public selectedFlavors: KontorolFlavorParams[] = [];
 
-  constructor(private _kalturaClient: KalturaClient,
+  constructor(private _kontorolClient: KontorolClient,
               private _appLocalization: AppLocalization,
-              logger: KalturaLogger,
+              logger: KontorolLogger,
               private _listDiffers: IterableDiffers,
               private _flavorsStore: FlavoursStore) {
     super(SettingsTranscodingProfileViewSections.Flavors, logger);
@@ -39,7 +39,7 @@ export class TranscodingProfileFlavorsWidget extends TranscodingProfileWidget im
     return Observable.of({ isValid: true });
   }
 
-  protected onDataSaving(data: KalturaConversionProfileWithAsset, request: KalturaMultiRequest): void {
+  protected onDataSaving(data: KontorolConversionProfileWithAsset, request: KontorolMultiRequest): void {
     if (this.wasActivated) {
       if (this._flavorParasIdsListDiffer) {
         const selectedFlavors = this.selectedFlavors.map(({ id }) => String(id));
@@ -104,14 +104,14 @@ export class TranscodingProfileFlavorsWidget extends TranscodingProfileWidget im
 
     return this._flavorsStore.get()
       .pipe(cancelOnDestroy(this, this.widgetReset$))
-      .map((response: { items: KalturaFlavorParams[] }) => {
+      .map((response: { items: KontorolFlavorParams[] }) => {
         const items = response.items;
-        const profileType: KalturaConversionProfileType = this.data.type;
+        const profileType: KontorolConversionProfileType = this.data.type;
         let flavors = [];
-        if (profileType === KalturaConversionProfileType.liveStream) {
-          flavors = items.filter(item => item instanceof KalturaLiveParams);
-        } else if (profileType === KalturaConversionProfileType.media) {
-          flavors = items.filter(item => !(item instanceof KalturaLiveParams));
+        if (profileType === KontorolConversionProfileType.liveStream) {
+          flavors = items.filter(item => item instanceof KontorolLiveParams);
+        } else if (profileType === KontorolConversionProfileType.media) {
+          flavors = items.filter(item => !(item instanceof KontorolLiveParams));
         } else {
           flavors = [];
         }
@@ -156,7 +156,7 @@ export class TranscodingProfileFlavorsWidget extends TranscodingProfileWidget im
     this.updateState({ isDirty: true });
   }
 
-  public updateFlavorAssetParams(assetParams: ExtendedKalturaConversionProfileAssetParams): void {
+  public updateFlavorAssetParams(assetParams: ExtendedKontorolConversionProfileAssetParams): void {
     if (!Array.isArray(this.data.assets)) {
       this.data.assets = [];
     }

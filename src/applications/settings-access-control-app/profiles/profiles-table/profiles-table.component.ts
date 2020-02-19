@@ -11,8 +11,8 @@ import {
   ViewChild
 } from '@angular/core';
 import { Menu } from 'primeng/menu';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaAccessControl } from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolAccessControl } from 'kontorol-ngx-client';
 import { globalConfig } from 'config/global';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { MenuItem } from 'primeng/api';
@@ -23,15 +23,15 @@ import { MenuItem } from 'primeng/api';
   styleUrls: ['./profiles-table.component.scss']
 })
 export class ProfilesTableComponent implements AfterViewInit, OnInit, OnDestroy {
-  private _deferredProfiles: KalturaAccessControl[];
+  private _deferredProfiles: KontorolAccessControl[];
 
   public _defaultSortOrder = globalConfig.client.views.tables.defaultSortOrder;
-  public _profiles: KalturaAccessControl[] = [];
+  public _profiles: KontorolAccessControl[] = [];
   public _documentWidth = 2000;
   public _rowTrackBy: Function = (index: number, item: any) => item.id;
 
   @Input()
-  set list(data: KalturaAccessControl[]) {
+  set list(data: KontorolAccessControl[]) {
     if (!this._deferredLoading) {
       // the table profiles 'rowTrackBy' to track changes by id. To be able to reflect changes of profiles
       // (ie when returning from profiles list page) - we should force detect changes on an empty list
@@ -45,10 +45,10 @@ export class ProfilesTableComponent implements AfterViewInit, OnInit, OnDestroy 
   }
 
   @Input() filter: { sortBy?: string, sortDirection?: number } = {};
-  @Input() selectedProfiles: KalturaAccessControl[] = [];
+  @Input() selectedProfiles: KontorolAccessControl[] = [];
 
-  @Output() actionSelected = new EventEmitter<{ action: string, profile: KalturaAccessControl }>();
-  @Output() selectedProfilesChange = new EventEmitter<KalturaAccessControl[]>();
+  @Output() actionSelected = new EventEmitter<{ action: string, profile: KontorolAccessControl }>();
+  @Output() selectedProfilesChange = new EventEmitter<KontorolAccessControl[]>();
   @Output() sortChanged = new EventEmitter<{ field: string, order: number }>();
 
   @ViewChild('actionsmenu', { static: true }) private actionsMenu: Menu;
@@ -88,7 +88,7 @@ export class ProfilesTableComponent implements AfterViewInit, OnInit, OnDestroy 
     this.actionsMenu.hide();
   }
 
-  private _buildMenu(profile: KalturaAccessControl): void {
+  private _buildMenu(profile: KontorolAccessControl): void {
     this._items = [
       {
         id: 'edit',
@@ -106,18 +106,18 @@ export class ProfilesTableComponent implements AfterViewInit, OnInit, OnDestroy 
     this._appPermissions.filterList(<{id: string}[]>this._items, { 'delete': KMCPermissions.ACCESS_CONTROL_DELETE });
   }
 
-  private _onActionSelected(action: string, profile: KalturaAccessControl): void {
+  private _onActionSelected(action: string, profile: KontorolAccessControl): void {
     this.actionSelected.emit({ action, profile });
   }
 
-  public _openActionsMenu(event: Event, profile: KalturaAccessControl): void {
+  public _openActionsMenu(event: Event, profile: KontorolAccessControl): void {
     if (this.actionsMenu) {
       this._buildMenu(profile);
       this.actionsMenu.toggle(event);
     }
   }
 
-  public _onSelectionChange(event: KalturaAccessControl[]): void {
+  public _onSelectionChange(event: KontorolAccessControl[]): void {
     this.selectedProfilesChange.emit(event);
   }
 

@@ -1,13 +1,13 @@
 import { Component, OnDestroy, ViewChild } from '@angular/core';
-import {KalturaMediaType} from 'kaltura-ngx-client';
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
+import {KontorolMediaType} from 'kontorol-ngx-client';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
 import {DraftEntry, PrepareEntryService} from './prepare-entry.service';
 import {BrowserService} from 'app-shared/kmc-shell';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions/kmc-permissions.service';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
 import { ContentEntryViewSections, ContentEntryViewService } from 'app-shared/kmc-shared/kmc-views/details-views';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
 
 @Component({
   selector: 'kPrepareEntry',
@@ -16,7 +16,7 @@ import {AppLocalization} from '@kaltura-ng/mc-shared';
   providers: [PrepareEntryService]
 })
 export class PrepareEntryComponent implements OnDestroy {
-  public _selectedMediaType: KalturaMediaType;
+  public _selectedMediaType: KontorolMediaType;
   @ViewChild('transcodingProfileSelectMenu', { static: true }) transcodingProfileSelectMenu: PopupWidgetComponent;
 
   constructor(private _prepareEntryService: PrepareEntryService,
@@ -29,8 +29,8 @@ export class PrepareEntryComponent implements OnDestroy {
   ngOnDestroy() {
   }
 
-  public prepareEntry(kalturaMediaType: KalturaMediaType) {
-    this._selectedMediaType = kalturaMediaType;
+  public prepareEntry(kontorolMediaType: KontorolMediaType) {
+    this._selectedMediaType = kontorolMediaType;
     const transcodingProfileSettingPermission = this._permissionsService.hasPermission(KMCPermissions.FEATURE_DRAFT_ENTRY_CONV_PROF_SELECTION);
     if (transcodingProfileSettingPermission) {
       this.transcodingProfileSelectMenu.open();

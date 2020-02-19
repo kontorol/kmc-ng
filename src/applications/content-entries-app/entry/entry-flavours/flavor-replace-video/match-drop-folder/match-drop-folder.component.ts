@@ -1,60 +1,60 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { KalturaClient, KalturaRequestOptions } from 'kaltura-ngx-client';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { KontorolClient, KontorolRequestOptions } from 'kontorol-ngx-client';
 import { TranscodingProfileManagement } from 'app-shared/kmc-shared/transcoding-profile-management';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { DropFolderListAction } from 'kaltura-ngx-client';
-import { KalturaDropFolderFilter } from 'kaltura-ngx-client';
-import { KalturaDropFolderOrderBy } from 'kaltura-ngx-client';
-import { KalturaDropFolderStatus } from 'kaltura-ngx-client';
-import { KalturaDropFolderContentFileHandlerConfig } from 'kaltura-ngx-client';
-import { KalturaDropFolder } from 'kaltura-ngx-client';
-import { KalturaDropFolderContentFileHandlerMatchPolicy } from 'kaltura-ngx-client';
-import { KalturaDropFolderFileHandlerType } from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { DropFolderListAction } from 'kontorol-ngx-client';
+import { KontorolDropFolderFilter } from 'kontorol-ngx-client';
+import { KontorolDropFolderOrderBy } from 'kontorol-ngx-client';
+import { KontorolDropFolderStatus } from 'kontorol-ngx-client';
+import { KontorolDropFolderContentFileHandlerConfig } from 'kontorol-ngx-client';
+import { KontorolDropFolder } from 'kontorol-ngx-client';
+import { KontorolDropFolderContentFileHandlerMatchPolicy } from 'kontorol-ngx-client';
+import { KontorolDropFolderFileHandlerType } from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
 import { SelectItem } from 'primeng/api';
-import { DropFolderFileListAction } from 'kaltura-ngx-client';
-import { KalturaDropFolderFileFilter } from 'kaltura-ngx-client';
-import { KalturaDropFolderFileOrderBy } from 'kaltura-ngx-client';
-import { KalturaDropFolderFileStatus } from 'kaltura-ngx-client';
-import { KalturaDropFolderFile } from 'kaltura-ngx-client';
+import { DropFolderFileListAction } from 'kontorol-ngx-client';
+import { KontorolDropFolderFileFilter } from 'kontorol-ngx-client';
+import { KontorolDropFolderFileOrderBy } from 'kontorol-ngx-client';
+import { KontorolDropFolderFileStatus } from 'kontorol-ngx-client';
+import { KontorolDropFolderFile } from 'kontorol-ngx-client';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { BaseEntryUpdateAction } from 'kaltura-ngx-client';
-import { KalturaBaseEntry } from 'kaltura-ngx-client';
-import { KalturaAssetsParamsResourceContainers } from 'kaltura-ngx-client';
-import { KalturaDropFolderFileResource } from 'kaltura-ngx-client';
-import { KalturaAssetParamsResourceContainer } from 'kaltura-ngx-client';
-import { KalturaConversionProfileAssetParamsFilter } from 'kaltura-ngx-client';
-import { ConversionProfileAssetParamsListAction } from 'kaltura-ngx-client';
-import { KalturaConversionProfileFilter } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
-import { KalturaConversionProfileAssetParams } from 'kaltura-ngx-client';
-import { KalturaConversionProfileType } from 'kaltura-ngx-client';
-import { KalturaConversionProfileOrderBy } from 'kaltura-ngx-client';
-import { KalturaDetachedResponseProfile } from 'kaltura-ngx-client';
-import { KalturaResponseProfileType } from 'kaltura-ngx-client';
-import { MediaUpdateContentAction } from 'kaltura-ngx-client';
+import { BaseEntryUpdateAction } from 'kontorol-ngx-client';
+import { KontorolBaseEntry } from 'kontorol-ngx-client';
+import { KontorolAssetsParamsResourceContainers } from 'kontorol-ngx-client';
+import { KontorolDropFolderFileResource } from 'kontorol-ngx-client';
+import { KontorolAssetParamsResourceContainer } from 'kontorol-ngx-client';
+import { KontorolConversionProfileAssetParamsFilter } from 'kontorol-ngx-client';
+import { ConversionProfileAssetParamsListAction } from 'kontorol-ngx-client';
+import { KontorolConversionProfileFilter } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
+import { KontorolConversionProfileAssetParams } from 'kontorol-ngx-client';
+import { KontorolConversionProfileType } from 'kontorol-ngx-client';
+import { KontorolConversionProfileOrderBy } from 'kontorol-ngx-client';
+import { KontorolDetachedResponseProfile } from 'kontorol-ngx-client';
+import { KontorolResponseProfileType } from 'kontorol-ngx-client';
+import { MediaUpdateContentAction } from 'kontorol-ngx-client';
 import { EntryFlavoursWidget } from '../../entry-flavours-widget.service';
-import { KalturaDropFolderFileListResponse } from 'kaltura-ngx-client';
+import { KontorolDropFolderFileListResponse } from 'kontorol-ngx-client';
 import { Flavor } from '../../flavor';
-import { FlavorAssetSetContentAction } from 'kaltura-ngx-client';
-import { FlavorAssetAddAction } from 'kaltura-ngx-client';
-import { KalturaFlavorAsset } from 'kaltura-ngx-client';
+import { FlavorAssetSetContentAction } from 'kontorol-ngx-client';
+import { FlavorAssetAddAction } from 'kontorol-ngx-client';
+import { KontorolFlavorAsset } from 'kontorol-ngx-client';
 import { map, switchMap } from 'rxjs/operators';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { of as ObservableOf} from 'rxjs';
 
 
 export interface ConversionProfileWithAssets {
     id: number;
-    assets: KalturaConversionProfileAssetParams[];
+    assets: KontorolConversionProfileAssetParams[];
 }
 
-export interface KalturaDropFolderFileGroup extends KalturaDropFolderFile {
-    files?: KalturaDropFolderFile[];
+export interface KontorolDropFolderFileGroup extends KontorolDropFolderFile {
+    files?: KontorolDropFolderFile[];
     name?: string;
     displayName?: string;
     error?: boolean;
@@ -64,33 +64,33 @@ export interface KalturaDropFolderFileGroup extends KalturaDropFolderFile {
     selector: 'kReplaceMatchDropFolder',
     templateUrl: './match-drop-folder.component.html',
     styleUrls: ['./match-drop-folder.component.scss'],
-    providers: [KalturaLogger.createLogger('MatchDropFolderComponent')]
+    providers: [KontorolLogger.createLogger('MatchDropFolderComponent')]
 })
 export class MatchDropFolderComponent implements OnInit, OnDestroy {
     @Input() parentPopupWidget: PopupWidgetComponent;
-    @Input() entry: KalturaMediaEntry;
+    @Input() entry: KontorolMediaEntry;
     @Input() flavor: Flavor;
 
-    private _dropFoldersList: KalturaDropFolder[] = [];
-    private _conversionProfilesList: { id: number, assets: KalturaConversionProfileAssetParams[] }[] = [];
+    private _dropFoldersList: KontorolDropFolder[] = [];
+    private _conversionProfilesList: { id: number, assets: KontorolConversionProfileAssetParams[] }[] = [];
 
     public _isLoading = false;
     public _blockerMessage: AreaBlockerMessage;
     public _dropFoldersListOptions: SelectItem[] = [];
     public _selectedDropFolder: number = null;
-    public _dropFolderFiles: KalturaDropFolderFileGroup[] = [];
-    public _selectedFile: KalturaDropFolderFileGroup;
+    public _dropFolderFiles: KontorolDropFolderFileGroup[] = [];
+    public _selectedFile: KontorolDropFolderFileGroup;
 
     public get _setReferenceIdEnabled(): boolean {
         return this._selectedFile
-            && this._selectedFile.status !== KalturaDropFolderFileStatus.waiting
+            && this._selectedFile.status !== KontorolDropFolderFileStatus.waiting
             && this._permissionsService.hasPermission(KMCPermissions.CONTENT_INGEST_REFERENCE_MODIFY)
             && !!this._dropFoldersListOptions.length;
     }
 
     public get _addFilesEnabled(): boolean {
         return this._selectedFile
-            && this._selectedFile.status !== KalturaDropFolderFileStatus.waiting
+            && this._selectedFile.status !== KontorolDropFolderFileStatus.waiting
             && !!this._dropFoldersListOptions.length;
     }
 
@@ -100,9 +100,9 @@ export class MatchDropFolderComponent implements OnInit, OnDestroy {
             : this._appLocalization.get('applications.content.entryDetails.flavours.replaceVideo.addFilesBtn');
     }
 
-    constructor(private _kalturaClient: KalturaClient,
+    constructor(private _kontorolClient: KontorolClient,
                 private _transcodingProfileManagement: TranscodingProfileManagement,
-                private _logger: KalturaLogger,
+                private _logger: KontorolLogger,
                 private _permissionsService: KMCPermissionsService,
                 private _widgetService: EntryFlavoursWidget,
                 private _appLocalization: AppLocalization) {
@@ -117,11 +117,11 @@ export class MatchDropFolderComponent implements OnInit, OnDestroy {
 
     }
 
-    private _getDisplayName(file: KalturaDropFolderFileGroup): string {
+    private _getDisplayName(file: KontorolDropFolderFileGroup): string {
         let displayName: string;
         if (file.files) {
             displayName = `${file.parsedSlug} (${file.files.length}`;
-            if (file.status === KalturaDropFolderFileStatus.waiting) {
+            if (file.status === KontorolDropFolderFileStatus.waiting) {
                 displayName += `, ${this._appLocalization.get('applications.content.entryDetails.flavours.replaceVideo.waiting')}`;
             }
             displayName += ')';
@@ -134,17 +134,17 @@ export class MatchDropFolderComponent implements OnInit, OnDestroy {
         return displayName;
     }
 
-    private _mapDropFolderFilesForFlavor(response: KalturaDropFolderFileListResponse): KalturaDropFolderFileGroup[] {
+    private _mapDropFolderFilesForFlavor(response: KontorolDropFolderFileListResponse): KontorolDropFolderFileGroup[] {
         const result = []; // results array
         const waiting = []; // waiting array
 
         response.objects.forEach(file => {
-            if (file instanceof KalturaDropFolderFile) {
-                (<KalturaDropFolderFileGroup>file).displayName = file.parsedSlug;
-                (<KalturaDropFolderFileGroup>file).error = file.status === KalturaDropFolderFileStatus.errorHandling;
+            if (file instanceof KontorolDropFolderFile) {
+                (<KontorolDropFolderFileGroup>file).displayName = file.parsedSlug;
+                (<KontorolDropFolderFileGroup>file).error = file.status === KontorolDropFolderFileStatus.errorHandling;
                 // for files in status waiting, we only want files with a matching slug
                 // selectedEntry is the currently selected entry
-                if (file.status === KalturaDropFolderFileStatus.waiting) {
+                if (file.status === KontorolDropFolderFileStatus.waiting) {
                     if (file.parsedSlug === this.entry.referenceId) {
                         waiting.push(file);
                     }
@@ -157,31 +157,31 @@ export class MatchDropFolderComponent implements OnInit, OnDestroy {
         return [...waiting, ...result];
     }
 
-    private _mapDropFolderFiles(response: KalturaDropFolderFileListResponse): KalturaDropFolderFileGroup[] {
+    private _mapDropFolderFiles(response: KontorolDropFolderFileListResponse): KontorolDropFolderFileGroup[] {
         const result = []; // results array
         const dict = {}; // slugs dictionary
-        let group: KalturaDropFolderFile; // dffs group (by slug)
+        let group: KontorolDropFolderFile; // dffs group (by slug)
         const parseFailedStr = this._appLocalization.get('applications.content.entryDetails.flavours.replaceVideo.error');
 
         response.objects.forEach(file => {
-            if (file instanceof KalturaDropFolderFile) {
+            if (file instanceof KontorolDropFolderFile) {
                 // for files in status waiting, we only want files with a matching slug
-                if (file.status === KalturaDropFolderFileStatus.waiting && file.parsedSlug !== this.entry.referenceId) {
+                if (file.status === KontorolDropFolderFileStatus.waiting && file.parsedSlug !== this.entry.referenceId) {
                     return;
                 }
 
                 // group all files where status == ERROR_HANDLING under same group
-                if (file.status === KalturaDropFolderFileStatus.errorHandling) {
+                if (file.status === KontorolDropFolderFileStatus.errorHandling) {
                     file.parsedSlug = parseFailedStr;
                 }
 
                 // get relevant group
                 if (!dict[file.parsedSlug]) {
                     // create group
-                    group = new KalturaDropFolderFile();
+                    group = new KontorolDropFolderFile();
                     group.parsedSlug = file.parsedSlug;
                     (<any>group).createdAt = file.createdAt;
-                    (<KalturaDropFolderFileGroup>group).files = [];
+                    (<KontorolDropFolderFileGroup>group).files = [];
                     dict[group.parsedSlug] = group;
                 } else {
                     group = dict[file.parsedSlug];
@@ -192,23 +192,23 @@ export class MatchDropFolderComponent implements OnInit, OnDestroy {
                 }
 
                 // add dff to files list
-                (<KalturaDropFolderFileGroup>group).files.push(file);
+                (<KontorolDropFolderFileGroup>group).files.push(file);
 
                 // if any file in the group is in waiting status, set the group to waiting:
-                if (file.status === KalturaDropFolderFileStatus.waiting) {
-                    (<any>group).status = KalturaDropFolderFileStatus.waiting;
+                if (file.status === KontorolDropFolderFileStatus.waiting) {
+                    (<any>group).status = KontorolDropFolderFileStatus.waiting;
                 }
             }
         });
 
-        let wait: KalturaDropFolderFile;
+        let wait: KontorolDropFolderFile;
         for (const slug in dict) {
             if (dict.hasOwnProperty(slug) && slug !== parseFailedStr) {
-                if (dict[slug].status === KalturaDropFolderFileStatus.waiting) {
+                if (dict[slug].status === KontorolDropFolderFileStatus.waiting) {
                     // we assume there's only one...
                     wait = dict[slug];
                 } else {
-                    (<KalturaDropFolderFileGroup>dict[slug]).displayName = this._getDisplayName(dict[slug]);
+                    (<KontorolDropFolderFileGroup>dict[slug]).displayName = this._getDisplayName(dict[slug]);
                     result.push(dict[slug]);
                 }
             }
@@ -220,22 +220,22 @@ export class MatchDropFolderComponent implements OnInit, OnDestroy {
 
         // put the parseFailed last
         if (dict[parseFailedStr]) {
-            (<KalturaDropFolderFileGroup>dict[parseFailedStr]).displayName = this._getDisplayName(dict[parseFailedStr]);
-            (<KalturaDropFolderFileGroup>dict[parseFailedStr]).error = true;
+            (<KontorolDropFolderFileGroup>dict[parseFailedStr]).displayName = this._getDisplayName(dict[parseFailedStr]);
+            (<KontorolDropFolderFileGroup>dict[parseFailedStr]).error = true;
             result.push(dict[parseFailedStr]);
         }
 
         return result;
     }
 
-    private _loadDropFolder(searchTerm: string = null): Observable<KalturaDropFolderFileGroup[]> {
-        const filter = new KalturaDropFolderFileFilter({
-            orderBy: KalturaDropFolderFileOrderBy.createdAtDesc,
+    private _loadDropFolder(searchTerm: string = null): Observable<KontorolDropFolderFileGroup[]> {
+        const filter = new KontorolDropFolderFileFilter({
+            orderBy: KontorolDropFolderFileOrderBy.createdAtDesc,
             dropFolderIdEqual: this._selectedDropFolder,
             statusIn: [
-                KalturaDropFolderFileStatus.noMatch,
-                KalturaDropFolderFileStatus.waiting,
-                KalturaDropFolderFileStatus.errorHandling,
+                KontorolDropFolderFileStatus.noMatch,
+                KontorolDropFolderFileStatus.waiting,
+                KontorolDropFolderFileStatus.errorHandling,
             ].join(',')
         });
 
@@ -244,40 +244,40 @@ export class MatchDropFolderComponent implements OnInit, OnDestroy {
         }
 
         const dropFolderFilesListAction = new DropFolderFileListAction({ filter });
-        return this._kalturaClient
+        return this._kontorolClient
             .request(dropFolderFilesListAction)
             .map(response =>
                 this.flavor ? this._mapDropFolderFilesForFlavor(response) : this._mapDropFolderFiles(response)
             );
     }
 
-    private _loadDropFoldersList(): Observable<KalturaDropFolderFileGroup[]> {
+    private _loadDropFoldersList(): Observable<KontorolDropFolderFileGroup[]> {
         const dropFoldersListAction = new DropFolderListAction({
-            filter: new KalturaDropFolderFilter({
-                orderBy: KalturaDropFolderOrderBy.nameDesc,
-                statusEqual: KalturaDropFolderStatus.enabled
+            filter: new KontorolDropFolderFilter({
+                orderBy: KontorolDropFolderOrderBy.nameDesc,
+                statusEqual: KontorolDropFolderStatus.enabled
             })
         });
 
-        return this._kalturaClient.request(dropFoldersListAction)
+        return this._kontorolClient.request(dropFoldersListAction)
             .pipe(cancelOnDestroy(this))
             .map(response => {
                 if (response.objects.length) {
                     const dropFoldersList = [];
                     response.objects.forEach(dropFolder => {
-                        if (dropFolder instanceof KalturaDropFolder) {
-                            if (dropFolder.fileHandlerType === KalturaDropFolderFileHandlerType.content) {
-                                const cfg: KalturaDropFolderContentFileHandlerConfig = dropFolder.fileHandlerConfig as KalturaDropFolderContentFileHandlerConfig;
-                                if (cfg.contentMatchPolicy === KalturaDropFolderContentFileHandlerMatchPolicy.addAsNew) {
+                        if (dropFolder instanceof KontorolDropFolder) {
+                            if (dropFolder.fileHandlerType === KontorolDropFolderFileHandlerType.content) {
+                                const cfg: KontorolDropFolderContentFileHandlerConfig = dropFolder.fileHandlerConfig as KontorolDropFolderContentFileHandlerConfig;
+                                if (cfg.contentMatchPolicy === KontorolDropFolderContentFileHandlerMatchPolicy.addAsNew) {
                                     dropFoldersList.push(dropFolder);
-                                } else if (cfg.contentMatchPolicy === KalturaDropFolderContentFileHandlerMatchPolicy.matchExistingOrKeepInFolder) {
+                                } else if (cfg.contentMatchPolicy === KontorolDropFolderContentFileHandlerMatchPolicy.matchExistingOrKeepInFolder) {
                                     dropFoldersList.push(dropFolder);
-                                } else if (cfg.contentMatchPolicy === KalturaDropFolderContentFileHandlerMatchPolicy.matchExistingOrAddAsNew) {
+                                } else if (cfg.contentMatchPolicy === KontorolDropFolderContentFileHandlerMatchPolicy.matchExistingOrAddAsNew) {
                                     dropFoldersList.push(dropFolder);
                                 }
                             }
                         } else {
-                            throw new Error(`invalid type provided, expected KalturaDropFolder, got ${typeof dropFolder}`);
+                            throw new Error(`invalid type provided, expected KontorolDropFolder, got ${typeof dropFolder}`);
                         }
                     });
 
@@ -300,24 +300,24 @@ export class MatchDropFolderComponent implements OnInit, OnDestroy {
             });
     }
 
-    private _loadConversionProfiles(): Observable<KalturaConversionProfileAssetParams[]> {
-        const filter = new KalturaConversionProfileFilter({
-            orderBy: KalturaConversionProfileOrderBy.createdAtDesc,
-            typeEqual: KalturaConversionProfileType.media
+    private _loadConversionProfiles(): Observable<KontorolConversionProfileAssetParams[]> {
+        const filter = new KontorolConversionProfileFilter({
+            orderBy: KontorolConversionProfileOrderBy.createdAtDesc,
+            typeEqual: KontorolConversionProfileType.media
         });
         const conversionProfileAssetParamsListAction = new ConversionProfileAssetParamsListAction({
-            filter: new KalturaConversionProfileAssetParamsFilter({ conversionProfileIdFilter: filter }),
-            pager: new KalturaFilterPager({ pageSize: 1000 })
+            filter: new KontorolConversionProfileAssetParamsFilter({ conversionProfileIdFilter: filter }),
+            pager: new KontorolFilterPager({ pageSize: 1000 })
         }).setRequestOptions(
-            new KalturaRequestOptions({
-                responseProfile: new KalturaDetachedResponseProfile({
-                    type: KalturaResponseProfileType.includeFields,
+            new KontorolRequestOptions({
+                responseProfile: new KontorolDetachedResponseProfile({
+                    type: KontorolResponseProfileType.includeFields,
                     fields: 'conversionProfileId,systemName,assetParamsId'
                 })
             })
         );
 
-        return this._kalturaClient
+        return this._kontorolClient
             .request(conversionProfileAssetParamsListAction)
             .map(res => res.objects);
     }
@@ -352,16 +352,16 @@ export class MatchDropFolderComponent implements OnInit, OnDestroy {
     private _updateContent(): void {
         this._logger.info(`handle update content request`);
         const selectedFolder = this._dropFoldersList.find(({ id }) => id === this._selectedDropFolder);
-        const mediaResource = new KalturaAssetsParamsResourceContainers({
+        const mediaResource = new KontorolAssetsParamsResourceContainers({
             resources: this._selectedFile.files.map(file => {
-                return new KalturaAssetParamsResourceContainer({
-                    resource: new KalturaDropFolderFileResource({ dropFolderFileId: file.id }),
+                return new KontorolAssetParamsResourceContainer({
+                    resource: new KontorolDropFolderFileResource({ dropFolderFileId: file.id }),
                     assetParamsId: this._getAssetParamsId(selectedFolder.conversionProfileId, file.parsedFlavor)
                 });
             })
         });
 
-        this._kalturaClient
+        this._kontorolClient
             .request(new MediaUpdateContentAction({
                 entryId: this.entry.id,
                 resource: mediaResource,
@@ -462,12 +462,12 @@ export class MatchDropFolderComponent implements OnInit, OnDestroy {
             this._logger.info(`flavor was not provided, abort action`);
         }
 
-        const contentResource = new KalturaDropFolderFileResource({ dropFolderFileId: this._selectedFile.id });
+        const contentResource = new KontorolDropFolderFileResource({ dropFolderFileId: this._selectedFile.id });
         let request$;
 
         if (this.flavor.flavorAsset && this.flavor.flavorAsset.id) {
             this._logger.info(`flavor asset exist, update flavor`);
-            request$ = this._kalturaClient.request(
+            request$ = this._kontorolClient.request(
                 new FlavorAssetSetContentAction({
                     id: this.flavor.flavorAsset.id,
                     contentResource: contentResource
@@ -477,13 +477,13 @@ export class MatchDropFolderComponent implements OnInit, OnDestroy {
             this._logger.info(`flavor asset does not exist, create flavor and update content`);
             const flavorAssetAddAction = new FlavorAssetAddAction({
                 entryId: this.entry.id,
-                flavorAsset: new KalturaFlavorAsset({ flavorParamsId: this.flavor.flavorParams.id })
+                flavorAsset: new KontorolFlavorAsset({ flavorParamsId: this.flavor.flavorParams.id })
             });
 
-            request$ = this._kalturaClient
+            request$ = this._kontorolClient
                 .request(flavorAssetAddAction)
                 .pipe(switchMap(({ id }) =>
-                    this._kalturaClient.request(new FlavorAssetSetContentAction({ id, contentResource })))
+                    this._kontorolClient.request(new FlavorAssetSetContentAction({ id, contentResource })))
                 );
         }
 
@@ -547,10 +547,10 @@ export class MatchDropFolderComponent implements OnInit, OnDestroy {
 
         const updateEntryAction = new BaseEntryUpdateAction({
             entryId: this.entry.id,
-            baseEntry: new KalturaBaseEntry({ referenceId: this._selectedFile.parsedSlug })
+            baseEntry: new KontorolBaseEntry({ referenceId: this._selectedFile.parsedSlug })
         });
 
-        this._kalturaClient.request(updateEntryAction)
+        this._kontorolClient.request(updateEntryAction)
             .pipe(tag('block-shell'))
             .pipe(cancelOnDestroy(this))
             .subscribe(

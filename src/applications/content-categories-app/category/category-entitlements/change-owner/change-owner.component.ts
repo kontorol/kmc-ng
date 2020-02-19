@@ -2,43 +2,43 @@ import {AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output
 import {ISubscription} from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
 
-import {KalturaClient} from 'kaltura-ngx-client';
-import {KalturaFilterPager} from 'kaltura-ngx-client';
-import {SuggestionsProviderData} from '@kaltura-ng/kaltura-primeng-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import {KontorolClient} from 'kontorol-ngx-client';
+import {KontorolFilterPager} from 'kontorol-ngx-client';
+import {SuggestionsProviderData} from '@kontorol-ng/kontorol-primeng-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {BrowserService} from 'app-shared/kmc-shell';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
-import {PopupWidgetComponent, PopupWidgetStates} from '@kaltura-ng/kaltura-ui';
-import {KalturaUser} from 'kaltura-ngx-client';
-import {KalturaUserFilter} from 'kaltura-ngx-client';
-import {UserListAction} from 'kaltura-ngx-client';
-import {KalturaCategory} from 'kaltura-ngx-client';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
+import {PopupWidgetComponent, PopupWidgetStates} from '@kontorol-ng/kontorol-ui';
+import {KontorolUser} from 'kontorol-ngx-client';
+import {KontorolUserFilter} from 'kontorol-ngx-client';
+import {UserListAction} from 'kontorol-ngx-client';
+import {KontorolCategory} from 'kontorol-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kCategoryChangeOwner',
   templateUrl: './change-owner.component.html',
   styleUrls: ['./change-owner.component.scss'],
-    providers: [KalturaLogger.createLogger('CategoryChangeOwnerComponent')]
+    providers: [KontorolLogger.createLogger('CategoryChangeOwnerComponent')]
 })
 export class CategoryChangeOwnerComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() parentPopupWidget: PopupWidgetComponent;
-  @Input() category: KalturaCategory;
-  @Output() ownerChanged = new EventEmitter<KalturaUser>();
+  @Input() category: KontorolCategory;
+  @Output() ownerChanged = new EventEmitter<KontorolUser>();
 
   public _blockerMessage: AreaBlockerMessage;
 
   public _usersProvider = new Subject<SuggestionsProviderData>();
-  public _owner: KalturaUser = null;
+  public _owner: KontorolUser = null;
 
   private _searchUsersSubscription: ISubscription;
   private _parentPopupStateChangesSubscription: ISubscription;
   private _confirmClose = true;
 
-  constructor(private _kalturaServerClient: KalturaClient, private _appLocalization: AppLocalization, private _browserService: BrowserService,
-              private _logger: KalturaLogger) {
+  constructor(private _kontorolServerClient: KontorolClient, private _appLocalization: AppLocalization, private _browserService: BrowserService,
+              private _logger: KontorolLogger) {
       this._convertUserInputToValidValue = this._convertUserInputToValidValue.bind(this); // fix scope issues when binding to a property
   }
 
@@ -105,13 +105,13 @@ export class CategoryChangeOwnerComponent implements OnInit, OnDestroy, AfterVie
       this._searchUsersSubscription = null;
     }
 
-    this._searchUsersSubscription = this._kalturaServerClient.request(
+    this._searchUsersSubscription = this._kontorolServerClient.request(
       new UserListAction(
         {
-          filter: new KalturaUserFilter({
+          filter: new KontorolUserFilter({
             idOrScreenNameStartsWith: event.query
           }),
-          pager: new KalturaFilterPager({
+          pager: new KontorolFilterPager({
             pageIndex: 0,
             pageSize: 30
           })
@@ -123,7 +123,7 @@ export class CategoryChangeOwnerComponent implements OnInit, OnDestroy, AfterVie
         data => {
             this._logger.info(`handle successful search users action`);
           const suggestions = [];
-          (data.objects || []).forEach((suggestedUser: KalturaUser) => {
+          (data.objects || []).forEach((suggestedUser: KontorolUser) => {
               suggestedUser['__tooltip'] = suggestedUser.id;
             suggestions.push({
               name: suggestedUser.screenName + '(' + suggestedUser.id + ')',
@@ -140,12 +140,12 @@ export class CategoryChangeOwnerComponent implements OnInit, OnDestroy, AfterVie
       );
   }
 
-  public _convertUserInputToValidValue(value: string): KalturaUser {
+  public _convertUserInputToValidValue(value: string): KontorolUser {
     let result = null;
     const tt: string = this._appLocalization.get('applications.content.categoryDetails.entitlements.owner.tooltip', {0: value});
 
     if (value) {
-      result = new KalturaUser(
+      result = new KontorolUser(
         {
           id: value,
           screenName:  value,
@@ -162,7 +162,7 @@ export class CategoryChangeOwnerComponent implements OnInit, OnDestroy, AfterVie
   }
 
   public _apply() {
-    const owner: KalturaUser = Array.isArray(this._owner) ? this._owner[0] : this._owner;
+    const owner: KontorolUser = Array.isArray(this._owner) ? this._owner[0] : this._owner;
 
       this._logger.info(`handle change owner action by user`, { owner });
 

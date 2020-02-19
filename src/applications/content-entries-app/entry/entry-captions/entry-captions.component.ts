@@ -3,17 +3,17 @@ import { Component, AfterViewInit, OnInit, OnDestroy, ViewChild } from '@angular
 import { Menu } from 'primeng/menu';
 import { ISubscription } from 'rxjs/Subscription';
 
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { AppAuthentication } from 'app-shared/kmc-shell';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
-import { KalturaCaptionAssetStatus } from 'kaltura-ngx-client';
-import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
+import { KontorolCaptionAssetStatus } from 'kontorol-ngx-client';
+import { PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
 
 import { EntryCaptionsWidget } from './entry-captions-widget.service';
 
-import { getKalturaServerUri, serverConfig } from 'config/server';
+import { getKontorolServerUri, serverConfig } from 'config/server';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
 import { ReachAppViewService, ReachPages } from 'app-shared/kmc-shared/kmc-views/details-views';
 import { MenuItem } from 'primeng/api';
 
@@ -27,7 +27,7 @@ export class EntryCaptions implements AfterViewInit, OnInit, OnDestroy {
   public _kmcPermissions = KMCPermissions;
 
 	public _actions: MenuItem[] = [];
-    public _captionStatusReady = KalturaCaptionAssetStatus.ready;
+    public _captionStatusReady = KontorolCaptionAssetStatus.ready;
     public _requestCaptionsAvailable = false;
 
 	@ViewChild('actionsmenu', { static: true }) private actionsMenu: Menu;
@@ -123,7 +123,7 @@ export class EntryCaptions implements AfterViewInit, OnInit, OnDestroy {
 			let url = baseUrl + '/p/' + partnerId +'/sp/' + partnerId + '00/playManifest/entryId/' + entryId + '/flavorId/' + this._widgetService.currentCaption.id + '/format/download/protocol/' + protocol;
 			this._browserService.openLink(url);
 		}else {
-            const url = getKalturaServerUri("/api_v3/service/caption_captionasset/action/serve/ks/" + this._appAuthentication.appUser.ks + "/captionAssetId/" + this._widgetService.currentCaption.id);
+            const url = getKontorolServerUri("/api_v3/service/caption_captionasset/action/serve/ks/" + this._appAuthentication.appUser.ks + "/captionAssetId/" + this._widgetService.currentCaption.id);
 
 			this._browserService.download(url, this._widgetService.currentCaption.id + "." + this._widgetService.currentCaption.fileExt, this._widgetService.currentCaption.fileExt);
 		}

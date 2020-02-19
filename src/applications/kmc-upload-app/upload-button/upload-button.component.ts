@@ -1,6 +1,6 @@
 import {Component, ViewChild} from '@angular/core';
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
-import {KalturaMediaType} from 'kaltura-ngx-client';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
+import {KontorolMediaType} from 'kontorol-ngx-client';
 import {PrepareEntryComponent} from '../prepare-entry/prepare-entry.component';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { KMCFileCreationType } from '../upload-settings/upload-settings.component';
@@ -45,10 +45,10 @@ export class UploadButtonComponent {
         this.bulkUploadMenu.open();
         break;
       case 'prepareVideoEntry':
-        this.prepareEntryComponent.prepareEntry(KalturaMediaType.video);
+        this.prepareEntryComponent.prepareEntry(KontorolMediaType.video);
         break;
       case 'prepareAudioEntry':
-        this.prepareEntryComponent.prepareEntry(KalturaMediaType.audio);
+        this.prepareEntryComponent.prepareEntry(KontorolMediaType.audio);
         break;
       case 'createLive':
         this.createLivePopup.open();

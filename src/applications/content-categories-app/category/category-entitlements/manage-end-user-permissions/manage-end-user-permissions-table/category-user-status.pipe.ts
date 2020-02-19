@@ -1,19 +1,19 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {KalturaCategoryUserStatus} from 'kaltura-ngx-client';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
+import {KontorolCategoryUserStatus} from 'kontorol-ngx-client';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
 
 @Pipe({ name: 'kCategoryUserStatus' })
 export class CategoryUserStatusPipe implements PipeTransform {
   constructor(private appLocalization: AppLocalization) {
   }
 
-  transform(value: KalturaCategoryUserStatus): string {
+  transform(value: KontorolCategoryUserStatus): string {
     switch (value) {
-      case KalturaCategoryUserStatus.active:
+      case KontorolCategoryUserStatus.active:
         return this.appLocalization.get('app.common.yes');
-        case KalturaCategoryUserStatus.notActive:
+        case KontorolCategoryUserStatus.notActive:
         return this.appLocalization.get('app.common.no');
-      case KalturaCategoryUserStatus.pending:
+      case KontorolCategoryUserStatus.pending:
         return this.appLocalization.get('applications.content.categoryDetails.entitlements.usersPermissions.table.pendingApproval');
       default:
         return '';

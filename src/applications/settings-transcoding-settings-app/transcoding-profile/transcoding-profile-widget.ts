@@ -1,14 +1,14 @@
-import { AreaBlockerMessage, AreaBlockerMessageButton, WidgetBase } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerMessage, AreaBlockerMessageButton, WidgetBase } from '@kontorol-ng/kontorol-ui';
 import { TranscodingProfileWidgetsManager } from './transcoding-profile-widgets-manager';
-import { KalturaMultiRequest } from 'kaltura-ngx-client';
-import { KalturaConversionProfileWithAsset } from '../transcoding-profiles/transcoding-profiles-store/base-transcoding-profiles-store.service';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import { KontorolMultiRequest } from 'kontorol-ngx-client';
+import { KontorolConversionProfileWithAsset } from '../transcoding-profiles/transcoding-profiles-store/base-transcoding-profiles-store.service';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 
-export abstract class TranscodingProfileWidget extends WidgetBase<TranscodingProfileWidgetsManager, KalturaConversionProfileWithAsset, KalturaMultiRequest> {
+export abstract class TranscodingProfileWidget extends WidgetBase<TranscodingProfileWidgetsManager, KontorolConversionProfileWithAsset, KontorolMultiRequest> {
   public sectionBlockerMessage: AreaBlockerMessage;
   public showSectionLoader: boolean;
 
-  constructor(private _widgetKey: string, logger: KalturaLogger) {
+  constructor(private _widgetKey: string, logger: KontorolLogger) {
     super(_widgetKey, logger);
   }
 

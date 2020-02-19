@@ -1,29 +1,29 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { KalturaClient } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
 import { KmcServerPolls } from 'app-shared/kmc-shared/server-polls';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { UploadMonitorStatuses } from './upload-monitor.component';
-import { KalturaDropFolder } from 'kaltura-ngx-client';
-import { KalturaDropFolderFilter } from 'kaltura-ngx-client';
-import { KalturaDropFolderOrderBy } from 'kaltura-ngx-client';
-import { KalturaDropFolderContentFileHandlerConfig } from 'kaltura-ngx-client';
-import { KalturaDropFolderStatus } from 'kaltura-ngx-client';
-import { DropFolderListAction } from 'kaltura-ngx-client';
-import { KalturaDropFolderFileHandlerType } from 'kaltura-ngx-client';
-import { KalturaDropFolderContentFileHandlerMatchPolicy } from 'kaltura-ngx-client';
-import { DropFolderFileListAction } from 'kaltura-ngx-client';
-import { KalturaDropFolderFileFilter } from 'kaltura-ngx-client';
-import { KalturaDropFolderFileStatus } from 'kaltura-ngx-client';
-import { KalturaDropFolderFileListResponse } from 'kaltura-ngx-client';
+import { KontorolDropFolder } from 'kontorol-ngx-client';
+import { KontorolDropFolderFilter } from 'kontorol-ngx-client';
+import { KontorolDropFolderOrderBy } from 'kontorol-ngx-client';
+import { KontorolDropFolderContentFileHandlerConfig } from 'kontorol-ngx-client';
+import { KontorolDropFolderStatus } from 'kontorol-ngx-client';
+import { DropFolderListAction } from 'kontorol-ngx-client';
+import { KontorolDropFolderFileHandlerType } from 'kontorol-ngx-client';
+import { KontorolDropFolderContentFileHandlerMatchPolicy } from 'kontorol-ngx-client';
+import { DropFolderFileListAction } from 'kontorol-ngx-client';
+import { KontorolDropFolderFileFilter } from 'kontorol-ngx-client';
+import { KontorolDropFolderFileStatus } from 'kontorol-ngx-client';
+import { KontorolDropFolderFileListResponse } from 'kontorol-ngx-client';
 import { DropFoldersRequestFactory } from './drop-folders-request-factory';
-import { KalturaDropFolderFile } from 'kaltura-ngx-client';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolDropFolderFile } from 'kontorol-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 interface DropFoldersUploadFile {
-  status: KalturaDropFolderFileStatus;
+  status: KontorolDropFolderFileStatus;
   uploadedOn: Date;
   id: number;
 }
@@ -50,18 +50,18 @@ export class DropFoldersMonitorService implements OnDestroy {
 
   private _dropFolderChangesFactory = new DropFoldersRequestFactory();
   private _activeStatuses = [
-    KalturaDropFolderFileStatus.uploading,
-    KalturaDropFolderFileStatus.pending,
-    KalturaDropFolderFileStatus.waiting,
-    KalturaDropFolderFileStatus.uploading,
+    KontorolDropFolderFileStatus.uploading,
+    KontorolDropFolderFileStatus.pending,
+    KontorolDropFolderFileStatus.waiting,
+    KontorolDropFolderFileStatus.uploading,
   ];
 
   public readonly totals = { data$: this._totals.data.asObservable(), state$: this._totals.state.asObservable() };
 
-  constructor(private _kalturaClient: KalturaClient,
+  constructor(private _kontorolClient: KontorolClient,
               private _kmcServerPolls: KmcServerPolls,
               private _browserService: BrowserService,
-              private _logger: KalturaLogger) {
+              private _logger: KontorolLogger) {
     this._initTracking();
   }
 
@@ -91,23 +91,23 @@ export class DropFoldersMonitorService implements OnDestroy {
     } else {
       return this._getTrackedFiles().reduce((totals, upload) => {
         switch (upload.status) {
-          case KalturaDropFolderFileStatus.pending:
-          case KalturaDropFolderFileStatus.waiting:
-          case KalturaDropFolderFileStatus.parsed:
-          case KalturaDropFolderFileStatus.noMatch:
+          case KontorolDropFolderFileStatus.pending:
+          case KontorolDropFolderFileStatus.waiting:
+          case KontorolDropFolderFileStatus.parsed:
+          case KontorolDropFolderFileStatus.noMatch:
             totals.queued += 1;
             break;
-          case KalturaDropFolderFileStatus.uploading:
-          case KalturaDropFolderFileStatus.processing:
-          case KalturaDropFolderFileStatus.downloading:
+          case KontorolDropFolderFileStatus.uploading:
+          case KontorolDropFolderFileStatus.processing:
+          case KontorolDropFolderFileStatus.downloading:
             totals.uploading += 1;
             break;
-          case KalturaDropFolderFileStatus.handled:
+          case KontorolDropFolderFileStatus.handled:
             totals.completed += 1;
             break;
-          case KalturaDropFolderFileStatus.errorHandling:
-          case KalturaDropFolderFileStatus.errorDownloading:
-          case KalturaDropFolderFileStatus.errorDeleting:
+          case KontorolDropFolderFileStatus.errorHandling:
+          case KontorolDropFolderFileStatus.errorDownloading:
+          case KontorolDropFolderFileStatus.errorDeleting:
             totals.errors += 1;
             break;
           default:
@@ -119,37 +119,37 @@ export class DropFoldersMonitorService implements OnDestroy {
     }
   }
 
-  private _getDropFolders(): Observable<KalturaDropFolder[]> {
+  private _getDropFolders(): Observable<KontorolDropFolder[]> {
     const dropFolders = new DropFolderListAction({
-      filter: new KalturaDropFolderFilter({
-        orderBy: KalturaDropFolderOrderBy.createdAtDesc.toString(),
-        statusEqual: KalturaDropFolderStatus.enabled
+      filter: new KontorolDropFolderFilter({
+        orderBy: KontorolDropFolderOrderBy.createdAtDesc.toString(),
+        statusEqual: KontorolDropFolderStatus.enabled
       }),
     }).setRequestOptions({
-        acceptedTypes: [KalturaDropFolder, KalturaDropFolderContentFileHandlerConfig]
+        acceptedTypes: [KontorolDropFolder, KontorolDropFolderContentFileHandlerConfig]
     });
 
-    return this._kalturaClient.request(dropFolders)
+    return this._kontorolClient.request(dropFolders)
       .map(response => {
         if (response && response.objects) {
           return response.objects.reduce((list, object) => {
-            if (object instanceof KalturaDropFolder) {
-              if (object.fileHandlerType === KalturaDropFolderFileHandlerType.content) {
-                const cfg = object.fileHandlerConfig as KalturaDropFolderContentFileHandlerConfig;
-                if (cfg.contentMatchPolicy === KalturaDropFolderContentFileHandlerMatchPolicy.addAsNew) {
+            if (object instanceof KontorolDropFolder) {
+              if (object.fileHandlerType === KontorolDropFolderFileHandlerType.content) {
+                const cfg = object.fileHandlerConfig as KontorolDropFolderContentFileHandlerConfig;
+                if (cfg.contentMatchPolicy === KontorolDropFolderContentFileHandlerMatchPolicy.addAsNew) {
                   list.push(object);
-                } else if (cfg.contentMatchPolicy === KalturaDropFolderContentFileHandlerMatchPolicy.matchExistingOrKeepInFolder) {
+                } else if (cfg.contentMatchPolicy === KontorolDropFolderContentFileHandlerMatchPolicy.matchExistingOrKeepInFolder) {
                   list.push(object);
-                } else if (cfg.contentMatchPolicy === KalturaDropFolderContentFileHandlerMatchPolicy.matchExistingOrAddAsNew) {
+                } else if (cfg.contentMatchPolicy === KontorolDropFolderContentFileHandlerMatchPolicy.matchExistingOrAddAsNew) {
                   list.push(object);
                 }
-              } else if (object.fileHandlerType === KalturaDropFolderFileHandlerType.xml) {
+              } else if (object.fileHandlerType === KontorolDropFolderFileHandlerType.xml) {
                 list.push(object);
               }
 
               return list;
             } else {
-              throw new Error(`invalid type provided, expected KalturaDropFolder, got ${typeof object}`);
+              throw new Error(`invalid type provided, expected KontorolDropFolder, got ${typeof object}`);
             }
           }, []);
         }
@@ -158,17 +158,17 @@ export class DropFoldersMonitorService implements OnDestroy {
       });
   }
 
-  private _getActiveUpload(dropFoldersIn: string): Observable<KalturaDropFolderFileListResponse> {
+  private _getActiveUpload(dropFoldersIn: string): Observable<KontorolDropFolderFileListResponse> {
     const activeUploads = new DropFolderFileListAction({
-      filter: new KalturaDropFolderFileFilter({
+      filter: new KontorolDropFolderFileFilter({
         dropFolderIdIn: dropFoldersIn,
         statusIn: this._activeStatuses.join(',')
       })
     });
-    return this._kalturaClient.request(activeUploads)
+    return this._kontorolClient.request(activeUploads)
   }
 
-  private _cleanDeletedUploads(uploads: KalturaDropFolderFile[]): void {
+  private _cleanDeletedUploads(uploads: KontorolDropFolderFile[]): void {
     const uploadIds = uploads.map(({ id }) => id);
     this._getTrackedFiles().forEach(file => {
       const trackedUploadIsNotInResponse = uploadIds.indexOf(Number(file.id)) === -1;
@@ -242,7 +242,7 @@ export class DropFoldersMonitorService implements OnDestroy {
       this._logger.info(`start server polling every 30 seconds to sync drop folders upload status`);
 
 
-      this._kmcServerPolls.register<KalturaDropFolderFileListResponse>(30, this._dropFolderChangesFactory)
+      this._kmcServerPolls.register<KontorolDropFolderFileListResponse>(30, this._dropFolderChangesFactory)
         .pipe(cancelOnDestroy(this))
         .subscribe((response) => {
           if (response.error) {
@@ -279,7 +279,7 @@ export class DropFoldersMonitorService implements OnDestroy {
     });
   }
 
-  private _updateTrackedFilesFromServer(serverFiles: KalturaDropFolderFile[]): void {
+  private _updateTrackedFilesFromServer(serverFiles: KontorolDropFolderFile[]): void {
     serverFiles.forEach(upload => {
       const currentUploadIsActive = this._activeStatuses.indexOf(upload.status) !== -1;
       const relevantUpload = this._dropFolderFiles[upload.id];

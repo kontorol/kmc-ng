@@ -1,10 +1,10 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { TrackedFileStatuses, UploadManagement } from '@kaltura-ng/kaltura-common';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { TrackedFileStatuses, UploadManagement } from '@kontorol-ng/kontorol-common';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { PageExitVerificationService } from 'app-shared/kmc-shell/page-exit-verification/page-exit-verification.service';
 import { NewEntryUploadFile } from 'app-shared/kmc-shell/new-entry-upload';
 import { NewEntryFlavourFile } from 'app-shared/kmc-shell/new-entry-flavour-file';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Injectable()
 export class UploadPageExitVerificationService implements OnDestroy {

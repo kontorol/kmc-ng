@@ -1,7 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {AppAuthentication, BrowserService} from 'app-shared/kmc-shell';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import {getKalturaServerUri, serverConfig} from 'config/server';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import {getKontorolServerUri, serverConfig} from 'config/server';
 import { LiveDashboardAppViewService } from 'app-shared/kmc-shared/kmc-views/component-views';
 
 @Component({
@@ -16,7 +16,7 @@ export class LiveDashboardHostComponent implements OnInit, OnDestroy {
   public _liveDashboardUrl = null;
 
   constructor(private appAuthentication: AppAuthentication,
-              private logger: KalturaLogger,
+              private logger: KontorolLogger,
               private _browserService: BrowserService,
               private _liveDasboardAppViewService: LiveDashboardAppViewService) {
   }
@@ -40,7 +40,7 @@ export class LiveDashboardHostComponent implements OnInit, OnDestroy {
       window['kmc'] = {
         'vars': {
           'ks': this.appAuthentication.appUser.ks,
-          'service_url': getKalturaServerUri(),
+          'service_url': getKontorolServerUri(),
           'liveDashboard': {
             'entryId': this.entryId
           }

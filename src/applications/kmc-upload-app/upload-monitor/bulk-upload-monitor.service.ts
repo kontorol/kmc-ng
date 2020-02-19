@@ -1,27 +1,27 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { KalturaClient } from 'kaltura-ngx-client';
-import { BulkListAction } from 'kaltura-ngx-client';
-import { KalturaBatchJobStatus } from 'kaltura-ngx-client';
-import { KalturaBulkUploadFilter } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { BulkListAction } from 'kontorol-ngx-client';
+import { KontorolBatchJobStatus } from 'kontorol-ngx-client';
+import { KontorolBulkUploadFilter } from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
-import { KalturaBulkUploadListResponse } from 'kaltura-ngx-client';
+import { KontorolBulkUploadListResponse } from 'kontorol-ngx-client';
 import { KmcServerPolls } from 'app-shared/kmc-shared/server-polls';
 import { BulkLogUploadingStartedEvent } from 'app-shared/kmc-shared/events';
 import { AppEventsService } from 'app-shared/kmc-shared';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
-import { KalturaDetachedResponseProfile } from 'kaltura-ngx-client';
-import { KalturaResponseProfileType } from 'kaltura-ngx-client';
-import { KalturaBulkUpload } from 'kaltura-ngx-client';
+import { KontorolDetachedResponseProfile } from 'kontorol-ngx-client';
+import { KontorolResponseProfileType } from 'kontorol-ngx-client';
+import { KontorolBulkUpload } from 'kontorol-ngx-client';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { UploadMonitorStatuses } from './upload-monitor.component';
-import { KalturaBulkUploadObjectType } from 'kaltura-ngx-client';
+import { KontorolBulkUploadObjectType } from 'kontorol-ngx-client';
 import { BulkUploadRequestFactory } from './bulk-upload-request-factory';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 interface BulkUploadFile
 {
-  status: KalturaBatchJobStatus;
+  status: KontorolBatchJobStatus;
   uploadedOn: Date;
   id: number;
 }
@@ -50,25 +50,25 @@ export class BulkUploadMonitorService implements OnDestroy {
 
     private _bulkUploadChangesFactory = new BulkUploadRequestFactory();
     private _bulkUploadObjectTypeIn = [
-        KalturaBulkUploadObjectType.entry,
-        KalturaBulkUploadObjectType.category,
-        KalturaBulkUploadObjectType.user,
-        KalturaBulkUploadObjectType.categoryUser
+        KontorolBulkUploadObjectType.entry,
+        KontorolBulkUploadObjectType.category,
+        KontorolBulkUploadObjectType.user,
+        KontorolBulkUploadObjectType.categoryUser
     ];
     private _activeStatuses = [
-        KalturaBatchJobStatus.dontProcess,
-        KalturaBatchJobStatus.pending,
-        KalturaBatchJobStatus.queued,
-        KalturaBatchJobStatus.processing,
-        KalturaBatchJobStatus.almostDone,
-        KalturaBatchJobStatus.retry
+        KontorolBatchJobStatus.dontProcess,
+        KontorolBatchJobStatus.pending,
+        KontorolBatchJobStatus.queued,
+        KontorolBatchJobStatus.processing,
+        KontorolBatchJobStatus.almostDone,
+        KontorolBatchJobStatus.retry
     ];
 
-    constructor(private _kalturaClient: KalturaClient,
+    constructor(private _kontorolClient: KontorolClient,
                 private _kmcServerPolls: KmcServerPolls,
                 private _appEvents: AppEventsService,
                 private _browserService: BrowserService,
-                private _logger: KalturaLogger) {
+                private _logger: KontorolLogger) {
         this._logger.debug('constructor()');
         this._logger.debug(`registering to app event 'BulkLogUploadingStartedEvent'`);
         this._appEvents
@@ -109,25 +109,25 @@ export class BulkUploadMonitorService implements OnDestroy {
         } else {
             return this._getTrackedFiles().reduce((totals, upload) => {
                 switch (upload.status) {
-                    case KalturaBatchJobStatus.pending:
-                    case KalturaBatchJobStatus.queued:
-                    case KalturaBatchJobStatus.dontProcess:
+                    case KontorolBatchJobStatus.pending:
+                    case KontorolBatchJobStatus.queued:
+                    case KontorolBatchJobStatus.dontProcess:
                         totals.queued += 1;
                         break;
-                    case KalturaBatchJobStatus.processing:
-                    case KalturaBatchJobStatus.almostDone:
-                    case KalturaBatchJobStatus.retry:
+                    case KontorolBatchJobStatus.processing:
+                    case KontorolBatchJobStatus.almostDone:
+                    case KontorolBatchJobStatus.retry:
                         totals.uploading += 1;
                         break;
-                    case KalturaBatchJobStatus.finished:
-                    case KalturaBatchJobStatus.finishedPartially:
-                    case KalturaBatchJobStatus.processed:
+                    case KontorolBatchJobStatus.finished:
+                    case KontorolBatchJobStatus.finishedPartially:
+                    case KontorolBatchJobStatus.processed:
                         totals.completed += 1;
                         break;
-                    case KalturaBatchJobStatus.failed:
-                    case KalturaBatchJobStatus.fatal:
-                    case KalturaBatchJobStatus.aborted:
-                    case KalturaBatchJobStatus.movefile:
+                    case KontorolBatchJobStatus.failed:
+                    case KontorolBatchJobStatus.fatal:
+                    case KontorolBatchJobStatus.aborted:
+                    case KontorolBatchJobStatus.movefile:
                         totals.errors += 1;
                         break;
                     default:
@@ -139,23 +139,23 @@ export class BulkUploadMonitorService implements OnDestroy {
         }
     }
 
-    private _getActiveUploadsList(): Observable<KalturaBulkUploadListResponse> {
+    private _getActiveUploadsList(): Observable<KontorolBulkUploadListResponse> {
         const activeUploads = new BulkListAction({
-            bulkUploadFilter: new KalturaBulkUploadFilter({
+            bulkUploadFilter: new KontorolBulkUploadFilter({
                 statusIn: this._activeStatuses.join(','),
                 bulkUploadObjectTypeIn: this._bulkUploadObjectTypeIn.join(','),
             })
         }).setRequestOptions({
-            responseProfile: new KalturaDetachedResponseProfile({
-                type: KalturaResponseProfileType.includeFields,
+            responseProfile: new KontorolDetachedResponseProfile({
+                type: KontorolResponseProfileType.includeFields,
                 fields: 'id,status,uploadedOn'
             })
         });
 
-        return this._kalturaClient.request(activeUploads);
+        return this._kontorolClient.request(activeUploads);
     }
 
-    private _cleanDeletedUploads(uploads: KalturaBulkUpload[]): void {
+    private _cleanDeletedUploads(uploads: KontorolBulkUpload[]): void {
         const uploadIds = uploads.map(({id}) => id);
         this._getTrackedFiles().forEach(file => {
             const trackedUploadIsNotInResponse = uploadIds.indexOf(Number(file.id)) === -1;
@@ -213,7 +213,7 @@ export class BulkUploadMonitorService implements OnDestroy {
             this._logger.info(`start server polling every 30 seconds to sync bulk upload status`);
 
 
-            this._kmcServerPolls.register<KalturaBulkUploadListResponse>(30, this._bulkUploadChangesFactory)
+            this._kmcServerPolls.register<KontorolBulkUploadListResponse>(30, this._bulkUploadChangesFactory)
                 .pipe(cancelOnDestroy(this))
                 .subscribe((response) => {
                     if (response.error) {

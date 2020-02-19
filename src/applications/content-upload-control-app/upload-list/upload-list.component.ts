@@ -1,15 +1,15 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
 import { BrowserService, NewEntryUploadFile, NewEntryUploadService } from 'app-shared/kmc-shell';
-import { TrackedFileStatuses, UploadManagement } from '@kaltura-ng/kaltura-common';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaMediaType } from 'kaltura-ngx-client';
-import { TrackedFileData } from '@kaltura-ng/kaltura-common';
+import { TrackedFileStatuses, UploadManagement } from '@kontorol-ng/kontorol-common';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolMediaType } from 'kontorol-ngx-client';
+import { TrackedFileData } from '@kontorol-ng/kontorol-common';
 import { NewEntryFlavourFile } from 'app-shared/kmc-shell/new-entry-flavour-file';
-import { KalturaUploadFile } from 'app-shared/kmc-shared';
+import { KontorolUploadFile } from 'app-shared/kmc-shared';
 import { ContentUploadsMainViewService } from 'app-shared/kmc-shared/kmc-views';
 import { NewReplaceVideoUploadFile } from 'app-shared/kmc-shell/new-replace-video-upload/new-replace-video-upload-file';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 type MonitoredUploadFile = NewEntryUploadFile | NewEntryFlavourFile;
 
@@ -23,7 +23,7 @@ export interface UploadFileData {
   fileSize: number;
   uploadedOn: Date;
   status: string;
-  mediaType: KalturaMediaType;
+  mediaType: KontorolMediaType;
   entryId?: string;
   progress?: number;
 }

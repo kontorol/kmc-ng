@@ -1,29 +1,29 @@
 import {Injectable} from '@angular/core';
-import {KalturaClient} from 'kaltura-ngx-client';
+import {KontorolClient} from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
-import {ConversionProfileListAction} from 'kaltura-ngx-client';
-import {KalturaConversionProfileFilter} from 'kaltura-ngx-client';
-import {KalturaConversionProfileType} from 'kaltura-ngx-client';
-import {KalturaFilterPager} from 'kaltura-ngx-client';
-import {KalturaConversionProfile} from 'kaltura-ngx-client';
+import {ConversionProfileListAction} from 'kontorol-ngx-client';
+import {KontorolConversionProfileFilter} from 'kontorol-ngx-client';
+import {KontorolConversionProfileType} from 'kontorol-ngx-client';
+import {KontorolFilterPager} from 'kontorol-ngx-client';
+import {KontorolConversionProfile} from 'kontorol-ngx-client';
 
 @Injectable()
-export class KalturaLiveStreamService {
+export class KontorolLiveStreamService {
 
-  constructor(private _kalturaServerClient: KalturaClient) {
+  constructor(private _kontorolServerClient: KontorolClient) {
   }
 
-  public getKalturaConversionProfiles(): Observable<KalturaConversionProfile[]> {
+  public getKontorolConversionProfiles(): Observable<KontorolConversionProfile[]> {
     // filter
-    const kalturaConversionProfileFilter = new KalturaConversionProfileFilter({
-      typeEqual: KalturaConversionProfileType.liveStream
+    const kontorolConversionProfileFilter = new KontorolConversionProfileFilter({
+      typeEqual: KontorolConversionProfileType.liveStream
     });
 
     // pager
-    const kalturaFilterPager = new KalturaFilterPager({pageSize: 500, pageIndex: 1});
+    const kontorolFilterPager = new KontorolFilterPager({pageSize: 500, pageIndex: 1});
 
-    return this._kalturaServerClient
-      .request(new ConversionProfileListAction({filter: kalturaConversionProfileFilter, pager: kalturaFilterPager}))
-      .map(response => (<KalturaConversionProfile[]>response.objects))
+    return this._kontorolServerClient
+      .request(new ConversionProfileListAction({filter: kontorolConversionProfileFilter, pager: kontorolFilterPager}))
+      .map(response => (<KontorolConversionProfile[]>response.objects))
   }
 }

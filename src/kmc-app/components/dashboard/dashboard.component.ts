@@ -2,7 +2,7 @@ import { Component, OnInit, AfterViewInit, ViewChild, OnDestroy } from '@angular
 import { AppAuthentication, AppShellService, BrowserService, PartnerPackageTypes } from "app-shared/kmc-shell";
 import { buildDeployUrl } from 'config/server';
 import * as $ from 'jquery';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 
 @Component({
   selector: 'kKMCDashboard',
@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('appMenu', { static: true }) private _appMenuRef : any;
   @ViewChild('whatsNew', { static: true }) private _whatsNewWin : PopupWidgetComponent;
 
-  public _bannerUri = buildDeployUrl('./assets/kaltura_connect_banner2x.jpg');
+  public _bannerUri = buildDeployUrl('./assets/kontorol_connect_banner2x.jpg');
   private onResize : () => void;
 
 
@@ -46,7 +46,7 @@ export class DashboardComponent implements OnInit, AfterViewInit, OnDestroy {
     }
 
     register():void{
-        this._browserService.openLink('https://connect.kaltura.com');
+        this._browserService.openLink('https://connect.kontorol.com');
     }
 
   ngAfterViewInit()

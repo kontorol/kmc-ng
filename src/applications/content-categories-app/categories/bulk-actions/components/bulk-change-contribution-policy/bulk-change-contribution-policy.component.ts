@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
-import {KalturaContributionPolicyType} from 'kaltura-ngx-client';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
+import {KontorolContributionPolicyType} from 'kontorol-ngx-client';
 
 @Component({
   selector: 'kCategoriesBulkChangeContributionPolicy',
@@ -11,9 +11,9 @@ import {KalturaContributionPolicyType} from 'kaltura-ngx-client';
 export class CategoriesBulkChangeContributionPolicy {
 
   @Input() parentPopupWidget: PopupWidgetComponent;
-  @Output() changeContributionPolicyChanged = new EventEmitter<KalturaContributionPolicyType>();
-  public _selectedPolicy: KalturaContributionPolicyType = null;
-  public _availablePolicies = KalturaContributionPolicyType;
+  @Output() changeContributionPolicyChanged = new EventEmitter<KontorolContributionPolicyType>();
+  public _selectedPolicy: KontorolContributionPolicyType = null;
+  public _availablePolicies = KontorolContributionPolicyType;
 
   constructor() {
   }

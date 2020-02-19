@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { KMCPermissionsService } from '../../kmc-permissions';
 import { Router } from '@angular/router';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
-import { KalturaClient } from 'kaltura-ngx-client';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { KmcComponentViewBaseService } from 'app-shared/kmc-shared/kmc-views/kmc-component-view-base.service';
 import { serverConfig } from 'config/server';
 
@@ -13,10 +13,10 @@ export class LiveDashboardAppViewService extends KmcComponentViewBaseService<voi
 
     constructor(private _appPermissions: KMCPermissionsService,
                 private _appLocalization: AppLocalization,
-                private _kalturaClient: KalturaClient,
+                private _kontorolClient: KontorolClient,
                 private _router: Router,
                 _browserService: BrowserService,
-                _logger: KalturaLogger) {
+                _logger: KontorolLogger) {
         super(_logger.subLogger('LiveDashboardAppViewService'));
     }
 

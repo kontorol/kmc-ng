@@ -26,7 +26,7 @@ export class ForgotPasswordFormComponent {
   public _forgotPasswordForm: FormGroup;
   public _emailField: AbstractControl;
   public _displayEmailField = true;
-  public _contactUsLinkExists = !!serverConfig.externalLinks.kaltura && !!serverConfig.externalLinks.kaltura.contactUs;
+  public _contactUsLinkExists = !!serverConfig.externalLinks.kontorol && !!serverConfig.externalLinks.kontorol.contactUs;
 
   public get _emailValidationMessage(): string {
     return this._emailField.invalid && this._emailField.touched ? 'app.login.error.email' : '';
@@ -61,6 +61,6 @@ export class ForgotPasswordFormComponent {
   }
 
   public _openContactUs(): void {
-    this._browserService.openLink(serverConfig.externalLinks.kaltura.contactUs);
+    this._browserService.openLink(serverConfig.externalLinks.kontorol.contactUs);
   }
 }

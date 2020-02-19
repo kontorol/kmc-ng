@@ -1,21 +1,21 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import { KalturaUser } from 'kaltura-ngx-client';
-import { UserUpdateLoginDataActionArgs } from 'kaltura-ngx-client';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import { KontorolUser } from 'kontorol-ngx-client';
+import { UserUpdateLoginDataActionArgs } from 'kontorol-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 
 @Component({
   selector: 'kEditUserName',
   templateUrl: './edit-user-name.component.html',
   styleUrls: ['./edit-user-name.component.scss'],
-  providers: [KalturaLogger.createLogger('EditUserNameComponent')]
+  providers: [KontorolLogger.createLogger('EditUserNameComponent')]
 })
 export class EditUserNameComponent implements OnInit, OnDestroy {
   @Input() parentPopupWidget: PopupWidgetComponent;
-  @Input() user: KalturaUser;
+  @Input() user: KontorolUser;
   @Input() blockerMessage: AreaBlockerMessage;
   @Output() updateLoginData = new EventEmitter<UserUpdateLoginDataActionArgs>();
 
@@ -26,7 +26,7 @@ export class EditUserNameComponent implements OnInit, OnDestroy {
   public _showPasswordError = false;
 
   constructor(private _fb: FormBuilder,
-              private _logger: KalturaLogger) {
+              private _logger: KontorolLogger) {
   }
 
   ngOnInit() {

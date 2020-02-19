@@ -1,18 +1,18 @@
 import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import {AreaBlockerMessage, StickyComponent} from '@kaltura-ng/kaltura-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import {AreaBlockerMessage, StickyComponent} from '@kontorol-ng/kontorol-ui';
 import {BrowserService} from 'app-shared/kmc-shell/providers/browser.service';
 
 import {BulkLogFilters, BulkLogStoreService} from '../bulk-log-store/bulk-log-store.service';
-import {KalturaBulkUpload} from 'kaltura-ngx-client';
+import {KontorolBulkUpload} from 'kontorol-ngx-client';
 import {getBulkUploadType} from '../utils/get-bulk-upload-type';
 import {AppEventsService} from 'app-shared/kmc-shared';
 import {BulkLogUploadingStartedEvent} from 'app-shared/kmc-shared/events';
 import {BulkLogRefineFiltersService, RefineList} from '../bulk-log-store/bulk-log-refine-filters.service';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { ContentBulkUploadsMainViewService } from 'app-shared/kmc-shared/kmc-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kBulkLogList',
@@ -20,7 +20,7 @@ import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
   styleUrls: ['./bulk-log-list.component.scss'],
   providers: [
     BulkLogStoreService,
-    KalturaLogger.createLogger('BulkLogListComponent')
+    KontorolLogger.createLogger('BulkLogListComponent')
   ]
 })
 export class BulkLogListComponent implements OnInit, OnDestroy {
@@ -44,7 +44,7 @@ export class BulkLogListComponent implements OnInit, OnDestroy {
   constructor(private _appLocalization: AppLocalization,
               private _refineFiltersService: BulkLogRefineFiltersService,
               private _browserService: BrowserService,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               public _store: BulkLogStoreService,
               private _contentBulkUploadsMainView: ContentBulkUploadsMainViewService,
               private _appEvents: AppEventsService) {
@@ -197,7 +197,7 @@ export class BulkLogListComponent implements OnInit, OnDestroy {
       );
   }
 
-  private _deleteBulkLogs(files: KalturaBulkUpload[]): void {
+  private _deleteBulkLogs(files: KontorolBulkUpload[]): void {
     this._logger.info(`handle delete bulk logs request by user`);
     this._blockerMessage = null;
 
@@ -236,7 +236,7 @@ export class BulkLogListComponent implements OnInit, OnDestroy {
     );
   }
 
-  private _deleteAction(bulkLogItem: KalturaBulkUpload): void {
+  private _deleteAction(bulkLogItem: KontorolBulkUpload): void {
     this._logger.info(`handle delete bulkLog item action by user, show confirmation`, { id: bulkLogItem.id, name: bulkLogItem.fileName });
     this._browserService.confirm(
       {
@@ -253,7 +253,7 @@ export class BulkLogListComponent implements OnInit, OnDestroy {
     );
   }
 
-  private _downloadLogAction(bulkLogItem: KalturaBulkUpload): void {
+  private _downloadLogAction(bulkLogItem: KontorolBulkUpload): void {
     this._logger.info(`handle download log action by user`, {
       id: bulkLogItem.id,
       name: bulkLogItem.fileName,
@@ -263,7 +263,7 @@ export class BulkLogListComponent implements OnInit, OnDestroy {
     this._downloadFile(bulkLogItem.logFileUrl, bulkLogItem, formatName);
   }
 
-  private _downloadFileAction(bulkLogItem: KalturaBulkUpload): void {
+  private _downloadFileAction(bulkLogItem: KontorolBulkUpload): void {
     this._logger.info(`handle download file action by user`, {
       id: bulkLogItem.id,
       name: bulkLogItem.fileName,
@@ -273,7 +273,7 @@ export class BulkLogListComponent implements OnInit, OnDestroy {
     this._downloadFile(bulkLogItem.bulkFileUrl, bulkLogItem, formatName);
   }
 
-  private _downloadFile(url: string, bulkLogItem: KalturaBulkUpload, formatNameFn: (name: string | number, type: string) => string): void {
+  private _downloadFile(url: string, bulkLogItem: KontorolBulkUpload, formatNameFn: (name: string | number, type: string) => string): void {
     const type = getBulkUploadType(bulkLogItem.bulkUploadType);
     let fileName = bulkLogItem.fileName;
     if (!fileName) {
@@ -302,7 +302,7 @@ export class BulkLogListComponent implements OnInit, OnDestroy {
     this._store.reload();
   }
 
-  public _onActionSelected(event: { action: string, bulkLogItem: KalturaBulkUpload }): void {
+  public _onActionSelected(event: { action: string, bulkLogItem: KontorolBulkUpload }): void {
     switch (event.action) {
       case 'delete':
         this._deleteAction(event.bulkLogItem);

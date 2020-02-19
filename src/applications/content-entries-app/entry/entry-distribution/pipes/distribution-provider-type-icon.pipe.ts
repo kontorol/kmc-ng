@@ -1,58 +1,58 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { KalturaDistributionProviderType } from 'kaltura-ngx-client';
+import { KontorolDistributionProviderType } from 'kontorol-ngx-client';
 
 @Pipe({ name: 'kEntriesDistributionProviderTypeIcon' })
 export class DistributionProviderTypeIconPipe implements PipeTransform {
 
-  transform(providerType: KalturaDistributionProviderType): string {
+  transform(providerType: KontorolDistributionProviderType): string {
     let className;
 
     switch (true) {
-      case KalturaDistributionProviderType.comcastMrss === providerType:
+      case KontorolDistributionProviderType.comcastMrss === providerType:
         className = 'comcast';
         break;
 
-      case KalturaDistributionProviderType.dailymotion === providerType:
+      case KontorolDistributionProviderType.dailymotion === providerType:
         className = 'dailymotion';
         break;
 
-      case KalturaDistributionProviderType.doubleclick === providerType:
+      case KontorolDistributionProviderType.doubleclick === providerType:
         className = 'doubleclick';
         break;
 
-      case KalturaDistributionProviderType.facebook === providerType:
+      case KontorolDistributionProviderType.facebook === providerType:
         className = 'facebook';
         break;
 
-      case KalturaDistributionProviderType.freewheel === providerType:
-      case KalturaDistributionProviderType.freewheelGeneric === providerType:
+      case KontorolDistributionProviderType.freewheel === providerType:
+      case KontorolDistributionProviderType.freewheelGeneric === providerType:
         className = 'freewheel';
         break;
 
-      case KalturaDistributionProviderType.hulu === providerType:
+      case KontorolDistributionProviderType.hulu === providerType:
         className = 'hulu';
         break;
 
-      case KalturaDistributionProviderType.crossKaltura === providerType:
-        className = 'kaltura';
+      case KontorolDistributionProviderType.crossKontorol === providerType:
+        className = 'kontorol';
         break;
 
-      case KalturaDistributionProviderType.quickplay === providerType:
+      case KontorolDistributionProviderType.quickplay === providerType:
         className = 'quickplay';
         break;
 
-      case KalturaDistributionProviderType.uverse === providerType:
-      case KalturaDistributionProviderType.uverseClickToOrder === providerType:
-      case KalturaDistributionProviderType.attUverse === providerType:
+      case KontorolDistributionProviderType.uverse === providerType:
+      case KontorolDistributionProviderType.uverseClickToOrder === providerType:
+      case KontorolDistributionProviderType.attUverse === providerType:
         className = 'uverse';
         break;
 
-      case KalturaDistributionProviderType.yahoo === providerType:
+      case KontorolDistributionProviderType.yahoo === providerType:
         className = 'yahoo';
         break;
 
-      case KalturaDistributionProviderType.youtube === providerType:
-      case KalturaDistributionProviderType.youtubeApi === providerType:
+      case KontorolDistributionProviderType.youtube === providerType:
+      case KontorolDistributionProviderType.youtubeApi === providerType:
         className = 'youtube';
         break;
 

@@ -5,16 +5,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { routing } from './content-upload-control-app.routes';
 
-import { AreaBlockerModule, StickyModule } from '@kaltura-ng/kaltura-ui';
-import {LocalizationModule} from '@kaltura-ng/mc-shared';
-import { KalturaPrimeNgUIModule } from '@kaltura-ng/kaltura-primeng-ui';
+import { AreaBlockerModule, StickyModule } from '@kontorol-ng/kontorol-ui';
+import {LocalizationModule} from '@kontorol-ng/mc-shared';
+import { KontorolPrimeNgUIModule } from '@kontorol-ng/kontorol-primeng-ui';
 import {
-  KalturaUIModule,
+  KontorolUIModule,
   TooltipModule
-} from '@kaltura-ng/kaltura-ui';
-import { AutoCompleteModule } from '@kaltura-ng/kaltura-primeng-ui';
-import { TagsModule } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetModule } from '@kaltura-ng/kaltura-ui';
+} from '@kontorol-ng/kontorol-ui';
+import { AutoCompleteModule } from '@kontorol-ng/kontorol-primeng-ui';
+import { TagsModule } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetModule } from '@kontorol-ng/kontorol-ui';
 
 import { ContentUploadControlComponent } from './content-upload-control.component';
 import { UploadListComponent } from './upload-list/upload-list.component';
@@ -39,7 +39,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
     CommonModule,
     AreaBlockerModule,
     LocalizationModule,
-    KalturaUIModule,
+    KontorolUIModule,
     PaginatorModule,
     TooltipModule,
     ButtonModule,
@@ -52,7 +52,7 @@ import { ProgressBarModule } from 'primeng/progressbar';
     CalendarModule,
     MenuModule,
     TagsModule,
-    KalturaPrimeNgUIModule,
+    KontorolPrimeNgUIModule,
     AutoCompleteModule,
     SharedModule,
     ProgressBarModule,

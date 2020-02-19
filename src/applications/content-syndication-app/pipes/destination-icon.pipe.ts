@@ -1,24 +1,24 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {KalturaSyndicationFeedType} from 'kaltura-ngx-client';
+import {KontorolSyndicationFeedType} from 'kontorol-ngx-client';
 
 @Pipe({name: 'kDestinationIcon'})
 export class DestinationIconPipe implements PipeTransform {
   constructor() {
   }
 
-  transform(value: KalturaSyndicationFeedType): string {
+  transform(value: KontorolSyndicationFeedType): string {
     switch (value) {
-      case KalturaSyndicationFeedType.googleVideo:
+      case KontorolSyndicationFeedType.googleVideo:
         return 'kIconGoogle';
-      case KalturaSyndicationFeedType.yahoo:
+      case KontorolSyndicationFeedType.yahoo:
         return 'kIconYahoo';
-      case KalturaSyndicationFeedType.itunes:
+      case KontorolSyndicationFeedType.itunes:
         return 'kIconITunes';
-      case KalturaSyndicationFeedType.rokuDirectPublisher:
+      case KontorolSyndicationFeedType.rokuDirectPublisher:
         return 'kIconRoku';
-      case KalturaSyndicationFeedType.operaTvSnap:
+      case KontorolSyndicationFeedType.operaTvSnap:
         return 'kIconOpera';
-      case KalturaSyndicationFeedType.kalturaXslt:
+      case KontorolSyndicationFeedType.kontorolXslt:
         // handled by DestinationLabelPipe since we need to show text and not icon
         return '';
       default:

@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { KalturaDistributionProfile } from 'kaltura-ngx-client';
+import { KontorolDistributionProfile } from 'kontorol-ngx-client';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 
 @Component({
@@ -8,9 +8,9 @@ import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc
   styleUrls: ['./undistributed-profile.component.scss']
 })
 export class UndistributedProfileComponent {
-  @Input() profile: KalturaDistributionProfile;
+  @Input() profile: KontorolDistributionProfile;
 
-  @Output() onExport = new EventEmitter<KalturaDistributionProfile>();
+  @Output() onExport = new EventEmitter<KontorolDistributionProfile>();
 
   public _kmcPermissions = KMCPermissions;
 
@@ -18,7 +18,7 @@ export class UndistributedProfileComponent {
 
   }
 
-  public _exportProfile(profile: KalturaDistributionProfile): void {
+  public _exportProfile(profile: KontorolDistributionProfile): void {
     if (this._permissionsService.hasPermission(KMCPermissions.CONTENT_MANAGE_DISTRIBUTION_WHERE)) {
       this.onExport.emit(profile);
     }

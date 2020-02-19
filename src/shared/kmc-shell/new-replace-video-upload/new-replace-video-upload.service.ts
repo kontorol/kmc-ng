@@ -1,23 +1,23 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { KalturaClient } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
 import { Subscription } from 'rxjs/Subscription';
-import { TrackedFileStatuses, UploadManagement } from '@kaltura-ng/kaltura-common';
+import { TrackedFileStatuses, UploadManagement } from '@kontorol-ng/kontorol-common';
 import { NewReplaceVideoUploadFile } from './new-replace-video-upload-file';
-import { KalturaUploadedFileTokenResource } from 'kaltura-ngx-client';
-import { KalturaAssetParamsResourceContainer } from 'kaltura-ngx-client';
-import { KalturaAssetsParamsResourceContainers } from 'kaltura-ngx-client';
-import { MediaUpdateContentAction } from 'kaltura-ngx-client';
-import { UploadTokenDeleteAction } from 'kaltura-ngx-client';
-import { TrackedFileData } from '@kaltura-ng/kaltura-common';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { KalturaUrlResource } from 'kaltura-ngx-client';
+import { KontorolUploadedFileTokenResource } from 'kontorol-ngx-client';
+import { KontorolAssetParamsResourceContainer } from 'kontorol-ngx-client';
+import { KontorolAssetsParamsResourceContainers } from 'kontorol-ngx-client';
+import { MediaUpdateContentAction } from 'kontorol-ngx-client';
+import { UploadTokenDeleteAction } from 'kontorol-ngx-client';
+import { TrackedFileData } from '@kontorol-ng/kontorol-common';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { KontorolUrlResource } from 'kontorol-ngx-client';
 import { Subject } from 'rxjs/Subject';
-import { MediaCancelReplaceAction } from 'kaltura-ngx-client';
+import { MediaCancelReplaceAction } from 'kontorol-ngx-client';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
-import { KalturaRemoteStorageResource } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolRemoteStorageResource } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export interface KmcNewReplaceEntryLink {
     url: string;
@@ -45,11 +45,11 @@ export class NewReplaceVideoUploadService implements OnDestroy {
         }
     } = {};
 
-    constructor(private _kalturaServerClient: KalturaClient,
+    constructor(private _kontorolServerClient: KontorolClient,
                 private _uploadManagement: UploadManagement,
                 private _browserService: BrowserService,
                 private _appLocalization: AppLocalization,
-                private _logger: KalturaLogger) {
+                private _logger: KontorolLogger) {
         this._logger = _logger.subLogger('NewReplaceVideoUploadService');
         this._monitorTrackedFilesChanges();
     }
@@ -88,7 +88,7 @@ export class NewReplaceVideoUploadService implements OnDestroy {
             .filter(file => file.data instanceof NewReplaceVideoUploadFile && file.data.entryId === entryId)
             .forEach(file => this._cancelUpload(file));
 
-        this._kalturaServerClient.request(new MediaCancelReplaceAction({ entryId }))
+        this._kontorolServerClient.request(new MediaCancelReplaceAction({ entryId }))
             .pipe(cancelOnDestroy(this))
             .pipe(tag('block-shell'))
             .subscribe(
@@ -145,14 +145,14 @@ export class NewReplaceVideoUploadService implements OnDestroy {
     private _updateMediaContent(entryId: string, trackedFiles: TrackedFileData[]): void {
         const files = <NewReplaceVideoUploadFile[]>trackedFiles.map(({ data }) => data);
         const conversionProfileId = files[0].transcodingProfileId;
-        const resource = new KalturaAssetsParamsResourceContainers({
+        const resource = new KontorolAssetsParamsResourceContainers({
             resources: files.map(file => {
-                const subSubResource = new KalturaUploadedFileTokenResource({ token: file.serverUploadToken });
-                return new KalturaAssetParamsResourceContainer({ resource: subSubResource, assetParamsId: file.assetParamsId || 0 });
+                const subSubResource = new KontorolUploadedFileTokenResource({ token: file.serverUploadToken });
+                return new KontorolAssetParamsResourceContainer({ resource: subSubResource, assetParamsId: file.assetParamsId || 0 });
             })
         });
 
-        this._kalturaServerClient.request(new MediaUpdateContentAction({ entryId, resource, conversionProfileId }))
+        this._kontorolServerClient.request(new MediaUpdateContentAction({ entryId, resource, conversionProfileId }))
             .subscribe(
                 () => {
                     this._mediaUpdated.next(entryId);
@@ -169,7 +169,7 @@ export class NewReplaceVideoUploadService implements OnDestroy {
     }
 
     private _removeUploadToken(uploadTokenId: string): Observable<void> {
-        return this._kalturaServerClient.request(new UploadTokenDeleteAction({ uploadTokenId }));
+        return this._kontorolServerClient.request(new UploadTokenDeleteAction({ uploadTokenId }));
     }
 
     private _formatError(message: string, error: string | { message: string }): string {
@@ -191,14 +191,14 @@ export class NewReplaceVideoUploadService implements OnDestroy {
 
     public import(files: KmcNewReplaceEntryImport[], entryId: string, conversionProfileId: number): Observable<void> {
         const resources = files.map(file => {
-            return new KalturaAssetParamsResourceContainer({
-                resource: new KalturaUrlResource({ url: file.url }),
+            return new KontorolAssetParamsResourceContainer({
+                resource: new KontorolUrlResource({ url: file.url }),
                 assetParamsId: file.assetParamsId || 0
             });
         });
-        const resource = new KalturaAssetsParamsResourceContainers({ resources });
+        const resource = new KontorolAssetsParamsResourceContainers({ resources });
 
-        return this._kalturaServerClient
+        return this._kontorolServerClient
             .request(new MediaUpdateContentAction({ entryId, resource, conversionProfileId }))
             .map(() => {
             });
@@ -212,14 +212,14 @@ export class NewReplaceVideoUploadService implements OnDestroy {
 
     public link(files: KmcNewReplaceEntryLink[], entryId: string, conversionProfileId: number, storageProfileId: number): Observable<void> {
         const resources = files.map(file => {
-            return new KalturaAssetParamsResourceContainer({
-                resource: new KalturaRemoteStorageResource({ url: file.url, storageProfileId }),
+            return new KontorolAssetParamsResourceContainer({
+                resource: new KontorolRemoteStorageResource({ url: file.url, storageProfileId }),
                 assetParamsId: file.assetParamsId || 0
             });
         });
-        const resource = new KalturaAssetsParamsResourceContainers({ resources });
+        const resource = new KontorolAssetsParamsResourceContainers({ resources });
 
-        return this._kalturaServerClient
+        return this._kontorolServerClient
             .request(new MediaUpdateContentAction({ entryId, resource, conversionProfileId }))
             .map(() => {
             });

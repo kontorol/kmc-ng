@@ -3,25 +3,25 @@ import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 import { ISubscription } from 'rxjs/Subscription';
-import { KalturaClient, KalturaMultiRequest, KalturaObjectBaseFactory } from 'kaltura-ngx-client';
-import { PlaylistGetAction } from 'kaltura-ngx-client';
-import { KalturaPlaylist } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { PlaylistUpdateAction } from 'kaltura-ngx-client';
+import { KontorolClient, KontorolMultiRequest, KontorolObjectBaseFactory } from 'kontorol-ngx-client';
+import { PlaylistGetAction } from 'kontorol-ngx-client';
+import { KontorolPlaylist } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { PlaylistUpdateAction } from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
 import { AppAuthentication, BrowserService } from 'app-shared/kmc-shell';
 import { PlaylistsStore } from '../playlists/playlists-store/playlists-store.service';
-import { KalturaPlaylistType } from 'kaltura-ngx-client';
-import { PlaylistAddAction } from 'kaltura-ngx-client';
+import { KontorolPlaylistType } from 'kontorol-ngx-client';
+import { PlaylistAddAction } from 'kontorol-ngx-client';
 import { PlaylistWidgetsManager } from './playlist-widgets-manager';
-import { OnDataSavingReasons } from '@kaltura-ng/kaltura-ui';
+import { OnDataSavingReasons } from '@kontorol-ng/kontorol-ui';
 import { PageExitVerificationService } from 'app-shared/kmc-shell/page-exit-verification';
 import { PlaylistCreationService } from 'app-shared/kmc-shared/events/playlist-creation';
 import { subApplicationsConfig } from 'config/sub-applications';
 import { ContentPlaylistViewService } from 'app-shared/kmc-shared/kmc-views/details-views';
 import { ContentPlaylistViewSections } from 'app-shared/kmc-shared/kmc-views/details-views/content-playlist-view.service';
 import { ContentPlaylistsMainViewService } from 'app-shared/kmc-shared/kmc-views/main-views/content-playlists-main-view.service';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export enum ActionTypes {
   PlaylistLoading,
@@ -51,7 +51,7 @@ export class PlaylistStore implements OnDestroy {
   private _playlistIsDirty = false;
   private _savePlaylistInvoked = false;
   private _playlistId: string;
-  private _playlist = new BehaviorSubject<{ playlist: KalturaPlaylist }>({ playlist: null });
+  private _playlist = new BehaviorSubject<{ playlist: KontorolPlaylist }>({ playlist: null });
   private _pageExitVerificationToken: string;
 
   public state$ = this._state.asObservable();
@@ -60,7 +60,7 @@ export class PlaylistStore implements OnDestroy {
     return this._playlistRoute.snapshot.params.id ? this._playlistRoute.snapshot.params.id : null;
   }
 
-  public get playlist(): KalturaPlaylist {
+  public get playlist(): KontorolPlaylist {
     return this._playlist.getValue().playlist;
   }
 
@@ -75,7 +75,7 @@ export class PlaylistStore implements OnDestroy {
   constructor(private _router: Router,
               private _playlistRoute: ActivatedRoute,
               private _appAuth: AppAuthentication,
-              private _kalturaServerClient: KalturaClient,
+              private _kontorolServerClient: KontorolClient,
               private _appLocalization: AppLocalization,
               private _browserService: BrowserService,
               private _playlistsStore: PlaylistsStore,
@@ -153,7 +153,7 @@ export class PlaylistStore implements OnDestroy {
       return this._state.next({ action: ActionTypes.PlaylistLoadingFailed, error: new Error('Missing playlistId') });
     }
 
-    this._loadPlaylistSubscription = this._kalturaServerClient
+    this._loadPlaylistSubscription = this._kontorolServerClient
       .request(new PlaylistGetAction({ id }))
       .pipe(cancelOnDestroy(this))
       .subscribe(playlist => {
@@ -165,7 +165,7 @@ export class PlaylistStore implements OnDestroy {
               activatedRoute: this._playlistRoute,
               section: ContentPlaylistViewSections.ResolveFromActivatedRoute
           })) {
-              if (playlist.playlistType === KalturaPlaylistType.dynamic) {
+              if (playlist.playlistType === KontorolPlaylistType.dynamic) {
                   if (typeof playlist.totalResults === 'undefined' || playlist.totalResults <= 0) {
                       playlist.totalResults = subApplicationsConfig.contentPlaylistsApp.ruleBasedTotalResults;
                   }
@@ -227,7 +227,7 @@ export class PlaylistStore implements OnDestroy {
                 this._playlistId = currentPlaylistId;
                 this._playlistIsDirty = true;
 
-                  const playlist = new KalturaPlaylist({
+                  const playlist = new KontorolPlaylist({
                       name: newData.name,
                       description: newData.description,
                       playlistContent: newData.playlistContent,
@@ -267,11 +267,11 @@ export class PlaylistStore implements OnDestroy {
   }
 
   public savePlaylist(): void {
-    if (this.playlist && this.playlist instanceof KalturaPlaylist) {
-      const newPlaylist = <KalturaPlaylist>KalturaObjectBaseFactory.createObject(this.playlist);
+    if (this.playlist && this.playlist instanceof KontorolPlaylist) {
+      const newPlaylist = <KontorolPlaylist>KontorolObjectBaseFactory.createObject(this.playlist);
       newPlaylist.playlistType = this.playlist.playlistType;
 
-      if (newPlaylist.playlistType === KalturaPlaylistType.dynamic) {
+      if (newPlaylist.playlistType === KontorolPlaylistType.dynamic) {
         newPlaylist.totalResults = this.playlist.totalResults;
       }
 
@@ -279,7 +279,7 @@ export class PlaylistStore implements OnDestroy {
       const action = id === 'new'
         ? new PlaylistAddAction({ playlist: newPlaylist })
         : new PlaylistUpdateAction({ id, playlist: newPlaylist });
-      const request = new KalturaMultiRequest(action);
+      const request = new KontorolMultiRequest(action);
 
       this._widgetsManager.notifyDataSaving(newPlaylist, request, this.playlist)
         .pipe(cancelOnDestroy(this))
@@ -288,7 +288,7 @@ export class PlaylistStore implements OnDestroy {
             if (response.ready) {
               this._savePlaylistInvoked = true;
 
-              return this._kalturaServerClient.multiRequest(request)
+              return this._kontorolServerClient.multiRequest(request)
                 .pipe(tag('block-shell'))
                 .map(([res]) => {
                     if (res.error) {
@@ -346,7 +346,7 @@ export class PlaylistStore implements OnDestroy {
      this._contentPlaylistView.open({ section: sectionKey, playlist: this.playlist });
   }
 
-  public openPlaylist(playlist: KalturaPlaylist) {
+  public openPlaylist(playlist: KontorolPlaylist) {
     if (this.playlistId !== playlist.id) {
       this.canLeaveWithoutSaving()
             .filter(({ allowed }) => allowed)

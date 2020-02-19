@@ -2,9 +2,9 @@
   <div class="kTranscodingProfilesListsHolderWrapper">
 
     <div class="kTranscodingProfilesListsHolder kContent"
-         [class.kSingleTableMode]="!(_kmcPermissions.FEATURE_KALTURA_LIVE_STREAM | kNgIfPermitted)">
-      <k-transcoding-profiles-list [storeFor]="_kalturaConversionProfileType.media"
-                                   [singleTableMode]="!(_kmcPermissions.FEATURE_KALTURA_LIVE_STREAM | kNgIfPermitted)"
+         [class.kSingleTableMode]="!(_kmcPermissions.FEATURE_KONTOROL_LIVE_STREAM | kNgIfPermitted)">
+      <k-transcoding-profiles-list [storeFor]="_kontorolConversionProfileType.media"
+                                   [singleTableMode]="!(_kmcPermissions.FEATURE_KONTOROL_LIVE_STREAM | kNgIfPermitted)"
                                    [title]="'applications.settings.transcoding.transcodingProfiles'| translate"
                                    (addProfile)="_addProfile($event)"
                                    (setParentBlockerMessage)="_setBlockerMessage($event)">
@@ -12,8 +12,8 @@
     </div>
 
     <div class="kTranscodingProfilesListsHolder kContent"
-         *ngIf="_kmcPermissions.FEATURE_KALTURA_LIVE_STREAM | kNgIfPermitted">
-      <k-transcoding-profiles-list [storeFor]="_kalturaConversionProfileType.liveStream"
+         *ngIf="_kmcPermissions.FEATURE_KONTOROL_LIVE_STREAM | kNgIfPermitted">
+      <k-transcoding-profiles-list [storeFor]="_kontorolConversionProfileType.liveStream"
                                    [title]="'applications.settings.transcoding.liveTranscodingProfiles'| translate"
                                    (addProfile)="_addProfile($event)"
                                    (setParentBlockerMessage)="_setBlockerMessage($event)">

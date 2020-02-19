@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {BrowserService} from "app-shared/kmc-shell";
-import {KalturaClient, UserGenerateQrCodeAction} from "kaltura-ngx-client";
-import {cancelOnDestroy} from "@kaltura-ng/kaltura-common";
-import {AppLocalization} from "@kaltura-ng/mc-shared";
+import {KontorolClient, UserGenerateQrCodeAction} from "kontorol-ngx-client";
+import {cancelOnDestroy} from "@kontorol-ng/kontorol-common";
+import {AppLocalization} from "@kontorol-ng/mc-shared";
 import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
@@ -24,14 +24,14 @@ export class AuthenticationFormComponent implements OnInit, OnDestroy{
   public qrError = false;
 
   constructor(private _browserService: BrowserService,
-              private _kalturaServerClient: KalturaClient,
+              private _kontorolServerClient: KontorolClient,
               private _appLocalization: AppLocalization,
               private sanitizer: DomSanitizer) {
   }
 
   ngOnInit(): void {
       if (this.hash && this.hash.length) {
-          this._kalturaServerClient.request(new UserGenerateQrCodeAction({hashKey: this.hash}))
+          this._kontorolServerClient.request(new UserGenerateQrCodeAction({hashKey: this.hash}))
               .pipe(cancelOnDestroy(this))
               .subscribe((qrCode) => {
                   this.qrCodeBase64 = this.sanitizer.bypassSecurityTrustStyle(`url("data:image/png;base64,${qrCode}")`);

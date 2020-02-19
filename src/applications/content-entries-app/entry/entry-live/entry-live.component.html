@@ -3,7 +3,7 @@
     <p class="kTitle">{{'applications.content.entryDetails.live.live' | translate}}</p>
     <div class="kLiveDetails">
 
-      <div *ngIf="_widgetService._liveType === 'kaltura'">
+      <div *ngIf="_widgetService._liveType === 'kontorol'">
         <div>
           <span class="kSubTitle">{{'applications.content.entryDetails.live.urls' | translate}}</span>
           <div class="kRow">
@@ -33,7 +33,7 @@
             <button pButton class="kButtonDefault" (click)="_widgetService._exportXML()"
                     [disabled]="_kmcPermissions.LIVE_STREAM_UPDATE | kDisabledIfNotPermitted"
                     label="{{'applications.content.entryDetails.live.export' | translate}}"></button>
-            <a *ngIf="_widgetService._liveType === 'kaltura' && enableLiveAnalytics" class="kReportLink" [class.kDisabled]="!enableLiveAnalytics" (click)="_openLiveAnalytics()">{{'applications.content.entryDetails.live.report' | translate}}</a>
+            <a *ngIf="_widgetService._liveType === 'kontorol' && enableLiveAnalytics" class="kReportLink" [class.kDisabled]="!enableLiveAnalytics" (click)="_openLiveAnalytics()">{{'applications.content.entryDetails.live.report' | translate}}</a>
           </div>
         </div>
 
@@ -91,7 +91,7 @@
         </div>
 
 
-        <div *ngIf="_kmcPermissions.FEATURE_KALTURA_LIVE_STREAM | kNgIfPermitted">
+        <div *ngIf="_kmcPermissions.FEATURE_KONTOROL_LIVE_STREAM | kNgIfPermitted">
             <span class="kSubTitle">{{'applications.content.entryDetails.live.transcoding' | translate}}</span>
             <div class="kRow">
                 <span class="kLabels">{{'applications.content.entryDetails.live.transcodingProfile' | translate}}</span>
@@ -128,7 +128,7 @@
                     [disabled]="_kmcPermissions.LIVE_STREAM_UPDATE | kDisabledIfNotPermitted"
                     (click)="_widgetService._exportXML()"
                     label="{{'applications.content.entryDetails.live.export' | translate}}"></button>
-            <!--a *ngIf="_widgetService._liveType === 'kaltura'" class="kReportLink" (click)="_widgetService._openLiveReport()">{{'applications.content.entryDetails.live.report' | translate}}</a-->
+            <!--a *ngIf="_widgetService._liveType === 'kontorol'" class="kReportLink" (click)="_widgetService._openLiveReport()">{{'applications.content.entryDetails.live.report' | translate}}</a-->
           </div>
         </div>
         <div>

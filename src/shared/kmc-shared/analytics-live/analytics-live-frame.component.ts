@@ -1,7 +1,7 @@
 import { Component, Input, OnDestroy, OnInit, OnChanges } from '@angular/core';
 import { AppAuthentication, BrowserService } from 'shared/kmc-shell/index';
-import { buildCDNUrl, getKalturaServerUri, serverConfig } from 'config/server';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { buildCDNUrl, getKontorolServerUri, serverConfig } from 'config/server';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { LiveAnalyticsMainViewService } from '../kmc-views/main-views/live-analytics-main-view.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { LiveAnalyticsMainViewService } from '../kmc-views/main-views/live-analy
         ':host { display: block; width: 100%; height: 100%; }',
         'iframe { width: 100%; height: 100% }'
     ],
-    providers: [KalturaLogger.createLogger('AnalyticsLiveFrameComponent')]
+    providers: [KontorolLogger.createLogger('AnalyticsLiveFrameComponent')]
 })
 export class AnalyticsLiveFrameComponent implements OnInit, OnDestroy, OnChanges {
     @Input() entryId: string;
@@ -19,7 +19,7 @@ export class AnalyticsLiveFrameComponent implements OnInit, OnDestroy, OnChanges
     public _url = null;
 
     constructor(private appAuthentication: AppAuthentication,
-                private logger: KalturaLogger,
+                private logger: KontorolLogger,
                 private browserService: BrowserService,
                 private _liveAnalyticsView: LiveAnalyticsMainViewService
     ) {
@@ -55,7 +55,7 @@ export class AnalyticsLiveFrameComponent implements OnInit, OnDestroy, OnChanges
                     'ks': this.appAuthentication.appUser.ks,
                     'partner_id': this.appAuthentication.appUser.partnerId,
                     'cdn_host':  cdn_host,
-                    'service_url': getKalturaServerUri(),
+                    'service_url': getKontorolServerUri(),
                     'liveanalytics': {
                         'player_id': +serverConfig.externalApps.liveAnalytics.uiConfId || '',
                         map_urls: serverConfig.externalApps.liveAnalytics.mapUrls || [],

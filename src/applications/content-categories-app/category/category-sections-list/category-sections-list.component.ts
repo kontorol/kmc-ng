@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {CategoryService} from '../category.service';
 import {CategorySectionsListWidget, SectionWidgetItem} from './category-sections-list-widget.service';
-import {StickyComponent} from '@kaltura-ng/kaltura-ui';
+import {StickyComponent} from '@kontorol-ng/kontorol-ui';
 import {BrowserService} from "app-shared/kmc-shell";
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kCategorySectionsList',

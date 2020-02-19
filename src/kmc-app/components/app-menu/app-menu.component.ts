@@ -2,13 +2,13 @@ import {Component, ElementRef, OnDestroy, OnInit, Renderer2, ViewChild} from '@a
 import {NavigationEnd, Router} from '@angular/router';
 import {AppAuthentication, BrowserService} from 'app-shared/kmc-shell';
 import {buildBaseUri, serverConfig} from 'config/server';
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
 import {KmcLoggerConfigurator} from 'app-shared/kmc-shell/kmc-logs/kmc-logger-configurator';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 import {AnalyticsNewMainViewService, KMCAppMenuItem, KmcMainViewsService} from 'app-shared/kmc-shared/kmc-views';
 import {ContextualHelpLink, ContextualHelpService} from 'app-shared/kmc-shared/contextual-help/contextual-help.service';
 import {globalConfig} from 'config/global';
-import {cancelOnDestroy} from '@kaltura-ng/kaltura-common';
+import {cancelOnDestroy} from '@kontorol-ng/kontorol-common';
 import {AppEventsService} from 'app-shared/kmc-shared';
 import {ResetMenuEvent, UpdateMenuEvent} from 'app-shared/kmc-shared/events';
 
@@ -17,7 +17,7 @@ import {ResetMenuEvent, UpdateMenuEvent} from 'app-shared/kmc-shared/events';
     templateUrl: './app-menu.component.html',
     styleUrls: ['./app-menu.component.scss'],
     providers: [
-        KalturaLogger.createLogger('AppMenuComponent')
+        KontorolLogger.createLogger('AppMenuComponent')
     ]
 
 })
@@ -31,10 +31,10 @@ export class AppMenuComponent implements OnInit, OnDestroy{
     public _showChangelog = false;
     public _helpMenuOpened = false;
     public _powerUser = false;
-    public _userManualLinkExists = !!serverConfig.externalLinks.kaltura && !!serverConfig.externalLinks.kaltura.userManual;
-    public _kmcOverviewLinkExists = !!serverConfig.externalLinks.kaltura && !!serverConfig.externalLinks.kaltura.kmcOverview;
-    public _mediaManagementLinkExists = !!serverConfig.externalLinks.kaltura && !!serverConfig.externalLinks.kaltura.mediaManagement;
-    public _supportLinkExists = !!serverConfig.externalLinks.kaltura && !!serverConfig.externalLinks.kaltura.customerCare && !!serverConfig.externalLinks.kaltura.customerPortal;
+    public _userManualLinkExists = !!serverConfig.externalLinks.kontorol && !!serverConfig.externalLinks.kontorol.userManual;
+    public _kmcOverviewLinkExists = !!serverConfig.externalLinks.kontorol && !!serverConfig.externalLinks.kontorol.kmcOverview;
+    public _mediaManagementLinkExists = !!serverConfig.externalLinks.kontorol && !!serverConfig.externalLinks.kontorol.mediaManagement;
+    public _supportLinkExists = !!serverConfig.externalLinks.kontorol && !!serverConfig.externalLinks.kontorol.customerCare && !!serverConfig.externalLinks.kontorol.customerPortal;
     public _supportLegacyExists = true;
     public _contextualHelp: ContextualHelpLink[] = [];
     public menuID = 'kmc'; // used when switching menus to Analytics menu or future application menus
@@ -46,8 +46,8 @@ export class AppMenuComponent implements OnInit, OnDestroy{
     selectedMenuItem: KMCAppMenuItem;
     showSubMenu = true;
 
-    public _customerCareLink = this._supportLinkExists ? serverConfig.externalLinks.kaltura.customerCare : "";
-    public _customerPortalLink = this._supportLinkExists ? serverConfig.externalLinks.kaltura.customerPortal : "";
+    public _customerCareLink = this._supportLinkExists ? serverConfig.externalLinks.kontorol.customerCare : "";
+    public _customerPortalLink = this._supportLinkExists ? serverConfig.externalLinks.kontorol.customerPortal : "";
 
     constructor(public _kmcLogs: KmcLoggerConfigurator,
                 private _contextualHelpService: ContextualHelpService,
@@ -138,13 +138,13 @@ export class AppMenuComponent implements OnInit, OnDestroy{
         let link = '';
         switch (key){
             case 'manual':
-                link = serverConfig.externalLinks.kaltura.userManual;
+                link = serverConfig.externalLinks.kontorol.userManual;
                 break;
             case 'kmcOverview':
-                link = serverConfig.externalLinks.kaltura.kmcOverview;
+                link = serverConfig.externalLinks.kontorol.kmcOverview;
                 break;
             case 'mediaManagement':
-                link = serverConfig.externalLinks.kaltura.mediaManagement;
+                link = serverConfig.externalLinks.kontorol.mediaManagement;
                 break;
             case 'legacy':
                 link = buildBaseUri('/index.php/kmc');

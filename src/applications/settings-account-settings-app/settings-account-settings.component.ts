@@ -1,13 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from '@angular/forms';
-import {KalturaPartner} from 'kaltura-ngx-client';
+import {KontorolPartner} from 'kontorol-ngx-client';
 import {SettingsAccountSettingsService} from './settings-account-settings.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { SelectItem } from 'primeng/api';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { SettingsAccountSettingsMainViewService } from 'app-shared/kmc-shared/kmc-views';
 import { BrowserService } from 'shared/kmc-shell/providers/browser.service';
 import { Observable } from 'rxjs';
@@ -32,7 +32,7 @@ function phoneValidator(): ValidatorFn {
   styleUrls: ['./settings-account-settings.component.scss'],
   providers: [
     SettingsAccountSettingsService,
-    KalturaLogger.createLogger('SettingsAccountSettingsComponent')
+    KontorolLogger.createLogger('SettingsAccountSettingsComponent')
   ],
 })
 export class SettingsAccountSettingsComponent implements OnInit, OnDestroy {
@@ -51,7 +51,7 @@ export class SettingsAccountSettingsComponent implements OnInit, OnDestroy {
               private _permissionsService: KMCPermissionsService,
               private _pageExitVerificationService: PageExitVerificationService,
               private _browserService: BrowserService,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _settingsAccountSettingsMainView: SettingsAccountSettingsMainViewService,
               private _fb: FormBuilder) {
   }
@@ -218,7 +218,7 @@ export class SettingsAccountSettingsComponent implements OnInit, OnDestroy {
   }
 
   // Fill the form with data
-  private _fillForm(partner: KalturaPartner): void {
+  private _fillForm(partner: KontorolPartner): void {
       this.partnerAdminEmail = partner.adminEmail;
     this.accountSettingsForm.reset({
       name: partner.name,

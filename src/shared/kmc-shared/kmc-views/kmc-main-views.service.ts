@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {
     ContentCategoriesMainViewService,
     ContentEntriesMainViewService,
@@ -46,12 +46,12 @@ export interface KMCAppMenuItem {
 @Injectable()
 export class KmcMainViewsService {
 
-    private _logger: KalturaLogger;
+    private _logger: KontorolLogger;
     private _cache: KMCAppMenuItem[] = [];
 
 
     constructor(
-        logger: KalturaLogger,
+        logger: KontorolLogger,
         private _contentEntriesMain: ContentEntriesMainViewService,
         private _contentCategoriesMain: ContentCategoriesMainViewService,
         private _contentModerationMain: ContentModerationMainViewService,

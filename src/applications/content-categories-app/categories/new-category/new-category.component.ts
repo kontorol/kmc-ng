@@ -1,31 +1,31 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, AfterViewInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
-import {PopupWidgetComponent, PopupWidgetStates} from '@kaltura-ng/kaltura-ui';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
+import {PopupWidgetComponent, PopupWidgetStates} from '@kontorol-ng/kontorol-ui';
 import {CategoriesService} from '../categories.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import {
   CategoriesStatus,
   CategoriesStatusMonitorService
 } from 'app-shared/content-shared/categories-status/categories-status-monitor.service';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
 import { SelectedCategory } from 'app-shared/content-shared/categories/category-selector/category-selector.component';
-import { KalturaCategory } from 'kaltura-ngx-client';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolCategory } from 'kontorol-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { ContentEntriesMainViewService } from 'app-shared/kmc-shared/kmc-views';
 
 @Component({
   selector: 'kNewCategory',
   templateUrl: './new-category.component.html',
   styleUrls: ['./new-category.component.scss'],
-    providers: [KalturaLogger.createLogger('NewCategoryComponent')]
+    providers: [KontorolLogger.createLogger('NewCategoryComponent')]
 })
 export class NewCategoryComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() parentPopupWidget: PopupWidgetComponent;
   @Input() linkedEntries: {entryId: string}[] = [];
-  @Output() onApply = new EventEmitter<KalturaCategory>();
+  @Output() onApply = new EventEmitter<KontorolCategory>();
 
   public _blockerMessage: AreaBlockerMessage = null;
   public _selectedParentCategory: SelectedCategory = 'missing';
@@ -38,7 +38,7 @@ export class NewCategoryComponent implements OnInit, AfterViewInit, OnDestroy {
               private _fb: FormBuilder,
               private _categoriesService: CategoriesService,
               private _browserService: BrowserService,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _contentEntriesMainViewServie: ContentEntriesMainViewService,
               private _categoriesStatusMonitorService: CategoriesStatusMonitorService) {
 
@@ -179,7 +179,7 @@ export class NewCategoryComponent implements OnInit, AfterViewInit, OnDestroy {
                         if (navigateToCategory) {
                             this._showConfirmationOnClose = false;
                             if (error.context && error.context.categoryId) {
-                                const category = new KalturaCategory();
+                                const category = new KontorolCategory();
                                 (<any>category).id = error.context.categoryId;
                                 this.onApply.emit(category);
                             }

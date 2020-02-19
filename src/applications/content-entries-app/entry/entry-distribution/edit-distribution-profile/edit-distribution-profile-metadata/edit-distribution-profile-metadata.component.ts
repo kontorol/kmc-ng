@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
@@ -8,7 +8,7 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./edit-distribution-profile-metadata.component.scss']
 })
 export class EditDistributionProfileMetadataComponent implements OnInit {
-  @Input() entry: KalturaMediaEntry;
+  @Input() entry: KontorolMediaEntry;
 
   public _metadataForm: FormGroup;
   public _nameField: AbstractControl;

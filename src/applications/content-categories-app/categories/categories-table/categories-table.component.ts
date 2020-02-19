@@ -10,8 +10,8 @@ import {
     ViewChild
 } from '@angular/core';
 import { Menu } from 'primeng/menu';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import {KalturaCategory} from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import {KontorolCategory} from 'kontorol-ngx-client';
 import { globalConfig } from 'config/global';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { ColumnsResizeManagerService, ResizableColumnsTableName } from 'app-shared/kmc-shared/columns-resize-manager';
@@ -44,20 +44,20 @@ export class CategoriesTableComponent implements AfterViewInit, OnInit, OnDestro
 
   @Input() sortField: string = null;
   @Input() sortOrder: number = null;
-  @Input() selectedCategories: KalturaCategory[] = [];
+  @Input() selectedCategories: KontorolCategory[] = [];
 
   @Output()
   sortChanged = new EventEmitter<{ field: string, order: number}>();
   @Output()
-  actionSelected = new EventEmitter<{action: string, category: KalturaCategory}>();
+  actionSelected = new EventEmitter<{action: string, category: KontorolCategory}>();
   @Output()
   selectedCategoriesChange = new EventEmitter<any>();
 
   @ViewChild('actionsmenu', { static: true }) private _actionsMenu: Menu;
 
-  private _deferredCategories: KalturaCategory[];
+  private _deferredCategories: KontorolCategory[];
 
-  public _categories: KalturaCategory[] = [];
+  public _categories: KontorolCategory[] = [];
   public _deferredLoading = true;
   public _emptyMessage = '';
   public _items: MenuItem[];
@@ -95,17 +95,17 @@ export class CategoriesTableComponent implements AfterViewInit, OnInit, OnDestro
     this._columnsResizeManager.updateColumns(this._el.nativeElement);
   }
 
-  onActionSelected(action: string, category: KalturaCategory) {
+  onActionSelected(action: string, category: KontorolCategory) {
     this.actionSelected.emit({'action': action, 'category': category});
   }
 
-  openActionsMenu(event: any, category: KalturaCategory) {
+  openActionsMenu(event: any, category: KontorolCategory) {
     if (this._actionsMenu) {
       this.buildMenu(category);
       this._actionsMenu.toggle(event);
     }
   }
-  buildMenu(category: KalturaCategory): void {
+  buildMenu(category: KontorolCategory): void {
     this._items = [
       {
         id: 'edit',

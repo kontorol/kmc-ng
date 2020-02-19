@@ -1,15 +1,15 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {KalturaUiConf} from 'kaltura-ngx-client';
-import {KalturaFlavorParams} from 'kaltura-ngx-client';
-import {KalturaGoogleVideoSyndicationFeed} from 'kaltura-ngx-client';
+import {KontorolUiConf} from 'kontorol-ngx-client';
+import {KontorolFlavorParams} from 'kontorol-ngx-client';
+import {KontorolGoogleVideoSyndicationFeed} from 'kontorol-ngx-client';
 import {AppAuthentication} from 'app-shared/kmc-shell';
-import {KalturaGoogleSyndicationFeedAdultValues} from 'kaltura-ngx-client';
+import {KontorolGoogleSyndicationFeedAdultValues} from 'kontorol-ngx-client';
 import { DestinationComponentBase, FeedFormMode } from '../../feed-details.component';
-import {KalturaValidators} from '@kaltura-ng/kaltura-ui';
+import {KontorolValidators} from '@kontorol-ng/kontorol-ui';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kGoogleDestinationForm',
@@ -17,7 +17,7 @@ import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
   styleUrls: ['./google-destination-form.component.scss'],
   providers: [
       {provide: DestinationComponentBase, useExisting: GoogleDestinationFormComponent},
-      KalturaLogger.createLogger('GoogleDestinationFormComponent')
+      KontorolLogger.createLogger('GoogleDestinationFormComponent')
   ]
 })
 export class GoogleDestinationFormComponent extends DestinationComponentBase implements OnInit, OnDestroy {
@@ -27,20 +27,20 @@ export class GoogleDestinationFormComponent extends DestinationComponentBase imp
   onFormStateChanged = new EventEmitter<{ isValid: boolean, isDirty: boolean }>();
 
   @Input()
-  feed: KalturaGoogleVideoSyndicationFeed = null;
+  feed: KontorolGoogleVideoSyndicationFeed = null;
 
   @Input()
-  public players: KalturaUiConf[] = null;
+  public players: KontorolUiConf[] = null;
 
   @Input()
-  public contentFlavors: KalturaFlavorParams[] = null;
+  public contentFlavors: KontorolFlavorParams[] = null;
 
   public _form: FormGroup;
   public _availableContentFlavors: Array<{ value: number, label: string }> = [];
   public _availablePlayers: Array<{ value: number, label: string, version: string }> = [];
 
   constructor(private _fb: FormBuilder,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _permissionsService: KMCPermissionsService,
               private _appAuthentication: AppAuthentication) {
     super();
@@ -78,7 +78,7 @@ export class GoogleDestinationFormComponent extends DestinationComponentBase imp
   ngOnDestroy() {
   }
 
-  public getData(): KalturaGoogleVideoSyndicationFeed {
+  public getData(): KontorolGoogleVideoSyndicationFeed {
       this._logger.info(`handle get feed data action`);
     if (!this._form.valid) {
         this._logger.info(`form is not valid, abort action`);
@@ -86,7 +86,7 @@ export class GoogleDestinationFormComponent extends DestinationComponentBase imp
       return null;
     }
 
-    const data = new KalturaGoogleVideoSyndicationFeed({
+    const data = new KontorolGoogleVideoSyndicationFeed({
       flavorParamId: this._form.get('contentFlavor').value,
       addToDefaultConversionProfile: this._form.get('addToDefaultTranscodingProfile').value,
       landingPage: this._form.get('landingPage').value,
@@ -100,8 +100,8 @@ export class GoogleDestinationFormComponent extends DestinationComponentBase imp
     }
 
     data.adultContent = this._form.get('adultContent').value ?
-      KalturaGoogleSyndicationFeedAdultValues.yes :
-      KalturaGoogleSyndicationFeedAdultValues.no;
+      KontorolGoogleSyndicationFeedAdultValues.yes :
+      KontorolGoogleSyndicationFeedAdultValues.no;
 
 
     return data;
@@ -113,7 +113,7 @@ export class GoogleDestinationFormComponent extends DestinationComponentBase imp
     this._form = this._fb.group({
       contentFlavor: [null],
       addToDefaultTranscodingProfile: [true],
-      landingPage: [null, [KalturaValidators.urlHttp, Validators.required] ],
+      landingPage: [null, [KontorolValidators.urlHttp, Validators.required] ],
       playback: ['fromGoogle'],
       selectedPlayer: [null],
       adultContent: [false]
@@ -128,7 +128,7 @@ export class GoogleDestinationFormComponent extends DestinationComponentBase imp
       playback: this.feed ? (this.feed.allowEmbed ? 'fromGoogle' : 'linkback') : 'fromGoogle',
       selectedPlayer: this.feed ? this.feed.playerUiconfId : this.players && this.players.length && this.players[0].id,
       adultContent: this.feed ?
-        this.feed.adultContent === KalturaGoogleSyndicationFeedAdultValues.yes :
+        this.feed.adultContent === KontorolGoogleSyndicationFeedAdultValues.yes :
         this._appAuthentication.appUser.partnerInfo.adultContent
     });
 
