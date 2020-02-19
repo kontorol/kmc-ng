@@ -1,16 +1,16 @@
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
 import {FeedsFilters, FeedsService, SortDirection} from '../feeds.service';
 import {BrowserService} from 'app-shared/kmc-shell/providers/browser.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {KalturaBaseSyndicationFeed} from 'kaltura-ngx-client';
-import {KalturaPlaylist} from 'kaltura-ngx-client';
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
+import {KontorolBaseSyndicationFeed} from 'kontorol-ngx-client';
+import {KontorolPlaylist} from 'kontorol-ngx-client';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { ContentSyndicationMainViewService } from 'app-shared/kmc-shared/kmc-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { Unsubscribable } from 'rxjs';
 
 @Component({
@@ -19,7 +19,7 @@ import { Unsubscribable } from 'rxjs';
   styleUrls: ['./feeds-list.component.scss'],
   providers : [
       FeedsService,
-      KalturaLogger.createLogger('FeedsListComponent')
+      KontorolLogger.createLogger('FeedsListComponent')
   ]
 })
 
@@ -33,11 +33,11 @@ export class FeedsListComponent implements OnInit, OnDestroy {
   public _isReady = false; // prevents from calling prepare function twice
   public _tableIsBusy = false;
   public _tableBlockerMessage: AreaBlockerMessage = null;
-  public _selectedFeeds: KalturaBaseSyndicationFeed[] = [];
+  public _selectedFeeds: KontorolBaseSyndicationFeed[] = [];
   public _feedsTotalCount: number = null;
-  public _playlists: KalturaPlaylist[] = null;
-  public _originalPlaylists: KalturaPlaylist[] = null;
-  public _currentEditFeed: KalturaBaseSyndicationFeed = null;
+  public _playlists: KontorolPlaylist[] = null;
+  public _originalPlaylists: KontorolPlaylist[] = null;
+  public _currentEditFeed: KontorolBaseSyndicationFeed = null;
   @ViewChild('feedDetails', { static: true }) feedDetailsPopup: PopupWidgetComponent;
 
   public _query = {
@@ -52,7 +52,7 @@ export class FeedsListComponent implements OnInit, OnDestroy {
               private _browserService: BrowserService,
               private _appLocalization: AppLocalization,
               private _contentSyndicationMainViewService: ContentSyndicationMainViewService,
-              private _logger: KalturaLogger) {
+              private _logger: KontorolLogger) {
   }
 
   ngOnInit() {
@@ -99,7 +99,7 @@ export class FeedsListComponent implements OnInit, OnDestroy {
     }
   }
 
-  public _onActionSelected({action, feed}: { action: string, feed: KalturaBaseSyndicationFeed }) {
+  public _onActionSelected({action, feed}: { action: string, feed: KontorolBaseSyndicationFeed }) {
     switch (action) {
       case 'edit':
           this._logger.info(`handle edit feed action by user`, { feedId: feed.id, type: feed.type });
@@ -114,7 +114,7 @@ export class FeedsListComponent implements OnInit, OnDestroy {
     }
   }
 
-  private _deleteFeed(feed: KalturaBaseSyndicationFeed): void {
+  private _deleteFeed(feed: KontorolBaseSyndicationFeed): void {
       this._logger.info(`handle delete feed action by user`, { feedId: feed.id, type: feed.type });
     const executeDelete = () => {
       this._blockerMessage = null;

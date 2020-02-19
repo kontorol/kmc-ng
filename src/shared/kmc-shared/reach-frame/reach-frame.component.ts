@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
 import { BrowserService } from 'shared/kmc-shell/providers';
-import { getKalturaServerUri, serverConfig, buildCDNUrl } from 'config/server';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { getKontorolServerUri, serverConfig, buildCDNUrl } from 'config/server';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {
     ContentEntryViewSections,
     ContentEntryViewService,
@@ -11,13 +11,13 @@ import {
 } from 'app-shared/kmc-shared/kmc-views/details-views';
 import { ClearEntriesSelectionEvent } from 'app-shared/kmc-shared/events/clear-entries-selection-event';
 import { AppEventsService } from 'app-shared/kmc-shared/app-events';
-import { KalturaCategory, KalturaMediaEntry } from 'kaltura-ngx-client';
+import { KontorolCategory, KontorolMediaEntry } from 'kontorol-ngx-client';
 import { AppAuthentication } from 'app-shared/kmc-shell/auth';
 
 export interface ReachData {
-    entry?: KalturaMediaEntry;
-    entries?: KalturaMediaEntry[];
-    category?: KalturaCategory;
+    entry?: KontorolMediaEntry;
+    entries?: KontorolMediaEntry[];
+    category?: KontorolCategory;
 }
 
 @Component({
@@ -27,7 +27,7 @@ export interface ReachData {
         ':host { display: block; width: 100%; height: 100%; }',
         'iframe { width: 100%; height: 100% }'
     ],
-    providers: [KalturaLogger.createLogger('ReachFrameComponent')]
+    providers: [KontorolLogger.createLogger('ReachFrameComponent')]
 })
 export class ReachFrameComponent implements OnInit, OnDestroy, OnChanges {
     @Input() page: ReachPages;
@@ -41,7 +41,7 @@ export class ReachFrameComponent implements OnInit, OnDestroy, OnChanges {
 
     constructor(private _appAuthentication: AppAuthentication,
                 private _appLocalization: AppLocalization,
-                private _logger: KalturaLogger,
+                private _logger: KontorolLogger,
                 private _appEvents: AppEventsService,
                 private _browserService: BrowserService,
                 private _contentEntryViewService: ContentEntryViewService,
@@ -113,7 +113,7 @@ export class ReachFrameComponent implements OnInit, OnDestroy, OnChanges {
 
             this._reachConfig = {
                 'ks': this._appAuthentication.appUser.ks,
-                'service_url': getKalturaServerUri(),
+                'service_url': getKontorolServerUri(),
                 'partner_id': this._appAuthentication.appUser.partnerId,
                 'cdn_host': buildCDNUrl(""),
                 'language': this._appLocalization.selectedLanguage

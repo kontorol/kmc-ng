@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ReachProfileWidget } from '../reach-profile-widget';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { SettingsReachProfileViewSections } from "app-shared/kmc-shared/kmc-views/details-views";
 import { Observable } from "rxjs";
-import { KalturaCatalogItemLanguage, KalturaDictionary, KalturaMultiRequest, KalturaReachProfile } from "kaltura-ngx-client";
+import { KontorolCatalogItemLanguage, KontorolDictionary, KontorolMultiRequest, KontorolReachProfile } from "kontorol-ngx-client";
 
-export interface Dictionary extends KalturaDictionary {
+export interface Dictionary extends KontorolDictionary {
     words?: string[];
     isValid?: boolean;
     usedCharacters?: number;
@@ -18,7 +18,7 @@ export class ReachProfileDictionaryWidget extends ReachProfileWidget {
     public _dictionaries: Dictionary[] = [];
     public _maxCharacters = 4000;
     
-    constructor(logger: KalturaLogger) {
+    constructor(logger: KontorolLogger) {
         super(SettingsReachProfileViewSections.Dictionary, logger);
     }
     
@@ -32,13 +32,13 @@ export class ReachProfileDictionaryWidget extends ReachProfileWidget {
     protected onActivate(firstTimeActivating: boolean): Observable<{ failed: boolean }> | void {
         // set Languages dropdown options
         this._languages = [];
-        Object.keys(KalturaCatalogItemLanguage).forEach(key => {
-            this._languages.push({label: KalturaCatalogItemLanguage[key], value: KalturaCatalogItemLanguage[key]});
+        Object.keys(KontorolCatalogItemLanguage).forEach(key => {
+            this._languages.push({label: KontorolCatalogItemLanguage[key], value: KontorolCatalogItemLanguage[key]});
         });
         
         // set dictionaries (clone objects)
         this._dictionaries = [];
-        this.data.dictionaries.forEach((dictionary: KalturaDictionary) => {
+        this.data.dictionaries.forEach((dictionary: KontorolDictionary) => {
             this._dictionaries.push(Object.assign({
                 words: dictionary.data.split(String.fromCharCode(10)),
                 usedCharacters: dictionary.data.split(String.fromCharCode(10)).join('').length,
@@ -63,11 +63,11 @@ export class ReachProfileDictionaryWidget extends ReachProfileWidget {
         });
     }
     
-    protected onDataSaving(newData: KalturaReachProfile, request: KalturaMultiRequest): void {
+    protected onDataSaving(newData: KontorolReachProfile, request: KontorolMultiRequest): void {
         newData.dictionaries = [];
         this._dictionaries.forEach((dictionary: Dictionary) => {
             if (dictionary.words.length) {
-                newData.dictionaries.push(new KalturaDictionary({
+                newData.dictionaries.push(new KontorolDictionary({
                     language: dictionary.language,
                     data: dictionary.words.join(String.fromCharCode(10))
                 }));
@@ -89,7 +89,7 @@ export class ReachProfileDictionaryWidget extends ReachProfileWidget {
     
     public _addDictionary(): void {
         this._dictionaries.unshift({
-            language: KalturaCatalogItemLanguage.en,
+            language: KontorolCatalogItemLanguage.en,
             data: '',
             words: [],
             isValid: true,

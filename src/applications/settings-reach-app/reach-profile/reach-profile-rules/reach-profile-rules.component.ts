@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ReachProfileStore } from '../reach-profile-store.service';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import { KalturaReachProfile } from "kaltura-ngx-client";
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import { KontorolReachProfile } from "kontorol-ngx-client";
 import { ReachProfileRulesWidget } from "./reach-profile-rules-widget.service";
 
 @Component({
@@ -10,7 +10,7 @@ import { ReachProfileRulesWidget } from "./reach-profile-rules-widget.service";
   styleUrls: ['./reach-profile-rules.component.scss']
 })
 export class ReachProfileRulesComponent implements OnInit, OnDestroy {
-  public _currentProfile: KalturaReachProfile;
+  public _currentProfile: KontorolReachProfile;
 
   constructor(public _widgetService: ReachProfileRulesWidget,
               public _profileStore: ReachProfileStore) {

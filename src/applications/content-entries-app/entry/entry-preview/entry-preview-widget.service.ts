@@ -1,14 +1,14 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {AppAuthentication} from 'app-shared/kmc-shell';
-import {KalturaSourceType} from 'kaltura-ngx-client';
+import {KontorolSourceType} from 'kontorol-ngx-client';
 import {PreviewMetadataChangedEvent} from '../../preview-metadata-changed-event';
 import {AppEventsService} from 'app-shared/kmc-shared';
 import {EntryWidget} from '../entry-widget';
-import {serverConfig, getKalturaServerUri} from 'config/server';
+import {serverConfig, getKontorolServerUri} from 'config/server';
 import {KMCPermissions, KMCPermissionsService} from 'app-shared/kmc-shared/kmc-permissions';
 import { EntryStore } from '../entry-store.service';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Injectable()
 export class EntryPreviewWidget extends EntryWidget implements OnDestroy {
@@ -19,7 +19,7 @@ export class EntryPreviewWidget extends EntryWidget implements OnDestroy {
                 private _store: EntryStore,
                 private _permissionsService: KMCPermissionsService,
                 appEvents: AppEventsService,
-                logger: KalturaLogger) {
+                logger: KontorolLogger) {
         super('entryPreview', logger);
 
 
@@ -50,15 +50,15 @@ export class EntryPreviewWidget extends EntryWidget implements OnDestroy {
         if (this.data) {
             const entryId = this.data.id;
             const sourceType = this.data.sourceType.toString();
-            const isLive = (sourceType === KalturaSourceType.liveStream.toString() ||
-                sourceType === KalturaSourceType.akamaiLive.toString() ||
-                sourceType === KalturaSourceType.akamaiUniversalLive.toString() ||
-                sourceType === KalturaSourceType.manualLiveStream.toString());
+            const isLive = (sourceType === KontorolSourceType.liveStream.toString() ||
+                sourceType === KontorolSourceType.akamaiLive.toString() ||
+                sourceType === KontorolSourceType.akamaiUniversalLive.toString() ||
+                sourceType === KontorolSourceType.manualLiveStream.toString());
 
-            const UIConfID = serverConfig.kalturaServer.previewUIConf;
+            const UIConfID = serverConfig.kontorolServer.previewUIConf;
             const partnerID = this.appAuthentication.appUser.partnerId;
             const ks = this.appAuthentication.appUser.ks || "";
-            const serverUri = getKalturaServerUri();
+            const serverUri = getKontorolServerUri();
 
             let flashVars = `flashvars[kAnalony.plugin]=false&flashvars[closedCaptions.plugin]=true&flashvars[closedCaptions.hideWhenEmpty]=true&flashvars[ks]=${ks}`;
             if (isLive) {

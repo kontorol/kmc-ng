@@ -4,8 +4,8 @@ import { BrowserService } from 'shared/kmc-shell/providers/browser.service';
 import { serverConfig } from 'config/server';
 import { KmcMainViewBaseService, ViewMetadata } from 'app-shared/kmc-shared/kmc-views/kmc-main-view-base.service';
 import { Title } from '@angular/platform-browser';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { ContextualHelpService } from 'app-shared/kmc-shared/contextual-help/contextual-help.service';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class KavaAppMainViewService extends KmcMainViewBaseService {
                 router: Router,
                 browserService: BrowserService,
                 titleService: Title,
-                logger: KalturaLogger,
+                logger: KontorolLogger,
                 contextualHelpService: ContextualHelpService) {
         super(logger.subLogger('KavaAppMainViewService'), browserService, router, titleService, contextualHelpService);
     }

@@ -1,13 +1,13 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild, Renderer2, Input } from '@angular/core';
 import { Router, NavigationEnd, Params } from '@angular/router';
 import { AppAuthentication } from 'shared/kmc-shell/index';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
 import { serverConfig } from 'config/server';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
 import { KmcLoggerConfigurator } from 'app-shared/kmc-shell/kmc-logs/kmc-logger-configurator';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 
 @Component({
     selector: 'kAnalyticsFrame',
@@ -17,7 +17,7 @@ import { AppLocalization } from '@kaltura-ng/mc-shared';
         'iframe { width: 100%; height: 100%; border: 0px; transition: height 0.3s; }',
         '.kLoading { display: block; padding: 12px; font-size: 16px; }'
     ],
-    providers: [KalturaLogger.createLogger('AnalyticsFrameComponent')]
+    providers: [KontorolLogger.createLogger('AnalyticsFrameComponent')]
 })
 export class AnalyticsFrameComponent implements OnInit, OnDestroy {
 
@@ -39,7 +39,7 @@ export class AnalyticsFrameComponent implements OnInit, OnDestroy {
     private _multiAccount: string = null;
 
     constructor(private appAuthentication: AppAuthentication,
-                private logger: KalturaLogger,
+                private logger: KontorolLogger,
                 private router: Router,
                 private _appLocalization: AppLocalization,
                 private _browserService: BrowserService,
@@ -96,9 +96,9 @@ export class AnalyticsFrameComponent implements OnInit, OnDestroy {
         }
 
         const config = {
-            kalturaServer: {
-                uri : serverConfig.kalturaServer.uri,
-                previewUIConf: serverConfig.kalturaServer.previewUIConf
+            kontorolServer: {
+                uri : serverConfig.kontorolServer.uri,
+                previewUIConf: serverConfig.kontorolServer.previewUIConf
             },
             cdnServers: serverConfig.cdnServers,
             liveAnalytics: serverConfig.externalApps.liveAnalytics,

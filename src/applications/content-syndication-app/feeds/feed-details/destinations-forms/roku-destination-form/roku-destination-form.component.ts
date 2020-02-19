@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import {KalturaRokuSyndicationFeed} from 'kaltura-ngx-client';
+import {KontorolRokuSyndicationFeed} from 'kontorol-ngx-client';
 import { DestinationComponentBase, FeedFormMode } from '../../feed-details.component';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 
@@ -31,7 +31,7 @@ export class RokuDestinationFormComponent extends DestinationComponentBase imple
   ngOnDestroy() {
   }
 
-  public getData(): KalturaRokuSyndicationFeed {
-    return new KalturaRokuSyndicationFeed();
+  public getData(): KontorolRokuSyndicationFeed {
+    return new KontorolRokuSyndicationFeed();
   }
 }

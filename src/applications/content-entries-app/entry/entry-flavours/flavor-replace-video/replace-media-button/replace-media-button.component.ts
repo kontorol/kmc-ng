@@ -1,10 +1,10 @@
 import { Component, Input, ViewChild } from '@angular/core';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { Flavor } from '../../flavor';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 
 export type UploadMenuType = 'upload' | 'import' | 'link' | 'match';
 
@@ -12,10 +12,10 @@ export type UploadMenuType = 'upload' | 'import' | 'link' | 'match';
     selector: 'kFlavorReplaceMediaBtn',
     templateUrl: './replace-media-button.component.html',
     styleUrls: ['./replace-media-button.component.scss'],
-    providers: [KalturaLogger.createLogger('ReplaceMediaButtonComponent')]
+    providers: [KontorolLogger.createLogger('ReplaceMediaButtonComponent')]
 })
 export class ReplaceMediaButtonComponent {
-    @Input() entry: KalturaMediaEntry;
+    @Input() entry: KontorolMediaEntry;
     @Input() flavors: Flavor[] = [];
     @Input() replaceButtonsLabel: string;
 
@@ -28,7 +28,7 @@ export class ReplaceMediaButtonComponent {
     public _matchEnabled = false;
 
     constructor(private _appLocalization: AppLocalization,
-                private _logger: KalturaLogger,
+                private _logger: KontorolLogger,
                 private _permissionsService: KMCPermissionsService) {
         this._uploadEnabled = this._permissionsService.hasPermission(KMCPermissions.CONTENT_INGEST_UPLOAD)
             && this._permissionsService.hasPermission(KMCPermissions.CONTENT_INGEST_BASE);

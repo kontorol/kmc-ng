@@ -1,26 +1,26 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { KalturaClient } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
 
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { KalturaBaseEntry } from 'kaltura-ngx-client';
-import { BaseEntryUpdateAction } from 'kaltura-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { KontorolBaseEntry } from 'kontorol-ngx-client';
+import { BaseEntryUpdateAction } from 'kontorol-ngx-client';
 import { BulkActionBaseService } from './bulk-action-base.service';
 
 @Injectable()
 export class BulkAddTagsService extends BulkActionBaseService<string[]> {
 
-  constructor(_kalturaServerClient: KalturaClient) {
-    super(_kalturaServerClient);
+  constructor(_kontorolServerClient: KontorolClient) {
+    super(_kontorolServerClient);
   }
 
-  public execute(selectedEntries: KalturaMediaEntry[], tags : string[]) : Observable<{}>{
+  public execute(selectedEntries: KontorolMediaEntry[], tags : string[]) : Observable<{}>{
     return Observable.create(observer =>{
 
       let requests: BaseEntryUpdateAction[] = [];
 
       selectedEntries.forEach(entry => {
-        let updatedEntry: KalturaBaseEntry = new KalturaBaseEntry();
+        let updatedEntry: KontorolBaseEntry = new KontorolBaseEntry();
 
         // update entry tags. trim tags due to legacy KMC bugs
         let entryTags = [];

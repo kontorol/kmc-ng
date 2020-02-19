@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { DefaultFiltersList } from './default-filters-list';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { DropFoldersStoreService } from './drop-folders-store.service';
 import { RefineGroup, RefineGroupList } from 'app-shared/content-shared/entries/entries-store/entries-refine-filters.service';
 import { catchError, map, publishReplay, refCount } from 'rxjs/operators';

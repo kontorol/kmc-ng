@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {AppAuthentication, BrowserService} from 'app-shared/kmc-shell';
 import {serverConfig} from 'config/server';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 import { KavaAppMainViewService } from 'app-shared/kmc-shared/kmc-views';
 
 @Component({
@@ -15,7 +15,7 @@ export class AnalyticsKavaComponent implements OnInit, OnDestroy {
   public appUrl: string;
 
   constructor(private appAuthentication: AppAuthentication,
-              private logger: KalturaLogger,
+              private logger: KontorolLogger,
               private browserService: BrowserService,
               private _kavaAppViewService: KavaAppMainViewService) {
   }

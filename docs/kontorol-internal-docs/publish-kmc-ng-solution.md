@@ -1,14 +1,14 @@
 # Publish KMCng
 
-The following document will guide you how to deploy a KMCng solution which is based on two repositories [kmc-ng](https://github.com/kaltura/kmc-ng) and [kaltura-ng](https://github.com/kaltura/kaltura-ng).
+The following document will guide you how to deploy a KMCng solution which is based on two repositories [kmc-ng](https://github.com/kontorol/kmc-ng) and [kontorol-ng](https://github.com/kontorol/kontorol-ng).
 
-> **IMPORTANT NOTICE BEFORE YOU BEGIN**: If you are a user which is not an employee of Kaltura, you would probably want to run the flow to create a deployable version as described in the [readme.md > deploy standalond application](../readme.md)
+> **IMPORTANT NOTICE BEFORE YOU BEGIN**: If you are a user which is not an employee of Kontorol, you would probably want to run the flow to create a deployable version as described in the [readme.md > deploy standalond application](../readme.md)
 >
-> This document is used to deploy KMC-ng solution to Kaltura servers.
+> This document is used to deploy KMC-ng solution to Kontorol servers.
 
 ## Pre-requisite 1: Make sure your machine is setup correctly
-1.  You must make sure that you have **publish permissions** to NPM for `@kaltura-ng` librarires
-2. You must make sure that you have **write permissions** to Github for both [kmc-ng](https://github.com/kaltura/kmc-ng) and [kaltura-ng](https://github.com/kaltura/kaltura-ng).
+1.  You must make sure that you have **publish permissions** to NPM for `@kontorol-ng` librarires
+2. You must make sure that you have **write permissions** to Github for both [kmc-ng](https://github.com/kontorol/kmc-ng) and [kontorol-ng](https://github.com/kontorol/kontorol-ng).
 3. You must have NPM version 5 or above installed (run `npm -v` to check current version)
 
 ## Pre-requisite 2: Test the kmc-ng production version
@@ -31,7 +31,7 @@ ws --spa index.html
 ```
    * If you don’t have `ws` you can either use your preferred web server or install `npm install -g local-web-server`
 
-## Step 1: Deploy kaltura-ng
+## Step 1: Deploy kontorol-ng
 
 1. Make sure you don't have any local changes uncommited and pushed
 ```
@@ -44,7 +44,7 @@ git fetch
 ```
    * NOTICE: in order to sync tags you must run both `git fetch` and `git pull`
 
-3. In **kaltura-ng** root folder start the publish process:
+3. In **kontorol-ng** root folder start the publish process:
 ```
 $ npm run publish
 ```
@@ -87,11 +87,11 @@ rm -rf node_modules
 npm i
 ```
 
-4. Update dependencies on the kaltura-ng libraries as followed:
+4. Update dependencies on the kontorol-ng libraries as followed:
 ```
-npm install @kaltura-ng/kaltura-{common,primeng-ui,ui,logger}@latest @kaltura-ng/mc-{shared,theme}@latest
+npm install @kontorol-ng/kontorol-{common,primeng-ui,ui,logger}@latest @kontorol-ng/mc-{shared,theme}@latest
 ```
-   * Make sure the list above contains all the libraries found in [kaltura-ng](https://github.com/kaltura/kaltura-ng) repository
+   * Make sure the list above contains all the libraries found in [kontorol-ng](https://github.com/kontorol/kontorol-ng) repository
 
 5. Build the production version
 ```
@@ -106,7 +106,7 @@ ws --spa index.html
 ```
    * If you don’t have `ws` you can either use your preferred web server or install `npm install -g local-web-server`
 
-7. Commit changes in **kmc-ng** with message: ‘chore: update kaltura libraries’. No need to push this commit.
+7. Commit changes in **kmc-ng** with message: ‘chore: update kontorol libraries’. No need to push this commit.
 
 ### Publish application
 
@@ -126,7 +126,7 @@ npm run release:publish -- --gh-token xxx`
 ```
 **IMPORTANT** replace `xxx` with the personal token you prepared in advance as a value for the `--gh-token` flag.
 
-If everything worked as expected you should see a new tag in [kmc-ng repository > releases](https://github.com/kaltura/kmc-ng/releases).
+If everything worked as expected you should see a new tag in [kmc-ng repository > releases](https://github.com/kontorol/kmc-ng/releases).
 
 4. Rebuild the application to include changes added automatically by the release command.
 ```
@@ -145,12 +145,12 @@ kmc-ng-vX.X.X.zip
 - replace `vX.X.X` with the actual version number
 - make sure you don't zip `__MACOSX` folder. you can use the following command `zip -r kmc-ng-vX.X.X.zip . -x "*.DS_Store" -x "__MACOSX"`
 
-6.in [kmc-ng repository > releases](https://github.com/kaltura/kmc-ng/releases), edit the version release notes:
+6.in [kmc-ng repository > releases](https://github.com/kontorol/kmc-ng/releases), edit the version release notes:
 
 6.1 add the following information at the bottom of the release notes
 ```
 ## Installation:
-1.  Unzip `v<version number>`.zip into `/opt/kaltura/apps/kmcng/v<version number>`
+1.  Unzip `v<version number>`.zip into `/opt/kontorol/apps/kmcng/v<version number>`
 2.  Run uiconf deployment with `--ini=v<version number>/deploy/config.ini`
 ```
 
@@ -168,24 +168,24 @@ git merge <branchName>
 npm run standalone:update
 ```
 
-## Step 3: deploy kaltura to the dev server
+## Step 3: deploy kontorol to the dev server
 
-If you want to setup a version that was deployed to kmc-ng github repository and the [version release notes](https://github.com/kaltura/kmc-ng/releases) has an attached zip file named `kmc-ng-vX.X.X.zip`, do the following:
+If you want to setup a version that was deployed to kmc-ng github repository and the [version release notes](https://github.com/kontorol/kmc-ng/releases) has an attached zip file named `kmc-ng-vX.X.X.zip`, do the following:
 ```
-ssh {kaltura-user-name}@{kaltura-server-name}
-cd /opt/kaltura/kmcng
+ssh {kontorol-user-name}@{kontorol-server-name}
+cd /opt/kontorol/kmcng
 sudo ./get-app vX.X.X
 ```
 - replace `X.X.X` with actual version. ie `./get-app 3.5.0`
 
 If you want to deploy a version manually do the following:
 ```
-scp kmc-ng-vX.X.X.zip {kaltura-user-name}@{kaltura-server-name}:/opt/kaltura/kmcng
-ssh {kaltura-user-name}@{kaltura-server-name}
+scp kmc-ng-vX.X.X.zip {kontorol-user-name}@{kontorol-server-name}:/opt/kontorol/kmcng
+ssh {kontorol-user-name}@{kontorol-server-name}
 cd /var/www/html
 mkdir vX.X.X
 cd vX.X.X
-cp /opt/kaltura/kmcng/kmc-ng-vX.X.X.zip .
+cp /opt/kontorol/kmcng/kmc-ng-vX.X.X.zip .
 unzip kmc-ng-vX.X.X.zip
 rm kmc-ng-vX.X.X.zip
 cd /var/www/html

@@ -1,8 +1,8 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, ViewChild, ViewChildren } from '@angular/core';
-import { AppLocalization, RefinePrimeTree } from '@kaltura-ng/mc-shared';
+import { AppLocalization, RefinePrimeTree } from '@kontorol-ng/mc-shared';
 import { subApplicationsConfig } from 'config/sub-applications';
-import { PopupWidgetComponent, ScrollToTopContainerComponent } from '@kaltura-ng/kaltura-ui';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
+import { PopupWidgetComponent, ScrollToTopContainerComponent } from '@kontorol-ng/kontorol-ui';
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
 import { DropFoldersFilters, DropFoldersStoreService } from '../drop-folders-store/drop-folders-store.service';
 import { BrowserService } from 'app-shared/kmc-shell';
 import { RefineGroup } from 'app-shared/content-shared/entries/entries-store/entries-refine-filters.service';

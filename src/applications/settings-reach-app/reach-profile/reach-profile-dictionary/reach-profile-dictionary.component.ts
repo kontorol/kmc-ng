@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ReachProfileStore } from '../reach-profile-store.service';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
-import { KalturaReachProfile } from "kaltura-ngx-client";
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
+import { KontorolReachProfile } from "kontorol-ngx-client";
 import { ReachProfileDictionaryWidget } from "./reach-profile-dictionary-widget.service";
 
 @Component({
@@ -10,7 +10,7 @@ import { ReachProfileDictionaryWidget } from "./reach-profile-dictionary-widget.
     styleUrls: ['./reach-profile-dictionary.component.scss']
 })
 export class ReachProfileDictionaryComponent implements OnInit, OnDestroy {
-    public _currentProfile: KalturaReachProfile;
+    public _currentProfile: KontorolReachProfile;
     
     constructor(public _widgetService: ReachProfileDictionaryWidget,
                 public _profileStore: ReachProfileStore) {

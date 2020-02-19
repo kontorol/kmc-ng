@@ -1,13 +1,13 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {KalturaPlaylist} from 'kaltura-ngx-client';
-import {KalturaPlaylistType} from 'kaltura-ngx-client';
+import {KontorolPlaylist} from 'kontorol-ngx-client';
+import {KontorolPlaylistType} from 'kontorol-ngx-client';
 
 @Pipe({name: 'kToPlaylistIcon'})
 export class PlaylistIconPipe implements PipeTransform {
   constructor() {
   }
 
-  transform(playlistId: string, playlistsIdToNameMap: Map<string, KalturaPlaylist>): string {
+  transform(playlistId: string, playlistsIdToNameMap: Map<string, KontorolPlaylist>): string {
     if (!playlistId) {
       return '';
     }
@@ -24,10 +24,10 @@ export class PlaylistIconPipe implements PipeTransform {
 
     if (typeof(playlistType) !== 'undefined' && playlistType !== null) {
       switch (playlistType) {
-        case KalturaPlaylistType.dynamic:
-        case KalturaPlaylistType.external:
+        case KontorolPlaylistType.dynamic:
+        case KontorolPlaylistType.external:
           return 'kIconPlaylist_RuleBased';
-        case KalturaPlaylistType.staticList:
+        case KontorolPlaylistType.staticList:
           return 'kIconPlaylist_Manual';
         default:
           return 'kIconUnknown';

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { KalturaClientModule } from 'kaltura-ngx-client';
-import { UploadFileAdapterToken, UploadManagementModule } from '@kaltura-ng/kaltura-common';
-import { KalturaUploadAdapter } from './kaltura-upload-adapter.service';
+import { KontorolClientModule } from 'kontorol-ngx-client';
+import { UploadFileAdapterToken, UploadManagementModule } from '@kontorol-ng/kontorol-common';
+import { KontorolUploadAdapter } from './kontorol-upload-adapter.service';
 
 @NgModule({
     imports: <any[]>[
-        KalturaClientModule,
+        KontorolClientModule,
         UploadManagementModule
     ],
     declarations: <any[]>[
@@ -15,11 +15,11 @@ import { KalturaUploadAdapter } from './kaltura-upload-adapter.service';
     providers: <any[]>[
         {
             provide : UploadFileAdapterToken,
-            useClass : KalturaUploadAdapter,
+            useClass : KontorolUploadAdapter,
             multi : true
         }
     ]
 })
-export class KalturaServerModule {
+export class KontorolServerModule {
 
 }

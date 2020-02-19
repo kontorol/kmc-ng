@@ -1,20 +1,20 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { AppEventsService } from 'app-shared/kmc-shared';
-import { KalturaConversionProfileType } from 'kaltura-ngx-client';
-import { KalturaStorageProfile } from 'kaltura-ngx-client';
+import { KontorolConversionProfileType } from 'kontorol-ngx-client';
+import { KontorolStorageProfile } from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
 import { StorageProfilesStore } from 'app-shared/kmc-shared/storage-profiles';
-import { BaseEntryGetAction } from 'kaltura-ngx-client';
-import { KalturaAPIException, KalturaClient } from 'kaltura-ngx-client';
+import { BaseEntryGetAction } from 'kontorol-ngx-client';
+import { KontorolAPIException, KontorolClient } from 'kontorol-ngx-client';
 import { CreateNewTranscodingProfileEvent } from 'app-shared/kmc-shared/events/transcoding-profile-creation';
-import { KalturaConversionProfile } from 'kaltura-ngx-client';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
+import { KontorolConversionProfile } from 'kontorol-ngx-client';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export interface NewTranscodingProfileFormData {
   name: string;
@@ -30,7 +30,7 @@ export interface NewTranscodingProfileFormData {
 })
 export class AddNewProfileComponent implements OnInit, OnDestroy {
   @Input() parentPopupWidget: PopupWidgetComponent;
-  @Input() profileType: KalturaConversionProfileType;
+  @Input() profileType: KontorolConversionProfileType;
 
   public _addNewProfileForm: FormGroup;
   public _nameField: AbstractControl;
@@ -47,7 +47,7 @@ export class AddNewProfileComponent implements OnInit, OnDestroy {
               private _appLocalization: AppLocalization,
               private _permissionsService: KMCPermissionsService,
               private _storageProfilesStore: StorageProfilesStore,
-              private _kalturaClient: KalturaClient,
+              private _kontorolClient: KontorolClient,
               private _appEvents: AppEventsService) {
     // build FormControl group
     this._addNewProfileForm = _formBuilder.group({
@@ -72,7 +72,7 @@ export class AddNewProfileComponent implements OnInit, OnDestroy {
 
   private _prepare(): void {
     const hasStorageProfilesPermission = this._permissionsService.hasPermission(KMCPermissions.FEATURE_REMOTE_STORAGE_INGEST);
-    this._hideIngestFromRemoteStorage = (this.profileType && this.profileType === KalturaConversionProfileType.liveStream) || !hasStorageProfilesPermission;
+    this._hideIngestFromRemoteStorage = (this.profileType && this.profileType === KontorolConversionProfileType.liveStream) || !hasStorageProfilesPermission;
     if (!this._hideIngestFromRemoteStorage) {
       this._dataLoading = true;
       this._loadRemoteStorageProfiles()
@@ -107,9 +107,9 @@ export class AddNewProfileComponent implements OnInit, OnDestroy {
     }
   }
 
-  private _loadRemoteStorageProfiles(): Observable<KalturaStorageProfile[]> {
+  private _loadRemoteStorageProfiles(): Observable<KontorolStorageProfile[]> {
     const createEmptyRemoteStorageProfile = () => {
-      const emptyProfile = new KalturaStorageProfile({ name: this._appLocalization.get('applications.settings.transcoding.na') });
+      const emptyProfile = new KontorolStorageProfile({ name: this._appLocalization.get('applications.settings.transcoding.na') });
       (<any>emptyProfile).id = null;
       return emptyProfile;
     };
@@ -125,23 +125,23 @@ export class AddNewProfileComponent implements OnInit, OnDestroy {
   }
 
   private _validateEntryExists(entryId: string): Observable<boolean> {
-    return this._kalturaClient.request(new BaseEntryGetAction({ entryId }))
+    return this._kontorolClient.request(new BaseEntryGetAction({ entryId }))
       .map(Boolean)
       .catch(
-        error => (error instanceof KalturaAPIException && error.code === 'ENTRY_ID_NOT_FOUND')
+        error => (error instanceof KontorolAPIException && error.code === 'ENTRY_ID_NOT_FOUND')
           ? Observable.of(false)
           : Observable.throw(error.message)
       );
   }
 
-  private _proceedSave(profile: KalturaConversionProfile): void {
+  private _proceedSave(profile: KontorolConversionProfile): void {
     this._appEvents.publish(new CreateNewTranscodingProfileEvent({ profile }));
     this.parentPopupWidget.close();
   }
 
-  private _mapFormDataToProfile(formData: NewTranscodingProfileFormData): KalturaConversionProfile {
+  private _mapFormDataToProfile(formData: NewTranscodingProfileFormData): KontorolConversionProfile {
 
-    const newConversionProfile = new KalturaConversionProfile({
+    const newConversionProfile = new KontorolConversionProfile({
       type: this.profileType,
       name: formData.name
     });

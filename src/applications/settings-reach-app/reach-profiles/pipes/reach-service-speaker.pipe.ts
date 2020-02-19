@@ -1,20 +1,20 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {KalturaNullableBoolean} from 'kaltura-ngx-client';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
+import {KontorolNullableBoolean} from 'kontorol-ngx-client';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
 
 @Pipe({name: 'kReachServiceSpeaker'})
 export class ReachServiceSpeakerPipe implements PipeTransform {
     constructor(private _appLocalization: AppLocalization) {
     }
     
-    transform(value: KalturaNullableBoolean): string {
+    transform(value: KontorolNullableBoolean): string {
         let speaker = '';
         switch(value){
-            case KalturaNullableBoolean.trueValue:
+            case KontorolNullableBoolean.trueValue:
                 speaker = this._appLocalization.get('app.common.yes');
                 break;
-            case KalturaNullableBoolean.falseValue:
-            case KalturaNullableBoolean.nullValue:
+            case KontorolNullableBoolean.falseValue:
+            case KontorolNullableBoolean.nullValue:
                 speaker = this._appLocalization.get('app.common.no');
                 break;
             default:

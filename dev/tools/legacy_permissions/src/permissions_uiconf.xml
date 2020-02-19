@@ -556,19 +556,19 @@
         <permissionGroup id="FEATURE_KMC_AKAMAI_UNIVERSAL_LIVE_STREAM_PROVISION">
             <ui id="content.generalPermissions" enableAkamaiLive="false" />
         </permissionGroup>
-        <!-- live stream: Kaltura -->
-        <permissionGroup id="FEATURE_KALTURA_LIVE_STREAM">
-            <ui id="content.generalPermissions" enableKalturaLive="false" />
-            <ui id="liveStream" enableKalturaLive="false" />
+        <!-- live stream: Kontorol -->
+        <permissionGroup id="FEATURE_KONTOROL_LIVE_STREAM">
+            <ui id="content.generalPermissions" enableKontorolLive="false" />
+            <ui id="liveStream" enableKontorolLive="false" />
             <ui id="account.transcoding.advancedMode" showLiveBtn="false" />
         </permissionGroup>
-        <!-- live stream record default: Kaltura -->
+        <!-- live stream record default: Kontorol -->
         <permissionGroup id="FEATURE_LIVE_STREAM_RECORD">
-            <ui id="content.generalPermissions" enableKalturaRecording="false" />
+            <ui id="content.generalPermissions" enableKontorolRecording="false" />
         </permissionGroup>
-        <!-- live stream: Kaltura Multicast -->
+        <!-- live stream: Kontorol Multicast -->
         <permissionGroup id="FEATURE_PUSH_PUBLISH">
-            <ui id="content.generalPermissions" enableKalturaMulticast="false" />
+            <ui id="content.generalPermissions" enableKontorolMulticast="false" />
         </permissionGroup>
         <!-- DRM -->
         <permissionGroup id="WIDEVINE_PLUGIN_PERMISSION">

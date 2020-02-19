@@ -1,12 +1,12 @@
-import { KalturaUploadFile } from 'app-shared/kmc-shared/upload-management/kaltura-upload-file';
-import { KalturaMediaType } from 'kaltura-ngx-client';
+import { KontorolUploadFile } from 'app-shared/kmc-shared/upload-management/kontorol-upload-file';
+import { KontorolMediaType } from 'kontorol-ngx-client';
 import { ISubscription } from 'rxjs/Subscription';
 
-export class NewEntryUploadFile extends KalturaUploadFile {
+export class NewEntryUploadFile extends KontorolUploadFile {
   public entryId: string;
   public createMediaEntrySubscription: ISubscription;
   constructor(file: File,
-              public mediaType: KalturaMediaType,
+              public mediaType: KontorolMediaType,
               public transcodingProfileId: number,
               public entryName: string = file.name) {
     super(file);

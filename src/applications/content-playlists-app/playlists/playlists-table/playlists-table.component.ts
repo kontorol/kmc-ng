@@ -10,9 +10,9 @@ import {
     ViewChild
 } from '@angular/core';
 import {Menu} from 'primeng/menu';
-import {KalturaPlaylist} from 'kaltura-ngx-client';
-import {KalturaEntryStatus} from 'kaltura-ngx-client';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
+import {KontorolPlaylist} from 'kontorol-ngx-client';
+import {KontorolEntryStatus} from 'kontorol-ngx-client';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
 import {globalConfig} from 'config/global';
 import {KMCPermissionsService} from 'app-shared/kmc-shared/kmc-permissions';
 import {KMCPermissions} from 'app-shared/kmc-shared/kmc-permissions';
@@ -31,7 +31,7 @@ import {AnalyticsNewMainViewService} from "app-shared/kmc-shared/kmc-views";
     ]
 })
 export class PlaylistsTableComponent implements AfterViewInit, OnInit, OnDestroy {
-    @Input() set playlists(data: KalturaPlaylist[]) {
+    @Input() set playlists(data: KontorolPlaylist[]) {
         if (!this._deferredLoading) {
             this._playlists = [];
             this._cdRef.detectChanges();
@@ -52,11 +52,11 @@ export class PlaylistsTableComponent implements AfterViewInit, OnInit, OnDestroy
     
     @ViewChild('actionsmenu', {static: true}) private actionsMenu: Menu;
     
-    private _deferredPlaylists: KalturaPlaylist[];
+    private _deferredPlaylists: KontorolPlaylist[];
     
     public _deferredLoading = true;
     public _emptyMessage = '';
-    public _playlists: KalturaPlaylist[] = [];
+    public _playlists: KontorolPlaylist[] = [];
     public _items: MenuItem[];
     public _defaultSortOrder = globalConfig.client.views.tables.defaultSortOrder;
     
@@ -88,7 +88,7 @@ export class PlaylistsTableComponent implements AfterViewInit, OnInit, OnDestroy
         this._columnsResizeManager.updateColumns(this._el.nativeElement);
     }
     
-    openActionsMenu(event: any, playlist: KalturaPlaylist) {
+    openActionsMenu(event: any, playlist: KontorolPlaylist) {
         if (this.actionsMenu) {
             this.buildMenu(playlist);
             this.actionsMenu.toggle(event);
@@ -113,7 +113,7 @@ export class PlaylistsTableComponent implements AfterViewInit, OnInit, OnDestroy
             }
         ];
         
-        if (playlist.status !== KalturaEntryStatus.ready || playlist.isRapt) {
+        if (playlist.status !== KontorolEntryStatus.ready || playlist.isRapt) {
             this._items.shift();
         } else {
             const hasEmbedPermission = this._permissionsService.hasPermission(KMCPermissions.PLAYLIST_EMBED_CODE);
@@ -153,7 +153,7 @@ export class PlaylistsTableComponent implements AfterViewInit, OnInit, OnDestroy
         this.selectedPlaylistsChange.emit(event);
     }
     
-    onActionSelected(action: string, playlist: KalturaPlaylist) {
+    onActionSelected(action: string, playlist: KontorolPlaylist) {
         this.actionSelected.emit({'action': action, 'playlist': playlist});
     }
     

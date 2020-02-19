@@ -1,10 +1,10 @@
 import { AppEvent } from 'app-shared/kmc-shared/app-events/app-event';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { KalturaPlaylist } from 'kaltura-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { KontorolPlaylist } from 'kontorol-ngx-client';
 
 export class PreviewAndEmbedEvent extends AppEvent {
 
-    constructor(public media: KalturaPlaylist | KalturaMediaEntry)
+    constructor(public media: KontorolPlaylist | KontorolMediaEntry)
     {
         super('PreviewAndEmbedEvent');
     }

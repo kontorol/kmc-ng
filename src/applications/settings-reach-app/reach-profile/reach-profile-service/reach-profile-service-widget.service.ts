@@ -1,14 +1,14 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import {ReachProfileWidget} from '../reach-profile-widget';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 import {SettingsReachProfileViewSections} from "app-shared/kmc-shared/kmc-views/details-views";
 import {AbstractControl, FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {KMCPermissions, KMCPermissionsService} from "app-shared/kmc-shared/kmc-permissions";
-import {AppLocalization} from "@kaltura-ng/mc-shared";
+import {AppLocalization} from "@kontorol-ng/mc-shared";
 import {Observable} from "rxjs";
-import {cancelOnDestroy} from "@kaltura-ng/kaltura-common";
+import {cancelOnDestroy} from "@kontorol-ng/kontorol-common";
 import {async} from "rxjs-compat/scheduler/async";
-import {KalturaMultiRequest, KalturaReachProfile, KalturaVendorCatalogItemOutputFormat} from "kaltura-ngx-client";
+import {KontorolMultiRequest, KontorolReachProfile, KontorolVendorCatalogItemOutputFormat} from "kontorol-ngx-client";
 
 @Injectable()
 export class ReachProfileServiceWidget extends ReachProfileWidget implements OnDestroy {
@@ -25,7 +25,7 @@ export class ReachProfileServiceWidget extends ReachProfileWidget implements OnD
     public audioField: AbstractControl;
     public removalField: AbstractControl;
     
-    constructor(logger: KalturaLogger,
+    constructor(logger: KontorolLogger,
                 private _permissionsService: KMCPermissionsService,
                 private _appLocalization: AppLocalization,
                 private _formBuilder: FormBuilder) {
@@ -80,7 +80,7 @@ export class ReachProfileServiceWidget extends ReachProfileWidget implements OnD
         });
     }
     
-    protected onDataSaving(newData: KalturaReachProfile, request: KalturaMultiRequest): void {
+    protected onDataSaving(newData: KontorolReachProfile, request: KontorolMultiRequest): void {
         const formData = this.wasActivated ? this.serviceForm.value : this.data;
         newData.defaultOutputFormat = formData.format;
         newData.maxCharactersPerCaptionLine = formData.max;
@@ -107,8 +107,8 @@ export class ReachProfileServiceWidget extends ReachProfileWidget implements OnD
         }
         
         this.formatOptions = [
-            {label: this._appLocalization.get('applications.settings.reach.service.formatOptions.dfxp'), value: KalturaVendorCatalogItemOutputFormat.dfxp},
-            {label: this._appLocalization.get('applications.settings.reach.service.formatOptions.srt'), value: KalturaVendorCatalogItemOutputFormat.srt}
+            {label: this._appLocalization.get('applications.settings.reach.service.formatOptions.dfxp'), value: KontorolVendorCatalogItemOutputFormat.dfxp},
+            {label: this._appLocalization.get('applications.settings.reach.service.formatOptions.srt'), value: KontorolVendorCatalogItemOutputFormat.srt}
         ];
         
         this.serviceForm.reset({

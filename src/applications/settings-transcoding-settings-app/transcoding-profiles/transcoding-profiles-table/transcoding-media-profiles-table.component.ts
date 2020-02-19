@@ -2,7 +2,7 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef } from '@angula
 import { ColumnsResizeManagerService, ResizableColumnsTableName } from 'app-shared/kmc-shared/columns-resize-manager';
 import { TranscodingProfilesTableComponent } from './transcoding-profiles-table.component';
 import { KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 
 @Component({
     selector: 'k-transcoding-media-profiles-table',

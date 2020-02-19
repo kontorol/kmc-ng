@@ -1,20 +1,20 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { PlaylistWidget } from '../../playlist-widget';
 import { Observable } from 'rxjs';
-import { FriendlyHashId } from '@kaltura-ng/kaltura-common';
-import { KalturaUtils } from '@kaltura-ng/kaltura-common';
-import { KalturaClient } from 'kaltura-ngx-client';
-import { KalturaPlaylist } from 'kaltura-ngx-client';
-import { PlaylistExecuteFromFiltersAction } from 'kaltura-ngx-client';
-import { KalturaDetachedResponseProfile } from 'kaltura-ngx-client';
-import { KalturaResponseProfileType } from 'kaltura-ngx-client';
-import { KalturaPlaylistType } from 'kaltura-ngx-client';
-import { KalturaPlayableEntryOrderBy } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { FriendlyHashId } from '@kontorol-ng/kontorol-common';
+import { KontorolUtils } from '@kontorol-ng/kontorol-common';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { KontorolPlaylist } from 'kontorol-ngx-client';
+import { PlaylistExecuteFromFiltersAction } from 'kontorol-ngx-client';
+import { KontorolDetachedResponseProfile } from 'kontorol-ngx-client';
+import { KontorolResponseProfileType } from 'kontorol-ngx-client';
+import { KontorolPlaylistType } from 'kontorol-ngx-client';
+import { KontorolPlayableEntryOrderBy } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { PlaylistRule } from './playlist-rule/playlist-rule.interface';
 import { ContentPlaylistViewSections } from 'app-shared/kmc-shared/kmc-views/details-views';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Injectable()
 export class RuleBasedContentWidget extends PlaylistWidget implements OnDestroy {
@@ -25,7 +25,7 @@ export class RuleBasedContentWidget extends PlaylistWidget implements OnDestroy 
   public entriesDuration = 0;
   public entriesTotalCount = 0;
 
-  constructor(private _kalturaClient: KalturaClient, private _appLocalization: AppLocalization, logger: KalturaLogger) {
+  constructor(private _kontorolClient: KontorolClient, private _appLocalization: AppLocalization, logger: KontorolLogger) {
     super(ContentPlaylistViewSections.ContentRuleBased, logger);
   }
 
@@ -33,7 +33,7 @@ export class RuleBasedContentWidget extends PlaylistWidget implements OnDestroy 
   }
 
   protected onValidate(wasActivated?: boolean): Observable<{ isValid: boolean }> {
-    if (this.data.playlistType === KalturaPlaylistType.dynamic) { // validate only rule-based playlist
+    if (this.data.playlistType === KontorolPlaylistType.dynamic) { // validate only rule-based playlist
       if (this.wasActivated) {
         return Observable.of({ isValid: !!this.rules.length });
       }
@@ -48,8 +48,8 @@ export class RuleBasedContentWidget extends PlaylistWidget implements OnDestroy 
     return Observable.of({ isValid: true });
   }
 
-  protected onDataSaving(data: KalturaPlaylist): void {
-    if (data.playlistType === KalturaPlaylistType.dynamic) { // handle only rule-based playlist
+  protected onDataSaving(data: KontorolPlaylist): void {
+    if (data.playlistType === KontorolPlaylistType.dynamic) { // handle only rule-based playlist
       data.filters = this.rules.map(({ originalFilter }) => originalFilter);
     }
   }
@@ -71,14 +71,14 @@ export class RuleBasedContentWidget extends PlaylistWidget implements OnDestroy 
         totalResults: filter.limit,
         filters: [filter]
       }).setRequestOptions({
-          responseProfile: new KalturaDetachedResponseProfile({
-              type: KalturaResponseProfileType.includeFields,
+          responseProfile: new KontorolDetachedResponseProfile({
+              type: KontorolResponseProfileType.includeFields,
               fields: 'duration'
           })
       });
     });
 
-    return this._kalturaClient.multiRequest(rules)
+    return this._kontorolClient.multiRequest(rules)
       .pipe(cancelOnDestroy(this, this.widgetReset$))
       .map(responses => {
         const responseIncomplete = !Array.isArray(responses)
@@ -96,7 +96,7 @@ export class RuleBasedContentWidget extends PlaylistWidget implements OnDestroy 
 
           this.rules.push({
             name: (<any>filter).name,
-            orderBy: <KalturaPlayableEntryOrderBy>filter.orderBy,
+            orderBy: <KontorolPlayableEntryOrderBy>filter.orderBy,
             limit: filter.limit,
             entriesCount: result.length,
             selectionId: this._selectionIdGenerator.generateUnique(this.rules.map(item => item.selectionId)),
@@ -143,13 +143,13 @@ export class RuleBasedContentWidget extends PlaylistWidget implements OnDestroy 
   }
 
   private _moveUpRules(selectedRules: PlaylistRule[]): void {
-    if (KalturaUtils.moveUpItems(this.rules, selectedRules)) {
+    if (KontorolUtils.moveUpItems(this.rules, selectedRules)) {
       this._setDirty();
     }
   }
 
   private _moveDownRules(selectedRules: PlaylistRule[]): void {
-    if (KalturaUtils.moveDownItems(this.rules, selectedRules)) {
+    if (KontorolUtils.moveDownItems(this.rules, selectedRules)) {
       this._setDirty();
     }
   }

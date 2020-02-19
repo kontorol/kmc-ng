@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { KalturaMetadataObjectType } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolMetadataObjectType } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 
 @Pipe({ name: 'kReachProfileCredit' })
 export class ReachProfileCreditPipe implements PipeTransform {

@@ -9,14 +9,14 @@ import {
     ViewChild
 } from '@angular/core';
 import { Menu } from 'primeng/menu';
-import { KalturaConversionProfileWithAsset } from '../transcoding-profiles-store/base-transcoding-profiles-store.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolConversionProfileWithAsset } from '../transcoding-profiles-store/base-transcoding-profiles-store.service';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaConversionProfileType } from 'kaltura-ngx-client';
+import { KontorolConversionProfileType } from 'kontorol-ngx-client';
 import { MenuItem } from 'primeng/api';
 
 export abstract class TranscodingProfilesTableComponent implements OnInit, AfterViewInit, OnDestroy {
-  @Input() set profiles(data: KalturaConversionProfileWithAsset[]) {
+  @Input() set profiles(data: KontorolConversionProfileWithAsset[]) {
     if (!this._deferredLoading) {
       this._profiles = [];
       this._cdRef.detectChanges();
@@ -28,11 +28,11 @@ export abstract class TranscodingProfilesTableComponent implements OnInit, After
   }
 
     @Input() singleTableMode: boolean;
-    @Input() profileType: KalturaConversionProfileType;
-  @Input() selectedProfiles: KalturaConversionProfileWithAsset[] = [];
+    @Input() profileType: KontorolConversionProfileType;
+  @Input() selectedProfiles: KontorolConversionProfileWithAsset[] = [];
 
-  @Output() selectedProfilesChange = new EventEmitter<KalturaConversionProfileWithAsset[]>();
-  @Output() actionSelected = new EventEmitter<{ action: string, profile: KalturaConversionProfileWithAsset }>();
+  @Output() selectedProfilesChange = new EventEmitter<KontorolConversionProfileWithAsset[]>();
+  @Output() actionSelected = new EventEmitter<{ action: string, profile: KontorolConversionProfileWithAsset }>();
 
   @ViewChild('actionsmenu', { static: true }) private _actionsMenu: Menu;
 
@@ -71,7 +71,7 @@ export abstract class TranscodingProfilesTableComponent implements OnInit, After
     this._actionsMenu.hide();
   }
 
-  private _buildMenu(profile: KalturaConversionProfileWithAsset): void {
+  private _buildMenu(profile: KontorolConversionProfileWithAsset): void {
     if (profile.isDefault) {
       this._items = [
         {
@@ -104,13 +104,13 @@ export abstract class TranscodingProfilesTableComponent implements OnInit, After
     this._permissionsService.filterList(<{ id: string }[]>this._items, { 'delete': KMCPermissions.TRANSCODING_DELETE });
   }
 
-  public _openActionsMenu(event: any, profile: KalturaConversionProfileWithAsset): void {
+  public _openActionsMenu(event: any, profile: KontorolConversionProfileWithAsset): void {
     if (this._actionsMenu) {
       this._buildMenu(profile);
       this._actionsMenu.toggle(event);
     }
   }
-  public _onActionSelected(action: string, profile: KalturaConversionProfileWithAsset): void {
+  public _onActionSelected(action: string, profile: KontorolConversionProfileWithAsset): void {
     this.actionSelected.emit({ action, profile });
   }
 

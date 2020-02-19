@@ -1,7 +1,7 @@
-import { KalturaUploadFile } from 'app-shared/kmc-shared/upload-management/kaltura-upload-file';
+import { KontorolUploadFile } from 'app-shared/kmc-shared/upload-management/kontorol-upload-file';
 import { ISubscription } from 'rxjs/Subscription';
 
-export class NewReplaceVideoUploadFile extends KalturaUploadFile {
+export class NewReplaceVideoUploadFile extends KontorolUploadFile {
     public createMediaEntrySubscription: ISubscription;
 
     constructor(file: File,

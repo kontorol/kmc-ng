@@ -1,12 +1,12 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup, ValidatorFn, Validators} from "@angular/forms";
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
 import {EntitlementService} from '../entitlement.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 function privacyContextLabelValidator(): ValidatorFn {
   return (control: AbstractControl): { [key: string]: boolean } | null => {
@@ -24,7 +24,7 @@ function privacyContextLabelValidator(): ValidatorFn {
   selector: 'kNewEntitlement',
   templateUrl: './new-entitlement.component.html',
   styleUrls: ['./new-entitlement.component.scss'],
-  providers: [KalturaLogger.createLogger('NewEntitlementComponent')]
+  providers: [KontorolLogger.createLogger('NewEntitlementComponent')]
 })
 export class NewEntitlementComponent implements OnInit, OnDestroy {
 
@@ -37,7 +37,7 @@ export class NewEntitlementComponent implements OnInit, OnDestroy {
 
   constructor(private _appLocalization: AppLocalization,
               private _fb: FormBuilder,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _browserService: BrowserService,
               private _entitlementService: EntitlementService) {
     this.addEntitlementForm = this._fb.group({

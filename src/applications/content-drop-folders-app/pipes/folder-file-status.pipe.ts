@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { KalturaDropFolderFileStatus } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolDropFolderFileStatus } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 
 @Pipe({ name: 'kFolderFileStatus' })
 export class FolderFileStatusPipe implements PipeTransform {
@@ -13,57 +13,57 @@ export class FolderFileStatusPipe implements PipeTransform {
     let tooltip = '';
     if (typeof(value) !== 'undefined' && value !== null) {
       switch (parseInt(value, 10)) {
-        case KalturaDropFolderFileStatus.uploading:
+        case KontorolDropFolderFileStatus.uploading:
           className = 'kIconsync kIconBlue';
           label = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusLabels.uploading');
           tooltip = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusTooltips.uploading');
           break;
-        case KalturaDropFolderFileStatus.downloading:
+        case KontorolDropFolderFileStatus.downloading:
           className = 'kIconsync kIconBlue';
           label = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusLabels.downloading');
           tooltip = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusTooltips.downloading');
           break;
-        case KalturaDropFolderFileStatus.pending:
+        case KontorolDropFolderFileStatus.pending:
           className = 'kIconupload2 kIconOrange';
           label = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusLabels.pending');
           tooltip = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusTooltips.pending');
           break;
-        case KalturaDropFolderFileStatus.processing:
+        case KontorolDropFolderFileStatus.processing:
           className = 'kIconsync kIconBlue';
           label = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusLabels.processing');
           tooltip = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusTooltips.processing');
           break;
-        case KalturaDropFolderFileStatus.parsed:
+        case KontorolDropFolderFileStatus.parsed:
           className = 'kIconupload2 kIconOrange';
           label = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusLabels.parsedFromXml');
           tooltip = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusTooltips.parsedFromXml');
           break;
-        case KalturaDropFolderFileStatus.waiting:
+        case KontorolDropFolderFileStatus.waiting:
           className = 'kIconupload2 kIconOrange';
           label = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusLabels.waitingForRelatedFiles');
           tooltip = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusTooltips.waitingForRelatedFiles');
           break;
-        case KalturaDropFolderFileStatus.noMatch:
+        case KontorolDropFolderFileStatus.noMatch:
           className = 'kIconupload2 kIconOrange';
           label = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusLabels.waitingForMatchedEntry');
           tooltip = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusTooltips.waitingForMatchedEntry');
           break;
-        case KalturaDropFolderFileStatus.errorHandling:
+        case KontorolDropFolderFileStatus.errorHandling:
           className = 'kIconerror kIconRed';
           label = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusLabels.error');
           tooltip = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusTooltips.error');
           break;
-        case KalturaDropFolderFileStatus.errorDeleting:
+        case KontorolDropFolderFileStatus.errorDeleting:
           className = 'kIconerror kIconRed';
           label = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusLabels.deleteFailed');
           tooltip = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusTooltips.deleteFailed');
           break;
-        case KalturaDropFolderFileStatus.handled:
+        case KontorolDropFolderFileStatus.handled:
           className = 'kIconcomplete kIconGreen';
           label = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusLabels.done');
           tooltip = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusTooltips.done');
           break;
-        case KalturaDropFolderFileStatus.errorDownloading:
+        case KontorolDropFolderFileStatus.errorDownloading:
           className = 'kIconerror kIconRed';
           label = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusLabels.downloadFailed');
           tooltip = this._appLocalization.get('applications.content.dropFolders.dropFolderStatusTooltips.downloadFailed');

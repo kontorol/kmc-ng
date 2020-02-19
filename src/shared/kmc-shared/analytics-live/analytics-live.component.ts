@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
-import { KalturaLiveEntry } from 'kaltura-ngx-client';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { KontorolLiveEntry } from 'kontorol-ngx-client';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 
 @Component({
     selector: 'kAnalyticsLive',
@@ -8,6 +8,6 @@ import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
     styleUrls: ['./analytics-live.component.scss']
 })
 export class AnalyticsLiveComponent {
-    @Input() entry: KalturaLiveEntry;
+    @Input() entry: KontorolLiveEntry;
     @Input() parentPopup: PopupWidgetComponent;
 }

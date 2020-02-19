@@ -3,18 +3,18 @@ import { PartnerProfileStore } from '../partner-profile';
 import { ISubscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/throw';
-import { KalturaClient } from 'kaltura-ngx-client';
-import { KalturaMetadataObjectType } from 'kaltura-ngx-client';
-import { MetadataProfileListAction } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { KontorolMetadataObjectType } from 'kontorol-ngx-client';
+import { MetadataProfileListAction } from 'kontorol-ngx-client';
 import { MetadataProfile } from './metadata-profile';
-import { MetadataProfileParser } from './kaltura-metadata-parser';
-import { KalturaMetadataProfileCreateMode } from 'kaltura-ngx-client';
-import { KalturaMetadataProfileFilter } from 'kaltura-ngx-client';
-import { KalturaMetadataProfileListResponse } from 'kaltura-ngx-client';
+import { MetadataProfileParser } from './kontorol-metadata-parser';
+import { KontorolMetadataProfileCreateMode } from 'kontorol-ngx-client';
+import { KontorolMetadataProfileFilter } from 'kontorol-ngx-client';
+import { KontorolMetadataProfileListResponse } from 'kontorol-ngx-client';
 import { AppEventsService } from 'app-shared/kmc-shared/app-events';
 import { MetadataProfileUpdatedEvent } from 'app-shared/kmc-shared/events/metadata-profile-updated.event';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
 
 export enum MetadataProfileCreateModes {
     Api,
@@ -38,7 +38,7 @@ export class MetadataProfileStore extends PartnerProfileStore implements OnDestr
 {
     private _cachedProfiles : { [key : string] : MetadataProfile[]} = {};
 
-    constructor(private _kalturaServerClient: KalturaClient,
+    constructor(private _kontorolServerClient: KontorolClient,
                 private _permissionsService: KMCPermissionsService,
                 _appEvents: AppEventsService) {
         super();
@@ -82,9 +82,9 @@ export class MetadataProfileStore extends PartnerProfileStore implements OnDestr
                         let parsedProfiles = [];
                         let parseFirstError: Error = null;
 
-                        response.objects.forEach(kalturaProfile =>
+                        response.objects.forEach(kontorolProfile =>
                         {
-                            const parsedProfile = parser.parse(<any>kalturaProfile);
+                            const parsedProfile = parser.parse(<any>kontorolProfile);
                             if (parsedProfile.error)
                             {
                                 parseFirstError = parsedProfile.error;
@@ -143,20 +143,20 @@ export class MetadataProfileStore extends PartnerProfileStore implements OnDestr
         }
     }
 
-    private _getAPICreateMode(createMode : MetadataProfileCreateModes) : KalturaMetadataProfileCreateMode
+    private _getAPICreateMode(createMode : MetadataProfileCreateModes) : KontorolMetadataProfileCreateMode
     {
-        let result : KalturaMetadataProfileCreateMode;
+        let result : KontorolMetadataProfileCreateMode;
 
         switch (createMode)
         {
             case MetadataProfileCreateModes.Api:
-                result = KalturaMetadataProfileCreateMode.api;
+                result = KontorolMetadataProfileCreateMode.api;
                 break;
             case MetadataProfileCreateModes.App:
-                result = KalturaMetadataProfileCreateMode.app;
+                result = KontorolMetadataProfileCreateMode.app;
                 break;
             case MetadataProfileCreateModes.Kmc:
-                result = KalturaMetadataProfileCreateMode.kmc;
+                result = KontorolMetadataProfileCreateMode.kmc;
                 break;
             default:
         }
@@ -164,8 +164,8 @@ export class MetadataProfileStore extends PartnerProfileStore implements OnDestr
         return result;
     }
 
-     private _buildGetRequest(filters: GetFilters): Observable<KalturaMetadataProfileListResponse> {
-        const metadataProfilesFilter = new KalturaMetadataProfileFilter();
+     private _buildGetRequest(filters: GetFilters): Observable<KontorolMetadataProfileListResponse> {
+        const metadataProfilesFilter = new KontorolMetadataProfileFilter();
         metadataProfilesFilter.createModeNotEqual = this._getAPICreateMode(filters.ignoredCreateMode);
         metadataProfilesFilter.orderBy = '-createdAt';
 
@@ -175,16 +175,16 @@ export class MetadataProfileStore extends PartnerProfileStore implements OnDestr
 
             switch (filterType) {
                 case MetadataProfileTypes.Entry:
-                    metadataProfilesFilter.metadataObjectTypeEqual = KalturaMetadataObjectType.entry;
+                    metadataProfilesFilter.metadataObjectTypeEqual = KontorolMetadataObjectType.entry;
                     break;
                 case MetadataProfileTypes.Category:
-                    metadataProfilesFilter.metadataObjectTypeEqual = KalturaMetadataObjectType.category;
+                    metadataProfilesFilter.metadataObjectTypeEqual = KontorolMetadataObjectType.category;
                     break;
 
             }
         }
 
-        return <any>this._kalturaServerClient.request(new MetadataProfileListAction({
+        return <any>this._kontorolServerClient.request(new MetadataProfileListAction({
             filter: metadataProfilesFilter
         }));
     }

@@ -1,10 +1,10 @@
 import {EventEmitter, Injectable} from '@angular/core';
 import {LocalStorageService, SessionStorageService} from 'ngx-webstorage';
-import {IAppStorage} from '@kaltura-ng/kaltura-common';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
+import {IAppStorage} from '@kontorol-ng/kontorol-common';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
 import {Subject} from 'rxjs/Subject';
 import { Observable } from 'rxjs';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { Router, ActivatedRoute, NavigationExtras, NavigationEnd, RoutesRecognized } from '@angular/router';
 import { kmcAppConfig } from '../../../kmc-app/kmc-app-config';
 import { AppEventsService } from 'app-shared/kmc-shared/app-events/app-events.service';
@@ -95,7 +95,7 @@ export class BrowserService implements IAppStorage {
     constructor(private localStorage: LocalStorageService,
                 private sessionStorage: SessionStorageService,
                 private _router: Router,
-                private _logger: KalturaLogger,
+                private _logger: KontorolLogger,
                 private _appEvents: AppEventsService,
                 private _appLocalization: AppLocalization,
                 private _pageExitVerificationService: PageExitVerificationService) {
@@ -235,8 +235,8 @@ export class BrowserService implements IAppStorage {
     public openSupport(): void{
         let emailAddress = null;
         let msg = this._appLocalization.get('app.openMail.supportMailMsg');
-        if (serverConfig.externalLinks.kaltura && serverConfig.externalLinks.kaltura.support){
-            emailAddress = serverConfig.externalLinks.kaltura.support;
+        if (serverConfig.externalLinks.kontorol && serverConfig.externalLinks.kontorol.support){
+            emailAddress = serverConfig.externalLinks.kontorol.support;
             msg = this._appLocalization.get('app.openMail.supportMailMsgNoMail');
         }
         this.openEmail({

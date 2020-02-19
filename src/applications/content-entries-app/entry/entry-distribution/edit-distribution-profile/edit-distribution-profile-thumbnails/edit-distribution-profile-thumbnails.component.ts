@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { ExtendedKalturaDistributionThumbDimensions } from '../edit-distribution-profile.component';
+import { ExtendedKontorolDistributionThumbDimensions } from '../edit-distribution-profile.component';
 
 @Component({
   selector: 'kEditDistributionProfileThumbnails',
@@ -7,6 +7,6 @@ import { ExtendedKalturaDistributionThumbDimensions } from '../edit-distribution
   styleUrls: ['./edit-distribution-profile-thumbnails.component.scss']
 })
 export class EditDistributionProfileThumbnailsComponent {
-  @Input() requiredThumbnails: ExtendedKalturaDistributionThumbDimensions[] | null = [];
+  @Input() requiredThumbnails: ExtendedKontorolDistributionThumbDimensions[] | null = [];
 }
 

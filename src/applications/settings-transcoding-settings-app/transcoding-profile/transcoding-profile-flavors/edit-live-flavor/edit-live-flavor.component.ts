@@ -1,29 +1,29 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import {
-  ExtendedKalturaConversionProfileAssetParams,
-  KalturaConversionProfileWithAsset
+  ExtendedKontorolConversionProfileAssetParams,
+  KontorolConversionProfileWithAsset
 } from '../../../transcoding-profiles/transcoding-profiles-store/base-transcoding-profiles-store.service';
-import { KalturaFlavorParams } from 'kaltura-ngx-client';
-import { KalturaConversionProfileAssetParams } from 'kaltura-ngx-client';
-import { KalturaObjectBaseFactory } from 'kaltura-ngx-client';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolFlavorParams } from 'kontorol-ngx-client';
+import { KontorolConversionProfileAssetParams } from 'kontorol-ngx-client';
+import { KontorolObjectBaseFactory } from 'kontorol-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 
 @Component({
   selector: 'kEditLiveFlavor',
   templateUrl: './edit-live-flavor.component.html',
   styleUrls: ['./edit-live-flavor.component.scss'],
-  providers: [KalturaLogger.createLogger('EditLiveFlavorComponent')]
+  providers: [KontorolLogger.createLogger('EditLiveFlavorComponent')]
 })
 export class EditLiveFlavorComponent implements OnInit {
-  @Input() profile: KalturaConversionProfileWithAsset;
-  @Input() flavor: KalturaFlavorParams;
+  @Input() profile: KontorolConversionProfileWithAsset;
+  @Input() flavor: KontorolFlavorParams;
   @Input() parentPopupWidget: PopupWidgetComponent;
 
-  @Output() saveFlavor = new EventEmitter<ExtendedKalturaConversionProfileAssetParams>();
+  @Output() saveFlavor = new EventEmitter<ExtendedKontorolConversionProfileAssetParams>();
 
-  private _assetParams: ExtendedKalturaConversionProfileAssetParams;
+  private _assetParams: ExtendedKontorolConversionProfileAssetParams;
 
   public _editFlavorForm: FormGroup;
   public _profileNameField: AbstractControl;
@@ -31,7 +31,7 @@ export class EditLiveFlavorComponent implements OnInit {
   public _systemNameField: AbstractControl;
 
   constructor(private _fb: FormBuilder,
-              private _logger: KalturaLogger) {
+              private _logger: KontorolLogger) {
     this._buildForm();
   }
 
@@ -60,14 +60,14 @@ export class EditLiveFlavorComponent implements OnInit {
     }, { emitEvent: false });
   }
 
-  private _getFlavorAssetParams(): ExtendedKalturaConversionProfileAssetParams {
+  private _getFlavorAssetParams(): ExtendedKontorolConversionProfileAssetParams {
     const assets = this.profile.assets || [];
     const relevantAssetParam = assets.find(({ assetParamsId }) => this.flavor.id === assetParamsId);
-    if (relevantAssetParam instanceof KalturaConversionProfileAssetParams) {
-      return Object.assign(KalturaObjectBaseFactory.createObject(relevantAssetParam), relevantAssetParam);
+    if (relevantAssetParam instanceof KontorolConversionProfileAssetParams) {
+      return Object.assign(KontorolObjectBaseFactory.createObject(relevantAssetParam), relevantAssetParam);
     }
 
-    const newAssetParam: ExtendedKalturaConversionProfileAssetParams = new KalturaConversionProfileAssetParams();
+    const newAssetParam: ExtendedKontorolConversionProfileAssetParams = new KontorolConversionProfileAssetParams();
     // bypass readonly mode
     (<any>newAssetParam).conversionProfileId = this.profile.id;
     (<any>newAssetParam).assetParamsId = this.flavor.id;

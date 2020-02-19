@@ -1,14 +1,14 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import {KalturaUiConf} from 'kaltura-ngx-client';
-import {KalturaFlavorParams} from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import {KontorolUiConf} from 'kontorol-ngx-client';
+import {KontorolFlavorParams} from 'kontorol-ngx-client';
 import { DestinationComponentBase, FeedFormMode } from '../../feed-details.component';
-import {KalturaYahooSyndicationFeed} from 'kaltura-ngx-client';
-import {KalturaValidators} from '@kaltura-ng/kaltura-ui';
+import {KontorolYahooSyndicationFeed} from 'kontorol-ngx-client';
+import {KontorolValidators} from '@kontorol-ng/kontorol-ui';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kYahooDestinationForm',
@@ -16,7 +16,7 @@ import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
   styleUrls: ['./yahoo-destination-form.component.scss'],
   providers: [
       {provide: DestinationComponentBase, useExisting: YahooDestinationFormComponent},
-      KalturaLogger.createLogger('YahooDestinationFormComponent')
+      KontorolLogger.createLogger('YahooDestinationFormComponent')
   ]
 })
 export class YahooDestinationFormComponent extends DestinationComponentBase implements OnInit, OnDestroy {
@@ -26,13 +26,13 @@ export class YahooDestinationFormComponent extends DestinationComponentBase impl
   onFormStateChanged = new EventEmitter<{ isValid: boolean, isDirty: boolean }>();
 
   @Input()
-  feed: KalturaYahooSyndicationFeed = null;
+  feed: KontorolYahooSyndicationFeed = null;
 
   @Input()
-  public players: KalturaUiConf[] = null;
+  public players: KontorolUiConf[] = null;
 
   @Input()
-  public contentFlavors: KalturaFlavorParams[] = null;
+  public contentFlavors: KontorolFlavorParams[] = null;
 
   public _form: FormGroup;
   public _availableContentFlavors: Array<{ value: number, label: string }> = [];
@@ -45,7 +45,7 @@ export class YahooDestinationFormComponent extends DestinationComponentBase impl
 
   constructor(private _appLocalization: AppLocalization,
               private _permissionsService: KMCPermissionsService,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _fb: FormBuilder) {
     super();
     // prepare form
@@ -83,7 +83,7 @@ export class YahooDestinationFormComponent extends DestinationComponentBase impl
   ngOnDestroy() {
   }
 
-  public getData(): KalturaYahooSyndicationFeed {
+  public getData(): KontorolYahooSyndicationFeed {
       this._logger.info(`handle get feed data action`);
     if (!this._form.valid) {
         this._logger.info(`form is not valid, abort action`);
@@ -91,7 +91,7 @@ export class YahooDestinationFormComponent extends DestinationComponentBase impl
       return null;
     }
 
-    const data = new KalturaYahooSyndicationFeed({
+    const data = new KontorolYahooSyndicationFeed({
       flavorParamId: this._form.get('contentFlavor').value,
       addToDefaultConversionProfile: this._form.get('addToDefaultTranscodingProfile').value,
       landingPage: this._form.get('landingPage').value,
@@ -116,10 +116,10 @@ export class YahooDestinationFormComponent extends DestinationComponentBase impl
     this._form = this._fb.group({
       contentFlavor: [null],
       addToDefaultTranscodingProfile: [true],
-      landingPage: [null, [KalturaValidators.urlHttp, Validators.required]],
+      landingPage: [null, [KontorolValidators.urlHttp, Validators.required]],
       playback: ['fromYahoo'],
       selectedPlayer: [null],
-      website: [null, [KalturaValidators.urlHttp, Validators.required]],
+      website: [null, [KontorolValidators.urlHttp, Validators.required]],
       description: [null],
       selectedCategories: [[]]
     });

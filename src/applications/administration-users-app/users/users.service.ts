@@ -2,29 +2,29 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { AppAuthentication, BrowserService } from 'app-shared/kmc-shell';
 import { Observable } from 'rxjs';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { IsUserExistsStatuses } from './user-exists-statuses';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import { KalturaUser } from 'kaltura-ngx-client';
-import { KalturaUserRole } from 'kaltura-ngx-client';
-import { KalturaClient, KalturaMultiRequest } from 'kaltura-ngx-client';
-import { UserRoleListAction } from 'kaltura-ngx-client';
-import { KalturaUserRoleFilter } from 'kaltura-ngx-client';
-import { KalturaUserRoleStatus } from 'kaltura-ngx-client';
-import { KalturaUserRoleOrderBy } from 'kaltura-ngx-client';
-import { UserListAction } from 'kaltura-ngx-client';
-import { KalturaUserFilter } from 'kaltura-ngx-client';
-import { KalturaNullableBoolean } from 'kaltura-ngx-client';
-import { KalturaUserStatus } from 'kaltura-ngx-client';
-import { KalturaUserOrderBy } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
-import { PartnerGetInfoAction } from 'kaltura-ngx-client';
-import { UserUpdateAction } from 'kaltura-ngx-client';
-import { UserDeleteAction } from 'kaltura-ngx-client';
-import { UserGetByLoginIdAction } from 'kaltura-ngx-client';
-import { UserGetAction } from 'kaltura-ngx-client';
-import { UserEnableLoginAction } from 'kaltura-ngx-client';
-import { UserAddAction } from 'kaltura-ngx-client';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import { KontorolUser } from 'kontorol-ngx-client';
+import { KontorolUserRole } from 'kontorol-ngx-client';
+import { KontorolClient, KontorolMultiRequest } from 'kontorol-ngx-client';
+import { UserRoleListAction } from 'kontorol-ngx-client';
+import { KontorolUserRoleFilter } from 'kontorol-ngx-client';
+import { KontorolUserRoleStatus } from 'kontorol-ngx-client';
+import { KontorolUserRoleOrderBy } from 'kontorol-ngx-client';
+import { UserListAction } from 'kontorol-ngx-client';
+import { KontorolUserFilter } from 'kontorol-ngx-client';
+import { KontorolNullableBoolean } from 'kontorol-ngx-client';
+import { KontorolUserStatus } from 'kontorol-ngx-client';
+import { KontorolUserOrderBy } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
+import { PartnerGetInfoAction } from 'kontorol-ngx-client';
+import { UserUpdateAction } from 'kontorol-ngx-client';
+import { UserDeleteAction } from 'kontorol-ngx-client';
+import { UserGetByLoginIdAction } from 'kontorol-ngx-client';
+import { UserGetAction } from 'kontorol-ngx-client';
+import { UserEnableLoginAction } from 'kontorol-ngx-client';
+import { UserAddAction } from 'kontorol-ngx-client';
 import { AdminUsersMainViewService } from 'app-shared/kmc-shared/kmc-views';
 
 export interface QueryData {
@@ -32,13 +32,13 @@ export interface QueryData {
   pageSize: number;
 }
 
-export interface ExtendedKalturaUser extends KalturaUser {
+export interface ExtendedKontorolUser extends KontorolUser {
     roleName: string;
 }
 
 interface UsersData {
-  users: { items: ExtendedKalturaUser[], totalCount: number };
-  roles: { items: KalturaUserRole[], totalCount: number };
+  users: { items: ExtendedKontorolUser[], totalCount: number };
+  roles: { items: KontorolUserRole[], totalCount: number };
   partnerInfo: { adminLoginUsersQuota: number, adminUserId: string };
 }
 
@@ -64,7 +64,7 @@ export class UsersStore implements OnDestroy {
   public query$ = this._querySource;
   public readonly users = { data$: this._users.data.asObservable(), state$: this._users.state.asObservable() };
 
-  constructor(private _kalturaServerClient: KalturaClient,
+  constructor(private _kontorolServerClient: KontorolClient,
               private _browserService: BrowserService,
               private _appLocalization: AppLocalization,
               private _appAuthentication: AppAuthentication,
@@ -97,23 +97,23 @@ export class UsersStore implements OnDestroy {
 
   private _loadData(): void {
     this._users.state.next({ loading: true, error: null });
-    this._kalturaServerClient
+    this._kontorolServerClient
       .multiRequest([
         new UserRoleListAction({
-          filter: new KalturaUserRoleFilter({
-            statusEqual: KalturaUserRoleStatus.active,
-            orderBy: KalturaUserRoleOrderBy.idAsc.toString(),
+          filter: new KontorolUserRoleFilter({
+            statusEqual: KontorolUserRoleStatus.active,
+            orderBy: KontorolUserRoleOrderBy.idAsc.toString(),
             tagsMultiLikeOr: 'kmc'
           })
         }),
         new UserListAction({
-          filter: new KalturaUserFilter({
-            isAdminEqual: KalturaNullableBoolean.trueValue,
-            loginEnabledEqual: KalturaNullableBoolean.trueValue,
-            statusIn: KalturaUserStatus.active + ',' + KalturaUserStatus.blocked,
-            orderBy: KalturaUserOrderBy.createdAtAsc.toString()
+          filter: new KontorolUserFilter({
+            isAdminEqual: KontorolNullableBoolean.trueValue,
+            loginEnabledEqual: KontorolNullableBoolean.trueValue,
+            statusIn: KontorolUserStatus.active + ',' + KontorolUserStatus.blocked,
+            orderBy: KontorolUserOrderBy.createdAtAsc.toString()
           }),
-          pager: new KalturaFilterPager(this._querySource.value)
+          pager: new KontorolFilterPager(this._querySource.value)
         }),
         new PartnerGetInfoAction()
       ])
@@ -152,11 +152,11 @@ export class UsersStore implements OnDestroy {
       );
   }
 
-  public isCurrentUser(user: KalturaUser): boolean {
+  public isCurrentUser(user: KontorolUser): boolean {
       return this._appAuthentication.appUser.id === user.id;
   }
 
-  public toggleUserStatus(user: KalturaUser): Observable<void> {
+  public toggleUserStatus(user: KontorolUser): Observable<void> {
     const isCurrentUser = this.isCurrentUser(user);
     const isAdminUser = this._usersDataValue && this._usersDataValue.partnerInfo.adminUserId === user.id;
 
@@ -167,18 +167,18 @@ export class UsersStore implements OnDestroy {
     const relevantUser = this._usersDataValue.users.items.find(item => user.id === item.id);
     const newStatus = Number(relevantUser && !relevantUser.status);
 
-    return this._kalturaServerClient
+    return this._kontorolServerClient
       .request(
         new UserUpdateAction({
           userId: user.id,
-          user: new KalturaUser({ status: newStatus })
+          user: new KontorolUser({ status: newStatus })
         })
       ).map(() => {
         return;
       });
   }
 
-  public deleteUser(user: KalturaUser): Observable<void> {
+  public deleteUser(user: KontorolUser): Observable<void> {
     const isCurrentUser = this.isCurrentUser(user);
     const isAdminUser = this._usersDataValue && this._usersDataValue.partnerInfo.adminUserId === user.id;
 
@@ -186,7 +186,7 @@ export class UsersStore implements OnDestroy {
       return Observable.throw(new Error(this._appLocalization.get('applications.administration.users.cantPerform')));
     }
 
-    return this._kalturaServerClient
+    return this._kontorolServerClient
       .request(new UserDeleteAction({ userId: user.id }))
       .map(() => {
         return;
@@ -194,7 +194,7 @@ export class UsersStore implements OnDestroy {
   }
 
   public isUserAlreadyExists(email: string): Observable<IsUserExistsStatuses | null> {
-    return this._kalturaServerClient
+    return this._kontorolServerClient
       .request(new UserGetByLoginIdAction({ loginId: email }))
       .map(() => {
         return IsUserExistsStatuses.kmcUser;
@@ -207,8 +207,8 @@ export class UsersStore implements OnDestroy {
       });
   }
 
-  public getUserById(userId: string): Observable<KalturaUser> {
-    return this._kalturaServerClient.request(new UserGetAction({ userId }));
+  public getUserById(userId: string): Observable<KontorolUser> {
+    return this._kontorolServerClient.request(new UserGetAction({ userId }));
   }
 
   public addUser(userData: { roleIds: string, id: string, email: string, firstName: string, lastName: string }): Observable<void> {
@@ -218,7 +218,7 @@ export class UsersStore implements OnDestroy {
       return Observable.throw(new Error(this._appLocalization.get('applications.administration.users.addUserError')));
     }
 
-    const user = new KalturaUser({
+    const user = new KontorolUser({
       email,
       firstName,
       lastName,
@@ -228,7 +228,7 @@ export class UsersStore implements OnDestroy {
       loginEnabled: true
     });
 
-    return this._kalturaServerClient
+    return this._kontorolServerClient
         .request(new UserAddAction({ user }))
         .map(() => {});
   }
@@ -240,32 +240,32 @@ export class UsersStore implements OnDestroy {
       return Observable.throw(new Error(this._appLocalization.get('applications.administration.users.invalidUserId')));
     }
 
-    const user = new KalturaUser({
+    const user = new KontorolUser({
       roleIds,
       id: id || email,
         email: email
     });
-    return this._kalturaServerClient
+    return this._kontorolServerClient
       .request(new UserUpdateAction({ userId, user }))
       .map(() => {
         return;
       });
   }
 
-  public associateUserToAccount(userProvidedEmail: string, user: KalturaUser, roleIds: string): Observable<void> {
+  public associateUserToAccount(userProvidedEmail: string, user: KontorolUser, roleIds: string): Observable<void> {
 
       if (!user || !roleIds) {
           return Observable.throw(new Error('cannot associate user to account'));
       }
-    const updatedUser = new KalturaUser({
+    const updatedUser = new KontorolUser({
       roleIds: roleIds,
       isAdmin: true
     });
-    const request = new KalturaMultiRequest(
+    const request = new KontorolMultiRequest(
       new UserUpdateAction({ userId: user.id, user: updatedUser }),
       new UserEnableLoginAction({ userId: user.id, loginId: userProvidedEmail })
     );
-    return this._kalturaServerClient
+    return this._kontorolServerClient
       .multiRequest(request)
       .map((responses) => {
         if (responses.hasErrors()) {

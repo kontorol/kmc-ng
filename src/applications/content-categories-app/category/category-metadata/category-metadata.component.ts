@@ -1,13 +1,13 @@
 import {MenuItem} from 'primeng/api';
 import {ISubscription} from 'rxjs/Subscription';
-import {SuggestionsProviderData} from '@kaltura-ng/kaltura-primeng-ui';
+import {SuggestionsProviderData} from '@kontorol-ng/kontorol-primeng-ui';
 import {Subject} from 'rxjs/Subject';
 import {Component, ElementRef, Inject, OnInit, QueryList, ViewChild, ViewChildren} from '@angular/core';
 import {JumpToSection} from './jump-to-section.component';
 import {DOCUMENT} from '@angular/common';
 import {PageScrollInstance, PageScrollService} from 'ngx-page-scroll';
 import {CategoryMetadataWidget} from './category-metadata-widget.service';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kmc-category-metadata',

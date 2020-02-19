@@ -1,22 +1,22 @@
 import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {CategoryEntitlementsWidget} from './category-entitlements-widget.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import {KalturaCategoryUserPermissionLevel} from 'kaltura-ngx-client';
-import {KalturaUser} from 'kaltura-ngx-client';
-import {KalturaContributionPolicyType} from 'kaltura-ngx-client';
-import {KalturaAppearInListType} from 'kaltura-ngx-client';
-import {KalturaPrivacyType} from 'kaltura-ngx-client';
-import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import {KontorolCategoryUserPermissionLevel} from 'kontorol-ngx-client';
+import {KontorolUser} from 'kontorol-ngx-client';
+import {KontorolContributionPolicyType} from 'kontorol-ngx-client';
+import {KontorolAppearInListType} from 'kontorol-ngx-client';
+import {KontorolPrivacyType} from 'kontorol-ngx-client';
+import { PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
 import {BrowserService} from 'app-shared/kmc-shell';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kCategoryEntitlements',
   templateUrl: './category-entitlements.component.html',
   styleUrls: ['./category-entitlements.component.scss'],
-    providers: [KalturaLogger.createLogger('CategoryEntitlementsComponent')]
+    providers: [KontorolLogger.createLogger('CategoryEntitlementsComponent')]
 })
 export class CategoryEntitlementsComponent implements OnInit, AfterViewInit, OnDestroy {
 
@@ -29,7 +29,7 @@ export class CategoryEntitlementsComponent implements OnInit, AfterViewInit, OnD
               private _appLocalization: AppLocalization,
               private _permissionsService: KMCPermissionsService,
               private _browserService: BrowserService,
-              private _logger: KalturaLogger) {
+              private _logger: KontorolLogger) {
   }
 
   ngOnInit() {
@@ -43,16 +43,16 @@ export class CategoryEntitlementsComponent implements OnInit, AfterViewInit, OnD
         });
 
     this._defaultPermissionLevelOptions = [{
-      value: KalturaCategoryUserPermissionLevel.member,
+      value: KontorolCategoryUserPermissionLevel.member,
       label: this._appLocalization.get('applications.content.categoryDetails.entitlements.defaultPermissionLevel.member')
     }, {
-      value: KalturaCategoryUserPermissionLevel.contributor,
+      value: KontorolCategoryUserPermissionLevel.contributor,
       label: this._appLocalization.get('applications.content.categoryDetails.entitlements.defaultPermissionLevel.contributor')
     }, {
-      value: KalturaCategoryUserPermissionLevel.moderator,
+      value: KontorolCategoryUserPermissionLevel.moderator,
       label: this._appLocalization.get('applications.content.categoryDetails.entitlements.defaultPermissionLevel.moderator')
     }, {
-      value: KalturaCategoryUserPermissionLevel.manager,
+      value: KontorolCategoryUserPermissionLevel.manager,
       label: this._appLocalization.get('applications.content.categoryDetails.entitlements.defaultPermissionLevel.manager')
     }];
   }
@@ -89,19 +89,19 @@ export class CategoryEntitlementsComponent implements OnInit, AfterViewInit, OnD
   }
 
   get _contentPrivacyOptions() {
-    return KalturaPrivacyType;
+    return KontorolPrivacyType;
   }
 
   get _categoryListingOptions() {
-    return KalturaAppearInListType;
+    return KontorolAppearInListType;
   }
 
   get _contentPublishPermissionsOptions() {
-    return KalturaContributionPolicyType;
+    return KontorolContributionPolicyType;
   }
 
   // owner changed
-  onOwnerChanged(owner: KalturaUser): void {
+  onOwnerChanged(owner: KontorolUser): void {
     // reset the form to have the new user in the textbox
     this._widgetService.entitlementsForm.patchValue({ owner });
     this._widgetService.setDirty();

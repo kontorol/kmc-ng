@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {ReachServicesFilters, ReachServicesStore} from '../reach-services-store/reach-services-store.service';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
 import { DefaultFiltersList } from "../reach-services-store/default-filters-list";
 

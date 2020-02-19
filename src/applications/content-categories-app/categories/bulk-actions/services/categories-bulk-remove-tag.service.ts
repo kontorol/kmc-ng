@@ -1,24 +1,24 @@
-import { KalturaCategory } from 'kaltura-ngx-client';
+import { KontorolCategory } from 'kontorol-ngx-client';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { KalturaClient } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
 import { CategoriesBulkActionBaseService } from "./categories-bulk-action-base.service";
-import { CategoryUpdateAction } from 'kaltura-ngx-client';
+import { CategoryUpdateAction } from 'kontorol-ngx-client';
 
 @Injectable()
 export class CategoriesBulkRemoveTagsService extends CategoriesBulkActionBaseService<string[]> {
 
-  constructor(_kalturaServerClient: KalturaClient) {
-    super(_kalturaServerClient);
+  constructor(_kontorolServerClient: KontorolClient) {
+    super(_kontorolServerClient);
   }
 
-  public execute(selectedCategories: KalturaCategory[], tags: string[]): Observable<{}> {
+  public execute(selectedCategories: KontorolCategory[], tags: string[]): Observable<{}> {
     return Observable.create(observer => {
 
       let requests: CategoryUpdateAction[] = [];
 
       selectedCategories.forEach(category => {
-        let updatedCategory: KalturaCategory = new KalturaCategory();
+        let updatedCategory: KontorolCategory = new KontorolCategory();
 
         // update category tags. trim tags due to legacy KMC bugs
         let categoryTags = [];

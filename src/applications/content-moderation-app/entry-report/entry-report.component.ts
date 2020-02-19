@@ -1,21 +1,21 @@
 import { Component, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
-import { AreaBlockerMessage, KalturaPlayerComponent } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
+import { AreaBlockerMessage, KontorolPlayerComponent } from '@kontorol-ng/kontorol-ui';
 import { ModerationStore } from '../moderation-store/moderation-store.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { Router } from '@angular/router';
 import { AppAuthentication, BrowserService } from 'app-shared/kmc-shell';
 import { BulkService } from '../bulk-service/bulk.service';
 import { EntriesStore } from 'app-shared/content-shared/entries/entries-store/entries-store.service';
 import { EntryReportSections } from './entry-report-sections';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import { KalturaModerationFlag } from 'kaltura-ngx-client';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { KalturaSourceType } from 'kaltura-ngx-client';
-import { KalturaEntryStatus } from 'kaltura-ngx-client';
-import { KalturaMediaType } from 'kaltura-ngx-client';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import { KontorolModerationFlag } from 'kontorol-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { KontorolSourceType } from 'kontorol-ngx-client';
+import { KontorolEntryStatus } from 'kontorol-ngx-client';
+import { KontorolMediaType } from 'kontorol-ngx-client';
 import { Observer } from 'rxjs/Observer';
-import { serverConfig, getKalturaServerUri } from 'config/server';
+import { serverConfig, getKontorolServerUri } from 'config/server';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { ContentEntryViewSections, ContentEntryViewService } from 'app-shared/kmc-shared/kmc-views/details-views';
 import { ISubscription } from 'rxjs/Subscription';
@@ -36,7 +36,7 @@ export interface Tabs {
 export class EntryReportComponent implements OnInit, OnDestroy {
 
     public _kmcPermissions = KMCPermissions;
-  @ViewChild('player', { static: true }) player: KalturaPlayerComponent;
+  @ViewChild('player', { static: true }) player: KontorolPlayerComponent;
 
   @Input() parentPopupWidget: PopupWidgetComponent;
   @Input() entryId: string;
@@ -44,11 +44,11 @@ export class EntryReportComponent implements OnInit, OnDestroy {
   private _isRecordedLive = false;
   private _userId = '';
 
-  public serverUri = getKalturaServerUri();
+  public serverUri = getKontorolServerUri();
   public _areaBlockerMessage: AreaBlockerMessage = null;
   public _tabs: Tabs[] = [];
-  public _flags: KalturaModerationFlag[] = null;
-  public _entry: KalturaMediaEntry = null;
+  public _flags: KontorolModerationFlag[] = null;
+  public _entry: KontorolMediaEntry = null;
   public _hasDuration = false;
   public _isEntryReady = false;
   public _isClip = false;
@@ -72,7 +72,7 @@ export class EntryReportComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this._loadEntryModerationDetails();
     this._playerConfig = {
-      uiconfid: serverConfig.kalturaServer.previewUIConf,
+      uiconfid: serverConfig.kontorolServer.previewUIConf,
       pid: this.appAuthentication.appUser.partnerId,
       entryid: this.entryId,
       flashvars: {'closedCaptions': { 'plugin': true }, 'ks': this.appAuthentication.appUser.ks}
@@ -169,18 +169,18 @@ export class EntryReportComponent implements OnInit, OnDestroy {
 
             if (this._entry.sourceType) {
               const sourceType = this._entry.sourceType.toString();
-              const isLive = (sourceType === KalturaSourceType.liveStream.toString() ||
-                sourceType === KalturaSourceType.akamaiLive.toString() ||
-                sourceType === KalturaSourceType.akamaiUniversalLive.toString() ||
-                sourceType === KalturaSourceType.manualLiveStream.toString());
-              this._hasDuration = this._entry.status !== KalturaEntryStatus.noContent
+              const isLive = (sourceType === KontorolSourceType.liveStream.toString() ||
+                sourceType === KontorolSourceType.akamaiLive.toString() ||
+                sourceType === KontorolSourceType.akamaiUniversalLive.toString() ||
+                sourceType === KontorolSourceType.manualLiveStream.toString());
+              this._hasDuration = this._entry.status !== KontorolEntryStatus.noContent
                 && !isLive
-                && this._entry.mediaType.toString() !== KalturaMediaType.image.toString();
-              this._isEntryReady = this._entry.status.toString() === KalturaEntryStatus.ready.toString();
+                && this._entry.mediaType.toString() !== KontorolMediaType.image.toString();
+              this._isEntryReady = this._entry.status.toString() === KontorolEntryStatus.ready.toString();
               if (isLive) {
                 this._playerConfig['flashvars']['disableEntryRedirect'] = true;
               }
-              this._isRecordedLive = (sourceType === KalturaSourceType.recordedLive.toString());
+              this._isRecordedLive = (sourceType === KontorolSourceType.recordedLive.toString());
               this._isClip = !this._isRecordedLive && (this._entry.id !== this._entry.rootEntryId);
             }
             this.player.Embed();

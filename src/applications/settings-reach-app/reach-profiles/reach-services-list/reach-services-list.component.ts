@@ -1,17 +1,17 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {Router} from '@angular/router';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
 import {KMCPermissions} from 'app-shared/kmc-shared/kmc-permissions';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 import {BrowserService} from 'app-shared/kmc-shell/providers';
 import {SettingsReachMainViewService} from 'app-shared/kmc-shared/kmc-views';
-import {cancelOnDestroy} from '@kaltura-ng/kaltura-common';
+import {cancelOnDestroy} from '@kontorol-ng/kontorol-common';
 import {ReachProfilesFilters} from "../reach-profiles-store/reach-profiles-store.service";
 import {SortDirection} from "../../../administration-multi-account-app/multi-account-store/multi-account-store.service";
 import {SettingsReachProfileViewService} from "app-shared/kmc-shared/kmc-views/details-views/settings-reach-profile-view.service";
 import {ReachServicesStore} from "../reach-services-store/reach-services-store.service";
-import {KalturaVendorServiceFeature} from "kaltura-ngx-client";
+import {KontorolVendorServiceFeature} from "kontorol-ngx-client";
 import {
     ReachServicesRefineFiltersService,
     RefineList
@@ -21,7 +21,7 @@ import {
     selector: 'k-reach-services-list',
     templateUrl: './reach-services-list.component.html',
     styleUrls: ['./reach-services-list.component.scss'],
-    providers: [KalturaLogger.createLogger('ReachServicesListComponent')]
+    providers: [KontorolLogger.createLogger('ReachServicesListComponent')]
 })
 export class ReachServicesListComponent implements OnInit, OnDestroy {
     
@@ -45,7 +45,7 @@ export class ReachServicesListComponent implements OnInit, OnDestroy {
     
     constructor(private _appLocalization: AppLocalization,
                 private _router: Router,
-                private _logger: KalturaLogger,
+                private _logger: KontorolLogger,
                 private _browserService: BrowserService,
                 private _refineFiltersService: ReachServicesRefineFiltersService,
                 private _settingsReachMainViewService: SettingsReachMainViewService,
@@ -53,11 +53,11 @@ export class ReachServicesListComponent implements OnInit, OnDestroy {
                 public _reachServicesStore: ReachServicesStore) {
         
         this._serviceFeatures = [
-            { label: this._appLocalization.get('applications.settings.reach.services.captions'), value: KalturaVendorServiceFeature.captions },
-            { label: this._appLocalization.get('applications.settings.reach.services.translations'), value: KalturaVendorServiceFeature.translation },
-            { label: this._appLocalization.get('applications.settings.reach.services.alignment'), value: KalturaVendorServiceFeature.alignment },
-            { label: this._appLocalization.get('applications.settings.reach.services.audioDescription'), value: KalturaVendorServiceFeature.audioDescription },
-            { label: this._appLocalization.get('applications.settings.reach.services.chaptering'), value: KalturaVendorServiceFeature.chaptering }
+            { label: this._appLocalization.get('applications.settings.reach.services.captions'), value: KontorolVendorServiceFeature.captions },
+            { label: this._appLocalization.get('applications.settings.reach.services.translations'), value: KontorolVendorServiceFeature.translation },
+            { label: this._appLocalization.get('applications.settings.reach.services.alignment'), value: KontorolVendorServiceFeature.alignment },
+            { label: this._appLocalization.get('applications.settings.reach.services.audioDescription'), value: KontorolVendorServiceFeature.audioDescription },
+            { label: this._appLocalization.get('applications.settings.reach.services.chaptering'), value: KontorolVendorServiceFeature.chaptering }
         ];
     }
     

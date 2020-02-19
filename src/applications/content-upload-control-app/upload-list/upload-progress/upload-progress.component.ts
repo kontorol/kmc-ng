@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TrackedFileStatuses } from '@kaltura-ng/kaltura-common';
+import { TrackedFileStatuses } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kUploadProgress',

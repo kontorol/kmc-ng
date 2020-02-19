@@ -2,22 +2,22 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PartnerProfileStore } from '../partner-profile';
 
-import { KalturaClient } from 'kaltura-ngx-client';
-import { AccessControlListAction } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { AccessControlListAction } from 'kontorol-ngx-client';
 
-import { KalturaAccessControlFilter } from 'kaltura-ngx-client';
-import { KalturaAccessControl } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
-import { KalturaAccessControlListResponse } from 'kaltura-ngx-client';
+import { KontorolAccessControlFilter } from 'kontorol-ngx-client';
+import { KontorolAccessControl } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
+import { KontorolAccessControlListResponse } from 'kontorol-ngx-client';
 import { AppEventsService } from '../app-events';
 import { AccessControlProfileUpdatedEvent } from '../events/access-control-profile-updated.event';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Injectable()
 export class AccessControlProfileStore extends PartnerProfileStore implements OnDestroy {
-  private _cachedProfiles$: Observable<{ items: KalturaAccessControl[] }>;
+  private _cachedProfiles$: Observable<{ items: KontorolAccessControl[] }>;
 
-  constructor(private _kalturaServerClient: KalturaClient, _appEvents: AppEventsService) {
+  constructor(private _kontorolServerClient: KontorolClient, _appEvents: AppEventsService) {
     super();
 
     _appEvents.event(AccessControlProfileUpdatedEvent)
@@ -34,7 +34,7 @@ export class AccessControlProfileStore extends PartnerProfileStore implements On
     this._cachedProfiles$ = null;
   }
 
-  public get(): Observable<{ items: KalturaAccessControl[] }> {
+  public get(): Observable<{ items: KontorolAccessControl[] }> {
     if (!this._cachedProfiles$) {
       // execute the request
       this._cachedProfiles$ = this._buildGetRequest()
@@ -55,9 +55,9 @@ export class AccessControlProfileStore extends PartnerProfileStore implements On
     return this._cachedProfiles$;
   }
 
-  private _buildGetRequest(): Observable<KalturaAccessControlListResponse> {
-    const filter = new KalturaAccessControlFilter({ orderBy: '-createdAt' });
-    const pager = new KalturaFilterPager({ pageSize: 1000 });
-    return <any>this._kalturaServerClient.request(new AccessControlListAction({ filter, pager }));
+  private _buildGetRequest(): Observable<KontorolAccessControlListResponse> {
+    const filter = new KontorolAccessControlFilter({ orderBy: '-createdAt' });
+    const pager = new KontorolFilterPager({ pageSize: 1000 });
+    return <any>this._kontorolServerClient.request(new AccessControlListAction({ filter, pager }));
   }
 }

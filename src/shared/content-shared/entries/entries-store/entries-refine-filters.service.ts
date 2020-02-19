@@ -4,10 +4,10 @@ import 'rxjs/add/operator/publishReplay';
 import 'rxjs/add/observable/throw';
 import 'rxjs/add/observable/forkJoin';
 
-import { KalturaClient } from 'kaltura-ngx-client';
-import { KalturaMultiRequest, KalturaMultiResponse } from 'kaltura-ngx-client';
-import { DistributionProfileListAction } from 'kaltura-ngx-client';
-import { AccessControlListAction } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { KontorolMultiRequest, KontorolMultiResponse } from 'kontorol-ngx-client';
+import { DistributionProfileListAction } from 'kontorol-ngx-client';
+import { AccessControlListAction } from 'kontorol-ngx-client';
 import {
     FlavoursStore,
     MetadataItemTypes,
@@ -17,19 +17,19 @@ import {
     MetadataProfileTypes
 } from 'app-shared/kmc-shared';
 
-import { KalturaAccessControlFilter } from 'kaltura-ngx-client';
-import { KalturaDetachedResponseProfile } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
-import { KalturaFlavorParams } from 'kaltura-ngx-client';
-import { KalturaResponseProfileType } from 'kaltura-ngx-client';
+import { KontorolAccessControlFilter } from 'kontorol-ngx-client';
+import { KontorolDetachedResponseProfile } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
+import { KontorolFlavorParams } from 'kontorol-ngx-client';
+import { KontorolResponseProfileType } from 'kontorol-ngx-client';
 
 import { DefaultFiltersList } from './default-filters-list';
 
 import * as R from 'ramda';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaAccessControlListResponse } from 'kaltura-ngx-client';
-import { KalturaDistributionProfileListResponse } from 'kaltura-ngx-client';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolAccessControlListResponse } from 'kontorol-ngx-client';
+import { KontorolDistributionProfileListResponse } from 'kontorol-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 
 export interface RefineGroupListItem {
     value: string;
@@ -58,11 +58,11 @@ export class EntriesRefineFiltersService {
 
     private _getRefineFilters$: Observable<RefineGroup[]>;
 
-    constructor(private kalturaServerClient: KalturaClient,
+    constructor(private kontorolServerClient: KontorolClient,
                 private _permissionsService: KMCPermissionsService,
                 private _metadataProfileStore: MetadataProfileStore,
                 private _flavoursStore: FlavoursStore,
-                private _logger: KalturaLogger) {
+                private _logger: KontorolLogger) {
         this._logger = _logger.subLogger('EntriesRefineFiltersService');
     }
 
@@ -153,7 +153,7 @@ export class EntriesRefineFiltersService {
         return result;
     }
 
-    private _buildDefaultFiltersGroup(responses: KalturaMultiResponse, flavours: KalturaFlavorParams[]): RefineGroup {
+    private _buildDefaultFiltersGroup(responses: KontorolMultiResponse, flavours: KontorolFlavorParams[]): RefineGroup {
         const result: RefineGroup = { label: '', lists: [] };
 
         // build constant filters
@@ -179,7 +179,7 @@ export class EntriesRefineFiltersService {
             'flavors',
             'Flavors');
           result.lists.push(group);
-          flavours.forEach((flavor: KalturaFlavorParams) => {
+          flavours.forEach((flavor: KontorolFlavorParams) => {
             group.items.push({ value: flavor.id + '', label: flavor.name });
           });
         }
@@ -189,7 +189,7 @@ export class EntriesRefineFiltersService {
             return;
           }
 
-          if (response.result instanceof KalturaAccessControlListResponse) { // build access control profile filters
+          if (response.result instanceof KontorolAccessControlListResponse) { // build access control profile filters
             const group = new RefineGroupList(
               'accessControlProfiles',
               'Access Control Profiles'
@@ -201,7 +201,7 @@ export class EntriesRefineFiltersService {
                 label: accessControlProfile.name
               });
             });
-          } else if (response.result instanceof KalturaDistributionProfileListResponse) { // build distributions filters
+          } else if (response.result instanceof KontorolDistributionProfileListResponse) { // build distributions filters
             const group = new RefineGroupList(
               'distributions',
               'Destinations');
@@ -216,21 +216,21 @@ export class EntriesRefineFiltersService {
     }
 
 
-    private _buildQueryRequest(): Observable<KalturaMultiResponse> {
+    private _buildQueryRequest(): Observable<KontorolMultiResponse> {
 
         try {
-            const accessControlFilter = new KalturaAccessControlFilter({});
+            const accessControlFilter = new KontorolAccessControlFilter({});
             accessControlFilter.orderBy = '-createdAt';
 
-            const accessControlPager = new KalturaFilterPager({});
+            const accessControlPager = new KontorolFilterPager({});
             accessControlPager.pageSize = 1000;
 
-            const responseProfile: KalturaDetachedResponseProfile = new KalturaDetachedResponseProfile({
+            const responseProfile: KontorolDetachedResponseProfile = new KontorolDetachedResponseProfile({
                 fields: 'id,name',
-                type: KalturaResponseProfileType.includeFields
+                type: KontorolResponseProfileType.includeFields
             });
 
-            const request = new KalturaMultiRequest(
+            const request = new KontorolMultiRequest(
                 new AccessControlListAction({
                     pager: accessControlPager,
                     filter: accessControlFilter
@@ -240,14 +240,14 @@ export class EntriesRefineFiltersService {
             );
 
             if (this._permissionsService.hasPermission(KMCPermissions.CONTENTDISTRIBUTION_PLUGIN_PERMISSION)) {
-              const distributionProfilePager = new KalturaFilterPager({});
+              const distributionProfilePager = new KontorolFilterPager({});
               distributionProfilePager.pageSize = 500;
               const distributionProfileListAction = new DistributionProfileListAction({ pager: distributionProfilePager });
 
               request.requests.push(distributionProfileListAction);
             }
 
-            return <any>this.kalturaServerClient.multiRequest(request);
+            return <any>this.kontorolServerClient.multiRequest(request);
         } catch (error) {
             return Observable.throw(error);
         }

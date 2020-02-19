@@ -1,16 +1,16 @@
-import { KalturaBulkUploadType } from 'kaltura-ngx-client';
+import { KontorolBulkUploadType } from 'kontorol-ngx-client';
 
-export function getBulkUploadType(type: KalturaBulkUploadType): string {
+export function getBulkUploadType(type: KontorolBulkUploadType): string {
   switch (true) {
-    case KalturaBulkUploadType.csv === type:
+    case KontorolBulkUploadType.csv === type:
       return 'csv';
 
-    case KalturaBulkUploadType.xml === type:
-    case KalturaBulkUploadType.dropFolderXml === type:
+    case KontorolBulkUploadType.xml === type:
+    case KontorolBulkUploadType.dropFolderXml === type:
       return 'xml';
 
-    case KalturaBulkUploadType.ical === type:
-    case KalturaBulkUploadType.dropFolderIcal === type:
+    case KontorolBulkUploadType.ical === type:
+    case KontorolBulkUploadType.dropFolderIcal === type:
       return 'ics';
 
     default:

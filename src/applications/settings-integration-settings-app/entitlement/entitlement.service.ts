@@ -1,51 +1,51 @@
 import {Injectable, OnDestroy} from '@angular/core';
-import {KalturaClient, KalturaMultiRequest} from 'kaltura-ngx-client';
-import {KalturaCategory} from 'kaltura-ngx-client';
+import {KontorolClient, KontorolMultiRequest} from 'kontorol-ngx-client';
+import {KontorolCategory} from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
-import {CategoryListAction} from 'kaltura-ngx-client';
-import {KalturaCategoryFilter} from 'kaltura-ngx-client';
-import {PartnerGetInfoAction} from 'kaltura-ngx-client';
-import {KalturaPrivacyType} from 'kaltura-ngx-client';
-import {KalturaContributionPolicyType} from 'kaltura-ngx-client';
-import {KalturaAppearInListType} from 'kaltura-ngx-client';
-import {CategoryUpdateAction} from 'kaltura-ngx-client';
-import { CategoryGetAction } from 'kaltura-ngx-client';
+import {CategoryListAction} from 'kontorol-ngx-client';
+import {KontorolCategoryFilter} from 'kontorol-ngx-client';
+import {PartnerGetInfoAction} from 'kontorol-ngx-client';
+import {KontorolPrivacyType} from 'kontorol-ngx-client';
+import {KontorolContributionPolicyType} from 'kontorol-ngx-client';
+import {KontorolAppearInListType} from 'kontorol-ngx-client';
+import {CategoryUpdateAction} from 'kontorol-ngx-client';
+import { CategoryGetAction } from 'kontorol-ngx-client';
 import { CategoriesSearchService } from 'app-shared/content-shared/categories/categories-search.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { CategoriesGraphUpdatedEvent } from 'app-shared/kmc-shared/app-events/categories-graph-updated/categories-graph-updated';
 import { AppEventsService } from 'app-shared/kmc-shared';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export interface EntitlementSectionData {
-  categories: KalturaCategory[];
+  categories: KontorolCategory[];
   partnerDefaultEntitlementEnforcement: boolean
 }
 
 @Injectable()
 export class EntitlementService implements OnDestroy{
 
-  constructor(private _kalturaServerClient: KalturaClient, private _appEvents: AppEventsService, private _categoriesSearch: CategoriesSearchService, private _appLocalization: AppLocalization) {
+  constructor(private _kontorolServerClient: KontorolClient, private _appEvents: AppEventsService, private _categoriesSearch: CategoriesSearchService, private _appLocalization: AppLocalization) {
   }
 
   public getEntitlementsSectionData(): Observable<EntitlementSectionData> {
 
-    const request = new KalturaMultiRequest(
+    const request = new KontorolMultiRequest(
       new PartnerGetInfoAction(),
       new CategoryListAction({
-        filter: new KalturaCategoryFilter({
+        filter: new KontorolCategoryFilter({
           privacyContextEqual: '*'
         })
       })
     );
 
-    return this._kalturaServerClient.multiRequest(request).pipe(cancelOnDestroy(this)).map(
+    return this._kontorolServerClient.multiRequest(request).pipe(cancelOnDestroy(this)).map(
       response => {
         if (response.hasErrors()) {
           throw new Error('error occurred in action \'getEntitlementsSectionData\'');
         }
 
         const partnerDefaultEntitlementEnforcement: boolean = response[0].result.defaultEntitlementEnforcement;
-        const categories: KalturaCategory[] = response[1].result.objects;
+        const categories: KontorolCategory[] = response[1].result.objects;
         return {categories, partnerDefaultEntitlementEnforcement};
       }
     );
@@ -56,7 +56,7 @@ export class EntitlementService implements OnDestroy{
           return Observable.throw(new Error('Error occurred while trying to delete entitlement'));
       }
 
-      const category = new KalturaCategory();
+      const category = new KontorolCategory();
       category.privacyContext = null;
 
       if (privacyContextData !== null && typeof privacyContextData !== "undefined") {
@@ -65,13 +65,13 @@ export class EntitlementService implements OnDestroy{
 
           // Subtract privacyContext from privacyContexts and if no contexts left so set the following properties
           if (contexts.length && contexts.filter(c => (context.indexOf(c) < 0)).length) {
-              category.privacy = KalturaPrivacyType.all;
-              category.appearInList = KalturaAppearInListType.partnerOnly;
-              category.contributionPolicy = KalturaContributionPolicyType.all;
+              category.privacy = KontorolPrivacyType.all;
+              category.appearInList = KontorolAppearInListType.partnerOnly;
+              category.contributionPolicy = KontorolContributionPolicyType.all;
           }
       }
 
-      return this._kalturaServerClient.request(new CategoryUpdateAction({
+      return this._kontorolServerClient.request(new CategoryUpdateAction({
           id,
           category
       }))
@@ -94,9 +94,9 @@ export class EntitlementService implements OnDestroy{
                 return Observable.throw(new Error(this._appLocalization.get('applications.settings.integrationSettings.entitlement.editEntitlement.errors.privacyContextLabelExists')));
             }else {
 
-                return this._kalturaServerClient.request(new CategoryUpdateAction({
+                return this._kontorolServerClient.request(new CategoryUpdateAction({
                     id,
-                    category: new KalturaCategory({
+                    category: new KontorolCategory({
                         privacyContext
                     })
                 }))

@@ -1,6 +1,6 @@
 import {Pipe, PipeTransform} from '@angular/core';
-import {KalturaPlaylist, KalturaPlaylistType} from 'kaltura-ngx-client';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
+import {KontorolPlaylist, KontorolPlaylistType} from 'kontorol-ngx-client';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
 import {PlaylistsUtilsService} from "../../playlists-utils.service";
 
 @Pipe({name: 'playlistType'})
@@ -12,20 +12,20 @@ export class PlaylistTypePipe implements PipeTransform {
         private _playlistsUtilsService: PlaylistsUtilsService) {
     }
     
-    transform(value: KalturaPlaylist, isIcon: boolean): string {
+    transform(value: KontorolPlaylist, isIcon: boolean): string {
         let className = "",
             playlistType = "";
         if (typeof (value) !== 'undefined' && value !== null) {
             switch (value.playlistType) {
-                case KalturaPlaylistType.dynamic:
+                case KontorolPlaylistType.dynamic:
                     className = 'kIconPlaylist_RuleBased';
                     playlistType = this.appLocalization.get("applications.content.playlistType.dynamic");
                     break;
-                case KalturaPlaylistType.external:
+                case KontorolPlaylistType.external:
                     className = 'kIconPlaylist_RuleBased';
                     playlistType = this.appLocalization.get("applications.content.playlistType.external");
                     break;
-                case KalturaPlaylistType.staticList:
+                case KontorolPlaylistType.staticList:
                     className = 'kIconPlaylist_Manual';
                     playlistType = this.appLocalization.get("applications.content.playlistType.staticList");
                     break;

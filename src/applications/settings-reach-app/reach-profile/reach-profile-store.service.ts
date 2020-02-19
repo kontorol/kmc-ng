@@ -1,18 +1,18 @@
 import { Host, Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Subject } from 'rxjs/Subject';
 import { ISubscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs';
-import { KalturaClient, KalturaMultiRequest, KalturaObjectBaseFactory, ReachProfileGetAction, ReachProfileUpdateAction } from 'kaltura-ngx-client';
+import { KontorolClient, KontorolMultiRequest, KontorolObjectBaseFactory, ReachProfileGetAction, ReachProfileUpdateAction } from 'kontorol-ngx-client';
 import { ReachProfileWidgetsManager } from './reach-profile-widgets-manager';
 import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
 import { PageExitVerificationService } from 'app-shared/kmc-shell/page-exit-verification';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { KalturaReachProfile } from 'kaltura-ngx-client';
-import { OnDataSavingReasons } from '@kaltura-ng/kaltura-ui';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { KontorolReachProfile } from 'kontorol-ngx-client';
+import { OnDataSavingReasons } from '@kontorol-ng/kontorol-ui';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { AppEventsService } from 'app-shared/kmc-shared';
 import { ReachProfilesStore } from "../reach-profiles/reach-profiles-store/reach-profiles-store.service";
 import { SettingsReachProfileViewSections, SettingsReachProfileViewService } from "app-shared/kmc-shared/kmc-views/details-views/settings-reach-profile-view.service";
@@ -44,7 +44,7 @@ export class ReachProfileStore implements OnDestroy {
   private _pageExitVerificationToken: string;
   private _saveProfileInvoked = false;
   private _profile = {
-    data: new BehaviorSubject<KalturaReachProfile>(null),
+    data: new BehaviorSubject<KontorolReachProfile>(null),
     state: new BehaviorSubject<StatusArgs>({ action: ActionTypes.ProfileLoading, error: null })
   };
   private _profileId: string;
@@ -65,7 +65,7 @@ export class ReachProfileStore implements OnDestroy {
   };
 
   constructor(@Host() private _widgetsManager: ReachProfileWidgetsManager,
-              private _kalturaServerClient: KalturaClient,
+              private _kontorolServerClient: KontorolClient,
               private _router: Router,
               private _appEvents: AppEventsService,
               private _browserService: BrowserService,
@@ -75,7 +75,7 @@ export class ReachProfileStore implements OnDestroy {
               private _profilesStore: ReachProfilesStore,
               private _settingsReachProfileViewService: SettingsReachProfileViewService,
               private _settingsReachMainViewService: SettingsReachMainViewService,
-              private _logger: KalturaLogger) {
+              private _logger: KontorolLogger) {
 
 
     this._widgetsManager.profileStore = this;
@@ -156,19 +156,19 @@ export class ReachProfileStore implements OnDestroy {
       );
   }
 
-  private _transmitSaveRequest(newProfile: KalturaReachProfile): void {
+  private _transmitSaveRequest(newProfile: KontorolReachProfile): void {
     this._profile.state.next({ action: ActionTypes.ProfileSaving });
 
     const id = this.profileId;
     const action =  new ReachProfileUpdateAction({ id: Number(id), reachProfile: newProfile });
-    const request = new KalturaMultiRequest(action);
+    const request = new KontorolMultiRequest(action);
 
     this._widgetsManager.notifyDataSaving(newProfile, request, this.profile.data())
       .pipe(cancelOnDestroy(this))
       .pipe(tag('block-shell'))
       .flatMap(prepareResponse => {
         if (prepareResponse.ready) {
-          return this._kalturaServerClient.multiRequest(request)
+          return this._kontorolServerClient.multiRequest(request)
             .pipe(tag('block-shell'))
             .map(multiResponse => {
               if (multiResponse.hasErrors()) {
@@ -215,8 +215,8 @@ export class ReachProfileStore implements OnDestroy {
 
   public saveProfile(): void {
       const profile = this.profile.data();
-      const newProfile = <KalturaReachProfile>KalturaObjectBaseFactory.createObject(profile);
-      if (newProfile && newProfile instanceof KalturaReachProfile) {
+      const newProfile = <KontorolReachProfile>KontorolObjectBaseFactory.createObject(profile);
+      if (newProfile && newProfile instanceof KontorolReachProfile) {
           this._transmitSaveRequest(newProfile);
       } else {
           console.error(new Error(`Failed to create a new instance of the profile type '${this.profile ? typeof this.profile : 'n/a'}`));
@@ -278,20 +278,20 @@ export class ReachProfileStore implements OnDestroy {
      this._settingsReachProfileViewService.open({ section: sectionKey, profile: this.profile.data() });
   }
 
-  private _getProfile(profileId: string): Observable<KalturaReachProfile> {
+  private _getProfile(profileId: string): Observable<KontorolReachProfile> {
     if (profileId) {
       const id = Number(profileId);
       const reachProfileAction = new ReachProfileGetAction({ id });
 
       // build the request
-      return this._kalturaServerClient
+      return this._kontorolServerClient
         .request(reachProfileAction);
     } else {
       return Observable.throw(new Error('missing profileId'));
     }
   }
 
-  public openProfile(profile: KalturaReachProfile): void {
+  public openProfile(profile: KontorolReachProfile): void {
     this.canLeave()
         .filter(({ allowed }) => allowed)
         .pipe(cancelOnDestroy(this))

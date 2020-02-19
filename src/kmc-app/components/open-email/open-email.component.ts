@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 
 export interface EmailConfig {
     email: string;

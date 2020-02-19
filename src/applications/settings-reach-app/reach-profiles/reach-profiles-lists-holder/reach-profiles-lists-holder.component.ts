@@ -1,9 +1,9 @@
 import { Component, ViewChild } from '@angular/core';
-import { KalturaConversionProfileType } from 'kaltura-ngx-client';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
+import { KontorolConversionProfileType } from 'kontorol-ngx-client';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { SettingsReachMainViewService } from 'app-shared/kmc-shared/kmc-views';
 import { BrowserService } from 'shared/kmc-shell/providers/browser.service';
 
@@ -11,14 +11,14 @@ import { BrowserService } from 'shared/kmc-shell/providers/browser.service';
   selector: 'k-reach-profiles-lists-holder',
   templateUrl: './reach-profiles-lists-holder.component.html',
   styleUrls: ['./reach-profiles-lists-holder.component.scss'],
-  providers: [KalturaLogger.createLogger('ReachProfilesListsHolderComponent')]
+  providers: [KontorolLogger.createLogger('ReachProfilesListsHolderComponent')]
 })
 export class ReachProfilesListsHolderComponent {
   
   public _blockerMessage: AreaBlockerMessage;
   public _kmcPermissions = KMCPermissions;
 
-  constructor(private _logger: KalturaLogger, browserService: BrowserService, settingsReachgMainView: SettingsReachMainViewService) {
+  constructor(private _logger: KontorolLogger, browserService: BrowserService, settingsReachgMainView: SettingsReachMainViewService) {
         settingsReachgMainView.viewEntered();
   }
 

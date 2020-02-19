@@ -1,12 +1,12 @@
-import {KalturaCategory} from 'kaltura-ngx-client';
-import {AreaBlockerMessage, StickyComponent} from '@kaltura-ng/kaltura-ui';
+import {KontorolCategory} from 'kontorol-ngx-client';
+import {AreaBlockerMessage, StickyComponent} from '@kontorol-ng/kontorol-ui';
 import {CategoriesFilters, CategoriesService, SortDirection} from '../categories.service';
 import {BrowserService} from 'app-shared/kmc-shell/providers/browser.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
 import {CategoriesUtilsService} from '../../categories-utils.service';
-import {PopupWidgetComponent, PopupWidgetStates} from '@kaltura-ng/kaltura-ui';
+import {PopupWidgetComponent, PopupWidgetStates} from '@kontorol-ng/kontorol-ui';
 
 import {CategoriesModes} from "app-shared/content-shared/categories/categories-mode-type";
 import {CategoriesRefineFiltersService, RefineGroup} from '../categories-refine-filters.service';
@@ -24,9 +24,9 @@ import {
 } from 'app-shared/kmc-shared/kmc-views/details-views';
 import { ContentNewCategoryViewService } from 'app-shared/kmc-shared/kmc-views/details-views/content-new-category-view.service';
 import { async } from 'rxjs/scheduler/async';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { ContentCategoriesMainViewService } from 'app-shared/kmc-shared/kmc-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kCategoriesList',
@@ -34,14 +34,14 @@ import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
   styleUrls: ['./categories-list.component.scss'],
     providers: [
         CategoriesRefineFiltersService,
-        KalturaLogger.createLogger('CategoriesListComponent')
+        KontorolLogger.createLogger('CategoriesListComponent')
     ]
 })
 
 export class CategoriesListComponent implements OnInit, OnDestroy, AfterViewInit {
 
-    public _selectedCategories: KalturaCategory[] = [];
-    public _selectedCategoryToMove: KalturaCategory;
+    public _selectedCategories: KontorolCategory[] = [];
+    public _selectedCategoryToMove: KontorolCategory;
     public _categoriesTotalCount: number = null;
     public _linkedEntries: { entryId: string }[] = [];
     @ViewChild('moveCategory', { static: true }) moveCategoryPopup: PopupWidgetComponent;
@@ -82,7 +82,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy, AfterViewInit
                 private _contentCategoriesMainViewService: ContentCategoriesMainViewService,
                 private _appEvents: AppEventsService,
                 private _reachAppViewService: ReachAppViewService,
-                private _logger: KalturaLogger) {
+                private _logger: KontorolLogger) {
     }
 
     ngOnInit() {
@@ -315,7 +315,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy, AfterViewInit
         }
     }
 
-    _onActionSelected({action, category}: { action: string, category: KalturaCategory }) {
+    _onActionSelected({action, category}: { action: string, category: KontorolCategory }) {
         switch (action) {
             case 'edit':
                 this._logger.info(`handle edit action by user`, { categoryId: category.id });
@@ -366,7 +366,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy, AfterViewInit
         }
     }
 
-    private deleteCategory(category: KalturaCategory): void {
+    private deleteCategory(category: KontorolCategory): void {
         this._logger.info(`handle delete category action by user`);
         this._categoriesUtilsService.confirmDelete(category)
             .pipe(cancelOnDestroy(this))
@@ -422,7 +422,7 @@ export class CategoriesListComponent implements OnInit, OnDestroy, AfterViewInit
         this.tags.updateLayout();
     }
 
-    onCategoryAdded(category: KalturaCategory): void {
+    onCategoryAdded(category: KontorolCategory): void {
         this._logger.info(`handle category added event`);
         if (!category) {
             this._logger.info('no category provided, abort action');

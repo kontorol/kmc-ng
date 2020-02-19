@@ -3,20 +3,20 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs';
 import {ISubscription} from 'rxjs/Subscription';
 import {
-    KalturaClient, KalturaDetachedResponseProfile,
-    KalturaReachProfile,
-    KalturaReachProfileFilter,
-    KalturaReachProfileListResponse,
-    KalturaReachProfileOrderBy, KalturaResponseProfileType,
+    KontorolClient, KontorolDetachedResponseProfile,
+    KontorolReachProfile,
+    KontorolReachProfileFilter,
+    KontorolReachProfileListResponse,
+    KontorolReachProfileOrderBy, KontorolResponseProfileType,
     ReachProfileListAction, UiConfListAction
-} from 'kaltura-ngx-client';
-import {KalturaFilterPager} from 'kaltura-ngx-client';
+} from 'kontorol-ngx-client';
+import {KontorolFilterPager} from 'kontorol-ngx-client';
 import {BrowserService} from 'shared/kmc-shell/providers/browser.service';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import {FiltersStoreBase, ListTypeAdapter, StringTypeAdapter, TypeAdaptersMapping} from '@kaltura-ng/mc-shared';
-import {NumberTypeAdapter} from '@kaltura-ng/mc-shared';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import {FiltersStoreBase, ListTypeAdapter, StringTypeAdapter, TypeAdaptersMapping} from '@kontorol-ng/mc-shared';
+import {NumberTypeAdapter} from '@kontorol-ng/mc-shared';
 import {globalConfig} from 'config/global';
-import {cancelOnDestroy} from '@kaltura-ng/kaltura-common';
+import {cancelOnDestroy} from '@kontorol-ng/kontorol-common';
 import {SettingsReachMainViewService} from "app-shared/kmc-shared/kmc-views/main-views/settings-reach-main-view.service";
 import {SortDirection} from "../../../administration-multi-account-app/multi-account-store/multi-account-store.service";
 
@@ -28,14 +28,14 @@ export interface ReachProfilesFilters {
     sortDirection: number;
 }
 
-export interface KalturaReachProfileWithCredit extends KalturaReachProfile {
+export interface KontorolReachProfileWithCredit extends KontorolReachProfile {
     totalCredit?: number;
     remaining?: number;
 }
 
 export class ReachProfilesStore extends FiltersStoreBase<ReachProfilesFilters> implements OnDestroy {
     private _profiles = {
-        data: new BehaviorSubject<{ items: KalturaReachProfileWithCredit[], totalCount: number }>({items: [], totalCount: 0}),
+        data: new BehaviorSubject<{ items: KontorolReachProfileWithCredit[], totalCount: number }>({items: [], totalCount: 0}),
         state: new BehaviorSubject<{ loading: boolean, errorMessage: string }>({loading: false, errorMessage: null})
     };
     private _isReady = false;
@@ -49,10 +49,10 @@ export class ReachProfilesStore extends FiltersStoreBase<ReachProfilesFilters> i
         data: () => this._profiles.data.value
     };
     
-    constructor(private _kalturaServerClient: KalturaClient,
+    constructor(private _kontorolServerClient: KontorolClient,
                 private _browserService: BrowserService,
                 settingsReachMainView: SettingsReachMainViewService,
-                _logger: KalturaLogger) {
+                _logger: KontorolLogger) {
         super(_logger);
         if (settingsReachMainView.isAvailable()) {
             setTimeout(() => {
@@ -101,17 +101,17 @@ export class ReachProfilesStore extends FiltersStoreBase<ReachProfilesFilters> i
                 });
     }
     
-    private _buildQueryRequest(): Observable<{ objects: KalturaReachProfileWithCredit[], totalCount: number }> {
+    private _buildQueryRequest(): Observable<{ objects: KontorolReachProfileWithCredit[], totalCount: number }> {
         try {
             // create request items
-            const filter = new KalturaReachProfileFilter({});
-            let pager: KalturaFilterPager = null;
+            const filter = new KontorolReachProfileFilter({});
+            let pager: KontorolFilterPager = null;
             
             const data: ReachProfilesFilters = this._getFiltersAsReadonly();
             
             // update pagination args
             if (data.pageIndex || data.pageSize) {
-                pager = new KalturaFilterPager(
+                pager = new KontorolFilterPager(
                     {
                         pageSize: data.pageSize,
                         pageIndex: data.pageIndex + 1
@@ -136,23 +136,23 @@ export class ReachProfilesStore extends FiltersStoreBase<ReachProfilesFilters> i
                 filter.orderBy = `${data.sortDirection === SortDirection.Desc ? '-' : '+'}${data.sortBy}`;
             }
     
-            const responseProfile: KalturaDetachedResponseProfile = new KalturaDetachedResponseProfile({
-                type: KalturaResponseProfileType.includeFields,
+            const responseProfile: KontorolDetachedResponseProfile = new KontorolDetachedResponseProfile({
+                type: KontorolResponseProfileType.includeFields,
                 fields: 'id,name,createdAt,updatedAt,credit,usedCredit,toDate,addOn'
             });
             
             const reachProfileListAction = new ReachProfileListAction({ filter, pager }).setRequestOptions({responseProfile});
             
             // build the request
-            return this._kalturaServerClient
+            return this._kontorolServerClient
                 .request(reachProfileListAction)
-                .map((profilesResponse: KalturaReachProfileListResponse) => {
+                .map((profilesResponse: KontorolReachProfileListResponse) => {
                     const profiles = profilesResponse.objects;
-                    let objects: KalturaReachProfileWithCredit[] = [];
+                    let objects: KontorolReachProfileWithCredit[] = [];
                     profiles.forEach(profile => {
                         const totalCredit = profile.credit['credit'] !== -9999 ? parseFloat((profile.credit['credit'] + profile.credit['addOn']).toFixed(2)) : -9999;
                         const remaining = profile.credit['credit'] !== -9999 ? parseFloat((totalCredit - profile.usedCredit).toFixed(2)) : -9999;
-                        objects.push({...profile, remaining, totalCredit} as KalturaReachProfileWithCredit);
+                        objects.push({...profile, remaining, totalCredit} as KontorolReachProfileWithCredit);
                     });
                     const totalCount = profilesResponse.totalCount;
                     return { objects, totalCount };
@@ -229,7 +229,7 @@ export class ReachProfilesStore extends FiltersStoreBase<ReachProfilesFilters> i
     }
     
     
-    // public duplicateProfiles(profiles: KalturaReachProfile): Observable<void> {
+    // public duplicateProfiles(profiles: KontorolReachProfile): Observable<void> {
     //   return this._transmitChunkRequest(
     //     profiles.map(profile => new ConversionProfileDeleteAction({ id: profile.id }))
     //   );

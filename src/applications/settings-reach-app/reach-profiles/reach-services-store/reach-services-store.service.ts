@@ -3,26 +3,26 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import {Observable} from 'rxjs';
 import {ISubscription} from 'rxjs/Subscription';
 import {
-    KalturaClient,
-    KalturaDetachedResponseProfile,
-    KalturaResponseProfileType,
-    KalturaVendorAlignmentCatalogItemFilter,
-    KalturaVendorAudioDescriptionCatalogItemFilter,
-    KalturaVendorCaptionsCatalogItemFilter,
-    KalturaVendorCatalogItem,
-    KalturaVendorCatalogItemListResponse,
-    KalturaVendorChapteringCatalogItemFilter,
-    KalturaVendorServiceFeature,
-    KalturaVendorTranslationCatalogItemFilter,
+    KontorolClient,
+    KontorolDetachedResponseProfile,
+    KontorolResponseProfileType,
+    KontorolVendorAlignmentCatalogItemFilter,
+    KontorolVendorAudioDescriptionCatalogItemFilter,
+    KontorolVendorCaptionsCatalogItemFilter,
+    KontorolVendorCatalogItem,
+    KontorolVendorCatalogItemListResponse,
+    KontorolVendorChapteringCatalogItemFilter,
+    KontorolVendorServiceFeature,
+    KontorolVendorTranslationCatalogItemFilter,
     VendorCatalogItemListAction
-} from 'kaltura-ngx-client';
-import {KalturaFilterPager} from 'kaltura-ngx-client';
+} from 'kontorol-ngx-client';
+import {KontorolFilterPager} from 'kontorol-ngx-client';
 import {BrowserService} from 'shared/kmc-shell/providers/browser.service';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import {FiltersStoreBase, StringTypeAdapter, TypeAdaptersMapping} from '@kaltura-ng/mc-shared';
-import {NumberTypeAdapter} from '@kaltura-ng/mc-shared';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import {FiltersStoreBase, StringTypeAdapter, TypeAdaptersMapping} from '@kontorol-ng/mc-shared';
+import {NumberTypeAdapter} from '@kontorol-ng/mc-shared';
 import {globalConfig} from 'config/global';
-import {cancelOnDestroy} from '@kaltura-ng/kaltura-common';
+import {cancelOnDestroy} from '@kontorol-ng/kontorol-common';
 import {SettingsReachMainViewService} from "app-shared/kmc-shared/kmc-views/main-views/settings-reach-main-view.service";
 import {AppAuthentication} from "app-shared/kmc-shell";
 
@@ -44,7 +44,7 @@ export interface ReachServicesFilters {
 
 export class ReachServicesStore extends FiltersStoreBase<ReachServicesFilters> implements OnDestroy {
     private _services = {
-        data: new BehaviorSubject<{ items: KalturaVendorCatalogItem[], totalCount: number }>({items: [], totalCount: 0}),
+        data: new BehaviorSubject<{ items: KontorolVendorCatalogItem[], totalCount: number }>({items: [], totalCount: 0}),
         state: new BehaviorSubject<{ loading: boolean, errorMessage: string }>({loading: false, errorMessage: null})
     };
     private _isReady = false;
@@ -58,13 +58,13 @@ export class ReachServicesStore extends FiltersStoreBase<ReachServicesFilters> i
         data: () => this._services.data.value
     };
     
-    public _selectedFeature: KalturaVendorServiceFeature = KalturaVendorServiceFeature.captions;
+    public _selectedFeature: KontorolVendorServiceFeature = KontorolVendorServiceFeature.captions;
     
-    constructor(private _kalturaServerClient: KalturaClient,
+    constructor(private _kontorolServerClient: KontorolClient,
                 private _browserService: BrowserService,
                 private _appAuthentication: AppAuthentication,
                 settingsReachMainView: SettingsReachMainViewService,
-                _logger: KalturaLogger) {
+                _logger: KontorolLogger) {
         super(_logger);
         if (settingsReachMainView.isAvailable()) {
             setTimeout(() => {
@@ -113,32 +113,32 @@ export class ReachServicesStore extends FiltersStoreBase<ReachServicesFilters> i
                 });
     }
     
-    private _buildQueryRequest(): Observable<{ objects: KalturaVendorCatalogItem[], totalCount: number }> {
+    private _buildQueryRequest(): Observable<{ objects: KontorolVendorCatalogItem[], totalCount: number }> {
         try {
             // create request items
-            let pager: KalturaFilterPager = null;
+            let pager: KontorolFilterPager = null;
             
             // set filter type according to selected feature. Default feature is Captions
-            let filter: any = new KalturaVendorCaptionsCatalogItemFilter({});
+            let filter: any = new KontorolVendorCaptionsCatalogItemFilter({});
             switch (this._selectedFeature) {
-                case KalturaVendorServiceFeature.translation:
-                    filter = new KalturaVendorTranslationCatalogItemFilter({});
+                case KontorolVendorServiceFeature.translation:
+                    filter = new KontorolVendorTranslationCatalogItemFilter({});
                     break;
-                case KalturaVendorServiceFeature.alignment:
-                    filter = new KalturaVendorAlignmentCatalogItemFilter({});
+                case KontorolVendorServiceFeature.alignment:
+                    filter = new KontorolVendorAlignmentCatalogItemFilter({});
                     break;
-                case KalturaVendorServiceFeature.audioDescription:
-                    filter = new KalturaVendorAudioDescriptionCatalogItemFilter({});
+                case KontorolVendorServiceFeature.audioDescription:
+                    filter = new KontorolVendorAudioDescriptionCatalogItemFilter({});
                     break;
-                case KalturaVendorServiceFeature.chaptering:
-                    filter = new KalturaVendorChapteringCatalogItemFilter({});
+                case KontorolVendorServiceFeature.chaptering:
+                    filter = new KontorolVendorChapteringCatalogItemFilter({});
                     break;
             }
             const data: ReachServicesFilters = this._getFiltersAsReadonly();
             
             // update pagination args
             if (data.pageIndex || data.pageSize) {
-                pager = new KalturaFilterPager(
+                pager = new KontorolFilterPager(
                     {
                         pageSize: data.pageSize,
                         pageIndex: data.pageIndex + 1
@@ -172,18 +172,18 @@ export class ReachServicesStore extends FiltersStoreBase<ReachServicesFilters> i
                 filter.orderBy = `${data.sortDirection === SortDirection.Desc ? '-' : '+'}${data.sortBy}`;
             }
     
-            const responseProfile: KalturaDetachedResponseProfile = new KalturaDetachedResponseProfile({
-                type: KalturaResponseProfileType.includeFields,
+            const responseProfile: KontorolDetachedResponseProfile = new KontorolDetachedResponseProfile({
+                type: KontorolResponseProfileType.includeFields,
                 fields: 'id,createdAt,serviceType,serviceFeature,turnAroundTime,pricing,enableSpeakerId,sourceLanguage,targetLanguage'
             });
             
             const reachServicesListAction = new VendorCatalogItemListAction({ filter, pager }).setRequestOptions({responseProfile});
             
             // build the request
-            return this._kalturaServerClient
+            return this._kontorolServerClient
                 .request(reachServicesListAction)
-                .map((servicesResponse: KalturaVendorCatalogItemListResponse) => {
-                    const objects: KalturaVendorCatalogItem[] = servicesResponse.objects;
+                .map((servicesResponse: KontorolVendorCatalogItemListResponse) => {
+                    const objects: KontorolVendorCatalogItem[] = servicesResponse.objects;
                     const totalCount = servicesResponse.totalCount;
                     return { objects, totalCount };
                 });
@@ -208,7 +208,7 @@ export class ReachServicesStore extends FiltersStoreBase<ReachServicesFilters> i
             pageIndex: 0,
             sortBy: 'createdAt',
             sortDirection: SortDirection.Desc,
-            feature: KalturaVendorServiceFeature.captions,
+            feature: KontorolVendorServiceFeature.captions,
             service: null,
             tat: null,
             languages: ''

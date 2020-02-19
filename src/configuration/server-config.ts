@@ -55,7 +55,7 @@ export interface ExternalApplications {
 }
 
 export interface ServerConfig {
-    kalturaServer: {
+    kontorolServer: {
         uri: string,
         defaultPrivileges?: string,
         deployUrl?: string,
@@ -86,7 +86,7 @@ export interface ServerConfig {
         entitlements?: {
             manage?: string
         },
-        kaltura?: {
+        kontorol?: {
             userManual?: string,
             kmcOverview?: string,
             mediaManagement?: string,
@@ -285,15 +285,15 @@ export function buildCDNUrl(suffix: string): string {
 }
 
 export function buildDeployUrl(suffix: string): string {
-    return `${serverConfig.kalturaServer.deployUrl || ''}${suffix}`;
+    return `${serverConfig.kontorolServer.deployUrl || ''}${suffix}`;
 }
 
-export function getKalturaServerUri(suffix: string = ''): string {
-    if (serverConfig.kalturaServer && serverConfig.kalturaServer.uri) {
-        const serverEndpoint = serverConfig.kalturaServer.uri;
+export function getKontorolServerUri(suffix: string = ''): string {
+    if (serverConfig.kontorolServer && serverConfig.kontorolServer.uri) {
+        const serverEndpoint = serverConfig.kontorolServer.uri;
         return buildUrlWithClientProtocol(`${serverEndpoint}${suffix}`);
     } else {
-        throw new Error(`cannot provide kaltura server uri. server configuration wasn't loaded already`);
+        throw new Error(`cannot provide kontorol server uri. server configuration wasn't loaded already`);
     }
 }
 

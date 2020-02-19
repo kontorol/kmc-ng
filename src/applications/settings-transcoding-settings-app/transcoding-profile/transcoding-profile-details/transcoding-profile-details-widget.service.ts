@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { TranscodingProfileWidget } from '../transcoding-profile-widget';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 
 @Injectable()
 export class TranscodingProfileDetailsWidget extends TranscodingProfileWidget {
-  constructor(logger: KalturaLogger) {
+  constructor(logger: KontorolLogger) {
     super('profileDetails', logger);
   }
 

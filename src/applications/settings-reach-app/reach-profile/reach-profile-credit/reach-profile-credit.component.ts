@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ReachProfileStore } from '../reach-profile-store.service';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
-import { KalturaBaseVendorCreditArgs, KalturaReachProfile, KalturaReoccurringVendorCredit, KalturaTimeRangeVendorCredit, KalturaUnlimitedVendorCredit, KalturaVendorCredit } from "kaltura-ngx-client";
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
+import { KontorolBaseVendorCreditArgs, KontorolReachProfile, KontorolReoccurringVendorCredit, KontorolTimeRangeVendorCredit, KontorolUnlimitedVendorCredit, KontorolVendorCredit } from "kontorol-ngx-client";
 import { ReachProfileCreditWidget } from "./reach-profile-credit-widget.service";
-import { AppLocalization } from "@kaltura-ng/mc-shared";
+import { AppLocalization } from "@kontorol-ng/mc-shared";
 
 @Component({
   selector: 'kReachProfileCredit',
@@ -11,7 +11,7 @@ import { AppLocalization } from "@kaltura-ng/mc-shared";
   styleUrls: ['./reach-profile-credit.component.scss']
 })
 export class ReachProfileCreditComponent implements OnInit, OnDestroy {
-  public _currentProfile: KalturaReachProfile;
+  public _currentProfile: KontorolReachProfile;
   public _creditType = '';
   public _totalCredit = '';
   public _consumption = '';
@@ -42,17 +42,17 @@ export class ReachProfileCreditComponent implements OnInit, OnDestroy {
         });
   }
   
-  private setCreditType(credit: KalturaBaseVendorCreditArgs): string {
-      if (credit instanceof KalturaUnlimitedVendorCredit){
+  private setCreditType(credit: KontorolBaseVendorCreditArgs): string {
+      if (credit instanceof KontorolUnlimitedVendorCredit){
           return this._appLocalization.get('applications.settings.reach.credit.unlimited');
       }
-      if (credit instanceof KalturaReoccurringVendorCredit){
+      if (credit instanceof KontorolReoccurringVendorCredit){
           return this._appLocalization.get('applications.settings.reach.credit.reoccurring');
       }
-      if (credit instanceof KalturaTimeRangeVendorCredit){
+      if (credit instanceof KontorolTimeRangeVendorCredit){
           return this._appLocalization.get('applications.settings.reach.credit.range');
       }
-      if (credit instanceof KalturaVendorCredit){
+      if (credit instanceof KontorolVendorCredit){
           return this._appLocalization.get('applications.settings.reach.credit.generic');
       }
       return '';

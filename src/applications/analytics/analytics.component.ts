@@ -5,7 +5,7 @@ import {
     KMCAppMenuItem,
     LiveAnalyticsMainViewService
 } from 'app-shared/kmc-shared/kmc-views';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { AppEventsService } from 'app-shared/kmc-shared';
 import { ResetMenuEvent, UpdateMenuEvent } from 'app-shared/kmc-shared/events';
 import { BrowserService } from 'app-shared/kmc-shell/providers';

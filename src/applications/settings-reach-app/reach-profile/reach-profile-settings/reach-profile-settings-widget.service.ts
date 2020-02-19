@@ -1,19 +1,19 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { ReachProfileWidget } from '../reach-profile-widget';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { SettingsReachProfileViewSections } from "app-shared/kmc-shared/kmc-views/details-views";
 import { AbstractControl, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { Observable } from "rxjs";
-import { cancelOnDestroy } from "@kaltura-ng/kaltura-common";
+import { cancelOnDestroy } from "@kontorol-ng/kontorol-common";
 import { async } from "rxjs-compat/scheduler/async";
 import {
-    KalturaMultiRequest,
-    KalturaReachProfile,
-    KalturaReachProfileContentDeletionPolicy,
-    KalturaVendorTaskProcessingRegion
-} from "kaltura-ngx-client";
+    KontorolMultiRequest,
+    KontorolReachProfile,
+    KontorolReachProfileContentDeletionPolicy,
+    KontorolVendorTaskProcessingRegion
+} from "kontorol-ngx-client";
 import { KMCPermissions, KMCPermissionsService } from "app-shared/kmc-shared/kmc-permissions";
-import { AppLocalization } from "@kaltura-ng/mc-shared";
+import { AppLocalization } from "@kontorol-ng/mc-shared";
 
 @Injectable()
 export class ReachProfileSettingsWidget extends ReachProfileWidget implements OnDestroy {
@@ -28,7 +28,7 @@ export class ReachProfileSettingsWidget extends ReachProfileWidget implements On
     public deletionField: AbstractControl;
     public regionField: AbstractControl;
     
-    constructor(logger: KalturaLogger,
+    constructor(logger: KontorolLogger,
                 private _permissionsService: KMCPermissionsService,
                 private _appLocalization: AppLocalization,
                 private _formBuilder: FormBuilder) {
@@ -76,7 +76,7 @@ export class ReachProfileSettingsWidget extends ReachProfileWidget implements On
         });
     }
     
-    protected onDataSaving(newData: KalturaReachProfile, request: KalturaMultiRequest): void {
+    protected onDataSaving(newData: KontorolReachProfile, request: KontorolMultiRequest): void {
         const formData = this.wasActivated ? this.settingsForm.value : this.data;
         newData.name = formData.name;
         newData.enableMachineModeration = formData.machine;
@@ -101,15 +101,15 @@ export class ReachProfileSettingsWidget extends ReachProfileWidget implements On
         }
         
         this.deleteOptions = [
-            {label: this._appLocalization.get('applications.settings.reach.settings.deleteOptions.deleteAfterMonth'), value: KalturaReachProfileContentDeletionPolicy.deleteAfterMonth},
-            {label: this._appLocalization.get('applications.settings.reach.settings.deleteOptions.deleteAfterThreeMonths'), value: KalturaReachProfileContentDeletionPolicy.deleteAfterThreeMonths},
-            {label: this._appLocalization.get('applications.settings.reach.settings.deleteOptions.deleteAfterWeek'), value: KalturaReachProfileContentDeletionPolicy.deleteAfterWeek},
-            {label: this._appLocalization.get('applications.settings.reach.settings.deleteOptions.deleteOnceProcessed'), value: KalturaReachProfileContentDeletionPolicy.deleteOnceProcessed},
-            {label: this._appLocalization.get('applications.settings.reach.settings.deleteOptions.doNothing'), value: KalturaReachProfileContentDeletionPolicy.doNothing}
+            {label: this._appLocalization.get('applications.settings.reach.settings.deleteOptions.deleteAfterMonth'), value: KontorolReachProfileContentDeletionPolicy.deleteAfterMonth},
+            {label: this._appLocalization.get('applications.settings.reach.settings.deleteOptions.deleteAfterThreeMonths'), value: KontorolReachProfileContentDeletionPolicy.deleteAfterThreeMonths},
+            {label: this._appLocalization.get('applications.settings.reach.settings.deleteOptions.deleteAfterWeek'), value: KontorolReachProfileContentDeletionPolicy.deleteAfterWeek},
+            {label: this._appLocalization.get('applications.settings.reach.settings.deleteOptions.deleteOnceProcessed'), value: KontorolReachProfileContentDeletionPolicy.deleteOnceProcessed},
+            {label: this._appLocalization.get('applications.settings.reach.settings.deleteOptions.doNothing'), value: KontorolReachProfileContentDeletionPolicy.doNothing}
         ];
         this.regionOptions = [
-            {label: this._appLocalization.get('applications.settings.reach.settings.regionOptions.us'), value: KalturaVendorTaskProcessingRegion.us},
-            {label: this._appLocalization.get('applications.settings.reach.settings.regionOptions.eu'), value: KalturaVendorTaskProcessingRegion.eu}
+            {label: this._appLocalization.get('applications.settings.reach.settings.regionOptions.us'), value: KontorolVendorTaskProcessingRegion.us},
+            {label: this._appLocalization.get('applications.settings.reach.settings.regionOptions.eu'), value: KontorolVendorTaskProcessingRegion.eu}
         ];
         
         this.settingsForm.reset({

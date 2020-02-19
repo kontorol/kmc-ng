@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { DropFoldersFilters, DropFoldersStoreService } from '../drop-folders-store/drop-folders-store.service';
-import { AppLocalization, GroupedListType } from '@kaltura-ng/mc-shared';
+import { AppLocalization, GroupedListType } from '@kontorol-ng/mc-shared';
 import { RefineList } from '../drop-folders-store/drop-folders-refine-filters.service';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
 import { DatePipe } from 'app-shared/kmc-shared/date-format/date.pipe';
 import { BrowserService } from 'app-shared/kmc-shell';
 import { RefineGroup } from 'app-shared/content-shared/entries/entries-store/entries-refine-filters.service';

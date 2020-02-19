@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { KalturaClient } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
 
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { BaseEntryDeleteAction } from 'kaltura-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { BaseEntryDeleteAction } from 'kontorol-ngx-client';
 import { BulkActionBaseService } from './bulk-action-base.service';
 
 export class BulkDeleteError extends Error {
@@ -17,11 +17,11 @@ export class BulkDeleteError extends Error {
 @Injectable()
 export class BulkDeleteService extends BulkActionBaseService<{}> {
 
-  constructor(_kalturaServerClient: KalturaClient) {
-    super(_kalturaServerClient);
+  constructor(_kontorolServerClient: KontorolClient) {
+    super(_kontorolServerClient);
   }
 
-  public execute(selectedEntries: KalturaMediaEntry[]) : Observable<{}>{
+  public execute(selectedEntries: KontorolMediaEntry[]) : Observable<{}>{
     return Observable.create(observer =>{
 
       let requests: BaseEntryDeleteAction[] = [];

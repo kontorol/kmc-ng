@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationTypes, ActionTypes, TranscodingProfileStore } from './transcoding-profile-store.service';
-import { AreaBlockerMessage, AreaBlockerMessageButton } from '@kaltura-ng/kaltura-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AreaBlockerMessage, AreaBlockerMessageButton } from '@kontorol-ng/kontorol-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { Observable } from 'rxjs';
-import { KalturaConversionProfileType } from 'kaltura-ngx-client';
+import { KontorolConversionProfileType } from 'kontorol-ngx-client';
 import { TranscodingProfileWidgetsManager } from './transcoding-profile-widgets-manager';
 import { TranscodingProfileSectionsListWidget } from './transcoding-profile-sections-list/transcoding-profile-sections-list-widget.service';
 import { TranscodingProfileDetailsWidget } from './transcoding-profile-details/transcoding-profile-details-widget.service';
@@ -18,7 +18,7 @@ import {
     SettingsTranscodingProfileViewSections,
     SettingsTranscodingProfileViewService
 } from 'app-shared/kmc-shared/kmc-views/details-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kTranscodingProfile',
@@ -37,7 +37,7 @@ export class TranscodingProfileComponent implements OnInit, OnDestroy {
   public _profilesStore: BaseTranscodingProfilesStore;
 
   public _profileName: string;
-  public _profileType: KalturaConversionProfileType;
+  public _profileType: KontorolConversionProfileType;
   public _showLoader = false;
   public _areaBlockerMessage: AreaBlockerMessage;
   public _currentProfileId: string;
@@ -69,13 +69,13 @@ export class TranscodingProfileComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  private _setProfilesStoreServiceByType(serviceType: KalturaConversionProfileType): void {
-    if (serviceType === KalturaConversionProfileType.media) {
+  private _setProfilesStoreServiceByType(serviceType: KontorolConversionProfileType): void {
+    if (serviceType === KontorolConversionProfileType.media) {
       this._profilesStore = this._mediaTranscodingProfilesStore;
-    } else if (serviceType === KalturaConversionProfileType.liveStream) {
+    } else if (serviceType === KontorolConversionProfileType.liveStream) {
       this._profilesStore = this._liveTranscodingProfilesStore;
     } else {
-      throw Error('Incorrect serviceType provided. It can be either KalturaConversionProfileType.media or KalturaConversionProfileType.liveStream type');
+      throw Error('Incorrect serviceType provided. It can be either KontorolConversionProfileType.media or KontorolConversionProfileType.liveStream type');
     }
   }
 

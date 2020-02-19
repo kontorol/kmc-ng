@@ -1,8 +1,8 @@
 import { AfterViewInit, ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { globalConfig } from "config/global";
-import {KalturaVendorCatalogItem, KalturaVendorServiceFeature} from "kaltura-ngx-client";
+import {KontorolVendorCatalogItem, KontorolVendorServiceFeature} from "kontorol-ngx-client";
 
 @Component({
     selector: 'k-reach-services-table',
@@ -11,7 +11,7 @@ import {KalturaVendorCatalogItem, KalturaVendorServiceFeature} from "kaltura-ngx
 })
 
 export class ReachServicesTableComponent implements OnInit, AfterViewInit, OnDestroy {
-    @Input() set services(data: KalturaVendorCatalogItem[]) {
+    @Input() set services(data: KontorolVendorCatalogItem[]) {
         if (!this._deferredLoading) {
             this._services = [];
             this._cdRef.detectChanges();
@@ -21,7 +21,7 @@ export class ReachServicesTableComponent implements OnInit, AfterViewInit, OnDes
             this._deferredProfiles = data;
         }
     }
-    @Input() _selectedFeature: KalturaVendorServiceFeature;
+    @Input() _selectedFeature: KontorolVendorServiceFeature;
     
     @Output() sortChanged = new EventEmitter<any>();
     

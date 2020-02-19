@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
 
-import { KalturaClient, KalturaMediaEntry, KalturaUser } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolClient, KontorolMediaEntry, KontorolUser } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
-import { AreaBlockerMessage, PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerMessage, PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
 
 @Component({
     selector: 'kBulkRemoveViewers',
@@ -12,7 +12,7 @@ import { AreaBlockerMessage, PopupWidgetComponent, PopupWidgetStates } from '@ka
     styleUrls: ['./bulk-remove-viewers.component.scss']
 })
 export class BulkRemoveViewersComponent implements OnInit, OnDestroy, AfterViewInit {
-    @Input() selectedEntries: KalturaMediaEntry[];
+    @Input() selectedEntries: KontorolMediaEntry[];
     @Input() parentPopupWidget: PopupWidgetComponent;
     @Output() removeViewersChanged = new EventEmitter<string[]>();
 
@@ -22,10 +22,10 @@ export class BulkRemoveViewersComponent implements OnInit, OnDestroy, AfterViewI
     public _loading = false;
     public _sectionBlockerMessage: AreaBlockerMessage;
 
-    public users: KalturaUser[] = [];
+    public users: KontorolUser[] = [];
     public usersToRemove: string[] = [];
 
-    constructor(private _kalturaServerClient: KalturaClient,
+    constructor(private _kontorolServerClient: KontorolClient,
                 private _appLocalization: AppLocalization,
                 private _browserService: BrowserService) {
     }

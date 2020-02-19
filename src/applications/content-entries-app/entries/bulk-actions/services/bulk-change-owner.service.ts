@@ -1,27 +1,27 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { KalturaClient } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
 
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { KalturaBaseEntry } from 'kaltura-ngx-client';
-import { BaseEntryUpdateAction } from 'kaltura-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { KontorolBaseEntry } from 'kontorol-ngx-client';
+import { BaseEntryUpdateAction } from 'kontorol-ngx-client';
 import { BulkActionBaseService } from './bulk-action-base.service';
-import { KalturaUser } from 'kaltura-ngx-client';
+import { KontorolUser } from 'kontorol-ngx-client';
 
 @Injectable()
-export class BulkChangeOwnerService extends BulkActionBaseService<KalturaUser> {
+export class BulkChangeOwnerService extends BulkActionBaseService<KontorolUser> {
 
-  constructor(_kalturaServerClient: KalturaClient) {
-    super(_kalturaServerClient);
+  constructor(_kontorolServerClient: KontorolClient) {
+    super(_kontorolServerClient);
   }
 
-  public execute(selectedEntries: KalturaMediaEntry[], owner : KalturaUser) : Observable<{}>{
+  public execute(selectedEntries: KontorolMediaEntry[], owner : KontorolUser) : Observable<{}>{
     return Observable.create(observer =>{
 
       let requests: BaseEntryUpdateAction[] = [];
 
       selectedEntries.forEach(entry => {
-        let updatedEntry: KalturaBaseEntry = new KalturaBaseEntry();
+        let updatedEntry: KontorolBaseEntry = new KontorolBaseEntry();
         updatedEntry.userId = owner.id;
         requests.push(new BaseEntryUpdateAction({
           entryId: entry.id,

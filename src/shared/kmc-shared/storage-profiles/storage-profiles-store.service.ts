@@ -1,24 +1,24 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PartnerProfileStore } from '../partner-profile';
-import { KalturaClient } from 'kaltura-ngx-client';
-import { KalturaStorageProfileStatus } from 'kaltura-ngx-client';
-import { KalturaStorageProfileFilter } from 'kaltura-ngx-client';
-import { StorageProfileListAction } from 'kaltura-ngx-client';
-import { KalturaStorageProfileListResponse } from 'kaltura-ngx-client';
-import { KalturaStorageProfile } from 'kaltura-ngx-client';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { KontorolStorageProfileStatus } from 'kontorol-ngx-client';
+import { KontorolStorageProfileFilter } from 'kontorol-ngx-client';
+import { StorageProfileListAction } from 'kontorol-ngx-client';
+import { KontorolStorageProfileListResponse } from 'kontorol-ngx-client';
+import { KontorolStorageProfile } from 'kontorol-ngx-client';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Injectable()
 export class StorageProfilesStore extends PartnerProfileStore implements OnDestroy {
 
-  private _getStorageProfiles$: Observable<{ items: KalturaStorageProfile[] }>;
+  private _getStorageProfiles$: Observable<{ items: KontorolStorageProfile[] }>;
 
-  constructor(private _kalturaServerClient: KalturaClient) {
+  constructor(private _kontorolServerClient: KontorolClient) {
     super();
   }
 
-  public get(): Observable<{ items: KalturaStorageProfile[] }> {
+  public get(): Observable<{ items: KontorolStorageProfile[] }> {
     if (!this._getStorageProfiles$) {
       // execute the request
       this._getStorageProfiles$ = this._buildGetRequest()
@@ -41,10 +41,10 @@ export class StorageProfilesStore extends PartnerProfileStore implements OnDestr
   ngOnDestroy() {
   }
 
-  private _buildGetRequest(): Observable<KalturaStorageProfileListResponse> {
-    return this._kalturaServerClient.request(new StorageProfileListAction({
-      filter: new KalturaStorageProfileFilter({
-        statusIn: [KalturaStorageProfileStatus.automatic, KalturaStorageProfileStatus.manual].join(',')
+  private _buildGetRequest(): Observable<KontorolStorageProfileListResponse> {
+    return this._kontorolServerClient.request(new StorageProfileListAction({
+      filter: new KontorolStorageProfileFilter({
+        statusIn: [KontorolStorageProfileStatus.automatic, KontorolStorageProfileStatus.manual].join(',')
       })
     }));
   }

@@ -4,33 +4,33 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/forkJoin';
 
-import { ThumbAssetSetAsDefaultAction } from 'kaltura-ngx-client';
-import { ThumbAssetGetByEntryIdAction } from 'kaltura-ngx-client';
-import { KalturaThumbAsset } from 'kaltura-ngx-client';
-import { DistributionProfileListAction } from 'kaltura-ngx-client';
-import { KalturaDistributionProfileListResponse } from 'kaltura-ngx-client';
-import { KalturaDistributionProfile } from 'kaltura-ngx-client';
-import { KalturaThumbAssetStatus } from 'kaltura-ngx-client';
-import { KalturaDistributionThumbDimensions } from 'kaltura-ngx-client';
-import { ThumbAssetDeleteAction } from 'kaltura-ngx-client';
-import { ThumbAssetAddFromImageAction } from 'kaltura-ngx-client';
+import { ThumbAssetSetAsDefaultAction } from 'kontorol-ngx-client';
+import { ThumbAssetGetByEntryIdAction } from 'kontorol-ngx-client';
+import { KontorolThumbAsset } from 'kontorol-ngx-client';
+import { DistributionProfileListAction } from 'kontorol-ngx-client';
+import { KontorolDistributionProfileListResponse } from 'kontorol-ngx-client';
+import { KontorolDistributionProfile } from 'kontorol-ngx-client';
+import { KontorolThumbAssetStatus } from 'kontorol-ngx-client';
+import { KontorolDistributionThumbDimensions } from 'kontorol-ngx-client';
+import { ThumbAssetDeleteAction } from 'kontorol-ngx-client';
+import { ThumbAssetAddFromImageAction } from 'kontorol-ngx-client';
 import { AppAuthentication, BrowserService } from 'app-shared/kmc-shell';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { KalturaClient } from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { KontorolClient } from 'kontorol-ngx-client';
 import { PreviewMetadataChangedEvent } from '../../preview-metadata-changed-event';
 import { AppEventsService } from 'app-shared/kmc-shared';
 import { EntryWidget } from '../entry-widget';
-import { KalturaThumbParams } from 'kaltura-ngx-client';
-import { ThumbAssetGenerateAction } from 'kaltura-ngx-client';
-import { KalturaEntryStatus } from 'kaltura-ngx-client';
-import { KalturaMediaType } from 'kaltura-ngx-client';
+import { KontorolThumbParams } from 'kontorol-ngx-client';
+import { ThumbAssetGenerateAction } from 'kontorol-ngx-client';
+import { KontorolEntryStatus } from 'kontorol-ngx-client';
+import { KontorolMediaType } from 'kontorol-ngx-client';
 import { globalConfig } from 'config/global';
-import { serverConfig, getKalturaServerUri } from 'config/server';
+import { serverConfig, getKontorolServerUri } from 'config/server';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { ContentEntryViewSections } from 'app-shared/kmc-shared/kmc-views/details-views/content-entry-view.service';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export interface ThumbnailRow {
   id: string;
@@ -40,7 +40,7 @@ export interface ThumbnailRow {
   distributors: string;
   isDefault: boolean;
   url: string;
-  status: KalturaThumbAssetStatus;
+  status: KontorolThumbAssetStatus;
   uploadStatus: boolean;
   fileExt: string;
   tags: string;
@@ -54,12 +54,12 @@ export class EntryThumbnailsWidget extends EntryWidget {
     );
 
     public _thumbnails$ = this._thumbnails.asObservable();
-    private _distributionProfiles: KalturaDistributionProfile[]; // used to save the response profiles array as it is loaded only once
+    private _distributionProfiles: KontorolDistributionProfile[]; // used to save the response profiles array as it is loaded only once
 
-    constructor(private _kalturaServerClient: KalturaClient, private _appAuthentication: AppAuthentication,
+    constructor(private _kontorolServerClient: KontorolClient, private _appAuthentication: AppAuthentication,
                 private _permissionsService: KMCPermissionsService,
                 private _appLocalization: AppLocalization, private _appEvents: AppEventsService, private _browserService: BrowserService,
-                logger: KalturaLogger) {
+                logger: KontorolLogger) {
         super(ContentEntryViewSections.Thumbnails, logger);
     }
 
@@ -76,14 +76,14 @@ export class EntryThumbnailsWidget extends EntryWidget {
 
         this._thumbnails.next({items: []});
 
-        const getThumbnails$ = this._kalturaServerClient.request(new ThumbAssetGetByEntryIdAction(
+        const getThumbnails$ = this._kontorolServerClient.request(new ThumbAssetGetByEntryIdAction(
             {
                 entryId: this.data.id
             }));
 
         const canLoadProfiles = this._permissionsService.hasPermission(KMCPermissions.CONTENTDISTRIBUTION_PLUGIN_PERMISSION);
         const getProfiles$ = canLoadProfiles
-            ? this._kalturaServerClient.request(new DistributionProfileListAction({}))
+            ? this._kontorolServerClient.request(new DistributionProfileListAction({}))
             : Observable.of({});
 
         return Observable.forkJoin(getThumbnails$, getProfiles$)
@@ -97,11 +97,11 @@ export class EntryThumbnailsWidget extends EntryWidget {
             })
             .map(responses => {
                 const thumbnails = responses[0] || [];
-                this._distributionProfiles = (responses[1] as KalturaDistributionProfileListResponse).objects || [];
+                this._distributionProfiles = (responses[1] as KontorolDistributionProfileListResponse).objects || [];
                 this.buildThumbnailsData(thumbnails);
                 this.allowGrabFromVideo = (this.data.status
-                    && [KalturaEntryStatus.ready.toString(), KalturaEntryStatus.moderate.toString()].indexOf(this.data.status.toString()) !== -1
-                    && this.data.mediaType === KalturaMediaType.video);
+                    && [KontorolEntryStatus.ready.toString(), KontorolEntryStatus.moderate.toString()].indexOf(this.data.status.toString()) !== -1
+                    && this.data.mediaType === KontorolMediaType.video);
                 super._hideLoader();
 
                 return {failed: false};
@@ -110,11 +110,11 @@ export class EntryThumbnailsWidget extends EntryWidget {
     }
 
 
-    private buildThumbnailsData(thumbnails: KalturaThumbAsset[]): void {
+    private buildThumbnailsData(thumbnails: KontorolThumbAsset[]): void {
         let thumbs: ThumbnailRow[] = [];
         // create a ThumbnailRow data for each of the loaded thumbnails
-        thumbnails.forEach((thumbnail: KalturaThumbAsset) => {
-            if (thumbnail.status.toString() === KalturaThumbAssetStatus.ready.toString()) {
+        thumbnails.forEach((thumbnail: KontorolThumbAsset) => {
+            if (thumbnail.status.toString() === KontorolThumbAssetStatus.ready.toString()) {
                 let thumb: ThumbnailRow = {
                     id: thumbnail.id,
                     status: thumbnail.status,
@@ -129,14 +129,14 @@ export class EntryThumbnailsWidget extends EntryWidget {
                     fileExt: thumbnail.fileExt
                 };
                 thumb.isDefault = thumbnail.tags.indexOf("default_thumb") > -1;
-                thumb.url = getKalturaServerUri(`/api_v3/index.php/service/thumbasset/action/serve/ks/${this._appAuthentication.appUser.ks}/thumbAssetId/${thumb.id}`);
+                thumb.url = getKontorolServerUri(`/api_v3/index.php/service/thumbasset/action/serve/ks/${this._appAuthentication.appUser.ks}/thumbAssetId/${thumb.id}`);
                 thumbs.push(thumb);
             }
         });
         // create an empty ThumbnailRow data for each missing thumbnail dimension specified in any response profile
-        this._distributionProfiles.forEach((profile: KalturaDistributionProfile) => {
-            const requiredThumbDimensions: KalturaDistributionThumbDimensions[] = profile.requiredThumbDimensions;
-            requiredThumbDimensions.forEach((dimensions: KalturaDistributionThumbDimensions) => {
+        this._distributionProfiles.forEach((profile: KontorolDistributionProfile) => {
+            const requiredThumbDimensions: KontorolDistributionThumbDimensions[] = profile.requiredThumbDimensions;
+            requiredThumbDimensions.forEach((dimensions: KontorolDistributionThumbDimensions) => {
                 const requiredWidth = dimensions.width;
                 const requiredHeight = dimensions.height;
                 let foundCorrespondingThumbnail = false;
@@ -151,7 +151,7 @@ export class EntryThumbnailsWidget extends EntryWidget {
                     // create a new missing thumb placeholder and append it to the thumbnails array
                     let missingThumb: ThumbnailRow = {
                         id: "",
-                        status: KalturaThumbAssetStatus.error,
+                        status: KontorolThumbAssetStatus.error,
                         width: requiredWidth,
                         height: requiredHeight,
                         size: NaN,
@@ -172,7 +172,7 @@ export class EntryThumbnailsWidget extends EntryWidget {
     private reloadThumbnails() {
         super._showLoader();
         const thumbs = Array.from(this._thumbnails.getValue().items);
-        this._kalturaServerClient.request(new ThumbAssetGetByEntryIdAction(
+        this._kontorolServerClient.request(new ThumbAssetGetByEntryIdAction(
             {
                 entryId: this.data.id
             }))
@@ -212,7 +212,7 @@ export class EntryThumbnailsWidget extends EntryWidget {
 
         const entryId = this.data ? this.data.id : null;
 
-        this._kalturaServerClient.request(new ThumbAssetSetAsDefaultAction({thumbAssetId: thumb.id}))
+        this._kontorolServerClient.request(new ThumbAssetSetAsDefaultAction({thumbAssetId: thumb.id}))
             .pipe(cancelOnDestroy(this, this.widgetReset$))
             .pipe(tag('block-shell'))
             .subscribe(
@@ -244,7 +244,7 @@ export class EntryThumbnailsWidget extends EntryWidget {
     public deleteThumbnail(id: string): void {
         const thumbs = Array.from(this._thumbnails.getValue().items);
 
-        this._kalturaServerClient.request(new ThumbAssetDeleteAction({thumbAssetId: id}))
+        this._kontorolServerClient.request(new ThumbAssetDeleteAction({thumbAssetId: id}))
             .pipe(cancelOnDestroy(this, this.widgetReset$))
             .pipe(tag('block-shell'))
             .subscribe(
@@ -273,7 +273,7 @@ export class EntryThumbnailsWidget extends EntryWidget {
     public _onFileSelected(selectedFiles: FileList) {
         if (selectedFiles && selectedFiles.length) {
             const fileData: File = selectedFiles[0];
-            const maxFileSize = globalConfig.kalturaServer.maxUploadFileSize;
+            const maxFileSize = globalConfig.kontorolServer.maxUploadFileSize;
             const fileSize = fileData.size / 1024 / 1024; // convert to Mb
             if (fileSize > maxFileSize) {
                 this._browserService.alert({
@@ -281,7 +281,7 @@ export class EntryThumbnailsWidget extends EntryWidget {
                     message: this._appLocalization.get('applications.upload.validation.fileSizeExceeded')
                 });
             } else {
-                this._kalturaServerClient.request(new ThumbAssetAddFromImageAction({
+                this._kontorolServerClient.request(new ThumbAssetAddFromImageAction({
                     entryId: this.data.id,
                     fileData: fileData
                 }))
@@ -306,12 +306,12 @@ export class EntryThumbnailsWidget extends EntryWidget {
 
     public captureThumbnail(position: number): void {
         super._showLoader();
-        let params: KalturaThumbParams = new KalturaThumbParams();
+        let params: KontorolThumbParams = new KontorolThumbParams();
         params.videoOffset = position;
         params.quality = 75;
         params.stripProfiles = false;
 
-        this._kalturaServerClient.request(new ThumbAssetGenerateAction({entryId: this.data.id, thumbParams: params}))
+        this._kontorolServerClient.request(new ThumbAssetGenerateAction({entryId: this.data.id, thumbParams: params}))
             .pipe(cancelOnDestroy(this, this.widgetReset$))
             .subscribe(
                 () => {

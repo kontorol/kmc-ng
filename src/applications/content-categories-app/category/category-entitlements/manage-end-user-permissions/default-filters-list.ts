@@ -1,6 +1,6 @@
-import {KalturaCategoryUserPermissionLevel} from 'kaltura-ngx-client';
-import {KalturaUpdateMethodType} from 'kaltura-ngx-client';
-import {KalturaCategoryUserStatus} from 'kaltura-ngx-client';
+import {KontorolCategoryUserPermissionLevel} from 'kontorol-ngx-client';
+import {KontorolUpdateMethodType} from 'kontorol-ngx-client';
+import {KontorolCategoryUserStatus} from 'kontorol-ngx-client';
 
 export interface DefaultFilterList {
   label: string;
@@ -14,16 +14,16 @@ export const DefaultFiltersList: DefaultFilterList[] = [
     name: 'permissionLevels', label: 'Permission Levels',
     items: [
       {
-        value: KalturaCategoryUserPermissionLevel.contributor.toString(),
+        value: KontorolCategoryUserPermissionLevel.contributor.toString(),
         label: 'Contributor'
       }, {
-        value: KalturaCategoryUserPermissionLevel.moderator.toString(),
+        value: KontorolCategoryUserPermissionLevel.moderator.toString(),
         label: 'Moderator'
       }, {
-        value: KalturaCategoryUserPermissionLevel.member.toString(),
+        value: KontorolCategoryUserPermissionLevel.member.toString(),
         label: 'Member'
       }, {
-        value: KalturaCategoryUserPermissionLevel.manager.toString(),
+        value: KontorolCategoryUserPermissionLevel.manager.toString(),
         label: 'Manager'
       }
     ]
@@ -31,19 +31,19 @@ export const DefaultFiltersList: DefaultFilterList[] = [
   {
     name: 'status', label: 'Status',
     items: [
-      {value: KalturaCategoryUserStatus.active.toString(), label: 'Active'},
-      {value: KalturaCategoryUserStatus.notActive.toString(), label: 'Deactivated'}
+      {value: KontorolCategoryUserStatus.active.toString(), label: 'Active'},
+      {value: KontorolCategoryUserStatus.notActive.toString(), label: 'Deactivated'}
     ]
   },
   {
     name: 'updateMethod', label: 'Update Method',
     items: [
       {
-        value: KalturaUpdateMethodType.manual.toString(),
+        value: KontorolUpdateMethodType.manual.toString(),
         label: 'Manual'
       },
       {
-        value: KalturaUpdateMethodType.automatic.toString(),
+        value: KontorolUpdateMethodType.automatic.toString(),
         label: 'Automatic'
       }
     ]

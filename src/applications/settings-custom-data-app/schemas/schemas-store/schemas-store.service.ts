@@ -2,30 +2,30 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs';
 import { ISubscription } from 'rxjs/Subscription';
-import { KalturaClient, KalturaMultiRequest } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
+import { KontorolClient, KontorolMultiRequest } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
 import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
-import { FiltersStoreBase, TypeAdaptersMapping } from '@kaltura-ng/mc-shared';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { NumberTypeAdapter } from '@kaltura-ng/mc-shared';
-import { MetadataProfileListAction } from 'kaltura-ngx-client';
-import { KalturaMetadataProfileFilter } from 'kaltura-ngx-client';
-import { KalturaMetadataOrderBy } from 'kaltura-ngx-client';
-import { KalturaMetadataProfileCreateMode } from 'kaltura-ngx-client';
-import { KalturaMetadataObjectType } from 'kaltura-ngx-client';
-import { KalturaMetadataProfileListResponse } from 'kaltura-ngx-client';
+import { FiltersStoreBase, TypeAdaptersMapping } from '@kontorol-ng/mc-shared';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { NumberTypeAdapter } from '@kontorol-ng/mc-shared';
+import { MetadataProfileListAction } from 'kontorol-ngx-client';
+import { KontorolMetadataProfileFilter } from 'kontorol-ngx-client';
+import { KontorolMetadataOrderBy } from 'kontorol-ngx-client';
+import { KontorolMetadataProfileCreateMode } from 'kontorol-ngx-client';
+import { KontorolMetadataObjectType } from 'kontorol-ngx-client';
+import { KontorolMetadataProfileListResponse } from 'kontorol-ngx-client';
 import { MetadataProfileParser } from 'app-shared/kmc-shared';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { AppAuthentication } from 'app-shared/kmc-shell';
-import { MetadataProfileDeleteAction } from 'kaltura-ngx-client';
+import { MetadataProfileDeleteAction } from 'kontorol-ngx-client';
 import { SettingsMetadataProfile } from './settings-metadata-profile.interface';
-import { KalturaRequest } from 'kaltura-ngx-client';
-import { KalturaMetadataProfile } from 'kaltura-ngx-client';
-import { MetadataProfileUpdateAction } from 'kaltura-ngx-client';
-import { MetadataProfileAddAction } from 'kaltura-ngx-client';
-import { getKalturaServerUri } from 'config/server';
+import { KontorolRequest } from 'kontorol-ngx-client';
+import { KontorolMetadataProfile } from 'kontorol-ngx-client';
+import { MetadataProfileUpdateAction } from 'kontorol-ngx-client';
+import { MetadataProfileAddAction } from 'kontorol-ngx-client';
+import { getKontorolServerUri } from 'config/server';
 import { SettingsMetadataMainViewService } from 'app-shared/kmc-shared/kmc-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 export interface SchemasFilters {
   pageSize: number;
   pageIndex: number;
@@ -49,12 +49,12 @@ export class SchemasStore extends FiltersStoreBase<SchemasFilters> implements On
     data: () => this._schemas.data.value
   };
 
-  constructor(private _kalturaServerClient: KalturaClient,
+  constructor(private _kontorolServerClient: KontorolClient,
               private _appLocalization: AppLocalization,
               private _appAuth: AppAuthentication,
               private _browserService: BrowserService,
               settingsMetadataMainView: SettingsMetadataMainViewService,
-              _logger: KalturaLogger) {
+              _logger: KontorolLogger) {
     super(_logger.subLogger('SchemasStore'));
     if (settingsMetadataMainView.isAvailable()) {
         this._prepare();
@@ -109,7 +109,7 @@ export class SchemasStore extends FiltersStoreBase<SchemasFilters> implements On
       .pipe(cancelOnDestroy(this))
       .map(({ objects, totalCount }) => {
         objects.forEach((object: SettingsMetadataProfile) => {
-          if (!object.createMode || object.createMode === KalturaMetadataProfileCreateMode.kmc) {
+          if (!object.createMode || object.createMode === KontorolMetadataProfileCreateMode.kmc) {
             const parsedProfile = this._metadataProfileParser.parse(object);
             object.profileDisabled = !!parsedProfile.error || !parsedProfile.profile; // disable profile if there's error during parsing
             object.parsedProfile = parsedProfile.profile;
@@ -118,7 +118,7 @@ export class SchemasStore extends FiltersStoreBase<SchemasFilters> implements On
               object.defaultLabel = object.parsedProfile.items.map(({ key }) => key).join(', ');
               const ks = this._appAuth.appUser.ks;
               const id = object.id;
-              object.downloadUrl = getKalturaServerUri(`/api_v3/index.php/service/metadata_metadataprofile/action/serve/ks/${ks}/id/${id}`);
+              object.downloadUrl = getKontorolServerUri(`/api_v3/index.php/service/metadata_metadataprofile/action/serve/ks/${ks}/id/${id}`);
             }
           } else {
             object.profileDisabled = true; // disabled
@@ -150,21 +150,21 @@ export class SchemasStore extends FiltersStoreBase<SchemasFilters> implements On
         });
   }
 
-  private _buildQueryRequest(): Observable<KalturaMetadataProfileListResponse> {
+  private _buildQueryRequest(): Observable<KontorolMetadataProfileListResponse> {
     try {
       // default readonly filter
-      const filter = new KalturaMetadataProfileFilter({
-        orderBy: KalturaMetadataOrderBy.createdAtDesc.toString(),
-        createModeNotEqual: KalturaMetadataProfileCreateMode.app,
-        metadataObjectTypeIn: [KalturaMetadataObjectType.entry, KalturaMetadataObjectType.category, KalturaMetadataObjectType.userEntry].join(',')
+      const filter = new KontorolMetadataProfileFilter({
+        orderBy: KontorolMetadataOrderBy.createdAtDesc.toString(),
+        createModeNotEqual: KontorolMetadataProfileCreateMode.app,
+        metadataObjectTypeIn: [KontorolMetadataObjectType.entry, KontorolMetadataObjectType.category, KontorolMetadataObjectType.userEntry].join(',')
       });
-      let pager: KalturaFilterPager = null;
+      let pager: KontorolFilterPager = null;
 
       const data: SchemasFilters = this._getFiltersAsReadonly();
 
       // update pagination args
       if (data.pageIndex || data.pageSize) {
-        pager = new KalturaFilterPager(
+        pager = new KontorolFilterPager(
           {
             pageSize: data.pageSize,
             pageIndex: data.pageIndex + 1
@@ -173,7 +173,7 @@ export class SchemasStore extends FiltersStoreBase<SchemasFilters> implements On
       }
 
       // build the request
-      return <any>this._kalturaServerClient.request(
+      return <any>this._kontorolServerClient.request(
         new MetadataProfileListAction({ filter, pager })
       );
     } catch (err) {
@@ -181,8 +181,8 @@ export class SchemasStore extends FiltersStoreBase<SchemasFilters> implements On
     }
   }
 
-  private _getUpdateSchemaAction(schema: SettingsMetadataProfile): KalturaRequest<KalturaMetadataProfile> {
-    const updatedProfile = new KalturaMetadataProfile({
+  private _getUpdateSchemaAction(schema: SettingsMetadataProfile): KontorolRequest<KontorolMetadataProfile> {
+    const updatedProfile = new KontorolMetadataProfile({
       name: schema.name,
       systemName: schema.systemName,
       description: schema.description,
@@ -198,9 +198,9 @@ export class SchemasStore extends FiltersStoreBase<SchemasFilters> implements On
     });
   }
 
-  private _getCreateSchemaAction(schema: SettingsMetadataProfile): KalturaRequest<KalturaMetadataProfile> {
-    const newProfile = new KalturaMetadataProfile({
-      createMode: KalturaMetadataProfileCreateMode.kmc,
+  private _getCreateSchemaAction(schema: SettingsMetadataProfile): KontorolRequest<KontorolMetadataProfile> {
+    const newProfile = new KontorolMetadataProfile({
+      createMode: KontorolMetadataProfileCreateMode.kmc,
       name: schema.name,
       systemName: schema.systemName,
       description: schema.description,
@@ -254,10 +254,10 @@ export class SchemasStore extends FiltersStoreBase<SchemasFilters> implements On
   }
 
   public deleteProfiles(profiles: SettingsMetadataProfile[]): Observable<void> {
-    const request = new KalturaMultiRequest(
+    const request = new KontorolMultiRequest(
       ...profiles.map(profile => new MetadataProfileDeleteAction({ id: profile.id }))
     );
-    return this._kalturaServerClient.multiRequest(request)
+    return this._kontorolServerClient.multiRequest(request)
       .map(() => {
       });
   }
@@ -265,7 +265,7 @@ export class SchemasStore extends FiltersStoreBase<SchemasFilters> implements On
   public saveSchema(schema: SettingsMetadataProfile): Observable<void> {
     const action = schema.isNew ? this._getCreateSchemaAction(schema) : this._getUpdateSchemaAction(schema);
 
-    return this._kalturaServerClient.request(action)
+    return this._kontorolServerClient.request(action)
       .map(() => {
       });
   }

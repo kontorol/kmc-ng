@@ -1,22 +1,22 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {AbstractControl, FormBuilder, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
-import {PopupWidgetComponent} from '@kaltura-ng/kaltura-ui';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import {KalturaPartnerAuthenticationType, KalturaUser} from 'kaltura-ngx-client';
-import {UserUpdateLoginDataActionArgs} from 'kaltura-ngx-client';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import {KontorolPartnerAuthenticationType, KontorolUser} from 'kontorol-ngx-client';
+import {UserUpdateLoginDataActionArgs} from 'kontorol-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import {AppAuthentication} from "app-shared/kmc-shell";
 
 @Component({
   selector: 'kChangePassword',
   templateUrl: './change-password.component.html',
   styleUrls: ['./change-password.component.scss'],
-  providers: [KalturaLogger.createLogger('ChangePasswordComponent')]
+  providers: [KontorolLogger.createLogger('ChangePasswordComponent')]
 })
 export class ChangePasswordComponent implements OnInit, OnDestroy {
   @Input() parentPopupWidget: PopupWidgetComponent;
-  @Input() user: KalturaUser;
+  @Input() user: KontorolUser;
   @Input() blockerMessage: AreaBlockerMessage;
 
   @Output() updateLoginData = new EventEmitter<UserUpdateLoginDataActionArgs>();
@@ -34,11 +34,11 @@ export class ChangePasswordComponent implements OnInit, OnDestroy {
   public _showAuthenticator = false;
   constructor(private _fb: FormBuilder,
               private _appAuthentication: AppAuthentication,
-              private _logger: KalturaLogger) {
+              private _logger: KontorolLogger) {
   }
 
   ngOnInit() {
-    this._showAuthenticator = this._appAuthentication.appUser.partnerInfo.authenticationType === KalturaPartnerAuthenticationType.twoFactorAuth;
+    this._showAuthenticator = this._appAuthentication.appUser.partnerInfo.authenticationType === KontorolPartnerAuthenticationType.twoFactorAuth;
       this._createForm();
   }
 

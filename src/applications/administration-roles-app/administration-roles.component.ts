@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { RolesStoreService } from './roles-store/roles-store.service';
-import { KalturaLogger, KalturaLoggerName } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger, KontorolLoggerName } from '@kontorol-ng/kontorol-logger';
 
 @Component({
   selector: 'kRoles',
@@ -8,7 +8,7 @@ import { KalturaLogger, KalturaLoggerName } from '@kaltura-ng/kaltura-logger';
   styleUrls: ['./administration-roles.component.scss'],
   providers: [
     RolesStoreService,
-    KalturaLogger.createLogger('AdministrationRoles')
+    KontorolLogger.createLogger('AdministrationRoles')
   ]
 })
 

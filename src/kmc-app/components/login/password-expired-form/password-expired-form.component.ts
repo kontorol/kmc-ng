@@ -49,8 +49,8 @@ export class PasswordExpiredFormComponent {
               private _browserService: BrowserService) {
       this._buildForm();
 
-      if (serverConfig.externalLinks.kaltura && serverConfig.externalLinks.kaltura.support) {
-          this._supportAddress = serverConfig.externalLinks.kaltura.support;
+      if (serverConfig.externalLinks.kontorol && serverConfig.externalLinks.kontorol.support) {
+          this._supportAddress = serverConfig.externalLinks.kontorol.support;
       }
   }
 

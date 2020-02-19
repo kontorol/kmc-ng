@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { KalturaEntryStatus, KalturaExternalMediaEntry, KalturaMediaEntry, KalturaMediaType, KalturaSourceType } from 'kaltura-ngx-client';
+import { KontorolEntryStatus, KontorolExternalMediaEntry, KontorolMediaEntry, KontorolMediaType, KontorolSourceType } from 'kontorol-ngx-client';
 import { ActionTypes, EntryStore, NotificationTypes } from './entry-store.service';
 import { EntrySectionsListWidget } from './entry-sections-list/entry-sections-list-widget.service';
 import { EntryMetadataWidget } from './entry-metadata/entry-metadata-widget.service';
@@ -16,22 +16,22 @@ import { EntryThumbnailsWidget } from './entry-thumbnails/entry-thumbnails-widge
 import { EntrySchedulingWidget } from './entry-scheduling/entry-scheduling-widget.service';
 import { EntryUsersWidget } from './entry-users/entry-users-widget.service';
 import { EntryWidgetsManager } from './entry-widgets-manager';
-import { AreaBlockerMessage, AreaBlockerMessageButton, PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AreaBlockerMessage, AreaBlockerMessageButton, PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { Observable } from 'rxjs';
 import { EntriesStore } from 'app-shared/content-shared/entries/entries-store/entries-store.service';
 import { EntryDistributionWidget } from './entry-distribution/entry-distribution-widget.service';
 import { EntryAdvertisementsWidget } from './entry-advertisements/entry-advertisements-widget.service';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { ContentEntryViewSections, ContentEntryViewService } from 'app-shared/kmc-shared/kmc-views/details-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { ClipAndTrimAppViewService, LiveDashboardAppViewService } from 'app-shared/kmc-shared/kmc-views/component-views';
 import { CustomMenuItem } from 'app-shared/content-shared/entries/entries-list/entries-list.component';
 import { PreviewAndEmbedEvent } from 'app-shared/kmc-shared/events';
 import { AppEventsService } from 'app-shared/kmc-shared';
 import { ContentEntriesAppService } from '../content-entries-app.service';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { AnalyticsNewMainViewService } from 'app-shared/kmc-shared/kmc-views';
 
 @Component({
@@ -56,7 +56,7 @@ import { AnalyticsNewMainViewService } from 'app-shared/kmc-shared/kmc-views';
 		EntryPreviewWidget,
 		EntryDistributionWidget,
 		EntryAdvertisementsWidget,
-        KalturaLogger.createLogger('EntryComponent')
+        KontorolLogger.createLogger('EntryComponent')
 	]
 })
 export class EntryComponent implements OnInit, OnDestroy {
@@ -64,9 +64,9 @@ export class EntryComponent implements OnInit, OnDestroy {
     @ViewChild('clipAndTrim', { static: true }) _clipAndTrim: PopupWidgetComponent;
     @ViewChild('bulkActionsPopup', { static: true }) _bulkActionsPopup: PopupWidgetComponent;
 	public _entryName: string;
-	public _entryType: KalturaMediaType;
-	public _sourceType: KalturaSourceType;
-    public _entry: KalturaMediaEntry;
+	public _entryType: KontorolMediaType;
+	public _sourceType: KontorolSourceType;
+    public _entry: KontorolMediaEntry;
 	public _showLoader = false;
 	public _areaBlockerMessage: AreaBlockerMessage;
 	public _currentEntryId: string;
@@ -144,7 +144,7 @@ export class EntryComponent implements OnInit, OnDestroy {
                 private _browserService: BrowserService,
                 private _appEvents: AppEventsService,
                 private _entryRoute: ActivatedRoute,
-                private _logger: KalturaLogger,
+                private _logger: KontorolLogger,
                 private _analyticsNewMainViewService: AnalyticsNewMainViewService,
                 private _router: Router) {
 		entryWidgetsManager.registerWidgets([
@@ -157,16 +157,16 @@ export class EntryComponent implements OnInit, OnDestroy {
 	ngOnDestroy() {
 	}
 
-    private _hideMenuItems(entry: KalturaMediaEntry,
+    private _hideMenuItems(entry: KontorolMediaEntry,
                            { commandName }: { commandName: string }): boolean {
         const { sourceType, status, mediaType } = entry;
-        const isReadyStatus = status === KalturaEntryStatus.ready;
+        const isReadyStatus = status === KontorolEntryStatus.ready;
         const isPreviewCommand = commandName === 'preview';
-        const isKalturaLiveStream = (sourceType === KalturaSourceType.liveStream || sourceType === KalturaSourceType.manualLiveStream);
+        const isKontorolLiveStream = (sourceType === KontorolSourceType.liveStream || sourceType === KontorolSourceType.manualLiveStream);
         const cannotDeleteEntry = commandName === 'delete' && !this._permissionsService.hasPermission(KMCPermissions.CONTENT_MANAGE_DELETE);
         const isDownloadCommand = commandName === 'download';
-        const isExternalMedia = entry instanceof KalturaExternalMediaEntry;
-        const isNotVideoAudioImage = [KalturaMediaType.video, KalturaMediaType.audio, KalturaMediaType.image].indexOf(mediaType) === -1;
+        const isExternalMedia = entry instanceof KontorolExternalMediaEntry;
+        const isNotVideoAudioImage = [KontorolMediaType.video, KontorolMediaType.audio, KontorolMediaType.image].indexOf(mediaType) === -1;
         return !(
             (!isReadyStatus && isPreviewCommand) || // hide if trying to share & embed entry that isn't ready
             (isDownloadCommand && (isNotVideoAudioImage || isExternalMedia)) ||
@@ -174,13 +174,13 @@ export class EntryComponent implements OnInit, OnDestroy {
         );
     }
 
-    private _buildMenu(entry: KalturaMediaEntry): void {
+    private _buildMenu(entry: KontorolMediaEntry): void {
         this._menuItems = this._items
             .filter(item => this._hideMenuItems(entry, item))
             .map(item => {
                 switch (item.commandName) {
                     case 'preview':
-                        item.disabled = entry.status === KalturaEntryStatus.noContent;
+                        item.disabled = entry.status === KontorolEntryStatus.noContent;
                         item.command = () => this._appEvents.publish(new PreviewAndEmbedEvent(entry));
                         break;
                     case 'editor':
@@ -199,7 +199,7 @@ export class EntryComponent implements OnInit, OnDestroy {
                         break;
                     case 'download':
                         item.command = () => this._downloadEntry(entry);
-                        item.disabled = entry.status !== KalturaEntryStatus.ready || !this._permissionsService.hasPermission(KMCPermissions.CONTENT_MANAGE_DOWNLOAD);
+                        item.disabled = entry.status !== KontorolEntryStatus.ready || !this._permissionsService.hasPermission(KMCPermissions.CONTENT_MANAGE_DOWNLOAD);
                         break;
                     default:
                         break;
@@ -208,8 +208,8 @@ export class EntryComponent implements OnInit, OnDestroy {
             });
     }
 
-    private _downloadEntry(entry: KalturaMediaEntry): void {
-	    if (entry.mediaType === KalturaMediaType.video) {
+    private _downloadEntry(entry: KontorolMediaEntry): void {
+	    if (entry.mediaType === KontorolMediaType.video) {
             this._bulkActionsPopup.open();
         } else {
             this._browserService.openLink(entry.downloadUrl);
@@ -444,7 +444,7 @@ export class EntryComponent implements OnInit, OnDestroy {
 
     public _openEntryAnalytics(): void {
         if (this._analyticsAllowed) {
-            const route = (this._sourceType === KalturaSourceType.liveStream || this._sourceType === KalturaSourceType.manualLiveStream || this._sourceType === KalturaSourceType.akamaiLive || this._sourceType === KalturaSourceType.akamaiUniversalLive) ? 'analytics/entry-live' : 'analytics/entry';
+            const route = (this._sourceType === KontorolSourceType.liveStream || this._sourceType === KontorolSourceType.manualLiveStream || this._sourceType === KontorolSourceType.akamaiLive || this._sourceType === KontorolSourceType.akamaiUniversalLive) ? 'analytics/entry-live' : 'analytics/entry';
             this._router.navigate([route], { queryParams: { id: this._currentEntryId } });
         }
     }

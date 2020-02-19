@@ -1,13 +1,13 @@
-import { AreaBlockerMessage, AreaBlockerMessageButton, WidgetBase } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerMessage, AreaBlockerMessageButton, WidgetBase } from '@kontorol-ng/kontorol-ui';
 import { ReachProfileWidgetsManager } from './reach-profile-widgets-manager';
-import {KalturaMultiRequest, KalturaReachProfile} from 'kaltura-ngx-client';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import {KontorolMultiRequest, KontorolReachProfile} from 'kontorol-ngx-client';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 
-export abstract class ReachProfileWidget extends WidgetBase<ReachProfileWidgetsManager, KalturaReachProfile, KalturaMultiRequest> {
+export abstract class ReachProfileWidget extends WidgetBase<ReachProfileWidgetsManager, KontorolReachProfile, KontorolMultiRequest> {
   public sectionBlockerMessage: AreaBlockerMessage;
   public showSectionLoader: boolean;
 
-  constructor(private _widgetKey: string, logger: KalturaLogger) {
+  constructor(private _widgetKey: string, logger: KontorolLogger) {
     super(_widgetKey, logger);
   }
 

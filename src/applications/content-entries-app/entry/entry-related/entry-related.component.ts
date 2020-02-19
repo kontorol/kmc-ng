@@ -1,11 +1,11 @@
 import {AfterViewInit, Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {ISubscription} from 'rxjs/Subscription';
 import {EntryRelatedWidget} from './entry-related-widget.service';
-import {KalturaAttachmentType} from 'kaltura-ngx-client';
-import {KalturaAttachmentAsset} from 'kaltura-ngx-client';
-import {KalturaEntryStatus} from 'kaltura-ngx-client';
-import {PopupWidgetComponent, PopupWidgetStates} from '@kaltura-ng/kaltura-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import {KontorolAttachmentType} from 'kontorol-ngx-client';
+import {KontorolAttachmentAsset} from 'kontorol-ngx-client';
+import {KontorolEntryStatus} from 'kontorol-ngx-client';
+import {PopupWidgetComponent, PopupWidgetStates} from '@kontorol-ng/kontorol-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
 import { Menu } from 'primeng/menu';
 import { MenuItem, SelectItem } from 'primeng/api';
@@ -24,13 +24,13 @@ export class EntryRelated implements OnInit, AfterViewInit, OnDestroy{
 
 	@ViewChild('actionsmenu', { static: true }) private actionsMenu: Menu;
 	@ViewChild('editPopup', { static: true }) public editPopup: PopupWidgetComponent;
-	public _currentFile: KalturaAttachmentAsset;
+	public _currentFile: KontorolAttachmentAsset;
 
 	public _fileTypes: SelectItem[] = [
-		{"label": this._appLocalization.get('applications.content.entryDetails.related.document'), "value": KalturaAttachmentType.document},
-		{"label": this._appLocalization.get('applications.content.entryDetails.related.media'), "value": KalturaAttachmentType.media},
-		{"label": this._appLocalization.get('applications.content.entryDetails.related.text'), "value": KalturaAttachmentType.text},
-		{"label": this._appLocalization.get('applications.content.entryDetails.related.json'), "value": KalturaAttachmentType.json},
+		{"label": this._appLocalization.get('applications.content.entryDetails.related.document'), "value": KontorolAttachmentType.document},
+		{"label": this._appLocalization.get('applications.content.entryDetails.related.media'), "value": KontorolAttachmentType.media},
+		{"label": this._appLocalization.get('applications.content.entryDetails.related.text'), "value": KontorolAttachmentType.text},
+		{"label": this._appLocalization.get('applications.content.entryDetails.related.json'), "value": KontorolAttachmentType.json},
 	];
 
 	public _actions: MenuItem[] = [];
@@ -73,12 +73,12 @@ export class EntryRelated implements OnInit, AfterViewInit, OnDestroy{
 		}
 	}
 
-	openActionsMenu(event: any, file: KalturaAttachmentAsset): void{
+	openActionsMenu(event: any, file: KontorolAttachmentAsset): void{
 		if (this.actionsMenu){
 			// save the selected file for usage in the actions menu
 			this._currentFile = file;
 			//disable Edit action for files that are not in "ready" state
-			if (file.status && file.status.toString() !== KalturaEntryStatus.ready.toString()){
+			if (file.status && file.status.toString() !== KontorolEntryStatus.ready.toString()){
 				this._actions[0].disabled = true;
 			}
 			// disable edit, download for added files that were not saved to the server yet (don't have status)

@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BrowserService } from 'shared/kmc-shell/providers/browser.service';
-import { KalturaCategory, KalturaEntryStatus, KalturaExternalMediaEntry, KalturaMediaEntry, KalturaMediaType } from 'kaltura-ngx-client';
+import { KontorolCategory, KontorolEntryStatus, KontorolExternalMediaEntry, KontorolMediaEntry, KontorolMediaType } from 'kontorol-ngx-client';
 import { serverConfig } from 'config/server';
 import { KMCPermissions, KMCPermissionsService } from 'shared/kmc-shared/kmc-permissions/index';
 import { DetailsViewMetadata, KmcDetailsViewBaseService } from 'app-shared/kmc-shared/kmc-views/kmc-details-view-base.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { ContextualHelpService } from 'app-shared/kmc-shared/contextual-help/contextual-help.service';
 import { Title } from '@angular/platform-browser';
 import { AppEventsService } from 'app-shared/kmc-shared/app-events';
@@ -21,9 +21,9 @@ export enum ReachPages {
 }
 
 export interface ReachAppViewArgs {
-    entry?: KalturaMediaEntry;
-    entries?: KalturaMediaEntry[];
-    category?: KalturaCategory;
+    entry?: KontorolMediaEntry;
+    entries?: KontorolMediaEntry[];
+    category?: KontorolCategory;
     page: ReachPages;
 }
 
@@ -35,7 +35,7 @@ export class ReachAppViewService extends KmcDetailsViewBaseService<ReachAppViewA
                 private _router: Router,
                 private _appEvents: AppEventsService,
                 _browserService: BrowserService,
-                _logger: KalturaLogger,
+                _logger: KontorolLogger,
                 _titleService: Title,
                 _contextualHelpService: ContextualHelpService) {
         super(_logger.subLogger('ReachAppViewService'), _browserService,
@@ -60,16 +60,16 @@ export class ReachAppViewService extends KmcDetailsViewBaseService<ReachAppViewA
             case ReachPages.dashboard:
                 return true; // since we build bulk actions menu before entries are selected, always allow by data
             case ReachPages.category:
-                return args.category instanceof KalturaCategory;
+                return args.category instanceof KontorolCategory;
             default:
                 return false;
         }
     }
 
-    public isRelevantEntry(entry: KalturaMediaEntry): boolean {
+    public isRelevantEntry(entry: KontorolMediaEntry): boolean {
         if (entry) {
-            const isVideoAudio = entry.mediaType === KalturaMediaType.video || entry.mediaType === KalturaMediaType.audio;
-            const isReady = entry.status === KalturaEntryStatus.ready;
+            const isVideoAudio = entry.mediaType === KontorolMediaType.video || entry.mediaType === KontorolMediaType.audio;
+            const isReady = entry.status === KontorolEntryStatus.ready;
             return isReady && isVideoAudio;
         }
         return false;

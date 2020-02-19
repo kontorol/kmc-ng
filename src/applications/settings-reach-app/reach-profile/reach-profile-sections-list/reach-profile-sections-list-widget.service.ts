@@ -1,16 +1,16 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { SectionsList } from './sections-list';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import {ReachProfileWidget} from "../reach-profile-widget";
 import {
     SettingsReachProfileViewSections,
     SettingsReachProfileViewService
 } from "app-shared/kmc-shared/kmc-views/details-views/settings-reach-profile-view.service";
-import {KalturaReachProfile} from "kaltura-ngx-client";
+import {KontorolReachProfile} from "kontorol-ngx-client";
 
 export interface SectionWidgetItem {
   label: string;
@@ -26,7 +26,7 @@ export class ReachProfileSectionsListWidget extends ReachProfileWidget implement
 
   constructor(private _appLocalization: AppLocalization,
               private _settingsReachProfileViewService: SettingsReachProfileViewService,
-              logger: KalturaLogger) {
+              logger: KontorolLogger) {
     super('reachSectionsList', logger);
   }
 
@@ -63,7 +63,7 @@ export class ReachProfileSectionsListWidget extends ReachProfileWidget implement
     }
   }
 
-  protected onDataLoaded(data: KalturaReachProfile): void {
+  protected onDataLoaded(data: KontorolReachProfile): void {
     this._reloadSections(data);
   }
 
@@ -79,7 +79,7 @@ export class ReachProfileSectionsListWidget extends ReachProfileWidget implement
 
   }
 
-  private _reloadSections(profile: KalturaReachProfile): void {
+  private _reloadSections(profile: KontorolReachProfile): void {
     const sections = [];
     const formWidgetsState = this.form.widgetsState;
 

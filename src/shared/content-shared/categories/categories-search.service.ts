@@ -2,22 +2,22 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/multicast';
 import 'rxjs/add/operator/publishReplay';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import { KalturaClient } from 'kaltura-ngx-client';
-import { CategoryListAction } from 'kaltura-ngx-client';
-import { KalturaCategoryFilter } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
-import { KalturaCategory } from 'kaltura-ngx-client';
-import { KalturaDetachedResponseProfile } from 'kaltura-ngx-client';
-import { KalturaResponseProfileType } from 'kaltura-ngx-client';
-import { KalturaCategoryListResponse } from 'kaltura-ngx-client';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { CategoryListAction } from 'kontorol-ngx-client';
+import { KontorolCategoryFilter } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
+import { KontorolCategory } from 'kontorol-ngx-client';
+import { KontorolDetachedResponseProfile } from 'kontorol-ngx-client';
+import { KontorolResponseProfileType } from 'kontorol-ngx-client';
+import { KontorolCategoryListResponse } from 'kontorol-ngx-client';
 import { AppEventsService } from 'app-shared/kmc-shared';
 import { CategoriesGraphUpdatedEvent } from "app-shared/kmc-shared/app-events/categories-graph-updated/categories-graph-updated";
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { CategoryGetAction } from 'kaltura-ngx-client';
-import { KalturaAppearInListType } from 'kaltura-ngx-client';
-import { KalturaPrivacyType } from 'kaltura-ngx-client';
-import { KalturaContributionPolicyType } from 'kaltura-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { CategoryGetAction } from 'kontorol-ngx-client';
+import { KontorolAppearInListType } from 'kontorol-ngx-client';
+import { KontorolPrivacyType } from 'kontorol-ngx-client';
+import { KontorolContributionPolicyType } from 'kontorol-ngx-client';
 
 export interface CategoryData {
     parentId?: number,
@@ -29,9 +29,9 @@ export interface CategoryData {
     fullName: string,
     childrenCount: number,
     membersCount: number,
-    appearInList: KalturaAppearInListType,
-    contributionPolicy: KalturaContributionPolicyType,
-    privacy: KalturaPrivacyType;
+    appearInList: KontorolAppearInListType,
+    contributionPolicy: KontorolContributionPolicyType,
+    privacy: KontorolPrivacyType;
     privacyContexts: string;
     privacyContext: string;
 }
@@ -45,9 +45,9 @@ export interface CategoriesQuery {
 export class CategoriesSearchService implements OnDestroy {
   private _groupedCategoriesCache: { [key: string]: Observable<{ items: CategoryData[] }> } = {};
   private _categoriesMap: Map<number, CategoryData> = new Map<number, CategoryData>();
-  private _logger: KalturaLogger;
+  private _logger: KontorolLogger;
 
-  constructor(private kalturaServerClient: KalturaClient, logger: KalturaLogger, private _appEvents: AppEventsService) {
+  constructor(private kontorolServerClient: KontorolClient, logger: KontorolLogger, private _appEvents: AppEventsService) {
       this._logger = logger.subLogger('CategoriesSearchService');
 
       this._appEvents.event(CategoriesGraphUpdatedEvent)
@@ -82,7 +82,7 @@ export class CategoriesSearchService implements OnDestroy {
 
       const responseProfile = this._createResponseProfile();
 
-      return <any>this.kalturaServerClient.request(
+      return <any>this.kontorolServerClient.request(
           new CategoryGetAction({id: categoryId}).setRequestOptions({
               responseProfile
           })
@@ -119,17 +119,17 @@ export class CategoriesSearchService implements OnDestroy {
       // changing it prioritize cache will require refactoring places that are using this method.
     if (text) {
       return Observable.create(observer => {
-        const filter = new KalturaCategoryFilter({
+        const filter = new KontorolCategoryFilter({
           nameOrReferenceIdStartsWith: text,
           orderBy: '+fullName'
         });
 
-        const pager = new KalturaFilterPager({
+        const pager = new KontorolFilterPager({
           pageIndex: 0,
           pageSize: 30
         });
 
-        const requestSubscription = this.kalturaServerClient.request(
+        const requestSubscription = this.kontorolServerClient.request(
           new CategoryListAction({ filter })
         ).subscribe(result => {
             const items = this.parseAndCacheCategories(result.objects);
@@ -175,11 +175,11 @@ export class CategoriesSearchService implements OnDestroy {
     return cachedResponse;
   }
 
-  private parseAndCacheCategories(kalturaCategories: KalturaCategory[]): CategoryData[] {
+  private parseAndCacheCategories(kontorolCategories: KontorolCategory[]): CategoryData[] {
     const result = [];
 
-    if (kalturaCategories) {
-        kalturaCategories.map((category) => {
+    if (kontorolCategories) {
+        kontorolCategories.map((category) => {
         const fullIdPath = (category.fullIds ? category.fullIds.split('>') : []).map((item: any) => Number(item));
         const newCategoryData = {
             id: category.id,
@@ -207,8 +207,8 @@ export class CategoriesSearchService implements OnDestroy {
     return result;
   }
 
-  private buildCategoryListRequest({ parentId, categoriesList }: { parentId?: number, categoriesList?: number[] }): Observable<KalturaCategoryListResponse> {
-    const filter = new KalturaCategoryFilter({});
+  private buildCategoryListRequest({ parentId, categoriesList }: { parentId?: number, categoriesList?: number[] }): Observable<KontorolCategoryListResponse> {
+    const filter = new KontorolCategoryFilter({});
     filter.orderBy = '+name';
     if (parentId !== null && typeof parentId !== 'undefined') {
       filter.parentIdEqual = parentId;
@@ -220,17 +220,17 @@ export class CategoriesSearchService implements OnDestroy {
 
     const responseProfile = this._createResponseProfile();
 
-    return <any>this.kalturaServerClient.request(
+    return <any>this.kontorolServerClient.request(
       new CategoryListAction({ filter }).setRequestOptions({
           responseProfile
       })
     )
   }
 
-  private _createResponseProfile(): KalturaDetachedResponseProfile {
-      return new KalturaDetachedResponseProfile({
+  private _createResponseProfile(): KontorolDetachedResponseProfile {
+      return new KontorolDetachedResponseProfile({
           fields: 'id,name,parentId,partnerSortValue,fullName,fullIds,directSubCategoriesCount,contributionPolicy,privacyContext,privacyContexts,appearInList,privacy,membersCount',
-          type: KalturaResponseProfileType.includeFields
+          type: KontorolResponseProfileType.includeFields
       });
   }
 }

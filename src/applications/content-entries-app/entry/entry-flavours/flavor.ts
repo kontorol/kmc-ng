@@ -1,6 +1,6 @@
-import { KalturaFlavorAssetWithParams } from 'kaltura-ngx-client';
+import { KontorolFlavorAssetWithParams } from 'kontorol-ngx-client';
 
-export interface Flavor extends KalturaFlavorAssetWithParams{
+export interface Flavor extends KontorolFlavorAssetWithParams{
     name: string,
     id: string,
     paramsId: number,

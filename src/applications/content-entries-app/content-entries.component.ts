@@ -3,7 +3,7 @@ import {
     EntriesManualExecutionModeToken, EntriesStore,
     EntriesStorePaginationCacheToken
 } from 'app-shared/content-shared/entries/entries-store/entries-store.service';
-import { KalturaLogger, KalturaLoggerName } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger, KontorolLoggerName } from '@kontorol-ng/kontorol-logger';
 
 @Component({
   selector: 'kEntries',
@@ -12,7 +12,7 @@ import { KalturaLogger, KalturaLoggerName } from '@kaltura-ng/kaltura-logger';
   providers: [
     EntriesStore,
       { provide: EntriesManualExecutionModeToken, useValue: true},
-    KalturaLogger.createLogger('ContentEntriesComponent'),
+    KontorolLogger.createLogger('ContentEntriesComponent'),
     { provide: EntriesStorePaginationCacheToken, useValue: 'entries-list' }
   ]
 })

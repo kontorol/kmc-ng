@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaUserStatus } from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolUserStatus } from 'kontorol-ngx-client';
 
 @Pipe({ name: 'status' })
 export class StatusPipe implements PipeTransform {
@@ -12,13 +12,13 @@ export class StatusPipe implements PipeTransform {
 
     if (typeof value !== 'undefined' && value !== null) {
       switch (value.toString()) {
-        case KalturaUserStatus.active.toString():
+        case KontorolUserStatus.active.toString():
           userStatus = this.appLocalization.get('applications.content.userStatus.active');
           break;
-        case KalturaUserStatus.blocked.toString():
+        case KontorolUserStatus.blocked.toString():
           userStatus = this.appLocalization.get('applications.content.userStatus.blocked');
           break;
-        case KalturaUserStatus.deleted.toString():
+        case KontorolUserStatus.deleted.toString():
           userStatus = this.appLocalization.get('applications.content.userStatus.deleted');
           break;
       }

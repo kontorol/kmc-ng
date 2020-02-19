@@ -1,32 +1,32 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { KalturaBaseEntry } from 'kaltura-ngx-client';
+import { KontorolBaseEntry } from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
-import { KalturaDetachedResponseProfile } from 'kaltura-ngx-client';
-import { KalturaMetadataSearchItem } from 'kaltura-ngx-client';
-import { KalturaNullableBoolean } from 'kaltura-ngx-client';
-import { KalturaSearchOperatorType } from 'kaltura-ngx-client';
-import { KalturaSearchOperator } from 'kaltura-ngx-client';
-import { KalturaSearchCondition } from 'kaltura-ngx-client';
-import { KalturaContentDistributionSearchItem } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
-import { KalturaResponseProfileType } from 'kaltura-ngx-client';
-import { KalturaMediaEntryFilter } from 'kaltura-ngx-client';
-import { KalturaUtils } from '@kaltura-ng/kaltura-common';
-import { KalturaClient } from 'kaltura-ngx-client';
+import { KontorolDetachedResponseProfile } from 'kontorol-ngx-client';
+import { KontorolMetadataSearchItem } from 'kontorol-ngx-client';
+import { KontorolNullableBoolean } from 'kontorol-ngx-client';
+import { KontorolSearchOperatorType } from 'kontorol-ngx-client';
+import { KontorolSearchOperator } from 'kontorol-ngx-client';
+import { KontorolSearchCondition } from 'kontorol-ngx-client';
+import { KontorolContentDistributionSearchItem } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
+import { KontorolResponseProfileType } from 'kontorol-ngx-client';
+import { KontorolMediaEntryFilter } from 'kontorol-ngx-client';
+import { KontorolUtils } from '@kontorol-ng/kontorol-common';
+import { KontorolClient } from 'kontorol-ngx-client';
 import {
   EntriesDataProvider, EntriesFilters, MetadataProfileData,
   SortDirection
 } from 'app-shared/content-shared/entries/entries-store/entries-store.service';
-import { PlaylistExecuteFromFiltersAction } from 'kaltura-ngx-client';
-import { KalturaMediaEntryFilterForPlaylist } from 'kaltura-ngx-client';
+import { PlaylistExecuteFromFiltersAction } from 'kontorol-ngx-client';
+import { KontorolMediaEntryFilterForPlaylist } from 'kontorol-ngx-client';
 import { CategoriesModes } from 'app-shared/content-shared/categories/categories-mode-type';
 import { subApplicationsConfig } from 'config/sub-applications';
 import { MetadataProfileCreateModes, MetadataProfileStore, MetadataProfileTypes } from 'app-shared/kmc-shared';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
 @Injectable()
 export class PlaylistEntriesDataProvider implements EntriesDataProvider, OnDestroy {
-  constructor(private _kalturaServerClient: KalturaClient,
+  constructor(private _kontorolServerClient: KontorolClient,
               private _appPermissions: KMCPermissionsService,
               private _metadataProfileService: MetadataProfileStore) {
   }
@@ -36,8 +36,8 @@ export class PlaylistEntriesDataProvider implements EntriesDataProvider, OnDestr
   }
 
   private _updateFilterWithJoinedList(list: any[],
-                                      requestFilter: KalturaMediaEntryFilter,
-                                      requestFilterProperty: keyof KalturaMediaEntryFilter): void {
+                                      requestFilter: KontorolMediaEntryFilter,
+                                      requestFilterProperty: keyof KontorolMediaEntryFilter): void {
     const value = (list || []).map(item => item).join(',');
 
     if (value) {
@@ -61,15 +61,15 @@ export class PlaylistEntriesDataProvider implements EntriesDataProvider, OnDestr
       });
   }
 
-  public getServerFilter(data: EntriesFilters, mediaTypesDefault = true): Observable<KalturaMediaEntryFilterForPlaylist> {
+  public getServerFilter(data: EntriesFilters, mediaTypesDefault = true): Observable<KontorolMediaEntryFilterForPlaylist> {
     try {
       return this._getMetadataProfiles()
         .map(metadataProfiles => {
           // create request items
-          const filter = new KalturaMediaEntryFilterForPlaylist({});
+          const filter = new KontorolMediaEntryFilterForPlaylist({});
 
-          const advancedSearch = filter.advancedSearch = new KalturaSearchOperator({});
-          advancedSearch.type = KalturaSearchOperatorType.searchAnd;
+          const advancedSearch = filter.advancedSearch = new KontorolSearchOperator({});
+          advancedSearch.type = KontorolSearchOperatorType.searchAnd;
 
           if (data.videoQuiz || data.videoCaptions) {
               // not supported by rulebased playlists, ignore it
@@ -83,11 +83,11 @@ export class PlaylistEntriesDataProvider implements EntriesDataProvider, OnDestr
           // filter 'createdAt'
           if (data.createdAt) {
             if (data.createdAt.fromDate) {
-              filter.createdAtGreaterThanOrEqual = KalturaUtils.getStartDateValue(data.createdAt.fromDate);
+              filter.createdAtGreaterThanOrEqual = KontorolUtils.getStartDateValue(data.createdAt.fromDate);
             }
 
             if (data.createdAt.toDate) {
-              filter.createdAtLessThanOrEqual = KalturaUtils.getEndDateValue(data.createdAt.toDate);
+              filter.createdAtLessThanOrEqual = KontorolUtils.getEndDateValue(data.createdAt.toDate);
             }
           }
 
@@ -99,8 +99,8 @@ export class PlaylistEntriesDataProvider implements EntriesDataProvider, OnDestr
 
           // filter 'distribution'
           if (data.distributions && data.distributions.length > 0) {
-            const distributionItem = new KalturaSearchOperator({
-              type: KalturaSearchOperatorType.searchOr
+            const distributionItem = new KontorolSearchOperator({
+              type: KontorolSearchOperatorType.searchOr
             });
 
             advancedSearch.items.push(distributionItem);
@@ -108,7 +108,7 @@ export class PlaylistEntriesDataProvider implements EntriesDataProvider, OnDestr
             data.distributions.forEach(item => {
               // very complex way to make sure the value is number (an also bypass both typescript and tslink checks)
               if (isFinite(+item) && parseInt(item) == <any>item) { // tslint:disable-line
-                const newItem = new KalturaContentDistributionSearchItem(
+                const newItem = new KontorolContentDistributionSearchItem(
                   {
                     distributionProfileId: +item,
                     hasEntryDistributionValidationErrors: false,
@@ -125,22 +125,22 @@ export class PlaylistEntriesDataProvider implements EntriesDataProvider, OnDestr
 
           // filter 'originalClippedEntries'
           if (data.originalClippedEntries && data.originalClippedEntries.length > 0) {
-            let originalClippedEntriesValue: KalturaNullableBoolean = null;
+            let originalClippedEntriesValue: KontorolNullableBoolean = null;
 
             data.originalClippedEntries.forEach(item => {
               switch (item) {
                 case '0':
                   if (originalClippedEntriesValue == null) {
-                    originalClippedEntriesValue = KalturaNullableBoolean.falseValue;
-                  } else if (originalClippedEntriesValue === KalturaNullableBoolean.trueValue) {
-                    originalClippedEntriesValue = KalturaNullableBoolean.nullValue;
+                    originalClippedEntriesValue = KontorolNullableBoolean.falseValue;
+                  } else if (originalClippedEntriesValue === KontorolNullableBoolean.trueValue) {
+                    originalClippedEntriesValue = KontorolNullableBoolean.nullValue;
                   }
                   break;
                 case '1':
                   if (originalClippedEntriesValue == null) {
-                    originalClippedEntriesValue = KalturaNullableBoolean.trueValue;
-                  } else if (originalClippedEntriesValue === KalturaNullableBoolean.falseValue) {
-                    originalClippedEntriesValue = KalturaNullableBoolean.nullValue;
+                    originalClippedEntriesValue = KontorolNullableBoolean.trueValue;
+                  } else if (originalClippedEntriesValue === KontorolNullableBoolean.falseValue) {
+                    originalClippedEntriesValue = KontorolNullableBoolean.nullValue;
                   }
                   break;
               }
@@ -157,9 +157,9 @@ export class PlaylistEntriesDataProvider implements EntriesDataProvider, OnDestr
             metadataProfiles.forEach(metadataProfile => {
               // create advanced item for all metadata profiles regardless if the user filtered by them or not.
               // this is needed so freetext will include all metadata profiles while searching.
-              const metadataItem: KalturaMetadataSearchItem = new KalturaMetadataSearchItem({
+              const metadataItem: KontorolMetadataSearchItem = new KontorolMetadataSearchItem({
                 metadataProfileId: metadataProfile.id,
-                type: KalturaSearchOperatorType.searchAnd,
+                type: KontorolSearchOperatorType.searchAnd,
                 items: []
               });
               advancedSearch.items.push(metadataItem);
@@ -167,15 +167,15 @@ export class PlaylistEntriesDataProvider implements EntriesDataProvider, OnDestr
               metadataProfile.lists.forEach(list => {
                 const metadataProfileFilters = data.customMetadata[list.id];
                 if (metadataProfileFilters && metadataProfileFilters.length > 0) {
-                  const innerMetadataItem: KalturaMetadataSearchItem = new KalturaMetadataSearchItem({
+                  const innerMetadataItem: KontorolMetadataSearchItem = new KontorolMetadataSearchItem({
                     metadataProfileId: metadataProfile.id,
-                    type: KalturaSearchOperatorType.searchOr,
+                    type: KontorolSearchOperatorType.searchOr,
                     items: []
                   });
                   metadataItem.items.push(innerMetadataItem);
 
                   metadataProfileFilters.forEach(filterItem => {
-                    const searchItem = new KalturaSearchCondition({
+                    const searchItem = new KontorolSearchCondition({
                       field: `/*[local-name()='metadata']/*[local-name()='${list.name}']`,
                       value: filterItem
                     });
@@ -235,17 +235,17 @@ export class PlaylistEntriesDataProvider implements EntriesDataProvider, OnDestr
   }
 
 
-  public executeQuery(data: EntriesFilters): Observable<{ entries: KalturaBaseEntry[], totalCount?: number }> {
-    let pagination: KalturaFilterPager = null;
+  public executeQuery(data: EntriesFilters): Observable<{ entries: KontorolBaseEntry[], totalCount?: number }> {
+    let pagination: KontorolFilterPager = null;
     // update desired fields of entries
-    const responseProfile = new KalturaDetachedResponseProfile({
-      type: KalturaResponseProfileType.includeFields,
+    const responseProfile = new KontorolDetachedResponseProfile({
+      type: KontorolResponseProfileType.includeFields,
       fields: 'id,name,thumbnailUrl,mediaType,plays,createdAt,duration,status,startDate,endDate,moderationStatus,tags,categoriesIds,downloadUrl,sourceType,externalSourceType,capabilities'
     });
 
     // update pagination args
     if (data.pageIndex || data.pageSize) {
-      pagination = new KalturaFilterPager(
+      pagination = new KontorolFilterPager(
         {
           pageSize: data.pageSize,
           pageIndex: data.pageIndex + 1
@@ -256,7 +256,7 @@ export class PlaylistEntriesDataProvider implements EntriesDataProvider, OnDestr
     // build the request
     return <any>
       this.getServerFilter(data)
-        .switchMap(filter => this._kalturaServerClient.request(
+        .switchMap(filter => this._kontorolServerClient.request(
           new PlaylistExecuteFromFiltersAction({
             filters: [filter],
             totalResults: subApplicationsConfig.contentPlaylistsApp.ruleBasedTotalResults,

@@ -1,19 +1,19 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { KalturaAPIException, KalturaClient, KalturaMultiRequest } from 'kaltura-ngx-client';
+import { KontorolAPIException, KontorolClient, KontorolMultiRequest } from 'kontorol-ngx-client';
 import { Observable } from 'rxjs';
 import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { async } from 'rxjs/scheduler/async';
 import { TranscodingProfileWidget } from '../transcoding-profile-widget';
-import { KalturaConversionProfileWithAsset } from '../../transcoding-profiles/transcoding-profiles-store/base-transcoding-profiles-store.service';
-import { KalturaConversionProfileType } from 'kaltura-ngx-client';
-import { KalturaStorageProfile } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolConversionProfileWithAsset } from '../../transcoding-profiles/transcoding-profiles-store/base-transcoding-profiles-store.service';
+import { KontorolConversionProfileType } from 'kontorol-ngx-client';
+import { KontorolStorageProfile } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { StorageProfilesStore } from 'app-shared/kmc-shared/storage-profiles';
-import { BaseEntryGetAction } from 'kaltura-ngx-client';
+import { BaseEntryGetAction } from 'kontorol-ngx-client';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { SettingsTranscodingProfileViewSections } from 'app-shared/kmc-shared/kmc-views/details-views';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Injectable()
 export class TranscodingProfileMetadataWidget extends TranscodingProfileWidget implements OnDestroy {
@@ -29,10 +29,10 @@ export class TranscodingProfileMetadataWidget extends TranscodingProfileWidget i
 
   constructor(private _formBuilder: FormBuilder,
               private _appLocalization: AppLocalization,
-              private _kalturaClient: KalturaClient,
+              private _kontorolClient: KontorolClient,
               private _permissionsService: KMCPermissionsService,
               private _storageProfilesStore: StorageProfilesStore,
-              logger: KalturaLogger) {
+              logger: KontorolLogger) {
     super(SettingsTranscodingProfileViewSections.Metadata, logger);
     this._buildForm();
   }
@@ -41,9 +41,9 @@ export class TranscodingProfileMetadataWidget extends TranscodingProfileWidget i
 
   }
 
-  private _loadRemoteStorageProfiles(): Observable<KalturaStorageProfile[]> {
+  private _loadRemoteStorageProfiles(): Observable<KontorolStorageProfile[]> {
     const createEmptyRemoteStorageProfile = () => {
-      const emptyProfile = new KalturaStorageProfile({ name: this._appLocalization.get('applications.settings.transcoding.na') });
+      const emptyProfile = new KontorolStorageProfile({ name: this._appLocalization.get('applications.settings.transcoding.na') });
       (<any>emptyProfile).id = null;
       return emptyProfile;
     };
@@ -90,11 +90,11 @@ export class TranscodingProfileMetadataWidget extends TranscodingProfileWidget i
     this.entryValidationGeneralError = false;
 
     if (entryId) { // if user entered entryId check if it exists
-      return this._kalturaClient.request(new BaseEntryGetAction({ entryId }))
+      return this._kontorolClient.request(new BaseEntryGetAction({ entryId }))
         .map(() => ({ isValid: hasValue }))
         .catch(
           error => {
-            if (error instanceof KalturaAPIException && error.code === 'ENTRY_ID_NOT_FOUND') {
+            if (error instanceof KontorolAPIException && error.code === 'ENTRY_ID_NOT_FOUND') {
               this.entryNotFoundErrorParams = entryId;
               return Observable.of({ isValid: false });
             } else {
@@ -110,7 +110,7 @@ export class TranscodingProfileMetadataWidget extends TranscodingProfileWidget i
     });
   }
 
-  protected onDataSaving(newData: KalturaConversionProfileWithAsset, request: KalturaMultiRequest): void {
+  protected onDataSaving(newData: KontorolConversionProfileWithAsset, request: KontorolMultiRequest): void {
     const formData = this.wasActivated ? this.metadataForm.value : this.data;
     newData.name = formData.name;
     newData.description = formData.description || '';
@@ -150,7 +150,7 @@ export class TranscodingProfileMetadataWidget extends TranscodingProfileWidget i
     super._showLoader();
 
     const hasStorageProfilesPermission = this._permissionsService.hasPermission(KMCPermissions.FEATURE_REMOTE_STORAGE_INGEST);
-    this.hideStorageProfileIdField = (this.data.type && this.data.type === KalturaConversionProfileType.liveStream) || !hasStorageProfilesPermission;
+    this.hideStorageProfileIdField = (this.data.type && this.data.type === KontorolConversionProfileType.liveStream) || !hasStorageProfilesPermission;
     if (!this.hideStorageProfileIdField) {
       return this._loadRemoteStorageProfiles()
         .pipe(cancelOnDestroy(this))

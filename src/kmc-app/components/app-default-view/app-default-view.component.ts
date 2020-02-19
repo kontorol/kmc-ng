@@ -1,21 +1,21 @@
 import { Component, OnDestroy } from '@angular/core';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { KmcMainViewsService } from 'app-shared/kmc-shared/kmc-views';
 import { AppAuthentication, BrowserService } from 'app-shared/kmc-shell';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
 
 @Component({
     selector: 'app-default-view',
     templateUrl: './app-default-view.component.html',
     styleUrls: ['./app-default-view.component.scss'],
     providers: [
-        KalturaLogger.createLogger('AppDefaultViewComponent')
+        KontorolLogger.createLogger('AppDefaultViewComponent')
     ],
 })
 export class AppDefaultViewComponent implements OnDestroy {
     constructor(
-        private _logger: KalturaLogger,
+        private _logger: KontorolLogger,
         private _browserService: BrowserService,
         private _appAuthentication: AppAuthentication,
         private _appLocalization: AppLocalization,

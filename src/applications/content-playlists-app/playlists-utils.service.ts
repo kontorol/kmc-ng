@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { KalturaPlaylist } from 'kaltura-ngx-client';
+import { KontorolPlaylist } from 'kontorol-ngx-client';
 
 @Injectable()
 export class PlaylistsUtilsService {
@@ -7,7 +7,7 @@ export class PlaylistsUtilsService {
   constructor() {
   }
 
-  public isRapt(playlist: KalturaPlaylist): boolean {
+  public isRapt(playlist: KontorolPlaylist): boolean {
       return playlist.adminTags && playlist.adminTags.split(',').indexOf('raptentry') > -1 ? true : false;
   }
 }

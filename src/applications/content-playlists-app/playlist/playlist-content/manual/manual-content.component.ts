@@ -1,8 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { PlaylistStore } from '../../playlist-store.service';
 import { ManualContentWidget } from './manual-content-widget.service';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kPlaylistContentManual',
@@ -10,7 +10,7 @@ import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
   styleUrls: ['./manual-content.component.scss'],
 })
 export class ManualContentComponent implements OnInit, OnDestroy {
-  public _selectedEntries: KalturaMediaEntry[] = [];
+  public _selectedEntries: KontorolMediaEntry[] = [];
 
   constructor(public _playlistStore: PlaylistStore,
               public _widgetService: ManualContentWidget) {
@@ -34,7 +34,7 @@ export class ManualContentComponent implements OnInit, OnDestroy {
     this._selectedEntries = [];
   }
 
-  public _onActionSelected(event: { action: string, entry: KalturaMediaEntry }): void {
+  public _onActionSelected(event: { action: string, entry: KontorolMediaEntry }): void {
     this._clearSelection();
     this._widgetService.onActionSelected(event);
   }
@@ -44,7 +44,7 @@ export class ManualContentComponent implements OnInit, OnDestroy {
     this._widgetService.onSortChanged(event);
   }
 
-  public _deleteSelected(selectedEntries: KalturaMediaEntry[]): void {
+  public _deleteSelected(selectedEntries: KontorolMediaEntry[]): void {
     this._clearSelection();
     this._widgetService.deleteSelectedEntries(selectedEntries);
   }

@@ -1,7 +1,7 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output} from '@angular/core';
 import {ReachProfilesFilters, ReachProfilesStore} from '../reach-profiles-store/reach-profiles-store.service';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
 export interface TagItem {
     type: string,

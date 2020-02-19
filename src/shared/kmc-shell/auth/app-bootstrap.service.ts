@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { AppAuthentication } from './app-authentication.service';
 import { kmcAppConfig } from '../../../kmc-app/kmc-app-config';
 import { globalConfig } from 'config/global';
@@ -82,7 +82,7 @@ export class AppBootstrap implements CanActivate {
             this._initialized = true;
 
             // init localization, wait for localization to load before continuing
-            const prefix = serverConfig.kalturaServer.deployUrl ? `${serverConfig.kalturaServer.deployUrl}i18n/` : null;
+            const prefix = serverConfig.kontorolServer.deployUrl ? `${serverConfig.kontorolServer.deployUrl}i18n/` : null;
             this.appLocalization.setFilesHash(globalConfig.client.appVersion, prefix);
 
             const language = this.getCurrentLanguage();

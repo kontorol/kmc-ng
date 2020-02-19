@@ -2,30 +2,30 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { IterableDiffers, IterableDiffer, IterableChangeRecord } from '@angular/core';
 import { async } from 'rxjs/scheduler/async';
 import { Observable } from 'rxjs';
-import { KalturaCategoryEntryFilter } from 'kaltura-ngx-client';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { KalturaClient } from 'kaltura-ngx-client';
-import { KalturaTagFilter } from 'kaltura-ngx-client';
-import { KalturaTaggedObjectType } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
-import { TagSearchAction } from 'kaltura-ngx-client';
-import { CategoryEntryListAction } from 'kaltura-ngx-client';
-import { KalturaLiveStreamEntry } from 'kaltura-ngx-client';
-import { MetadataListAction } from 'kaltura-ngx-client';
-import { KalturaMetadataFilter } from 'kaltura-ngx-client';
-import { KalturaMetadata } from 'kaltura-ngx-client';
-import { MetadataUpdateAction } from 'kaltura-ngx-client';
-import { MetadataAddAction } from 'kaltura-ngx-client';
-import { KalturaMetadataObjectType } from 'kaltura-ngx-client';
-import { CategoryEntryAddAction } from 'kaltura-ngx-client';
-import { CategoryEntryDeleteAction } from 'kaltura-ngx-client';
-import { KalturaCategoryEntry } from 'kaltura-ngx-client';
+import { KontorolCategoryEntryFilter } from 'kontorol-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { KontorolTagFilter } from 'kontorol-ngx-client';
+import { KontorolTaggedObjectType } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
+import { TagSearchAction } from 'kontorol-ngx-client';
+import { CategoryEntryListAction } from 'kontorol-ngx-client';
+import { KontorolLiveStreamEntry } from 'kontorol-ngx-client';
+import { MetadataListAction } from 'kontorol-ngx-client';
+import { KontorolMetadataFilter } from 'kontorol-ngx-client';
+import { KontorolMetadata } from 'kontorol-ngx-client';
+import { MetadataUpdateAction } from 'kontorol-ngx-client';
+import { MetadataAddAction } from 'kontorol-ngx-client';
+import { KontorolMetadataObjectType } from 'kontorol-ngx-client';
+import { CategoryEntryAddAction } from 'kontorol-ngx-client';
+import { CategoryEntryDeleteAction } from 'kontorol-ngx-client';
+import { KontorolCategoryEntry } from 'kontorol-ngx-client';
 import { MetadataProfileStore, MetadataProfileTypes, MetadataProfileCreateModes } from 'app-shared/kmc-shared';
 import { FormBuilder, Validators, FormGroup, FormControl } from '@angular/forms';
-import { KalturaMultiRequest } from 'kaltura-ngx-client';
+import { KontorolMultiRequest } from 'kontorol-ngx-client';
 import { DynamicMetadataForm, DynamicMetadataFormFactory } from 'app-shared/kmc-shared';
 import { CategoriesSearchService, CategoryData } from 'app-shared/content-shared/categories/categories-search.service';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import 'rxjs/add/observable/forkJoin';
 import 'rxjs/add/observable/combineLatest';
 import 'rxjs/add/operator/catch';
@@ -33,7 +33,7 @@ import { EntryWidget } from '../entry-widget';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { subApplicationsConfig } from 'config/sub-applications';
 import { ContentEntryViewSections } from 'app-shared/kmc-shared/kmc-views/details-views/content-entry-view.service';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 
 
 @Injectable()
@@ -41,19 +41,19 @@ export class EntryMetadataWidget extends EntryWidget implements OnDestroy
 {
     private _entryCategoriesDiffers : IterableDiffer<CategoryData>;
     public _entryCategories: CategoryData[]  = [];
-    private _entryMetadata: KalturaMetadata[] = [];
+    private _entryMetadata: KontorolMetadata[] = [];
 
     public isLiveEntry : boolean;
     public metadataForm : FormGroup;
     public customDataForms : DynamicMetadataForm[] = [];
 
-    constructor(private _kalturaServerClient: KalturaClient,
+    constructor(private _kontorolServerClient: KontorolClient,
                 private _categoriesSearchService : CategoriesSearchService,
                 private _formBuilder : FormBuilder,
                 private _iterableDiffers : IterableDiffers,
                 private _permissionsService: KMCPermissionsService,
                 private _dynamicMetadataFormFactory : DynamicMetadataFormFactory,
-                logger: KalturaLogger,
+                logger: KontorolLogger,
                 private _metadataProfileStore : MetadataProfileStore)
     {
         super(ContentEntryViewSections.Metadata, logger);
@@ -144,7 +144,7 @@ export class EntryMetadataWidget extends EntryWidget implements OnDestroy
         super._showLoader();
         super._removeBlockerMessage();
 
-        this.isLiveEntry = this.data instanceof KalturaLiveStreamEntry;
+        this.isLiveEntry = this.data instanceof KontorolLiveStreamEntry;
 
         if (!this._permissionsService.hasPermission(KMCPermissions.CONTENT_MANAGE_ASSIGN_CATEGORIES)) {
           this.metadataForm.get('categories').disable({ onlySelf: true });
@@ -206,7 +206,7 @@ export class EntryMetadataWidget extends EntryWidget implements OnDestroy
                 description: this.data.description || null,
                 tags: (this.data.tags ? this.data.tags.split(',').map(item => item.trim()) : null), // for backward compatibility we handle values separated with ',{space}'
                 categories: this._entryCategories,
-                offlineMessage: this.data instanceof KalturaLiveStreamEntry ? (this.data.offlineMessage || null) : '',
+                offlineMessage: this.data instanceof KontorolLiveStreamEntry ? (this.data.offlineMessage || null) : '',
                 referenceId: this.data.referenceId || null
             }
         );
@@ -239,14 +239,14 @@ export class EntryMetadataWidget extends EntryWidget implements OnDestroy
         this._monitorFormChanges();
     }
 
-    private _loadEntryMetadata(entry : KalturaMediaEntry) : Observable<boolean> {
+    private _loadEntryMetadata(entry : KontorolMediaEntry) : Observable<boolean> {
 
         // update entry categories
         this._entryMetadata = [];
 
-        return this._kalturaServerClient.request(new MetadataListAction(
+        return this._kontorolServerClient.request(new MetadataListAction(
             {
-                filter: new KalturaMetadataFilter(
+                filter: new KontorolMetadataFilter(
                     {
                         objectIdEqual: entry.id
                     }
@@ -264,18 +264,18 @@ export class EntryMetadataWidget extends EntryWidget implements OnDestroy
             });
     }
 
-    private _loadEntryCategories(entry : KalturaMediaEntry) : Observable<boolean> {
+    private _loadEntryCategories(entry : KontorolMediaEntry) : Observable<boolean> {
 
         // update entry categories
         this._entryCategories = [];
 
-        return this._kalturaServerClient.request(
+        return this._kontorolServerClient.request(
             new CategoryEntryListAction(
                 {
-                    filter: new KalturaCategoryEntryFilter({
+                    filter: new KontorolCategoryEntryFilter({
                         entryIdEqual: entry.id
                     }),
-                    pager: new KalturaFilterPager({
+                    pager: new KontorolFilterPager({
                         pageSize: 500
                     })
                 }
@@ -326,7 +326,7 @@ export class EntryMetadataWidget extends EntryWidget implements OnDestroy
             });
     }
 
-    protected onDataSaving(newData : KalturaMediaEntry, request : KalturaMultiRequest) : void
+    protected onDataSaving(newData : KontorolMediaEntry, request : KontorolMultiRequest) : void
     {
 
 	    const metadataFormValue = this.metadataForm.getRawValue();
@@ -336,7 +336,7 @@ export class EntryMetadataWidget extends EntryWidget implements OnDestroy
         newData.description = metadataFormValue.description;
         newData.referenceId = metadataFormValue.referenceId || null;
         newData.tags = (metadataFormValue.tags || []).join(',');
-        if (newData instanceof KalturaLiveStreamEntry)
+        if (newData instanceof KontorolLiveStreamEntry)
         {
             newData.offlineMessage = metadataFormValue.offlineMessage;
         }
@@ -350,7 +350,7 @@ export class EntryMetadataWidget extends EntryWidget implements OnDestroy
                 changes.forEachAddedItem((change : IterableChangeRecord<CategoryData>) =>
                 {
                     request.requests.push(new CategoryEntryAddAction({
-                        categoryEntry : new KalturaCategoryEntry({
+                        categoryEntry : new KontorolCategoryEntry({
                             entryId : this.data.id,
                             categoryId : Number(change.item.id)
                         })
@@ -389,7 +389,7 @@ export class EntryMetadataWidget extends EntryWidget implements OnDestroy
                         }else
                         {
                             request.requests.push(new MetadataAddAction({
-                                objectType : KalturaMetadataObjectType.entry,
+                                objectType : KontorolMetadataObjectType.entry,
                                 objectId : this.data.id,
                                 metadataProfileId : customDataForm.metadataProfile.id,
                                 xmlData: customDataValue.xml
@@ -405,16 +405,16 @@ export class EntryMetadataWidget extends EntryWidget implements OnDestroy
     {
         return Observable.create(
             observer => {
-                const requestSubscription = this._kalturaServerClient.request(
+                const requestSubscription = this._kontorolServerClient.request(
                     new TagSearchAction(
                         {
-                            tagFilter: new KalturaTagFilter(
+                            tagFilter: new KontorolTagFilter(
                                 {
                                     tagStartsWith : text,
-                                    objectTypeEqual : KalturaTaggedObjectType.entry
+                                    objectTypeEqual : KontorolTaggedObjectType.entry
                                 }
                             ),
-                            pager: new KalturaFilterPager({
+                            pager: new KontorolFilterPager({
                                 pageIndex : 0,
                                 pageSize : 30
                             })

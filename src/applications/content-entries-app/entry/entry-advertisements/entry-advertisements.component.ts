@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 import {EntryAdvertisementsWidget} from './entry-advertisements-widget.service';
 import { AdvertisementsAppViewService } from 'app-shared/kmc-shared/kmc-views/component-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { EntryStore } from '../entry-store.service';
 import { Observable } from 'rxjs';
 import 'rxjs/add/observable/merge';
@@ -19,7 +19,7 @@ export class EntryAdvertisementsComponent implements OnInit, OnDestroy {
     constructor(public _widgetService: EntryAdvertisementsWidget,
                 public _store: EntryStore,
                 private _advertisementsAppViewService: AdvertisementsAppViewService,
-                logger: KalturaLogger) {
+                logger: KontorolLogger) {
     }
 
     ngOnInit() {

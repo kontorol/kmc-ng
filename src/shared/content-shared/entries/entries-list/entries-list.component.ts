@@ -1,18 +1,18 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
-import { AreaBlockerMessage, StickyComponent } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerMessage, StickyComponent } from '@kontorol-ng/kontorol-ui';
 import { CategoriesStatusMonitorService, CategoriesStatus } from '../../categories-status/categories-status-monitor.service';
 import { EntriesFilters, EntriesStore, SortDirection } from 'app-shared/content-shared/entries/entries-store/entries-store.service';
 import { EntriesTableColumns } from 'app-shared/content-shared/entries/entries-table/entries-table.component';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
-import { KalturaEntryStatus, KalturaMediaEntry, KalturaMediaType, KalturaSourceType } from 'kaltura-ngx-client';
+import { KontorolEntryStatus, KontorolMediaEntry, KontorolMediaType, KontorolSourceType } from 'kontorol-ngx-client';
 import { CategoriesModes } from 'app-shared/content-shared/categories/categories-mode-type';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { Menu } from 'primeng/menu';
 import { EntriesRefineFiltersService,
     RefineGroup } from 'app-shared/content-shared/entries/entries-store/entries-refine-filters.service';
 
 
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { ViewCategoryEntriesService } from 'app-shared/kmc-shared/events/view-category-entries';
 import { ReachAppViewService, ReachPages } from 'app-shared/kmc-shared/kmc-views/details-views';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
@@ -43,7 +43,7 @@ export class EntriesListComponent implements OnInit, OnDestroy, OnChanges {
     @ViewChild('actionsmenu', { static: true }) private actionsMenu: Menu;
 
 
-  @Output() onActionsSelected = new EventEmitter<{ action: string, entry: KalturaMediaEntry }>();
+  @Output() onActionsSelected = new EventEmitter<{ action: string, entry: KontorolMediaEntry }>();
 
     public _isBusy = false;
     public _blockerMessage: AreaBlockerMessage = null;
@@ -108,13 +108,13 @@ export class EntriesListComponent implements OnInit, OnDestroy, OnChanges {
         }
     }
 
-    private _hideMenuItems(entry: KalturaMediaEntry, { commandName }: { commandName: string }): boolean {
+    private _hideMenuItems(entry: KontorolMediaEntry, { commandName }: { commandName: string }): boolean {
         const { sourceType, status, mediaType } = entry;
-        const isReadyStatus = status === KalturaEntryStatus.ready;
-        const isLiveStreamFlash = mediaType && mediaType === KalturaMediaType.liveStreamFlash;
+        const isReadyStatus = status === KontorolEntryStatus.ready;
+        const isLiveStreamFlash = mediaType && mediaType === KontorolMediaType.liveStreamFlash;
         const isPreviewCommand = commandName === 'preview';
         const isViewCommand = commandName === 'view';
-        const isKalturaLive = (sourceType === KalturaSourceType.liveStream || sourceType === KalturaSourceType.manualLiveStream || sourceType === KalturaSourceType.akamaiLive || sourceType === KalturaSourceType.akamaiUniversalLive);
+        const isKontorolLive = (sourceType === KontorolSourceType.liveStream || sourceType === KontorolSourceType.manualLiveStream || sourceType === KontorolSourceType.akamaiLive || sourceType === KontorolSourceType.akamaiUniversalLive);
         const isLiveDashboardCommand = commandName === 'liveDashboard';
         const isRealTimeAnalyticsCommand = commandName === 'realTimeAnalytics';
         const cannotDeleteEntry = commandName === 'delete' && !this._permissionsService.hasPermission(KMCPermissions.CONTENT_MANAGE_DELETE);
@@ -122,14 +122,14 @@ export class EntriesListComponent implements OnInit, OnDestroy, OnChanges {
         return !(
             (!isReadyStatus && isPreviewCommand) || // hide if trying to share & embed entry that isn't ready
             (!isReadyStatus && isLiveStreamFlash && isViewCommand) || // hide if trying to view live that isn't ready
-            (isLiveDashboardCommand && !isKalturaLive) || // hide live-dashboard menu item for entry that isn't kaltura live
-            (isRealTimeAnalyticsCommand && !isKalturaLive) || // hide real time analytics menu item for entry that isn't kaltura live
+            (isLiveDashboardCommand && !isKontorolLive) || // hide live-dashboard menu item for entry that isn't kontorol live
+            (isRealTimeAnalyticsCommand && !isKontorolLive) || // hide real time analytics menu item for entry that isn't kontorol live
             cannotDeleteEntry ||
             (isCaptionRequestCommand && !this._reachAppViewService.isAvailable({ entry, page: ReachPages.entry })) // hide caption request if not audio/video or if it is then if not ready or it's forbidden by permission
         );
     }
 
-    private _buildMenu(entry: KalturaMediaEntry): void {
+    private _buildMenu(entry: KontorolMediaEntry): void {
         this._items = this.rowActions
             .filter(item => this._hideMenuItems(entry, item))
             .map(action =>
@@ -144,20 +144,20 @@ export class EntriesListComponent implements OnInit, OnDestroy, OnChanges {
             );
     }
 
-    public _openActionsMenu(evt: { event: any, entry: KalturaMediaEntry }): void {
+    public _openActionsMenu(evt: { event: any, entry: KontorolMediaEntry }): void {
         if (this.actionsMenu) {
             this._buildMenu(evt.entry);
             this.actionsMenu.toggle(evt.event);
         }
     }
 
-    private _allowDrilldown(action: string, mediaType: KalturaMediaType, status: KalturaEntryStatus): boolean {
+    private _allowDrilldown(action: string, mediaType: KontorolMediaType, status: KontorolEntryStatus): boolean {
         if (action !== 'view') {
             return true;
         }
 
-        const isLiveStream = mediaType && mediaType === KalturaMediaType.liveStreamFlash;
-        const isReady = status !== KalturaEntryStatus.ready;
+        const isLiveStream = mediaType && mediaType === KontorolMediaType.liveStreamFlash;
+        const isReady = status !== KontorolEntryStatus.ready;
         return !(isLiveStream && isReady);
     }
 

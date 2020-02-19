@@ -3,15 +3,15 @@ import { CommonModule } from '@angular/common';
 import { SettingsCustomDataComponent } from './settings-custom-data.component';
 import { routing } from './settings-custom-data-app.routes';
 import { RouterModule } from '@angular/router';
-import { AreaBlockerModule, KalturaUIModule } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerModule, KontorolUIModule } from '@kontorol-ng/kontorol-ui';
 import { SchemasComponents } from './schemas/schemas-components-list';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { EntriesModule } from 'app-shared/content-shared/entries/entries.module.ts';
-import {LocalizationModule} from '@kaltura-ng/mc-shared';
-import { TooltipModule } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetModule } from '@kaltura-ng/kaltura-ui';
-import { KalturaPrimeNgUIModule } from '@kaltura-ng/kaltura-primeng-ui';
-import { StickyModule } from '@kaltura-ng/kaltura-ui';
+import {LocalizationModule} from '@kontorol-ng/mc-shared';
+import { TooltipModule } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetModule } from '@kontorol-ng/kontorol-ui';
+import { KontorolPrimeNgUIModule } from '@kontorol-ng/kontorol-primeng-ui';
+import { StickyModule } from '@kontorol-ng/kontorol-ui';
 import { KMCPermissionsModule } from 'app-shared/kmc-shared/kmc-permissions';
 import { TableModule } from 'primeng/table';
 import { PaginatorModule } from 'primeng/paginator';
@@ -31,7 +31,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     CommonModule,
     AreaBlockerModule,
     LocalizationModule,
-    KalturaUIModule,
+    KontorolUIModule,
     PaginatorModule,
     TooltipModule,
     ButtonModule,
@@ -44,7 +44,7 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     CalendarModule,
     MenuModule,
     RadioButtonModule,
-    KalturaPrimeNgUIModule,
+    KontorolPrimeNgUIModule,
     SharedModule,
     RouterModule.forChild(routing),
     StickyModule,

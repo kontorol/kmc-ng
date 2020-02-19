@@ -6,10 +6,10 @@ import { AdministrationUsersComponent } from './administration-users.component';
 import { UsersComponentsList } from './users/users-components-list';
 import { EditUserComponent } from './users/edit-user/edit-user.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AreaBlockerModule, KalturaUIModule, StickyModule, TooltipModule } from '@kaltura-ng/kaltura-ui';
-import { KalturaPrimeNgUIModule } from '@kaltura-ng/kaltura-primeng-ui';
-import {LocalizationModule} from '@kaltura-ng/mc-shared';
-import { PopupWidgetModule } from '@kaltura-ng/kaltura-ui';
+import { AreaBlockerModule, KontorolUIModule, StickyModule, TooltipModule } from '@kontorol-ng/kontorol-ui';
+import { KontorolPrimeNgUIModule } from '@kontorol-ng/kontorol-primeng-ui';
+import {LocalizationModule} from '@kontorol-ng/mc-shared';
+import { PopupWidgetModule } from '@kontorol-ng/kontorol-ui';
 import { KMCPermissionsModule } from 'app-shared/kmc-shared/kmc-permissions';
 import { TableModule } from 'primeng/table';
 import { DateFormatModule } from 'app-shared/kmc-shared/date-format/date-format.module';
@@ -30,9 +30,9 @@ import { DropdownModule } from 'primeng/dropdown';
     PopupWidgetModule,
     FormsModule,
     ReactiveFormsModule,
-    KalturaPrimeNgUIModule,
+    KontorolPrimeNgUIModule,
     DropdownModule,
-    KalturaUIModule,
+    KontorolUIModule,
     TooltipModule,
     StickyModule,
     RouterModule.forChild(routing),

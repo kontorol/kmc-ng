@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { KMCPermissionsService } from '../../kmc-permissions';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { DetailsViewMetadata, KmcDetailsViewBaseService } from 'app-shared/kmc-shared/kmc-views/kmc-details-view-base.service';
 import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
-import { KalturaReachProfile} from 'kaltura-ngx-client';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolReachProfile} from 'kontorol-ngx-client';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 import { Title } from '@angular/platform-browser';
 import { ContextualHelpService } from 'app-shared/kmc-shared/contextual-help/contextual-help.service';
 
@@ -20,7 +20,7 @@ export enum SettingsReachProfileViewSections {
 }
 
 export interface SettingReachProfileViewArgs {
-    profile: KalturaReachProfile;
+    profile: KontorolReachProfile;
     section: SettingsReachProfileViewSections;
     activatedRoute?: ActivatedRoute;
 }
@@ -33,7 +33,7 @@ export class SettingsReachProfileViewService extends KmcDetailsViewBaseService<S
                 private _appLocalization: AppLocalization,
                 private _router: Router,
                 _browserService: BrowserService,
-                _logger: KalturaLogger,
+                _logger: KontorolLogger,
                 _titleService: Title,
                 _contextualHelpService: ContextualHelpService) {
         super(_logger.subLogger('SettingsTranscodingProfileViewService'), _browserService, _titleService, _contextualHelpService);
@@ -117,7 +117,7 @@ export class SettingsReachProfileViewService extends KmcDetailsViewBaseService<S
         return result;
     }
 
-    private _isSectionEnabled(section: SettingsReachProfileViewSections, profile: KalturaReachProfile): boolean {
+    private _isSectionEnabled(section: SettingsReachProfileViewSections, profile: KontorolReachProfile): boolean {
         let result = false;
         switch (section) {
             case SettingsReachProfileViewSections.Settings:

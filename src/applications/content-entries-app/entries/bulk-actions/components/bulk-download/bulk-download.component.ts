@@ -1,15 +1,15 @@
 import { Component, OnInit, OnDestroy, AfterViewInit, Input, Output, EventEmitter } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
 
-import { KalturaClient } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { KalturaFlavorParams } from 'kaltura-ngx-client';
-import { FlavorParamsListAction } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { KontorolFlavorParams } from 'kontorol-ngx-client';
+import { FlavorParamsListAction } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
 
 import {SelectItem} from 'primeng/api';
 
@@ -20,7 +20,7 @@ import {SelectItem} from 'primeng/api';
 })
 export class BulkDownload implements OnInit, OnDestroy, AfterViewInit {
 
-	@Input() selectedEntries: KalturaMediaEntry[];
+	@Input() selectedEntries: KontorolMediaEntry[];
 	@Input() parentPopupWidget: PopupWidgetComponent;
 	@Output() downloadChanged = new EventEmitter<number>();
 
@@ -36,7 +36,7 @@ export class BulkDownload implements OnInit, OnDestroy, AfterViewInit {
 	private _downloadLabel = {};
 	private _selectionChanged = false;
 
-	constructor(private _kalturaServerClient: KalturaClient,
+	constructor(private _kontorolServerClient: KontorolClient,
                 private _appLocalization: AppLocalization,
                 private _browserService: BrowserService) {
 	}
@@ -48,16 +48,16 @@ export class BulkDownload implements OnInit, OnDestroy, AfterViewInit {
 		this._loading = true;
 		this._sectionBlockerMessage = null;
 
-		let pager: KalturaFilterPager = new KalturaFilterPager();
+		let pager: KontorolFilterPager = new KontorolFilterPager();
 		pager.pageSize = 500;
 		pager.pageIndex = 1;
-		this._kalturaServerClient.request(new FlavorParamsListAction({
+		this._kontorolServerClient.request(new FlavorParamsListAction({
 			pager: pager
 		})).subscribe(
 			response => {
 				this._loading = false;
 				response.objects.forEach(flavor => {
-					if (flavor instanceof KalturaFlavorParams){
+					if (flavor instanceof KontorolFlavorParams){
 						this._flavors.push({'label': flavor.name, 'value': flavor.id});
 						if (flavor.id === 0){ // source
 							this._selectedFlavor = flavor.id;

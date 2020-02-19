@@ -2,17 +2,17 @@ import {AfterViewInit, Component, EventEmitter, Input, OnDestroy, OnInit, Output
 import {ISubscription} from 'rxjs/Subscription';
 import {Subject} from 'rxjs/Subject';
 
-import {KalturaClient} from 'kaltura-ngx-client';
-import {KalturaFilterPager} from 'kaltura-ngx-client';
-import {SuggestionsProviderData} from '@kaltura-ng/kaltura-primeng-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import {KontorolClient} from 'kontorol-ngx-client';
+import {KontorolFilterPager} from 'kontorol-ngx-client';
+import {SuggestionsProviderData} from '@kontorol-ng/kontorol-primeng-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {BrowserService} from 'app-shared/kmc-shell';
-import {AreaBlockerMessage} from '@kaltura-ng/kaltura-ui';
-import {PopupWidgetComponent, PopupWidgetStates} from '@kaltura-ng/kaltura-ui';
-import {UserListAction} from 'kaltura-ngx-client';
-import {KalturaUserFilter} from 'kaltura-ngx-client';
-import {KalturaUser} from 'kaltura-ngx-client';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import {AreaBlockerMessage} from '@kontorol-ng/kontorol-ui';
+import {PopupWidgetComponent, PopupWidgetStates} from '@kontorol-ng/kontorol-ui';
+import {UserListAction} from 'kontorol-ngx-client';
+import {KontorolUserFilter} from 'kontorol-ngx-client';
+import {KontorolUser} from 'kontorol-ngx-client';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kBulkAddEditors',
@@ -22,19 +22,19 @@ import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
 export class BulkAddEditorsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   @Input() parentPopupWidget: PopupWidgetComponent;
-  @Output() addEditorsChanged = new EventEmitter<KalturaUser[]>();
+  @Output() addEditorsChanged = new EventEmitter<KontorolUser[]>();
 
   public _loading = false;
   public _sectionBlockerMessage: AreaBlockerMessage;
 
   public _usersProvider = new Subject<SuggestionsProviderData>();
-  public users: KalturaUser[] = [];
+  public users: KontorolUser[] = [];
 
   private _searchEditorsSubscription: ISubscription;
   private _parentPopupStateChangeSubscribe: ISubscription;
   private _confirmClose: boolean = true;
 
-  constructor(private _kalturaServerClient: KalturaClient,
+  constructor(private _kontorolServerClient: KontorolClient,
               private _appLocalization: AppLocalization,
               private _browserService: BrowserService) {
     this._convertUserInputToValidValue = this._convertUserInputToValidValue.bind(this); // fix scope issues when binding to a property
@@ -85,11 +85,11 @@ export class BulkAddEditorsComponent implements OnInit, OnDestroy, AfterViewInit
       this._searchEditorsSubscription = null;
     }
 
-    this._kalturaServerClient.request(new UserListAction({
-      filter: new KalturaUserFilter({
+    this._kontorolServerClient.request(new UserListAction({
+      filter: new KontorolUserFilter({
         idOrScreenNameStartsWith: event.query
       }),
-      pager: new KalturaFilterPager({
+      pager: new KontorolFilterPager({
           pageIndex: 0,
           pageSize: 30
         }
@@ -99,7 +99,7 @@ export class BulkAddEditorsComponent implements OnInit, OnDestroy, AfterViewInit
       .subscribe(
         result => {
           const suggestions = [];
-          const users: KalturaUser[] = result.objects;
+          const users: KontorolUser[] = result.objects;
           (users || []).forEach(suggestedUser => {
               suggestedUser['__tooltip'] = suggestedUser.id;
             const isSelectable = !(this.users || []).find(user => user.id === suggestedUser.id);

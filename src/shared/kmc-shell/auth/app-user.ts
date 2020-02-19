@@ -1,4 +1,4 @@
-import { KalturaPartnerAuthenticationType } from "kaltura-ngx-client";
+import { KontorolPartnerAuthenticationType } from "kontorol-ngx-client";
 
 export interface PartnerInfo {
     partnerId: number;
@@ -7,7 +7,7 @@ export interface PartnerInfo {
     landingPage: string;
     adultContent: boolean;
     publisherEnvironmentType: number;
-    authenticationType: KalturaPartnerAuthenticationType;
+    authenticationType: KontorolPartnerAuthenticationType;
 }
 
 export enum PartnerPackageTypes {

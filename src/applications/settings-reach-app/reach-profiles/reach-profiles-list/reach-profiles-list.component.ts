@@ -1,18 +1,18 @@
 import {Component, EventEmitter, OnDestroy, OnInit, Output, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
-import {AreaBlockerMessage, StickyComponent} from '@kaltura-ng/kaltura-ui';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
+import {AreaBlockerMessage, StickyComponent} from '@kontorol-ng/kontorol-ui';
 import {KMCPermissions} from 'app-shared/kmc-shared/kmc-permissions';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 import {BrowserService} from 'app-shared/kmc-shell/providers';
 import {SettingsReachMainViewService} from 'app-shared/kmc-shared/kmc-views';
-import {cancelOnDestroy} from '@kaltura-ng/kaltura-common';
+import {cancelOnDestroy} from '@kontorol-ng/kontorol-common';
 import {
-    KalturaReachProfileWithCredit,
+    KontorolReachProfileWithCredit,
     ReachProfilesFilters,
     ReachProfilesStore
 } from "../reach-profiles-store/reach-profiles-store.service";
-import {KalturaReachProfile} from "kaltura-ngx-client";
+import {KontorolReachProfile} from "kontorol-ngx-client";
 import {SortDirection} from "../../../administration-multi-account-app/multi-account-store/multi-account-store.service";
 import {
     SettingsReachProfileViewSections,
@@ -23,7 +23,7 @@ import {
     selector: 'k-reach-profiles-list',
     templateUrl: './reach-profiles-list.component.html',
     styleUrls: ['./reach-profiles-list.component.scss'],
-    providers: [KalturaLogger.createLogger('ReachProfilesListComponent')]
+    providers: [KontorolLogger.createLogger('ReachProfilesListComponent')]
 })
 export class ReachProfilesListComponent implements OnInit, OnDestroy {
     
@@ -43,7 +43,7 @@ export class ReachProfilesListComponent implements OnInit, OnDestroy {
     
     constructor(private _appLocalization: AppLocalization,
                 private _router: Router,
-                private _logger: KalturaLogger,
+                private _logger: KontorolLogger,
                 private _browserService: BrowserService,
                 private _settingsReachMainViewService: SettingsReachMainViewService,
                 private _settingsReachViewService: SettingsReachProfileViewService,
@@ -173,7 +173,7 @@ export class ReachProfilesListComponent implements OnInit, OnDestroy {
         }
     }
 
-    public _actionSelected(event: { action: string, profile: KalturaReachProfileWithCredit }): void {
+    public _actionSelected(event: { action: string, profile: KontorolReachProfileWithCredit }): void {
         switch (event.action) {
             case 'edit':
                 this._logger.info(`handle 'edit' profile action by the user`, {profileId: event.profile.id});

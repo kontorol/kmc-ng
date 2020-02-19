@@ -1,27 +1,27 @@
-import { RequestFactory } from '@kaltura-ng/kaltura-common';
-import { KalturaMultiRequest, KalturaMultiResponse, KalturaRequestOptions } from 'kaltura-ngx-client';
-import { BaseEntryGetAction } from 'kaltura-ngx-client';
-import { KalturaResponseProfileType } from 'kaltura-ngx-client';
-import { KalturaDetachedResponseProfile } from 'kaltura-ngx-client';
-import { FlavorAssetGetFlavorAssetsWithParamsAction } from 'kaltura-ngx-client';
+import { RequestFactory } from '@kontorol-ng/kontorol-common';
+import { KontorolMultiRequest, KontorolMultiResponse, KontorolRequestOptions } from 'kontorol-ngx-client';
+import { BaseEntryGetAction } from 'kontorol-ngx-client';
+import { KontorolResponseProfileType } from 'kontorol-ngx-client';
+import { KontorolDetachedResponseProfile } from 'kontorol-ngx-client';
+import { FlavorAssetGetFlavorAssetsWithParamsAction } from 'kontorol-ngx-client';
 
-export class FlavorsDataRequestFactory implements RequestFactory<KalturaMultiRequest, KalturaMultiResponse> {
+export class FlavorsDataRequestFactory implements RequestFactory<KontorolMultiRequest, KontorolMultiResponse> {
     constructor(private _entryId: string) {
 
     }
 
-    create(): KalturaMultiRequest {
+    create(): KontorolMultiRequest {
         const getReplacementDataAction = new BaseEntryGetAction({ entryId: this._entryId })
             .setRequestOptions(
-                new KalturaRequestOptions({
-                    responseProfile: new KalturaDetachedResponseProfile({
-                        type: KalturaResponseProfileType.includeFields,
+                new KontorolRequestOptions({
+                    responseProfile: new KontorolDetachedResponseProfile({
+                        type: KontorolResponseProfileType.includeFields,
                         fields: 'replacementStatus,replacingEntryId'
                     })
                 })
             );
         const getCurrentEntryFlavorsDataAction = new FlavorAssetGetFlavorAssetsWithParamsAction({ entryId: this._entryId });
 
-        return new KalturaMultiRequest(getReplacementDataAction, getCurrentEntryFlavorsDataAction);
+        return new KontorolMultiRequest(getReplacementDataAction, getCurrentEntryFlavorsDataAction);
     }
 }

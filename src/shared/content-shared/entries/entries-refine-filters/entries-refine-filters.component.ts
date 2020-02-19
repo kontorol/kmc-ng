@@ -1,10 +1,10 @@
 import { Component, Input, OnChanges, OnDestroy, OnInit, ViewChild, ViewChildren } from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { RefinePrimeTree } from '@kaltura-ng/mc-shared';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { RefinePrimeTree } from '@kontorol-ng/mc-shared';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { RefineGroup } from '../entries-store/entries-refine-filters.service';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
-import { ScrollToTopContainerComponent } from '@kaltura-ng/kaltura-ui';
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
+import { ScrollToTopContainerComponent } from '@kontorol-ng/kontorol-ui';
 import { EntriesFilters, EntriesStore } from 'app-shared/content-shared/entries/entries-store/entries-store.service';
 import { subApplicationsConfig } from 'config/sub-applications';
 import { Calendar } from 'primeng/calendar';

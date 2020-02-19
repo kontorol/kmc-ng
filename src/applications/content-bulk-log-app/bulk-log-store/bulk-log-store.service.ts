@@ -3,26 +3,26 @@ import { Injectable, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs';
 import { ISubscription } from 'rxjs/Subscription';
-import { KalturaClient, KalturaMultiResponse } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
-import { KalturaDetachedResponseProfile } from 'kaltura-ngx-client';
+import { KontorolClient, KontorolMultiResponse } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
+import { KontorolDetachedResponseProfile } from 'kontorol-ngx-client';
 import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
-import { KalturaBulkUploadFilter } from 'kaltura-ngx-client';
-import { KalturaBulkUpload } from 'kaltura-ngx-client';
-import { BulkUploadAbortAction } from 'kaltura-ngx-client';
-import { BulkListAction } from 'kaltura-ngx-client';
-import { KalturaResponseProfileType } from 'kaltura-ngx-client';
-import { DatesRangeAdapter, DatesRangeType } from '@kaltura-ng/mc-shared';
-import { ListTypeAdapter } from '@kaltura-ng/mc-shared';
-import { FiltersStoreBase, TypeAdaptersMapping } from '@kaltura-ng/mc-shared';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { KalturaSearchOperator } from 'kaltura-ngx-client';
-import { KalturaSearchOperatorType } from 'kaltura-ngx-client';
-import { KalturaBaseEntryListResponse } from 'kaltura-ngx-client';
-import { KalturaUtils } from '@kaltura-ng/kaltura-common';
-import { NumberTypeAdapter } from '@kaltura-ng/mc-shared';
+import { KontorolBulkUploadFilter } from 'kontorol-ngx-client';
+import { KontorolBulkUpload } from 'kontorol-ngx-client';
+import { BulkUploadAbortAction } from 'kontorol-ngx-client';
+import { BulkListAction } from 'kontorol-ngx-client';
+import { KontorolResponseProfileType } from 'kontorol-ngx-client';
+import { DatesRangeAdapter, DatesRangeType } from '@kontorol-ng/mc-shared';
+import { ListTypeAdapter } from '@kontorol-ng/mc-shared';
+import { FiltersStoreBase, TypeAdaptersMapping } from '@kontorol-ng/mc-shared';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { KontorolSearchOperator } from 'kontorol-ngx-client';
+import { KontorolSearchOperatorType } from 'kontorol-ngx-client';
+import { KontorolBaseEntryListResponse } from 'kontorol-ngx-client';
+import { KontorolUtils } from '@kontorol-ng/kontorol-common';
+import { NumberTypeAdapter } from '@kontorol-ng/mc-shared';
 import { ContentBulkUploadsMainViewService } from 'app-shared/kmc-shared/kmc-views';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 const localStoragePageSizeKey = 'bulklog.list.pageSize';
 
@@ -37,7 +37,7 @@ export interface BulkLogFilters {
 @Injectable()
 export class BulkLogStoreService extends FiltersStoreBase<BulkLogFilters> implements OnDestroy {
   private _bulkLog = {
-    data: new BehaviorSubject<{ items: KalturaBulkUpload[], totalCount: number }>({ items: [], totalCount: 0 }),
+    data: new BehaviorSubject<{ items: KontorolBulkUpload[], totalCount: number }>({ items: [], totalCount: 0 }),
     state: new BehaviorSubject<{ loading: boolean, errorMessage: string }>({ loading: false, errorMessage: null })
   };
 
@@ -54,10 +54,10 @@ export class BulkLogStoreService extends FiltersStoreBase<BulkLogFilters> implem
     };
 
 
-  constructor(private _kalturaServerClient: KalturaClient,
+  constructor(private _kontorolServerClient: KontorolClient,
               private _browserService: BrowserService,
               contentBulkUploadsMainView: ContentBulkUploadsMainViewService,
-              _logger: KalturaLogger) {
+              _logger: KontorolLogger) {
     super(_logger.subLogger('BulkLogStoreService'));
     if (contentBulkUploadsMainView.isAvailable()) {
         this._prepare();
@@ -146,24 +146,24 @@ export class BulkLogStoreService extends FiltersStoreBase<BulkLogFilters> implem
 
   }
 
-  private _buildQueryRequest(): Observable<KalturaBaseEntryListResponse> {
+  private _buildQueryRequest(): Observable<KontorolBaseEntryListResponse> {
     try {
 
       // create request items
-      const filter = new KalturaBulkUploadFilter({});
-      let responseProfile: KalturaDetachedResponseProfile = null;
-      let pagination: KalturaFilterPager = null;
+      const filter = new KontorolBulkUploadFilter({});
+      let responseProfile: KontorolDetachedResponseProfile = null;
+      let pagination: KontorolFilterPager = null;
 
       const data: BulkLogFilters = this._getFiltersAsReadonly();
 
       // filter 'createdAt'
       if (data.createdAt) {
         if (data.createdAt.fromDate) {
-          filter.uploadedOnGreaterThanOrEqual = KalturaUtils.getStartDateValue(data.createdAt.fromDate);
+          filter.uploadedOnGreaterThanOrEqual = KontorolUtils.getStartDateValue(data.createdAt.fromDate);
         }
 
         if (data.createdAt.toDate) {
-          filter.uploadedOnLessThanOrEqual = KalturaUtils.getEndDateValue(data.createdAt.toDate);
+          filter.uploadedOnLessThanOrEqual = KontorolUtils.getEndDateValue(data.createdAt.toDate);
         }
       }
 
@@ -171,14 +171,14 @@ export class BulkLogStoreService extends FiltersStoreBase<BulkLogFilters> implem
       this._updateFilterWithJoinedList(data.uploadedItem, filter, 'bulkUploadObjectTypeIn');
       this._updateFilterWithJoinedList(data.status, filter, 'statusIn');
 
-      responseProfile = new KalturaDetachedResponseProfile({
-        type: KalturaResponseProfileType.includeFields,
+      responseProfile = new KontorolDetachedResponseProfile({
+        type: KontorolResponseProfileType.includeFields,
         fields: 'id,fileName,bulkUploadType,bulkUploadObjectType,uploadedBy,uploadedByUserId,uploadedOn,numOfObjects,status,error'
       });
 
       // update pagination args
       if (data.pageIndex || data.pageSize) {
-        pagination = new KalturaFilterPager(
+        pagination = new KontorolFilterPager(
           {
             pageSize: data.pageSize,
             pageIndex: data.pageIndex + 1
@@ -187,7 +187,7 @@ export class BulkLogStoreService extends FiltersStoreBase<BulkLogFilters> implem
       }
 
       // build the request
-      return <any>this._kalturaServerClient.request(
+      return <any>this._kontorolServerClient.request(
         new BulkListAction({
           bulkUploadFilter: filter,
           pager: pagination,
@@ -201,7 +201,7 @@ export class BulkLogStoreService extends FiltersStoreBase<BulkLogFilters> implem
 
   }
 
-  private _updateFilterWithJoinedList(list: string[], requestFilter: KalturaBulkUploadFilter, requestFilterProperty: keyof KalturaBulkUploadFilter): void {
+  private _updateFilterWithJoinedList(list: string[], requestFilter: KontorolBulkUploadFilter, requestFilterProperty: keyof KontorolBulkUploadFilter): void {
     const value = (list || []).map(item => item).join(',');
 
     if (value) {
@@ -243,13 +243,13 @@ export class BulkLogStoreService extends FiltersStoreBase<BulkLogFilters> implem
     }
   }
 
-  public deleteBulkLog(id: number): Observable<KalturaBulkUpload> {
-    return this._kalturaServerClient
+  public deleteBulkLog(id: number): Observable<KontorolBulkUpload> {
+    return this._kontorolServerClient
       .request(new BulkUploadAbortAction({ id }));
   }
 
-  public deleteBulkLogs(files: Array<KalturaBulkUpload>): Observable<KalturaMultiResponse> {
-    return this._kalturaServerClient.multiRequest(files.map(({ id }) => new BulkUploadAbortAction({ id })));
+  public deleteBulkLogs(files: Array<KontorolBulkUpload>): Observable<KontorolMultiResponse> {
+    return this._kontorolServerClient.multiRequest(files.map(({ id }) => new BulkUploadAbortAction({ id })));
   }
 }
 

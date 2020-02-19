@@ -127,21 +127,21 @@
           <ng-container [ngSwitch]="_form.get('destination').value">
             <!--Google-->
             <kGoogleDestinationForm
-              *ngSwitchCase="_kalturaSyndicationFeedType.googleVideo" [feed]="feed"
+              *ngSwitchCase="_kontorolSyndicationFeedType.googleVideo" [feed]="feed"
               [contentFlavors]="_flavors" [players]="_players"
               [mode]="_mode"
               (onFormStateChanged)="_updateCurrentDestinationFormState($event)">
             </kGoogleDestinationForm>
             <!--Yahoo-->
             <kYahooDestinationForm
-              *ngSwitchCase="_kalturaSyndicationFeedType.yahoo" [feed]="feed"
+              *ngSwitchCase="_kontorolSyndicationFeedType.yahoo" [feed]="feed"
               [contentFlavors]="_flavors" [players]="_players"
               [mode]="_mode"
               (onFormStateChanged)="_updateCurrentDestinationFormState($event)">
             </kYahooDestinationForm>
             <!--iTunes-->
             <kItunesDestinationForm
-              *ngSwitchCase="_kalturaSyndicationFeedType.itunes"
+              *ngSwitchCase="_kontorolSyndicationFeedType.itunes"
               [feed]="feed"
               [mode]="_mode"
               [contentFlavors]="_flavors"
@@ -149,20 +149,20 @@
             </kItunesDestinationForm>
             <!--Roku-->
             <kRokuDestinationForm
-              *ngSwitchCase="_kalturaSyndicationFeedType.rokuDirectPublisher"
+              *ngSwitchCase="_kontorolSyndicationFeedType.rokuDirectPublisher"
               [mode]="_mode"
               (onFormStateChanged)="_updateCurrentDestinationFormState($event)">
             </kRokuDestinationForm>
             <!--Opera-->
             <kOperaDestinationForm
-              *ngSwitchCase="_kalturaSyndicationFeedType.operaTvSnap"
+              *ngSwitchCase="_kontorolSyndicationFeedType.operaTvSnap"
               [mode]="_mode"
               (onFormStateChanged)="_updateCurrentDestinationFormState($event)">
             </kOperaDestinationForm>
             <!--Flexible Format (xsl code)-->
             <kFlexibleFormatDestinationForm
               [mode]="_mode"
-              *ngSwitchCase="_kalturaSyndicationFeedType.kalturaXslt" [feed]="feed"
+              *ngSwitchCase="_kontorolSyndicationFeedType.kontorolXslt" [feed]="feed"
               (onFormStateChanged)="_updateCurrentDestinationFormState($event)">
             </kFlexibleFormatDestinationForm>
           </ng-container>

@@ -4,15 +4,15 @@ import {
   CategoriesStatus,
   CategoriesStatusMonitorService
 } from 'app-shared/content-shared/categories-status/categories-status-monitor.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { Subject } from 'rxjs/Subject';
-import { AutoComplete, SuggestionsProviderData } from '@kaltura-ng/kaltura-primeng-ui';
-import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
+import { AutoComplete, SuggestionsProviderData } from '@kontorol-ng/kontorol-primeng-ui';
+import { PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
 import { CategoriesTreeComponent } from 'app-shared/content-shared/categories/categories-tree/categories-tree.component';
-import { TagsComponent } from '@kaltura-ng/kaltura-ui';
+import { TagsComponent } from '@kontorol-ng/kontorol-ui';
 import { CategoriesSearchService, CategoryData } from 'app-shared/content-shared/categories/categories-search.service';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kCategoriesSelector',

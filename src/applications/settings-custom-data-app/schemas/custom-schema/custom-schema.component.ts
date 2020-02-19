@@ -1,25 +1,25 @@
 import { Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { SettingsMetadataProfile } from '../schemas-store/settings-metadata-profile.interface';
-import { KalturaMetadataProfile } from 'kaltura-ngx-client';
+import { KontorolMetadataProfile } from 'kontorol-ngx-client';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
 import { MetadataItem } from 'app-shared/kmc-shared/custom-metadata/metadata-profile';
-import { KalturaUtils } from '@kaltura-ng/kaltura-common';
-import { KalturaAPIException, KalturaObjectBaseFactory } from 'kaltura-ngx-client';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
-import { KalturaMetadataObjectType } from 'kaltura-ngx-client';
+import { KontorolUtils } from '@kontorol-ng/kontorol-common';
+import { KontorolAPIException, KontorolObjectBaseFactory } from 'kontorol-ngx-client';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
+import { KontorolMetadataObjectType } from 'kontorol-ngx-client';
 import { KMCPermissions } from 'app-shared/kmc-shared/kmc-permissions';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 
 @Component({
   selector: 'kCustomSchema',
   templateUrl: './custom-schema.component.html',
   styleUrls: ['./custom-schema.component.scss'],
-  providers: [KalturaLogger.createLogger('CustomSchemaComponent')]
+  providers: [KontorolLogger.createLogger('CustomSchemaComponent')]
 })
 export class CustomSchemaComponent implements OnInit {
   @Input() schema: SettingsMetadataProfile;
-  @Input() serverValidationError: KalturaAPIException = null;
+  @Input() serverValidationError: KontorolAPIException = null;
 
   @Output() onClosePopupWidget = new EventEmitter<void>();
   @Output() onSave = new EventEmitter<SettingsMetadataProfile>();
@@ -37,7 +37,7 @@ export class CustomSchemaComponent implements OnInit {
   public _kmcPermissions = KMCPermissions;
 
   constructor(private _appLocalization: AppLocalization,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _browserService: BrowserService) {
   }
 
@@ -48,21 +48,21 @@ export class CustomSchemaComponent implements OnInit {
   private _prepare(): void {
     if (this.schema) {
       this._logger.info(`enter edit schema mode for existing schema`, { id: this.schema.id, name: this.schema.name });
-      this._schema = <SettingsMetadataProfile>Object.assign(KalturaObjectBaseFactory.createObject(this.schema), this.schema);
+      this._schema = <SettingsMetadataProfile>Object.assign(KontorolObjectBaseFactory.createObject(this.schema), this.schema);
       this._profileFields = (this._schema.parsedProfile && Array.isArray(this._schema.parsedProfile.items))
         ? [...this._schema.parsedProfile.items] : [];
       this._title = this._appLocalization.get('applications.settings.metadata.editCustomSchema');
     } else {
       this._logger.info(`enter add schema mode`);
       this._title = this._appLocalization.get('applications.settings.metadata.addCustomSchema');
-      const schema = <SettingsMetadataProfile>(new KalturaMetadataProfile({
+      const schema = <SettingsMetadataProfile>(new KontorolMetadataProfile({
         name: '',
         description: '',
         systemName: ''
       }));
       schema.isNew = true;
       schema.profileDisabled = false;
-      schema.applyTo = KalturaMetadataObjectType.entry;
+      schema.applyTo = KontorolMetadataObjectType.entry;
       (<any>schema).parsedProfile = { items: [] };
 
       this._schema = schema;
@@ -126,8 +126,8 @@ export class CustomSchemaComponent implements OnInit {
   private _moveField(field: MetadataItem, direction: 'up' | 'down'): void {
     this._logger.info(`handle 'move field' action by the user`, { field: { id: field.id, name: field.name, direction } });
     const action = direction === 'down'
-      ? () => KalturaUtils.moveDownItems(this._profileFields, [field])
-      : () => KalturaUtils.moveUpItems(this._profileFields, [field]);
+      ? () => KontorolUtils.moveDownItems(this._profileFields, [field])
+      : () => KontorolUtils.moveUpItems(this._profileFields, [field]);
     if (action()) {
       this._setDirty();
       this._fieldsOrderChanged();
@@ -194,8 +194,8 @@ export class CustomSchemaComponent implements OnInit {
   public _bulkMove(direction: 'up' | 'down'): void {
     this._logger.info(`handle 'bulk move fields' action by the user`, { direction });
     const action = direction === 'down'
-      ? () => KalturaUtils.moveDownItems(this._profileFields, this._selectedFields)
-      : () => KalturaUtils.moveUpItems(this._profileFields, this._selectedFields);
+      ? () => KontorolUtils.moveDownItems(this._profileFields, this._selectedFields)
+      : () => KontorolUtils.moveUpItems(this._profileFields, this._selectedFields);
     if (action()) {
       this._setDirty();
       this._fieldsOrderChanged();

@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { KalturaMetadataObjectType } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolMetadataObjectType } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 
 @Pipe({ name: 'kMetadataObjectType' })
 export class MetadataObjectTypePipe implements PipeTransform {
@@ -8,17 +8,17 @@ export class MetadataObjectTypePipe implements PipeTransform {
 
   }
 
-  transform(value: KalturaMetadataObjectType): string {
+  transform(value: KontorolMetadataObjectType): string {
     if (value) {
-      if (value === KalturaMetadataObjectType.entry) {
+      if (value === KontorolMetadataObjectType.entry) {
         return this._appLocalization.get('applications.settings.metadata.applyTo.entries');
       }
 
-      if (value === KalturaMetadataObjectType.category) {
+      if (value === KontorolMetadataObjectType.category) {
         return this._appLocalization.get('applications.settings.metadata.applyTo.categories');
       }
       
-      if (value === KalturaMetadataObjectType.userEntry) {
+      if (value === KontorolMetadataObjectType.userEntry) {
         return this._appLocalization.get('applications.settings.metadata.applyTo.userEntry');
       }
     }

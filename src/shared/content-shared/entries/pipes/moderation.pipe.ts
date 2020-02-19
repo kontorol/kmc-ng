@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaEntryModerationStatus } from 'kaltura-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolEntryModerationStatus } from 'kontorol-ngx-client';
 
 @Pipe({name: 'kModerationStatus'})
 export class ModerationPipe implements PipeTransform {
@@ -11,19 +11,19 @@ export class ModerationPipe implements PipeTransform {
 		let moderationStatus: string = "";
 		if (value) {
 			switch (value.toString()) {
-				case KalturaEntryModerationStatus.autoApproved.toString():
+				case KontorolEntryModerationStatus.autoApproved.toString():
 					moderationStatus = this.appLocalization.get("applications.content.entryStatus.autoApprovedStatus");
           break;
-				case KalturaEntryModerationStatus.flaggedForReview.toString():
+				case KontorolEntryModerationStatus.flaggedForReview.toString():
 					moderationStatus = this.appLocalization.get("applications.content.entryStatus.flaggedStatus");
 					break;
-				case KalturaEntryModerationStatus.approved.toString():
+				case KontorolEntryModerationStatus.approved.toString():
 					moderationStatus = this.appLocalization.get("applications.content.entryStatus.approvedStatus");
 					break;
-				case KalturaEntryModerationStatus.pendingModeration.toString():
+				case KontorolEntryModerationStatus.pendingModeration.toString():
 					moderationStatus = this.appLocalization.get("applications.content.entryStatus.pendingStatus");
 					break;
-				case KalturaEntryModerationStatus.rejected.toString():
+				case KontorolEntryModerationStatus.rejected.toString():
 					moderationStatus = this.appLocalization.get("applications.content.entryStatus.rejectedStatus");
 					break;
 			}

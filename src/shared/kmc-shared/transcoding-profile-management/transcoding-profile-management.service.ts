@@ -1,21 +1,21 @@
 import { Injectable, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { KalturaClient } from 'kaltura-ngx-client';
-import { ConversionProfileListAction } from 'kaltura-ngx-client';
-import { KalturaConversionProfileFilter } from 'kaltura-ngx-client';
-import { KalturaConversionProfileType } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
-import { KalturaConversionProfileListResponse } from 'kaltura-ngx-client';
-import { KalturaConversionProfile } from 'kaltura-ngx-client';
+import { KontorolClient } from 'kontorol-ngx-client';
+import { ConversionProfileListAction } from 'kontorol-ngx-client';
+import { KontorolConversionProfileFilter } from 'kontorol-ngx-client';
+import { KontorolConversionProfileType } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
+import { KontorolConversionProfileListResponse } from 'kontorol-ngx-client';
+import { KontorolConversionProfile } from 'kontorol-ngx-client';
 import { AppEventsService } from 'app-shared/kmc-shared';
-import { cancelOnDestroy } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
 import { TranscodingProfilesUpdatedEvent } from 'app-shared/kmc-shared/events';
 
 @Injectable()
 export class TranscodingProfileManagement implements OnDestroy {
   private _transcodingProfileCache$;
 
-  constructor(private _serverClient: KalturaClient,
+  constructor(private _serverClient: KontorolClient,
               _appEvents: AppEventsService) {
       _appEvents.event(TranscodingProfilesUpdatedEvent)
           .pipe(cancelOnDestroy(this))
@@ -31,18 +31,18 @@ export class TranscodingProfileManagement implements OnDestroy {
         this._transcodingProfileCache$ = null;
     }
 
-  private _loadTranscodingProfiles(): Observable<KalturaConversionProfile[]> {
+  private _loadTranscodingProfiles(): Observable<KontorolConversionProfile[]> {
     return this._serverClient
       .request(
           new ConversionProfileListAction({
-              filter: new KalturaConversionProfileFilter({ typeEqual: KalturaConversionProfileType.media }),
-              pager: new KalturaFilterPager({ pageSize: 500 })
+              filter: new KontorolConversionProfileFilter({ typeEqual: KontorolConversionProfileType.media }),
+              pager: new KontorolFilterPager({ pageSize: 500 })
           })
       )
-      .map((res: KalturaConversionProfileListResponse) => res.objects);
+      .map((res: KontorolConversionProfileListResponse) => res.objects);
   }
 
-  public get(): Observable<KalturaConversionProfile[]> {
+  public get(): Observable<KontorolConversionProfile[]> {
     if (!this._transcodingProfileCache$) {
       this._transcodingProfileCache$ = this._loadTranscodingProfiles()
         .catch(err => {

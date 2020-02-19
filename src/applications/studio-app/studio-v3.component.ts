@@ -1,8 +1,8 @@
 import { AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import {AppAuthentication, BrowserService } from 'app-shared/kmc-shell';
 import {AppEventsService} from 'app-shared/kmc-shared';
-import { buildCDNUrl, getKalturaServerUri, serverConfig } from 'config/server';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
+import { buildCDNUrl, getKontorolServerUri, serverConfig } from 'config/server';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
 import { PlayersUpdatedEvent } from 'app-shared/kmc-shared/events';
 import { KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
 import { StudioV3MainViewService } from 'app-shared/kmc-shared/kmc-views';
@@ -19,7 +19,7 @@ export class StudioV3Component implements OnInit, AfterViewInit, OnDestroy {
   constructor(
         private _cdr: ChangeDetectorRef,
         private appAuthentication: AppAuthentication,
-        private _appEvents: AppEventsService, private logger: KalturaLogger,
+        private _appEvents: AppEventsService, private logger: KontorolLogger,
         private browserService: BrowserService,
         private _permissionsService: KMCPermissionsService,
         private _studioV3MainView: StudioV3MainViewService) {
@@ -35,8 +35,8 @@ export class StudioV3Component implements OnInit, AfterViewInit, OnDestroy {
                },
                'vars': {
                    'ks': this.appAuthentication.appUser.ks,
-                   'api_url': getKalturaServerUri(),
-                   'host': serverConfig.kalturaServer.uri,
+                   'api_url': getKontorolServerUri(),
+                   'host': serverConfig.kontorolServer.uri,
                    'studioV3': {
                        'config': {
                            'name': 'Video Studio V3',

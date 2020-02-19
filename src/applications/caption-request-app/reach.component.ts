@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { PopupWidgetComponent } from '@kaltura-ng/kaltura-ui';
+import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
 import { ReachData } from 'app-shared/kmc-shared/reach-frame';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { ReachPages } from 'app-shared/kmc-shared/kmc-views/details-views';
 
 @Component({

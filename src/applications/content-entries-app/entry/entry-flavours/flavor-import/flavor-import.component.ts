@@ -1,8 +1,8 @@
 import { Component, Input, AfterViewInit, OnDestroy } from '@angular/core';
 import { ISubscription } from 'rxjs/Subscription';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
-import { KalturaValidators } from '@kaltura-ng/kaltura-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
+import { KontorolValidators } from '@kontorol-ng/kontorol-ui';
 import { Flavor } from '../flavor';
 
 
@@ -36,7 +36,7 @@ export class FlavorImport implements AfterViewInit, OnDestroy {
 	}
 
 	_validate(){
-    this._validationErrorMsg = !(KalturaValidators.isUrlValid(this._flavorURL) || !this._flavorURL.length) ? this._appLocalization.get('applications.content.entryDetails.flavours.urlInvalid') : '';
+    this._validationErrorMsg = !(KontorolValidators.isUrlValid(this._flavorURL) || !this._flavorURL.length) ? this._appLocalization.get('applications.content.entryDetails.flavours.urlInvalid') : '';
 	}
 
 	_onChange(){

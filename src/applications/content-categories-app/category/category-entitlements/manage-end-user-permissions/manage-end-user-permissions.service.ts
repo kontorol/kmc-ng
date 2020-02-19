@@ -4,23 +4,23 @@ import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs';
 import {ISubscription} from 'rxjs/Subscription';
 import 'rxjs/add/operator/map';
-import {KalturaDetachedResponseProfile} from 'kaltura-ngx-client';
-import {KalturaFilterPager} from 'kaltura-ngx-client';
-import {KalturaResponseProfileType} from 'kaltura-ngx-client';
-import {KalturaClient, KalturaMultiRequest} from 'kaltura-ngx-client';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import {KalturaUser} from 'kaltura-ngx-client';
-import {CategoryUserDeleteAction} from 'kaltura-ngx-client';
-import {CategoryUserListAction} from 'kaltura-ngx-client';
-import {KalturaCategoryUserFilter} from 'kaltura-ngx-client';
-import {UserGetAction} from 'kaltura-ngx-client';
-import {KalturaCategoryUser} from 'kaltura-ngx-client';
-import {KalturaCategoryUserPermissionLevel} from 'kaltura-ngx-client';
-import {KalturaUpdateMethodType} from 'kaltura-ngx-client';
-import {CategoryUserActivateAction} from 'kaltura-ngx-client';
-import {CategoryUserDeactivateAction} from 'kaltura-ngx-client';
-import {CategoryUserUpdateAction} from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import {KontorolDetachedResponseProfile} from 'kontorol-ngx-client';
+import {KontorolFilterPager} from 'kontorol-ngx-client';
+import {KontorolResponseProfileType} from 'kontorol-ngx-client';
+import {KontorolClient, KontorolMultiRequest} from 'kontorol-ngx-client';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import {KontorolUser} from 'kontorol-ngx-client';
+import {CategoryUserDeleteAction} from 'kontorol-ngx-client';
+import {CategoryUserListAction} from 'kontorol-ngx-client';
+import {KontorolCategoryUserFilter} from 'kontorol-ngx-client';
+import {UserGetAction} from 'kontorol-ngx-client';
+import {KontorolCategoryUser} from 'kontorol-ngx-client';
+import {KontorolCategoryUserPermissionLevel} from 'kontorol-ngx-client';
+import {KontorolUpdateMethodType} from 'kontorol-ngx-client';
+import {CategoryUserActivateAction} from 'kontorol-ngx-client';
+import {CategoryUserDeactivateAction} from 'kontorol-ngx-client';
+import {CategoryUserUpdateAction} from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {
   BooleanTypeAdapter,
   FiltersStoreBase,
@@ -28,13 +28,13 @@ import {
     ListTypeAdapter,
   StringTypeAdapter,
   TypeAdaptersMapping
-} from '@kaltura-ng/mc-shared';
-import {KalturaSearchOperator} from 'kaltura-ngx-client';
-import {KalturaSearchOperatorType} from 'kaltura-ngx-client';
-import {KalturaCategoryUserStatus} from 'kaltura-ngx-client';
-import { CategoryGetAction } from 'kaltura-ngx-client';
+} from '@kontorol-ng/mc-shared';
+import {KontorolSearchOperator} from 'kontorol-ngx-client';
+import {KontorolSearchOperatorType} from 'kontorol-ngx-client';
+import {KontorolCategoryUserStatus} from 'kontorol-ngx-client';
+import { CategoryGetAction } from 'kontorol-ngx-client';
 import { switchMap, map } from 'rxjs/operators';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 export interface LoadingStatus {
   loading: boolean;
@@ -44,9 +44,9 @@ export interface LoadingStatus {
 export interface EndUserPermissionsUser {
     id: string,
     name: string, // User Name / ID
-    permissionLevel: KalturaCategoryUserPermissionLevel; // Permission Level
-    status: KalturaCategoryUserStatus; // Active
-    updateMethod: KalturaUpdateMethodType; // Update Method
+    permissionLevel: KontorolCategoryUserPermissionLevel; // Permission Level
+    status: KontorolCategoryUserStatus; // Active
+    updateMethod: KontorolUpdateMethodType; // Update Method
     updatedAt: Date; // Updated On
 }
 
@@ -91,10 +91,10 @@ export class ManageEndUserPermissionsService extends FiltersStoreBase<UsersFilte
   private readonly _pageSizeCacheKey = 'categories.list.pageSize';
 
 
-  constructor(private _kalturaClient: KalturaClient,
+  constructor(private _kontorolClient: KontorolClient,
               private browserService: BrowserService,
               private _appLocalization: AppLocalization,
-              _logger: KalturaLogger) {
+              _logger: KontorolLogger) {
     super(_logger.subLogger('ManageEndUserPermissionsService'));
     this._prepare();
   }
@@ -193,25 +193,25 @@ export class ManageEndUserPermissionsService extends FiltersStoreBase<UsersFilte
               return Observable.of({items: [], totalCount: 0, actualUsersCount: 0});
           }
 
-          const filter: KalturaCategoryUserFilter = new KalturaCategoryUserFilter({
+          const filter: KontorolCategoryUserFilter = new KontorolCategoryUserFilter({
               categoryIdEqual: data.categoryId,
               categoryDirectMembers: false
           });
 
-          const pagination = new KalturaFilterPager(
+          const pagination = new KontorolFilterPager(
               {
                   pageSize: data.pageSize,
                   pageIndex: data.pageIndex + 1
               });
 
           // update desired fields of entries
-          const responseProfile: KalturaDetachedResponseProfile = new KalturaDetachedResponseProfile({
-              type: KalturaResponseProfileType.includeFields,
+          const responseProfile: KontorolDetachedResponseProfile = new KontorolDetachedResponseProfile({
+              type: KontorolResponseProfileType.includeFields,
               fields: 'userId,permissionLevel,status,updateMethod,updatedAt'
           });
 
-          const advancedSearch = filter.advancedSearch = new KalturaSearchOperator({});
-          advancedSearch.type = KalturaSearchOperatorType.searchAnd;
+          const advancedSearch = filter.advancedSearch = new KontorolSearchOperator({});
+          advancedSearch.type = KontorolSearchOperatorType.searchAnd;
 
           // filter 'freeText'
           if (data.freetext) {
@@ -242,7 +242,7 @@ export class ManageEndUserPermissionsService extends FiltersStoreBase<UsersFilte
               filter.permissionLevelIn = '3,2,1,0';
           }
 
-          const requests = new KalturaMultiRequest(
+          const requests = new KontorolMultiRequest(
               new CategoryUserListAction({
                   filter,
                   pager: pagination
@@ -252,7 +252,7 @@ export class ManageEndUserPermissionsService extends FiltersStoreBase<UsersFilte
               new CategoryGetAction({id: data.categoryId})
           );
 
-          return this._kalturaClient.multiRequest(requests)
+          return this._kontorolClient.multiRequest(requests)
               .pipe(
                   map(result => {
                       if (result.hasErrors()) {
@@ -266,14 +266,14 @@ export class ManageEndUserPermissionsService extends FiltersStoreBase<UsersFilte
                   }),
                   switchMap(
                       categoryUserListResult =>
-                          this._getKalturaUsers(categoryUserListResult.users.map(item => item.userId))
+                          this._getKontorolUsers(categoryUserListResult.users.map(item => item.userId))
                           .pipe(
-                              map((getKalturaUsersResult) => {
+                              map((getKontorolUsersResult) => {
                                   const items = categoryUserListResult.users.map((categoryUser, index) => {
-                                      const kalturaUser = getKalturaUsersResult[index];
+                                      const kontorolUser = getKontorolUsersResult[index];
                                       return {
                                           id: categoryUser.userId,
-                                          name: kalturaUser.screenName || categoryUser.userId,
+                                          name: kontorolUser.screenName || categoryUser.userId,
                                           permissionLevel: categoryUser.permissionLevel,
                                           status: categoryUser.status,
                                           updateMethod: categoryUser.updateMethod,
@@ -294,14 +294,14 @@ export class ManageEndUserPermissionsService extends FiltersStoreBase<UsersFilte
       }
   }
 
-  private _getKalturaUsers(categoryUsersId: string[]): Observable<KalturaUser[]> {
+  private _getKontorolUsers(categoryUsersId: string[]): Observable<KontorolUser[]> {
     if (!categoryUsersId) {
       return Observable.throw(new Error('ManageEndUserPermissionsService: Category has no end-users'))
     }
     if (!categoryUsersId.length) {
       return Observable.of([]);
     }
-    const multiRequest = new KalturaMultiRequest();
+    const multiRequest = new KontorolMultiRequest();
     categoryUsersId.forEach(userId => {
       multiRequest.requests.push(new UserGetAction({
           userId,
@@ -309,7 +309,7 @@ export class ManageEndUserPermissionsService extends FiltersStoreBase<UsersFilte
       );
     });
 
-    return this._kalturaClient.multiRequest(multiRequest)
+    return this._kontorolClient.multiRequest(multiRequest)
       .map(
         data => {
           if (data.hasErrors()) {
@@ -324,12 +324,12 @@ export class ManageEndUserPermissionsService extends FiltersStoreBase<UsersFilte
       return Observable.throw('Unable to activate users');
     }
 
-    const multiRequest = new KalturaMultiRequest();
+    const multiRequest = new KontorolMultiRequest();
     usersIds.forEach(userId => {
       multiRequest.requests.push(new CategoryUserActivateAction({categoryId, userId: userId}));
     });
 
-    return this._kalturaClient.multiRequest(multiRequest)
+    return this._kontorolClient.multiRequest(multiRequest)
       .map(response => {
           if (response.hasErrors()) {
             throw new Error(
@@ -346,12 +346,12 @@ export class ManageEndUserPermissionsService extends FiltersStoreBase<UsersFilte
       return Observable.throw('Unable to deactivate users');
     }
 
-    const multiRequest = new KalturaMultiRequest();
+    const multiRequest = new KontorolMultiRequest();
     usersIds.forEach(userId => {
       multiRequest.requests.push(new CategoryUserDeactivateAction({categoryId, userId}));
     });
 
-    return this._kalturaClient.multiRequest(multiRequest)
+    return this._kontorolClient.multiRequest(multiRequest)
       .map(response => {
           if (response.hasErrors()) {
             throw new Error(
@@ -370,12 +370,12 @@ export class ManageEndUserPermissionsService extends FiltersStoreBase<UsersFilte
       return Observable.throw('Unable to delete users');
     }
 
-    const multiRequest = new KalturaMultiRequest();
+    const multiRequest = new KontorolMultiRequest();
     usersIds.forEach(userId => {
       multiRequest.requests.push(new CategoryUserDeleteAction({categoryId, userId: userId}));
     });
 
-    return this._kalturaClient.multiRequest(multiRequest)
+    return this._kontorolClient.multiRequest(multiRequest)
       .map(response => {
           if (response.hasErrors()) {
             throw new Error(
@@ -387,19 +387,19 @@ export class ManageEndUserPermissionsService extends FiltersStoreBase<UsersFilte
       .catch(err => Observable.throw(err));
   }
 
-  public setPermissionLevel(categoryId: number, usersId: string[], permissionLevel: KalturaCategoryUserPermissionLevel): Observable<void> {
+  public setPermissionLevel(categoryId: number, usersId: string[], permissionLevel: KontorolCategoryUserPermissionLevel): Observable<void> {
       this._logger.info(`handle set permission level action`, { categoryId, usersId, permissionLevel });
     if (!usersId || !usersId.length || typeof permissionLevel === 'undefined') {
         this._logger.info(`no users or permissionLevel were provided abort action`);
       return Observable.throw('Unable to set permission level for users');
     }
 
-    const multiRequest = new KalturaMultiRequest();
+    const multiRequest = new KontorolMultiRequest();
     usersId.forEach(userId => {
       multiRequest.requests.push(new CategoryUserUpdateAction({
         categoryId,
         userId: userId,
-        categoryUser: new KalturaCategoryUser({
+        categoryUser: new KontorolCategoryUser({
           permissionLevel: permissionLevel,
           permissionNames: this._getPermissionsForPermissionLevel(permissionLevel)
         }),
@@ -407,7 +407,7 @@ export class ManageEndUserPermissionsService extends FiltersStoreBase<UsersFilte
       }));
     });
 
-    return this._kalturaClient.multiRequest(multiRequest)
+    return this._kontorolClient.multiRequest(multiRequest)
       .map(response => {
           if (response.hasErrors()) {
             throw new Error(
@@ -419,7 +419,7 @@ export class ManageEndUserPermissionsService extends FiltersStoreBase<UsersFilte
       .catch(err => Observable.throw(err));
   }
 
-  public setUpdateMethod(categoryId: number, usersIds: string[], updateMethod: KalturaUpdateMethodType): Observable<void> {
+  public setUpdateMethod(categoryId: number, usersIds: string[], updateMethod: KontorolUpdateMethodType): Observable<void> {
       this._logger.info(`handle set update method action`, { categoryId, usersIds, updateMethod });
     if (!usersIds || !usersIds.length || typeof updateMethod === 'undefined') {
         this._logger.info(`no users or updateMethod were provided abort action`);
@@ -427,19 +427,19 @@ export class ManageEndUserPermissionsService extends FiltersStoreBase<UsersFilte
     }
 
 
-    const multiRequest = new KalturaMultiRequest();
+    const multiRequest = new KontorolMultiRequest();
     usersIds.forEach(userId => {
       multiRequest.requests.push(new CategoryUserUpdateAction({
         categoryId,
         userId: userId,
-        categoryUser: new KalturaCategoryUser({
+        categoryUser: new KontorolCategoryUser({
           updateMethod: updateMethod
         }),
         override: true
       }));
     });
 
-    return this._kalturaClient.multiRequest(multiRequest)
+    return this._kontorolClient.multiRequest(multiRequest)
       .map(response => {
           if (response.hasErrors()) {
             throw new Error(
@@ -451,19 +451,19 @@ export class ManageEndUserPermissionsService extends FiltersStoreBase<UsersFilte
       .catch(err => Observable.throw(err));
   }
 
-  private _getPermissionsForPermissionLevel(permissionLevel: KalturaCategoryUserPermissionLevel) {
+  private _getPermissionsForPermissionLevel(permissionLevel: KontorolCategoryUserPermissionLevel) {
     let result: string;
     switch (permissionLevel) {
-      case KalturaCategoryUserPermissionLevel.member:
+      case KontorolCategoryUserPermissionLevel.member:
         result = 'CATEGORY_VIEW';
         break;
-      case KalturaCategoryUserPermissionLevel.contributor:
+      case KontorolCategoryUserPermissionLevel.contributor:
         result = 'CATEGORY_CONTRIBUTE,CATEGORY_VIEW';
         break;
-      case KalturaCategoryUserPermissionLevel.moderator:
+      case KontorolCategoryUserPermissionLevel.moderator:
         result = 'CATEGORY_MODERATE,CATEGORY_CONTRIBUTE,CATEGORY_VIEW';
         break;
-      case KalturaCategoryUserPermissionLevel.manager:
+      case KontorolCategoryUserPermissionLevel.manager:
         result = 'CATEGORY_EDIT,CATEGORY_MODERATE,CATEGORY_CONTRIBUTE,CATEGORY_VIEW';
         break;
     }

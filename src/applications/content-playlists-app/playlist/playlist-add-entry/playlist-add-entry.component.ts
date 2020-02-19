@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaEntryStatus } from 'kaltura-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolEntryStatus } from 'kontorol-ngx-client';
 import { EntriesFilters } from 'app-shared/content-shared/entries/entries-store/entries-store.service';
 import { ColumnsResizeManagerService, ResizableColumnsTableName } from 'app-shared/kmc-shared/columns-resize-manager';
 
@@ -16,17 +16,17 @@ import { ColumnsResizeManagerService, ResizableColumnsTableName } from 'app-shar
 })
 export class PlaylistAddEntryComponent {
   @Output() onClosePopupWidget = new EventEmitter<void>();
-  @Output() onAddEntries = new EventEmitter<KalturaMediaEntry[]>();
+  @Output() onAddEntries = new EventEmitter<KontorolMediaEntry[]>();
 
-  public _selectedEntries: KalturaMediaEntry[] = [];
+  public _selectedEntries: KontorolMediaEntry[] = [];
   public _addButtonLabel = '';
   public _addButtonLabelTranslation = '';
   public _enforcedFilters: Partial<EntriesFilters> = {
     'ingestionStatuses': [
-      KalturaEntryStatus.preconvert.toString(),
-      KalturaEntryStatus.ready.toString(),
-      KalturaEntryStatus.moderate.toString(),
-      KalturaEntryStatus.blocked.toString()
+      KontorolEntryStatus.preconvert.toString(),
+      KontorolEntryStatus.ready.toString(),
+      KontorolEntryStatus.moderate.toString(),
+      KontorolEntryStatus.blocked.toString()
     ]
   };
 
@@ -34,7 +34,7 @@ export class PlaylistAddEntryComponent {
     this._addButtonLabelTranslation = this._addButtonLabel = this._appLocalization.get('applications.content.playlists.addToPlaylist');
   }
 
-  public _selectionChanged(entries: KalturaMediaEntry[]): void {
+  public _selectionChanged(entries: KontorolMediaEntry[]): void {
     this._addButtonLabel = entries.length > 0
       ? `${this._addButtonLabelTranslation} ${entries.length}`
       : this._addButtonLabelTranslation;

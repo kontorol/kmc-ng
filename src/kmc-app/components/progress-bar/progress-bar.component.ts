@@ -1,6 +1,6 @@
 import { Component, OnDestroy, ViewChild, ElementRef, Renderer2 } from '@angular/core';
 import {NavigationCancel, NavigationError, RouteConfigLoadEnd, RouteConfigLoadStart, Router} from "@angular/router";
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
     selector: 'kLazyModuleLoadingProgressBar',

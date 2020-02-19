@@ -9,10 +9,10 @@ import {
     ViewChild
 } from '@angular/core';
 import {Menu} from 'primeng/menu';
-import {AppLocalization} from '@kaltura-ng/mc-shared';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
 import { KMCPermissionsService} from 'app-shared/kmc-shared/kmc-permissions';
 import {MenuItem} from 'primeng/api';
-import {KalturaReachProfileWithCredit} from "../reach-profiles-store/reach-profiles-store.service";
+import {KontorolReachProfileWithCredit} from "../reach-profiles-store/reach-profiles-store.service";
 import {globalConfig} from "config/global";
 
 @Component({
@@ -23,7 +23,7 @@ import {globalConfig} from "config/global";
 })
 
 export class ReachProfilesTableComponent implements OnInit, AfterViewInit, OnDestroy {
-    @Input() set profiles(data: KalturaReachProfileWithCredit[]) {
+    @Input() set profiles(data: KontorolReachProfileWithCredit[]) {
         if (!this._deferredLoading) {
             this._profiles = [];
             this._cdRef.detectChanges();
@@ -34,7 +34,7 @@ export class ReachProfilesTableComponent implements OnInit, AfterViewInit, OnDes
         }
     }
     
-    @Output() actionSelected = new EventEmitter<{ action: string, profile: KalturaReachProfileWithCredit }>();
+    @Output() actionSelected = new EventEmitter<{ action: string, profile: KontorolReachProfileWithCredit }>();
     @Output() sortChanged = new EventEmitter<any>();
     
     @ViewChild('actionsmenu', { static: true }) private _actionsMenu: Menu;
@@ -73,7 +73,7 @@ export class ReachProfilesTableComponent implements OnInit, AfterViewInit, OnDes
         this._actionsMenu.hide();
     }
     
-    private _buildMenu(profile: KalturaReachProfileWithCredit): void {
+    private _buildMenu(profile: KontorolReachProfileWithCredit): void {
         
         this._items = [
             {
@@ -89,14 +89,14 @@ export class ReachProfilesTableComponent implements OnInit, AfterViewInit, OnDes
         ];
     }
     
-    public _openActionsMenu(event: any, profile: KalturaReachProfileWithCredit): void {
+    public _openActionsMenu(event: any, profile: KontorolReachProfileWithCredit): void {
         if (this._actionsMenu) {
             this._buildMenu(profile);
             this._actionsMenu.toggle(event);
         }
     }
     
-    public _onActionSelected(action: string, profile: KalturaReachProfileWithCredit): void {
+    public _onActionSelected(action: string, profile: KontorolReachProfileWithCredit): void {
         this.actionSelected.emit({action, profile});
     }
     

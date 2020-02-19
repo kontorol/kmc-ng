@@ -1,65 +1,65 @@
 import { Injectable, OnDestroy } from '@angular/core';
-import { KalturaAPIException, KalturaClient, KalturaMultiRequest, KalturaObjectBaseFactory } from 'kaltura-ngx-client';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolAPIException, KontorolClient, KontorolMultiRequest, KontorolObjectBaseFactory } from 'kontorol-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { EntryWidget } from '../entry-widget';
 import { Observable } from 'rxjs';
-import { DistributionProfileListAction } from 'kaltura-ngx-client';
-import { KalturaFilterPager } from 'kaltura-ngx-client';
-import { EntryDistributionListAction } from 'kaltura-ngx-client';
-import { KalturaEntryDistributionFilter } from 'kaltura-ngx-client';
-import { FlavorAssetGetFlavorAssetsWithParamsAction } from 'kaltura-ngx-client';
-import { ThumbAssetGetByEntryIdAction } from 'kaltura-ngx-client';
-import { KalturaDistributionProfileListResponse } from 'kaltura-ngx-client';
-import { KalturaDistributionProfileStatus } from 'kaltura-ngx-client';
-import { KalturaEntryDistributionListResponse } from 'kaltura-ngx-client';
-import { KalturaEntryDistributionStatus } from 'kaltura-ngx-client';
-import { KalturaFlavorAssetWithParams } from 'kaltura-ngx-client';
-import { KalturaLiveParams } from 'kaltura-ngx-client';
+import { DistributionProfileListAction } from 'kontorol-ngx-client';
+import { KontorolFilterPager } from 'kontorol-ngx-client';
+import { EntryDistributionListAction } from 'kontorol-ngx-client';
+import { KontorolEntryDistributionFilter } from 'kontorol-ngx-client';
+import { FlavorAssetGetFlavorAssetsWithParamsAction } from 'kontorol-ngx-client';
+import { ThumbAssetGetByEntryIdAction } from 'kontorol-ngx-client';
+import { KontorolDistributionProfileListResponse } from 'kontorol-ngx-client';
+import { KontorolDistributionProfileStatus } from 'kontorol-ngx-client';
+import { KontorolEntryDistributionListResponse } from 'kontorol-ngx-client';
+import { KontorolEntryDistributionStatus } from 'kontorol-ngx-client';
+import { KontorolFlavorAssetWithParams } from 'kontorol-ngx-client';
+import { KontorolLiveParams } from 'kontorol-ngx-client';
 import { Flavor } from '../entry-flavours/flavor';
-import { KalturaFlavorAssetStatus } from 'kaltura-ngx-client';
-import { KalturaWidevineFlavorAsset } from 'kaltura-ngx-client';
-import { KalturaThumbAsset } from 'kaltura-ngx-client';
-import { KalturaEntryDistribution } from 'kaltura-ngx-client';
-import { KalturaDistributionProfile } from 'kaltura-ngx-client';
+import { KontorolFlavorAssetStatus } from 'kontorol-ngx-client';
+import { KontorolWidevineFlavorAsset } from 'kontorol-ngx-client';
+import { KontorolThumbAsset } from 'kontorol-ngx-client';
+import { KontorolEntryDistribution } from 'kontorol-ngx-client';
+import { KontorolDistributionProfile } from 'kontorol-ngx-client';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { EntryDistributionSubmitDeleteAction } from 'kaltura-ngx-client';
-import { EntryDistributionDeleteAction } from 'kaltura-ngx-client';
-import { AreaBlockerMessage } from '@kaltura-ng/kaltura-ui';
+import { EntryDistributionSubmitDeleteAction } from 'kontorol-ngx-client';
+import { EntryDistributionDeleteAction } from 'kontorol-ngx-client';
+import { AreaBlockerMessage } from '@kontorol-ng/kontorol-ui';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
-import { KalturaRequest } from 'kaltura-ngx-client';
-import { KalturaDistributionProfileActionStatus } from 'kaltura-ngx-client';
-import { FlavorParamsGetAction } from 'kaltura-ngx-client';
-import { EntryDistributionAddAction } from 'kaltura-ngx-client';
-import { EntryDistributionSubmitAddAction } from 'kaltura-ngx-client';
-import { EntryDistributionUpdateAction } from 'kaltura-ngx-client';
-import { EntryDistributionSubmitUpdateAction } from 'kaltura-ngx-client';
-import { EntryDistributionRetrySubmitAction } from 'kaltura-ngx-client';
-import { KalturaDistributionProviderType } from 'kaltura-ngx-client';
+import { KontorolRequest } from 'kontorol-ngx-client';
+import { KontorolDistributionProfileActionStatus } from 'kontorol-ngx-client';
+import { FlavorParamsGetAction } from 'kontorol-ngx-client';
+import { EntryDistributionAddAction } from 'kontorol-ngx-client';
+import { EntryDistributionSubmitAddAction } from 'kontorol-ngx-client';
+import { EntryDistributionUpdateAction } from 'kontorol-ngx-client';
+import { EntryDistributionSubmitUpdateAction } from 'kontorol-ngx-client';
+import { EntryDistributionRetrySubmitAction } from 'kontorol-ngx-client';
+import { KontorolDistributionProviderType } from 'kontorol-ngx-client';
 import { ContentEntryViewSections } from 'app-shared/kmc-shared/kmc-views/details-views/content-entry-view.service';
-import {KalturaLogger} from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
-export interface ExtendedKalturaEntryDistribution extends KalturaEntryDistribution {
+export interface ExtendedKontorolEntryDistribution extends KontorolEntryDistribution {
   name: string;
   autoDistribution: boolean;
 }
 
 export interface DistributionWidgetData {
-  distributedProfiles: ExtendedKalturaEntryDistribution[],
-  undistributedProfiles: KalturaDistributionProfile[],
-  partnerDistributionProfiles: KalturaDistributionProfile[],
+  distributedProfiles: ExtendedKontorolEntryDistribution[],
+  undistributedProfiles: KontorolDistributionProfile[],
+  partnerDistributionProfiles: KontorolDistributionProfile[],
   flavors: Flavor[];
-  thumbnails: KalturaThumbAsset[];
+  thumbnails: KontorolThumbAsset[];
 }
 
 @Injectable()
 export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
-  private _partnerDistributionProfiles = new BehaviorSubject<{ items: KalturaDistributionProfile[] }>({ items: [] });
-  private _distributedProfiles = new BehaviorSubject<{ items: KalturaEntryDistribution[] }>({ items: [] });
-  private _undistributedProfiles = new BehaviorSubject<{ items: KalturaDistributionProfile[] }>({ items: [] });
+  private _partnerDistributionProfiles = new BehaviorSubject<{ items: KontorolDistributionProfile[] }>({ items: [] });
+  private _distributedProfiles = new BehaviorSubject<{ items: KontorolEntryDistribution[] }>({ items: [] });
+  private _undistributedProfiles = new BehaviorSubject<{ items: KontorolDistributionProfile[] }>({ items: [] });
   private _flavors = new BehaviorSubject<{ items: Flavor[] }>({ items: [] });
-  private _thumbnails = new BehaviorSubject<{ items: KalturaThumbAsset[] }>({ items: [] });
+  private _thumbnails = new BehaviorSubject<{ items: KontorolThumbAsset[] }>({ items: [] });
 
   public popupMessage: AreaBlockerMessage;
   public flavors$ = this._flavors.asObservable();
@@ -70,9 +70,9 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
   };
 
   constructor(private _appLocalization: AppLocalization,
-              private _kalturaClient: KalturaClient,
+              private _kontorolClient: KontorolClient,
               private _browserService: BrowserService,
-              logger: KalturaLogger) {
+              logger: KontorolLogger) {
     super(ContentEntryViewSections.Distribution, logger);
   }
 
@@ -113,36 +113,36 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
       );
   }
 
-  protected onDataSaving(data: KalturaMediaEntry, request: KalturaMultiRequest): void {
+  protected onDataSaving(data: KontorolMediaEntry, request: KontorolMultiRequest): void {
 
   }
 
-  private _mapPartnerDistributionResponse(response: KalturaDistributionProfileListResponse): KalturaDistributionProfile[] {
+  private _mapPartnerDistributionResponse(response: KontorolDistributionProfileListResponse): KontorolDistributionProfile[] {
     if (!response || !Array.isArray(response.objects)) {
       return [];
     }
-    return response.objects.filter(profile => profile.status === KalturaDistributionProfileStatus.enabled);
+    return response.objects.filter(profile => profile.status === KontorolDistributionProfileStatus.enabled);
   }
 
-  private _mapEntryDistributionResponse(response: KalturaEntryDistributionListResponse): KalturaEntryDistribution[] {
+  private _mapEntryDistributionResponse(response: KontorolEntryDistributionListResponse): KontorolEntryDistribution[] {
     if (!response || !Array.isArray(response.objects)) {
       return [];
     }
-    return response.objects.filter(profile => profile.status !== KalturaEntryDistributionStatus.deleted);
+    return response.objects.filter(profile => profile.status !== KontorolEntryDistributionStatus.deleted);
   }
 
-  private _mapEntryFlavorsResponse(response: KalturaFlavorAssetWithParams[]): Flavor[] {
+  private _mapEntryFlavorsResponse(response: KontorolFlavorAssetWithParams[]): Flavor[] {
     let flavors = [];
     if (response && response.length) {
       const flavorsWithAssets = [];
       const flavorsWithoutAssets = [];
-      response.forEach((flavor: KalturaFlavorAssetWithParams) => {
+      response.forEach((flavor: KontorolFlavorAssetWithParams) => {
         if (flavor.flavorAsset && flavor.flavorAsset.isOriginal) {
           flavors.push(this._createFlavor(flavor, response)); // this is the source. put it first in the array
         } else if (flavor.flavorAsset && (!flavor.flavorAsset.status ||
-            (flavor.flavorAsset.status && flavor.flavorAsset.status.toString() !== KalturaFlavorAssetStatus.temp.toString()))) {
+            (flavor.flavorAsset.status && flavor.flavorAsset.status.toString() !== KontorolFlavorAssetStatus.temp.toString()))) {
           flavorsWithAssets.push(this._createFlavor(flavor, response)); // flavors with assets that is not in temp status
-        } else if (!flavor.flavorAsset && flavor.flavorParams && !(flavor.flavorParams instanceof KalturaLiveParams)) {
+        } else if (!flavor.flavorAsset && flavor.flavorParams && !(flavor.flavorParams instanceof KontorolLiveParams)) {
           flavorsWithoutAssets.push(this._createFlavor(flavor, response)); // flavors without assets
         }
       });
@@ -153,20 +153,20 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
     return flavors;
   }
 
-  private _createFlavor(flavor: KalturaFlavorAssetWithParams, allFlavors: KalturaFlavorAssetWithParams[]): Flavor {
+  private _createFlavor(flavor: KontorolFlavorAssetWithParams, allFlavors: KontorolFlavorAssetWithParams[]): Flavor {
     const newFlavor = <Flavor>flavor;
     newFlavor.name = flavor.flavorParams ? flavor.flavorParams.name : '';
     newFlavor.id = flavor.flavorAsset ? flavor.flavorAsset.id : '';
     newFlavor.paramsId = flavor.flavorParams ? flavor.flavorParams.id : null;
     newFlavor.isSource = flavor.flavorAsset ? flavor.flavorAsset.isOriginal : false;
-    newFlavor.isWidevine = flavor.flavorAsset ? flavor.flavorAsset instanceof KalturaWidevineFlavorAsset : false;
+    newFlavor.isWidevine = flavor.flavorAsset ? flavor.flavorAsset instanceof KontorolWidevineFlavorAsset : false;
     newFlavor.isWeb = flavor.flavorAsset ? flavor.flavorAsset.isWeb : false;
     newFlavor.format = flavor.flavorAsset ? flavor.flavorAsset.fileExt : '';
     newFlavor.codec = flavor.flavorAsset ? flavor.flavorAsset.videoCodecId : '';
     newFlavor.bitrate = (flavor.flavorAsset && flavor.flavorAsset.bitrate && flavor.flavorAsset.bitrate > 0)
       ? flavor.flavorAsset.bitrate.toString()
       : '';
-    newFlavor.size = flavor.flavorAsset ? (flavor.flavorAsset.status.toString() === KalturaFlavorAssetStatus.ready.toString()
+    newFlavor.size = flavor.flavorAsset ? (flavor.flavorAsset.status.toString() === KontorolFlavorAssetStatus.ready.toString()
       ? flavor.flavorAsset.size.toString() : '0')
       : '';
     newFlavor.status = flavor.flavorAsset ? flavor.flavorAsset.status.toString() : '';
@@ -185,9 +185,9 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
     // set status
     if (flavor.flavorAsset) {
       newFlavor.statusLabel = this._appLocalization.get(
-        'applications.content.entryDetails.flavours.status.' + KalturaFlavorAssetStatus[flavor.flavorAsset.status]
+        'applications.content.entryDetails.flavours.status.' + KontorolFlavorAssetStatus[flavor.flavorAsset.status]
       );
-      if (flavor.flavorAsset.status.toString() === KalturaFlavorAssetStatus.notApplicable.toString()) {
+      if (flavor.flavorAsset.status.toString() === KontorolFlavorAssetStatus.notApplicable.toString()) {
         newFlavor.statusTooltip = this._appLocalization.get('applications.content.entryDetails.flavours.status.naTooltip');
       }
     }
@@ -195,8 +195,8 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
     // add DRM details
     if (newFlavor.isWidevine) {
       // get source flavors for DRM
-      const sourceIDs = (flavor.flavorAsset as KalturaWidevineFlavorAsset).actualSourceAssetParamsIds
-        ? (flavor.flavorAsset as KalturaWidevineFlavorAsset).actualSourceAssetParamsIds.split(',')
+      const sourceIDs = (flavor.flavorAsset as KontorolWidevineFlavorAsset).actualSourceAssetParamsIds
+        ? (flavor.flavorAsset as KontorolWidevineFlavorAsset).actualSourceAssetParamsIds.split(',')
         : [];
       const sources = [];
       sourceIDs.forEach(sourceId => {
@@ -207,17 +207,17 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
         });
       });
       // set start and end date
-      let startDate = (flavor.flavorAsset as KalturaWidevineFlavorAsset).widevineDistributionStartDate;
+      let startDate = (flavor.flavorAsset as KontorolWidevineFlavorAsset).widevineDistributionStartDate;
       if (startDate === -2147483648 || startDate === 18001 || startDate === 2000001600) {
         startDate = null;
       }
-      let endDate = (flavor.flavorAsset as KalturaWidevineFlavorAsset).widevineDistributionEndDate;
+      let endDate = (flavor.flavorAsset as KontorolWidevineFlavorAsset).widevineDistributionEndDate;
       if (endDate === -2147483648 || endDate === 18001 || endDate === 2000001600) {
         endDate = null;
       }
       newFlavor.drm = {
         name: flavor.flavorParams.name,
-        id: (flavor.flavorAsset as KalturaWidevineFlavorAsset).widevineAssetId,
+        id: (flavor.flavorAsset as KontorolWidevineFlavorAsset).widevineAssetId,
         flavorSources: sources,
         startTime: startDate,
         endTime: endDate
@@ -226,7 +226,7 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
     return newFlavor;
   }
 
-  private _mapThumbnailsResponse(response: KalturaThumbAsset[]): KalturaThumbAsset[] {
+  private _mapThumbnailsResponse(response: KontorolThumbAsset[]): KontorolThumbAsset[] {
     if (response && response.length) {
       return response;
     }
@@ -235,19 +235,19 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
 
   private _loadDistributionData(): Observable<DistributionWidgetData> {
     const partnerDistributionListAction = new DistributionProfileListAction({
-      pager: new KalturaFilterPager({ pageSize: 500 })
+      pager: new KontorolFilterPager({ pageSize: 500 })
     });
 
     const entryDistributionListAction = new EntryDistributionListAction({
-      filter: new KalturaEntryDistributionFilter({ entryIdEqual: this.data.id })
+      filter: new KontorolEntryDistributionFilter({ entryIdEqual: this.data.id })
     });
 
     const entryFlavorsListAction = new FlavorAssetGetFlavorAssetsWithParamsAction({ entryId: this.data.id });
 
     const entryThumbnailsListAction = new ThumbAssetGetByEntryIdAction({ entryId: this.data.id });
 
-    return this._kalturaClient
-      .multiRequest(new KalturaMultiRequest(
+    return this._kontorolClient
+      .multiRequest(new KontorolMultiRequest(
         partnerDistributionListAction,
         entryDistributionListAction,
         entryFlavorsListAction,
@@ -274,10 +274,10 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
         entryProfiles.forEach((profile) => {
           const relevantPartnerProfile = undistributedProfiles.find(({ id }) => id === profile.distributionProfileId);
           if (relevantPartnerProfile) {
-            const autoDistribution = relevantPartnerProfile.submitEnabled === KalturaDistributionProfileActionStatus.automatic ||
-              profile.status === KalturaEntryDistributionStatus.queued;
-            const distributedProfile = <ExtendedKalturaEntryDistribution>Object.assign(
-              KalturaObjectBaseFactory.createObject(profile),
+            const autoDistribution = relevantPartnerProfile.submitEnabled === KontorolDistributionProfileActionStatus.automatic ||
+              profile.status === KontorolEntryDistributionStatus.queued;
+            const distributedProfile = <ExtendedKontorolEntryDistribution>Object.assign(
+              KontorolObjectBaseFactory.createObject(profile),
               profile,
               {
                 autoDistribution,
@@ -299,8 +299,8 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
       });
   }
 
-  private _performDeleteRequest(action: KalturaRequest<KalturaEntryDistribution | void>, closePopupCallback?: () => void): void {
-    this._kalturaClient.request(action)
+  private _performDeleteRequest(action: KontorolRequest<KontorolEntryDistribution | void>, closePopupCallback?: () => void): void {
+    this._kontorolClient.request(action)
       .pipe(tag('block-shell'))
       .pipe(cancelOnDestroy(this, this.widgetReset$))
       .subscribe(
@@ -335,102 +335,102 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
     super.updateState({ isDirty: true });
   }
 
-  public getProviderName(type: KalturaDistributionProviderType): string {
+  public getProviderName(type: KontorolDistributionProviderType): string {
     switch (true) {
-      case type === KalturaDistributionProviderType.attUverse:
+      case type === KontorolDistributionProviderType.attUverse:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.attUverse');
 
-      case type === KalturaDistributionProviderType.avn:
+      case type === KontorolDistributionProviderType.avn:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.avn');
 
-      case type === KalturaDistributionProviderType.comcastMrss:
+      case type === KontorolDistributionProviderType.comcastMrss:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.comcastMrss');
 
-      case type === KalturaDistributionProviderType.crossKaltura:
-        return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.crossKaltura');
+      case type === KontorolDistributionProviderType.crossKontorol:
+        return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.crossKontorol');
 
-      case type === KalturaDistributionProviderType.dailymotion:
+      case type === KontorolDistributionProviderType.dailymotion:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.dailymotion');
 
-      case type === KalturaDistributionProviderType.doubleclick:
+      case type === KontorolDistributionProviderType.doubleclick:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.doubleclick');
 
-      case type === KalturaDistributionProviderType.facebook:
+      case type === KontorolDistributionProviderType.facebook:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.facebook');
 
-      case type === KalturaDistributionProviderType.freewheel:
+      case type === KontorolDistributionProviderType.freewheel:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.freewheel');
 
-      case type === KalturaDistributionProviderType.freewheelGeneric:
+      case type === KontorolDistributionProviderType.freewheelGeneric:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.freewheelGeneric');
 
-      case type === KalturaDistributionProviderType.ftp:
+      case type === KontorolDistributionProviderType.ftp:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.ftp');
 
-      case type === KalturaDistributionProviderType.ftpScheduled:
+      case type === KontorolDistributionProviderType.ftpScheduled:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.ftpScheduled');
 
-      case type === KalturaDistributionProviderType.generic:
+      case type === KontorolDistributionProviderType.generic:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.generic');
 
-      case type === KalturaDistributionProviderType.hulu:
+      case type === KontorolDistributionProviderType.hulu:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.hulu');
 
-      case type === KalturaDistributionProviderType.idetic:
+      case type === KontorolDistributionProviderType.idetic:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.idetic');
 
-      case type === KalturaDistributionProviderType.metroPcs:
+      case type === KontorolDistributionProviderType.metroPcs:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.metroPcs');
 
-      case type === KalturaDistributionProviderType.msn:
+      case type === KontorolDistributionProviderType.msn:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.msn');
 
-      case type === KalturaDistributionProviderType.ndn:
+      case type === KontorolDistributionProviderType.ndn:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.ndn');
 
-      case type === KalturaDistributionProviderType.podcast:
+      case type === KontorolDistributionProviderType.podcast:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.podcast');
 
-      case type === KalturaDistributionProviderType.pushToNews:
+      case type === KontorolDistributionProviderType.pushToNews:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.pushToNews');
 
-      case type === KalturaDistributionProviderType.quickplay:
+      case type === KontorolDistributionProviderType.quickplay:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.quickplay');
 
-      case type === KalturaDistributionProviderType.synacorHbo:
+      case type === KontorolDistributionProviderType.synacorHbo:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.synacorHbo');
 
-      case type === KalturaDistributionProviderType.syndication:
+      case type === KontorolDistributionProviderType.syndication:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.syndication');
 
-      case type === KalturaDistributionProviderType.timeWarner:
+      case type === KontorolDistributionProviderType.timeWarner:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.timeWarner');
 
-      case type === KalturaDistributionProviderType.tvcom:
+      case type === KontorolDistributionProviderType.tvcom:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.tvcom');
 
-      case type === KalturaDistributionProviderType.tvinci:
+      case type === KontorolDistributionProviderType.tvinci:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.tvinci');
 
-      case type === KalturaDistributionProviderType.unicorn:
+      case type === KontorolDistributionProviderType.unicorn:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.unicorn');
 
-      case type === KalturaDistributionProviderType.uverse:
+      case type === KontorolDistributionProviderType.uverse:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.uverse');
 
-      case type === KalturaDistributionProviderType.uverseClickToOrder:
+      case type === KontorolDistributionProviderType.uverseClickToOrder:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.uverseClickToOrder');
 
-      case type === KalturaDistributionProviderType.verizonVcast:
+      case type === KontorolDistributionProviderType.verizonVcast:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.verizonVcast');
 
-      case type === KalturaDistributionProviderType.yahoo:
+      case type === KontorolDistributionProviderType.yahoo:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.yahoo');
 
-      case type === KalturaDistributionProviderType.youtube:
+      case type === KontorolDistributionProviderType.youtube:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.youtube');
 
-      case type === KalturaDistributionProviderType.youtubeApi:
+      case type === KontorolDistributionProviderType.youtubeApi:
         return this._appLocalization.get('applications.content.entryDetails.distribution.providerTypes.youtubeApi');
 
       default:
@@ -439,15 +439,15 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
     }
   }
 
-  public deleteDistributionProfile(profile: ExtendedKalturaEntryDistribution, closePopupCallback?: () => void): void {
+  public deleteDistributionProfile(profile: ExtendedKontorolEntryDistribution, closePopupCallback?: () => void): void {
     const entrySubmitted = [
-      KalturaEntryDistributionStatus.ready,
-      KalturaEntryDistributionStatus.errorUpdating
+      KontorolEntryDistributionStatus.ready,
+      KontorolEntryDistributionStatus.errorUpdating
     ].indexOf(profile.status) !== -1;
     const entryNotSubmitted = [
-      KalturaEntryDistributionStatus.queued,
-      KalturaEntryDistributionStatus.pending,
-      KalturaEntryDistributionStatus.errorSubmitting
+      KontorolEntryDistributionStatus.queued,
+      KontorolEntryDistributionStatus.pending,
+      KontorolEntryDistributionStatus.errorSubmitting
     ].indexOf(profile.status) !== -1;
     let action;
 
@@ -482,7 +482,7 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
 
   public loadMissingFlavors(flavors: Partial<Flavor>[]): Observable<{ id: string, name: string }[]> {
     const actions = flavors.map(({ id }) => new FlavorParamsGetAction({ id: Number(id) }));
-    return this._kalturaClient.multiRequest(new KalturaMultiRequest(...actions))
+    return this._kontorolClient.multiRequest(new KontorolMultiRequest(...actions))
       .map(responses => {
         return responses.map(response => {
           const result = response.result;
@@ -499,12 +499,12 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
   }
 
   public distributeProfile(payload: { entryId: string, profileId: number, submitWhenReady: boolean }, closePopupCallback: () => void): void {
-    const newEntryDistribution = new KalturaEntryDistribution({
+    const newEntryDistribution = new KontorolEntryDistribution({
       entryId: payload.entryId,
       distributionProfileId: payload.profileId
     });
 
-    const actions: KalturaRequest<KalturaEntryDistribution>[] = [
+    const actions: KontorolRequest<KontorolEntryDistribution>[] = [
       new EntryDistributionAddAction({ entryDistribution: newEntryDistribution })
     ];
 
@@ -515,12 +515,12 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
       );
     }
 
-    this._kalturaClient.multiRequest(new KalturaMultiRequest(...actions))
+    this._kontorolClient.multiRequest(new KontorolMultiRequest(...actions))
       .pipe(cancelOnDestroy(this, this.widgetReset$))
       .pipe(tag('block-shell'))
       .map(responses => {
         responses.forEach(response => {
-          if (response.error instanceof KalturaAPIException) {
+          if (response.error instanceof KontorolAPIException) {
             throw Error(response.error.message);
           }
         });
@@ -547,9 +547,9 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
 
   }
 
-  public updateProfile(profile: ExtendedKalturaEntryDistribution, closePopupCallback: () => void): void {
+  public updateProfile(profile: ExtendedKontorolEntryDistribution, closePopupCallback: () => void): void {
 
-    this._kalturaClient.request(new EntryDistributionUpdateAction({
+    this._kontorolClient.request(new EntryDistributionUpdateAction({
       id: profile.id,
       entryDistribution: profile
     }))
@@ -578,7 +578,7 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
   }
 
   public submitProfileUpdate(profileId: number): void {
-    this._kalturaClient.request(new EntryDistributionSubmitUpdateAction({ id: profileId }))
+    this._kontorolClient.request(new EntryDistributionSubmitUpdateAction({ id: profileId }))
       .pipe(cancelOnDestroy(this, this.widgetReset$))
       .pipe(tag('block-shell'))
       .subscribe(
@@ -604,7 +604,7 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
   }
 
   public submitDistribution(profileId: number): void {
-    this._kalturaClient.request(new EntryDistributionSubmitAddAction({ id: profileId }))
+    this._kontorolClient.request(new EntryDistributionSubmitAddAction({ id: profileId }))
       .pipe(cancelOnDestroy(this, this.widgetReset$))
       .pipe(tag('block-shell'))
       .subscribe(
@@ -630,7 +630,7 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
   }
 
   public retryDistribution(profileId: number): void {
-    this._kalturaClient.request(new EntryDistributionRetrySubmitAction({ id: profileId }))
+    this._kontorolClient.request(new EntryDistributionRetrySubmitAction({ id: profileId }))
       .pipe(cancelOnDestroy(this, this.widgetReset$))
       .pipe(tag('block-shell'))
       .subscribe(
@@ -655,7 +655,7 @@ export class EntryDistributionWidget extends EntryWidget implements OnDestroy {
         });
   }
 
-  public getPartnerProfileById(profileId): KalturaDistributionProfile {
+  public getPartnerProfileById(profileId): KontorolDistributionProfile {
     const partnerProfiles = this._partnerDistributionProfiles.getValue().items;
 
     if (partnerProfiles) {

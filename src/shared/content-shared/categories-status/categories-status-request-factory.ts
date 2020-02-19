@@ -1,8 +1,8 @@
-import { PartnerListFeatureStatusAction } from 'kaltura-ngx-client';
-import { KalturaFeatureStatusListResponse } from 'kaltura-ngx-client';
-import { RequestFactory } from '@kaltura-ng/kaltura-common';
+import { PartnerListFeatureStatusAction } from 'kontorol-ngx-client';
+import { KontorolFeatureStatusListResponse } from 'kontorol-ngx-client';
+import { RequestFactory } from '@kontorol-ng/kontorol-common';
 
-export class CategoriesStatusRequestFactory implements RequestFactory<PartnerListFeatureStatusAction, KalturaFeatureStatusListResponse> {
+export class CategoriesStatusRequestFactory implements RequestFactory<PartnerListFeatureStatusAction, KontorolFeatureStatusListResponse> {
 
   constructor() {
   }

@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { ReachProfileWidget } from '../reach-profile-widget';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
 
 @Injectable()
 export class ReachProfileDetailsWidget extends ReachProfileWidget {
-  constructor(logger: KalturaLogger) {
+  constructor(logger: KontorolLogger) {
     super('reachProfileDetails', logger);
   }
 

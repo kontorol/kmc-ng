@@ -1,8 +1,8 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NotificationTypes, ActionTypes, ReachProfileStore } from './reach-profile-store.service';
-import { AreaBlockerMessage, AreaBlockerMessageButton } from '@kaltura-ng/kaltura-ui';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AreaBlockerMessage, AreaBlockerMessageButton } from '@kontorol-ng/kontorol-ui';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { Observable } from 'rxjs';
 import { ReachProfileWidgetsManager } from './reach-profile-widgets-manager';
 import { ReachProfileSectionsListWidget } from './reach-profile-sections-list/reach-profile-sections-list-widget.service';
@@ -10,7 +10,7 @@ import { ReachProfileDetailsWidget } from './reach-profile-details/reach-profile
 import { ReachProfileSettingsWidget } from './reach-profile-settings/reach-profile-settings-widget.service';
 import { ReachProfileServiceWidget } from './reach-profile-service/reach-profile-service-widget.service';
 import { KMCPermissions, KMCPermissionsService } from 'app-shared/kmc-shared/kmc-permissions';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { ReachProfilesStore } from "../reach-profiles/reach-profiles-store/reach-profiles-store.service";
 import { SettingsReachProfileViewSections, SettingsReachProfileViewService } from "app-shared/kmc-shared/kmc-views/details-views/settings-reach-profile-view.service";
 import { ReachProfileCreditWidget } from "./reach-profile-credit/reach-profile-credit-widget.service";

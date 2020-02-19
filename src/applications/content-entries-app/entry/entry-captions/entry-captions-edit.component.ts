@@ -3,17 +3,17 @@ import { AbstractControl, FormBuilder, FormGroup } from '@angular/forms';
 
 import { ISubscription } from 'rxjs/Subscription';
 
-import { KalturaCaptionAsset } from 'kaltura-ngx-client';
-import { KalturaCaptionType } from 'kaltura-ngx-client';
-import { UploadManagement } from '@kaltura-ng/kaltura-common';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { KontorolCaptionAsset } from 'kontorol-ngx-client';
+import { KontorolCaptionType } from 'kontorol-ngx-client';
+import { UploadManagement } from '@kontorol-ng/kontorol-common';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
-import { FileDialogComponent } from '@kaltura-ng/kaltura-ui';
-import { PopupWidgetComponent, PopupWidgetStates } from '@kaltura-ng/kaltura-ui';
+import { FileDialogComponent } from '@kontorol-ng/kontorol-ui';
+import { PopupWidgetComponent, PopupWidgetStates } from '@kontorol-ng/kontorol-ui';
 import { NewEntryCaptionFile } from './new-entry-caption-file';
 import { globalConfig } from 'config/global';
 import { LanguageOptionsService } from 'app-shared/kmc-shared/language-options';
-import { KalturaValidators } from '@kaltura-ng/kaltura-ui';
+import { KontorolValidators } from '@kontorol-ng/kontorol-ui';
 
 @Component({
     selector: 'kEntryCaptionsEdit',
@@ -23,7 +23,7 @@ import { KalturaValidators } from '@kaltura-ng/kaltura-ui';
 })
 export class EntryCaptionsEdit implements  OnInit, AfterContentInit, OnDestroy{
 
-	@Input() currentCaption: KalturaCaptionAsset;
+	@Input() currentCaption: KontorolCaptionAsset;
 	@Input() parentPopupWidget: PopupWidgetComponent;
 
 	@ViewChild('fileDialog', { static: true }) private fileDialog: FileDialogComponent;
@@ -54,19 +54,19 @@ export class EntryCaptionsEdit implements  OnInit, AfterContentInit, OnDestroy{
         this._captionFormats = [
             {
                 label: 'SRT',
-                value: KalturaCaptionType.srt
+                value: KontorolCaptionType.srt
             },
             {
                 label: 'DFXP',
-                value: KalturaCaptionType.dfxp
+                value: KontorolCaptionType.dfxp
             },
             {
                 label: 'VTT',
-                value: KalturaCaptionType.webvtt
+                value: KontorolCaptionType.webvtt
             },
             {
                 label: 'SCC',
-                value: KalturaCaptionType.scc
+                value: KontorolCaptionType.scc
             }
         ];
 	    this._newCaption = this.currentCaption.id === null;
@@ -114,7 +114,7 @@ export class EntryCaptionsEdit implements  OnInit, AfterContentInit, OnDestroy{
 	}
 
   private _validateFileSize(file: File): boolean {
-    const maxFileSize = globalConfig.kalturaServer.maxUploadFileSize;
+    const maxFileSize = globalConfig.kontorolServer.maxUploadFileSize;
     const fileSize = file.size / 1024 / 1024; // convert to Mb
 
     return this._uploadManagement.supportChunkUpload(new NewEntryCaptionFile(null)) || fileSize < maxFileSize;
@@ -188,7 +188,7 @@ export class EntryCaptionsEdit implements  OnInit, AfterContentInit, OnDestroy{
 		}
 	}
 
-	public _getCaptionFormatLabel(format: KalturaCaptionType): string{
+	public _getCaptionFormatLabel(format: KontorolCaptionType): string{
 		let label = "";
 		this._captionFormats.forEach( obj => {
 			if (format && obj.value.toString() === format.toString()){
@@ -214,7 +214,7 @@ export class EntryCaptionsEdit implements  OnInit, AfterContentInit, OnDestroy{
 			format: '',
             accuracy: 100,
 			uploadMethod: 'upload',
-			captionUrl: ['', KalturaValidators.url]
+			captionUrl: ['', KontorolValidators.url]
 		});
 	}
 

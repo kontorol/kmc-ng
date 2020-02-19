@@ -1,12 +1,12 @@
 import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {GroupedListType} from '@kaltura-ng/mc-shared';
+import {GroupedListType} from '@kontorol-ng/mc-shared';
 import {CategoriesFilters, CategoriesService} from '../categories.service';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
 import {RefineGroup, RefineGroupList} from '../categories-refine-filters.service';
 import {CategoriesSearchService} from 'app-shared/content-shared/categories/categories-search.service';
 import {ISubscription} from 'rxjs/Subscription';
-import { KalturaLogger } from '@kaltura-ng/kaltura-logger';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { DatePipe } from 'app-shared/kmc-shared/date-format/date.pipe';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
 
@@ -24,7 +24,7 @@ const refineListsTypes: Array<keyof CategoriesFilters> = ['privacyTypes', 'categ
   selector: 'kCategoriesListTags',
   templateUrl: './categories-list-tags.component.html',
   styleUrls: ['./categories-list-tags.component.scss'],
-    providers: [KalturaLogger.createLogger('CategoriesListTagsComponent')]
+    providers: [KontorolLogger.createLogger('CategoriesListTagsComponent')]
 
 })
 export class CategoriesListTagsComponent implements OnInit, OnDestroy {
@@ -52,7 +52,7 @@ export class CategoriesListTagsComponent implements OnInit, OnDestroy {
   constructor(private _categoriesService: CategoriesService,
               private _appLocalization: AppLocalization,
               private _categoriesSearch: CategoriesSearchService,
-              private _logger: KalturaLogger,
+              private _logger: KontorolLogger,
               private _browserService: BrowserService) {
   }
 

@@ -32,7 +32,7 @@ var source = {
     },
     "applications":{
         "dashboard":{
-            "main_screen_welcome_title":"{{0}}, Welcome to the Kaltura Management Console. You are logged in as a {{1}} user in the {{2}} account."
+            "main_screen_welcome_title":"{{0}}, Welcome to the Kontorol Management Console. You are logged in as a {{1}} user in the {{2}} account."
         },
         "content":{
             "entries":{

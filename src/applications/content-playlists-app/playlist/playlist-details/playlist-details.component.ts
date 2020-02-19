@@ -1,8 +1,8 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { KalturaPlaylist } from 'kaltura-ngx-client';
+import { KontorolPlaylist } from 'kontorol-ngx-client';
 import { PlaylistDetailsWidget } from './playlist-details-widget.service';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
-import { AppLocalization } from "@kaltura-ng/mc-shared";
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
+import { AppLocalization } from "@kontorol-ng/mc-shared";
 
 @Component({
   selector: 'kPlaylistDetails',
@@ -13,7 +13,7 @@ export class PlaylistDetailsComponent implements OnInit, OnDestroy {
   
   @Input() isRapt: boolean;
   
-  public _currentPlaylist: KalturaPlaylist;
+  public _currentPlaylist: KontorolPlaylist;
   public _isNew = false;
 
   constructor(

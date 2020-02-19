@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { BrowserService } from 'app-shared/kmc-shell/providers';
 import { SectionWidgetItem, ReachProfileSectionsListWidget } from './reach-profile-sections-list-widget.service';
 import { ReachProfileStore } from '../reach-profile-store.service';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 
 @Component({
   selector: 'kReachProfileSectionsList',

@@ -1,21 +1,21 @@
 import { Host, Injectable, OnDestroy } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { AppLocalization } from '@kaltura-ng/mc-shared';
-import { KalturaClient, KalturaMultiRequest, KalturaObjectBaseFactory } from 'kaltura-ngx-client';
-import { KalturaMediaEntry } from 'kaltura-ngx-client';
-import { BaseEntryGetAction } from 'kaltura-ngx-client';
-import { BaseEntryUpdateAction } from 'kaltura-ngx-client';
-import { cancelOnDestroy, tag } from '@kaltura-ng/kaltura-common';
+import { AppLocalization } from '@kontorol-ng/mc-shared';
+import { KontorolClient, KontorolMultiRequest, KontorolObjectBaseFactory } from 'kontorol-ngx-client';
+import { KontorolMediaEntry } from 'kontorol-ngx-client';
+import { BaseEntryGetAction } from 'kontorol-ngx-client';
+import { BaseEntryUpdateAction } from 'kontorol-ngx-client';
+import { cancelOnDestroy, tag } from '@kontorol-ng/kontorol-common';
 import { EntryWidgetsManager } from './entry-widgets-manager';
-import { OnDataSavingReasons } from '@kaltura-ng/kaltura-ui';
+import { OnDataSavingReasons } from '@kontorol-ng/kontorol-ui';
 import { BrowserService } from 'app-shared/kmc-shell/providers/browser.service';
 import { EntriesStore } from 'app-shared/content-shared/entries/entries-store/entries-store.service';
 import { PageExitVerificationService } from 'app-shared/kmc-shell/page-exit-verification';
 import { ContentEntryViewService } from 'app-shared/kmc-shared/kmc-views/details-views';
 import { ContentEntriesMainViewService } from 'app-shared/kmc-shared/kmc-views';
 import { ContentEntryViewSections } from 'app-shared/kmc-shared/kmc-views/details-views/content-entry-view.service';
-import { FlavorAssetGetFlavorAssetsWithParamsAction } from 'kaltura-ngx-client';
-import { BaseEntryDeleteAction } from 'kaltura-ngx-client';
+import { FlavorAssetGetFlavorAssetsWithParamsAction } from 'kontorol-ngx-client';
+import { BaseEntryDeleteAction } from 'kontorol-ngx-client';
 import { BehaviorSubject, Observable, Subject, Unsubscribable } from 'rxjs';
 
 export enum ActionTypes
@@ -62,19 +62,19 @@ export class EntryStore implements OnDestroy {
 
 	private _refreshEntriesListUponLeave = false;
 	private _isNewDraftEntry = false;
-	private _entry : BehaviorSubject<KalturaMediaEntry> = new BehaviorSubject<KalturaMediaEntry>(null);
+	private _entry : BehaviorSubject<KontorolMediaEntry> = new BehaviorSubject<KontorolMediaEntry>(null);
 	public entry$ = this._entry.asObservable();
 	private _entryId : string;
 
 	public get entryId() : string{
 		return this._entryId;
 	}
-	public get entry() : KalturaMediaEntry
+	public get entry() : KontorolMediaEntry
 	{
 		return this._entry.getValue();
 	}
 
-    constructor(private _kalturaServerClient: KalturaClient,
+    constructor(private _kontorolServerClient: KontorolClient,
 				private _router: Router,
 				private _browserService : BrowserService,
 				private _entriesStore : EntriesStore,
@@ -167,10 +167,10 @@ export class EntryStore implements OnDestroy {
             )
     }
 
-	private _transmitSaveRequest(newEntry : KalturaMediaEntry) {
+	private _transmitSaveRequest(newEntry : KontorolMediaEntry) {
 		this._state.next({action: ActionTypes.EntrySaving});
 
-		const request = new KalturaMultiRequest(
+		const request = new KontorolMultiRequest(
 			new BaseEntryUpdateAction({
 				entryId: this.entryId,
 				baseEntry: newEntry
@@ -185,7 +185,7 @@ export class EntryStore implements OnDestroy {
 					if (response.ready) {
 						this._refreshEntriesListUponLeave = true;
 
-						return this._kalturaServerClient.multiRequest(request)
+						return this._kontorolServerClient.multiRequest(request)
                             .pipe(tag('block-shell'))
                             .map(
 								response => {
@@ -229,9 +229,9 @@ export class EntryStore implements OnDestroy {
 	}
 	public saveEntry() : void {
 
-		const newEntry = KalturaObjectBaseFactory.createObject(this.entry);
+		const newEntry = KontorolObjectBaseFactory.createObject(this.entry);
 
-		if (newEntry && newEntry instanceof KalturaMediaEntry) {
+		if (newEntry && newEntry instanceof KontorolMediaEntry) {
 			this._transmitSaveRequest(newEntry)
 		} else {
 			console.error(new Error(`Failed to create a new instance of the entry type '${this.entry ? typeof this.entry : 'n/a'}`));
@@ -248,7 +248,7 @@ export class EntryStore implements OnDestroy {
 	}
 
     private _deleteEntry(entryId: string): Observable<void> {
-        return this._kalturaServerClient
+        return this._kontorolServerClient
             .request(new BaseEntryDeleteAction({ entryId }))
             .map(() => {});
     }
@@ -303,10 +303,10 @@ export class EntryStore implements OnDestroy {
         this._contentEntryViewService.open({ section: sectionKey, entry: this.entry });
     }
 
-    private _getEntry(entryId: string): Observable<{ entry: KalturaMediaEntry, hasSource: boolean }> {
+    private _getEntry(entryId: string): Observable<{ entry: KontorolMediaEntry, hasSource: boolean }> {
         if (entryId) {
-            return this._kalturaServerClient.multiRequest(
-                new KalturaMultiRequest(
+            return this._kontorolServerClient.multiRequest(
+                new KontorolMultiRequest(
                     new BaseEntryGetAction({ entryId }),
                     new FlavorAssetGetFlavorAssetsWithParamsAction({ entryId })
                 )
@@ -319,11 +319,11 @@ export class EntryStore implements OnDestroy {
                 const [baseEntryResponse, flavorsResponse] = responses;
                 const entry = baseEntryResponse.result;
                 const flavors = flavorsResponse.result;
-                if (entry instanceof KalturaMediaEntry) {
+                if (entry instanceof KontorolMediaEntry) {
                     const hasSource = !!flavors.filter(({ flavorAsset }) => flavorAsset && flavorAsset.isOriginal).length;
                     return { entry, hasSource };
                 } else {
-                    throw new Error(`invalid type provided, expected KalturaMediaEntry, got ${typeof entry}`);
+                    throw new Error(`invalid type provided, expected KontorolMediaEntry, got ${typeof entry}`);
                 }
             });
         } else {
@@ -331,14 +331,14 @@ export class EntryStore implements OnDestroy {
         }
     }
 
-    public openEntry(entry: KalturaMediaEntry | string): void {
-        const entryId = entry instanceof KalturaMediaEntry ? entry.id : entry;
+    public openEntry(entry: KontorolMediaEntry | string): void {
+        const entryId = entry instanceof KontorolMediaEntry ? entry.id : entry;
         if (entryId !== this.entryId) {
             this.canLeave()
                 .filter(({ allowed }) => allowed)
                 .pipe(cancelOnDestroy(this))
                 .subscribe(() => {
-                    if (entry instanceof KalturaMediaEntry) {
+                    if (entry instanceof KontorolMediaEntry) {
                         this._contentEntryViewService.open({ entry, section: ContentEntryViewSections.Metadata });
                     } else {
                         this._contentEntryViewService.openById(entry, ContentEntryViewSections.Metadata);
