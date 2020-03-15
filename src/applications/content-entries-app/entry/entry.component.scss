@@ -52,3 +52,58 @@
 	box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
 	width: 100% !important;
 }
+//////////////_FA
+:host-context(.fa){
+    .kSectionsWrapper{
+        min-width: 178px;
+        border: 0px solid white;
+        border-top-right-radius: 3px;
+        flex: 0 0 auto;
+        z-index: 0;
+    }
+
+    .kEntryActionsWrapper {
+        margin-right: auto;
+        display: flex;
+        align-items: center;
+
+        k-toggle-live-btn {
+            margin-left: 24px;
+        }
+
+        .kAnalytics {
+            margin-right: 24px;
+            ::ng-deep .kIconstatistic {
+                font-size: 24px;
+            }
+            ::ng-deep .ui-button-text{
+                padding-right: 42px;
+                white-space: nowrap;
+            }
+        }
+
+        .kEntryActions {
+            font-size: 24px;
+            margin-left: 24px;
+            margin-right: auto;
+            width: 48px;
+        }
+    }
+
+    :host ::ng-deep span.ui-button-icon-left.pi-kIconarrow_forward, :host ::ng-deep span.ui-button-icon-left.pi-kIconarrow_backward{
+        margin-right: -.5em;
+    }
+
+    :host ::ng-deep .stickyHeader{
+        background-color: white;
+        height: auto;
+        z-index: 500;
+        left: 0px;
+        right: 0px;
+        padding-top: 11px;
+        padding-bottom: 11px;
+        box-sizing: border-box;
+        box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
+        width: 100% !important;
+    }
+}

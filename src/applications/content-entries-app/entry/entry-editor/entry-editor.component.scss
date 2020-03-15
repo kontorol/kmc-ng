@@ -25,3 +25,31 @@
     }
   }
 }
+///////////////_FA
+:host-context(.fa){
+    .kEditorContainer {
+        .kHeader {
+            height: 58px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            background-color: $kGrayscale1;
+            color: white;
+            border-bottom: 1px solid $kGrayscale4;
+            .kClose {
+                color: $kGrayscale3;
+                font-size: 18px;
+                margin-right: 24px;
+                cursor: pointer;
+                &:hover {
+                    color: white;
+                }
+            }
+            .kTitle {
+                margin-right: 24px;
+                font-size: 18px;
+                font-weight: 700;
+            }
+        }
+    }
+}

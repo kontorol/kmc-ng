@@ -20,3 +20,26 @@
 :host ::ng-deep .kIcondropdown_arrow_bottom {
   font-size: 12px;
 }
+//////////////////_FA
+:host-context(.fa){
+    .kSubcategoriesHolder {
+        width: 100%;
+        height: 100%;
+        border: 1px solid $kGrayscale6;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+
+        .kSubcategoriesTable {
+            border: none;
+            position: relative;
+            background-color: white;
+            flex: 1 1 auto;
+        }
+    }
+
+    :host ::ng-deep .kIcondropdown_arrow_top,
+    :host ::ng-deep .kIcondropdown_arrow_bottom {
+        font-size: 12px;
+    }
+}

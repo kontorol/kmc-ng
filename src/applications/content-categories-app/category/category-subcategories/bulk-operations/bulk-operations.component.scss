@@ -81,3 +81,87 @@
   height: 68px;
   width: inherit;
 }
+////////////////_FA
+:host-context(.fa){
+    .kSubcategoriesTableFilters {
+        width: 100%;
+        height: 68px;
+        background-color: white;
+        flex: 0 0 auto;
+        align-items: center;
+        display: flex;
+        justify-content: space-between;
+
+        .kHeader{
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+        .kBulkActionsContainer {
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .kPlaylistEntriesTableDuration {
+            margin-right: auto;
+            margin-left: 14px;
+        }
+
+        .kBulkActions {
+            margin-right: 14px;
+
+            .kBulkDeleteBtn {
+                padding: 0 8px;
+            }
+        }
+
+        .kAddItemBtn {
+            margin-right: 14px;
+            height: 36px;
+            border: none;
+        }
+
+        .kSelectedItemsNum {
+            margin: 0 20px 0 5px;
+        }
+        .kSelectedItemsLabel {
+            font-weight: bold;
+            margin-right: 5px;
+            margin-left: 36px;
+        }
+
+        .kBulkCancel {
+            margin-right: 20px;
+            color: #333333;
+        }
+
+        .kMoveBtn {
+            width: 40px;
+            height: 34px;
+            margin: 0;
+        }
+
+        .kMoveBtnTop {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .kMoveBtnBottom {
+            margin: 0 20px 0 -4px;
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+    }
+
+    :host ::ng-deep kSticky{
+        width: 100%;
+    }
+    :host ::ng-deep .kStickyHeader{
+        background-color: white;
+        border-top: 2px solid $kGrayscale6;
+        box-shadow: $kGrayscale5 0px 1px 0px;
+        display: flex;
+        height: 68px;
+        width: inherit;
+    }
+}

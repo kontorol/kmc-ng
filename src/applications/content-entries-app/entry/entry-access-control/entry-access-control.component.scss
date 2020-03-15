@@ -63,3 +63,69 @@
         width: 184px;
     }
 }
+/////////////////_FA
+:host-context(.fa){
+    .kAccessControl{
+        .kTitle{
+            padding-left: 24px;
+            color: $kGrayscale1;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .kAccessControlDetails{
+            padding: 0 24px 24px 24px;
+            word-break: break-word;
+
+            .kAccessProfileItem {
+                white-space: nowrap;
+                display: inline-block;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                width: 190px;
+                font-weight: normal;
+            }
+
+            .kRow{
+                display: flex;
+                padding-top: 24px;
+                align-items: center;
+            }
+            .kMultiLine{
+                white-space: pre-wrap;
+            }
+            .kLabels{
+                width: 180px;
+                flex: 0 0 auto;
+            }
+        }
+    }
+    :host ::ng-deep .ui-dropdown.ui-widget{
+        min-width: 180px;
+        width: 180px !important;
+    }
+
+    :host ::ng-deep .ui-dropdown-label.ui-inputtext{
+        background-color: #ffffff;
+    }
+
+    :host ::ng-deep .ui-dropdown-label {
+        text-overflow: ellipsis;
+    }
+    :host ::ng-deep .kAccessControlProfiles {
+        .ui-dropdown-panel {
+            width: 250px;
+        }
+
+        .ui-dropdown-label {
+            text-overflow: ellipsis;
+            font-weight: normal;
+            font-size: 15px;
+            color: $kGrayscale1;
+        }
+
+        .ui-dropdown.ui-widget {
+            min-width: 184px;
+            width: 184px;
+        }
+    }
+}

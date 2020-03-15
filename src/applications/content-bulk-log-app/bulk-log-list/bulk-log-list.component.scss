@@ -214,3 +214,220 @@
     min-width: 70px;
   }
 }
+////////////////////////////_FA
+:host-context(.fa) {
+    .kBulkLog {
+        font-size: 15px;
+        background-color: $appBkgColor;
+        height: $contentArea;
+        padding-top: 24px;
+        width: 100%;
+        min-width: $minAppWidth;
+        box-sizing: border-box;
+        display: flex;
+        flex-flow: row wrap;
+        margin: 0px;
+        .kBulkLogHolder {
+            height: 100%;
+            border: none;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+        .kRefreshBtn {
+            font-size: 24px;
+            border: none;
+            min-width: inherit;
+            margin-left: 8px;
+            width: 40px;
+            outline: 0;
+            color: $kGrayscale3;
+            &:active {
+                box-shadow: none;
+                transform: rotate(45deg);
+            }
+            &:hover {
+                background-color: #ffffff;
+                color: $kPrimary;
+            }
+        }
+        .kSelectedEntriesNum{
+            padding-right: 16px;
+        }
+        .kBulkLogTableFilters {
+            color: $kGrayscale1;
+            z-index: 502;
+            height: 66px;
+            background-color: white;
+            flex: 0 0 auto;
+            align-items: center;
+            margin-right: 0px;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            display: flex;
+            .kSelectedEntriesNum {
+                padding-right: 16px;
+            }
+        }
+        .kBulkLogTableTags {
+            width: 100%;
+            height: 50px;
+            background-color: #f3f3f3;
+            border: 1px solid grey;
+            flex: 0 0 50px;
+        }
+        .kBulkLogTableFooter {
+            bottom: 0px;
+            height: 34px;
+            background-color: white;
+            border-top: 1px solid $kGrayscale6;
+            position: fixed;
+            box-sizing: border-box;
+            flex: 0 0 auto;
+            padding: 0 0 28px 14px;
+            display: block;
+        }
+        .kBulkLogTable {
+            border: none;
+            position: relative;
+            background-color: white;
+            flex: 1 1 auto;
+        }
+        .kSelectedEntriesLabel {
+            font-weight: bold;
+            margin-right: 5px;
+            margin-left: 36px;
+        }
+        .kSearchInput {
+            background: $kMagnifyingGlassBkg;
+            background-color: $kGrayscale6;
+            padding-right: 38px;
+            margin-left: 8px;
+            width: 260px;
+            &:focus {
+                background-color: white;
+            }
+        }
+        .kBulkOperations {
+            display: flex;
+            align-items: center;
+        }
+        .kPaginatorShowRowsLabel {
+            color: $kGrayscale1;
+            position: absolute;
+            top: 7px;
+            left: 80px;
+        }
+        .kBulkCancel {
+            margin-right: 10px;
+        }
+        .kBulkDeleteBtn {
+            margin-left: 10px;
+            width: 44px;
+            font-size: 24px;
+        }
+        .kBulkActionsBtn {
+            font-weight: 400;
+            font-size: 15px;
+        }
+        .kFilters {
+            display: flex;
+            margin-right: auto;
+        }
+        .kCategoriesFilter {
+            display: flex;
+            height: 32px;
+            align-items: center;
+            cursor: pointer;
+            color: $kGrayscale1;
+            width: 190px;
+            position: relative;
+            margin-left: 8px;
+            i {
+                margin-right: 8px;
+                margin-left: 12px;
+                font-size: 24px;
+                color: $kGrayscale4;
+                &.dropdown {
+                    font-size: 10px;
+                }
+            }
+            .dropdown {
+                position: absolute;
+                left: 4px;
+                top: 12px;
+            }
+        }
+        .kRefine {
+            @extend .kCategoriesFilter;
+            width: 160px;
+        }
+        .kHidden {
+            visibility: hidden;
+            width: 0px;
+            height: 0px;
+        }
+        .kTagContent {
+            display: flex;
+            align-items: center;
+        }
+        .kTagLabel {
+            flex: 0 0 auto;
+            user-select: none;
+            cursor: default;
+        }
+        .kTagRemove {
+            flex: 0 0 auto;
+            margin-top: 2px;
+            margin-right: 8px;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 10px;
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.3);
+                border: 0px solid rgba(255, 255, 255, 0.3);
+                border-radius: 3px;
+            }
+        }
+    }
+
+    :host{
+        width: 100%;
+    }
+
+    :host ::ng-deep span.ui-button-icon-left.pi-kIcontrash {
+        margin-right: -.5em;
+    }
+
+    :host ::ng-deep .ui-tree {
+        width: 380px;
+    }
+
+    :host ::ng-deep .ui-button-icon-right.kIcondropdown_arrow_bottom {
+        font-size: 10px;
+        margin-left: 2px;
+        pointer-events: none;
+    }
+
+    :host ::ng-deep .ui-tieredmenu.ui-menu {
+        width: 250px;
+        .ui-submenu-icon {
+            font-size: 10px;
+            margin-top: 3px;
+        }
+    }
+
+    :host ::ng-deep .ui-button-icon-only .pi {
+        margin-right: -.5em;
+    }
+
+    :host ::ng-deep .kStickyClass{
+        border-bottom: 1px solid $kGrayscale5;
+    }
+
+    :host ::ng-deep .kBulkLogTableFooter {
+        .ui-dropdown-panel {
+            min-width: 70px;
+        }
+    }
+}

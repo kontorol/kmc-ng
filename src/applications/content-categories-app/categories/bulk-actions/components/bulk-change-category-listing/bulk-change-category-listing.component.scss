@@ -25,9 +25,9 @@
   .kBlock {
     display: flex;
     align-items: center;
-    justify-content: center;        
+    justify-content: center;
     margin-top: 30px;
-    margin-bottom: 10px;    
+    margin-bottom: 10px;
     .kRadio {
       margin-right: 40px;
     }
@@ -42,7 +42,7 @@
   height: 66px;
   border-top: 1px solid $kGrayscale4;
   align-items: center;
-  justify-content: center;  
+  justify-content: center;
 }
 
 ::ng-deep .ui-autocomplete.ui-widget {
@@ -54,4 +54,63 @@
 
 :host ::ng-deep label {
   font-weight: 400;
+}
+///////////////////_FA
+:host-context(.fa) {
+    .kTitle {
+        color: $kGrayscale1;
+        font-size: 24px;
+        font-weight: 700;
+        text-align: center;
+        border-bottom: 1px solid $kGrayscale4;
+        height: 78px;
+        line-height: 78px;
+    }
+
+    .kContent {
+        display: flex;
+        flex-direction: column;
+        height: 312px;
+        .kLabel {
+            text-align: center;
+            display: block;
+            margin-bottom: 12px;
+        }
+        .kContainer {
+            height: 168px;
+            margin: 20px;
+        }
+        .kBlock {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-top: 30px;
+            margin-bottom: 10px;
+            .kRadio {
+                margin-left: 40px;
+            }
+        }
+    }
+
+    .kFooter {
+        position: absolute;
+        bottom: 0px;
+        display: flex;
+        width: 100%;
+        height: 66px;
+        border-top: 1px solid $kGrayscale4;
+        align-items: center;
+        justify-content: center;
+    }
+
+    ::ng-deep .ui-autocomplete.ui-widget {
+        width: 100%;
+        input {
+            width: 100%;
+        }
+    }
+
+    :host ::ng-deep label {
+        font-weight: 400;
+    }
 }

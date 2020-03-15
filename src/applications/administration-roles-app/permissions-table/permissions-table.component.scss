@@ -67,3 +67,73 @@
     }
   }
 }
+/////////////////////_FA
+:host-context(.fa) {
+    .kPermissionsTable {
+        background-color: white;
+        height: auto;
+        padding: 0;
+        width: 100%;
+
+        .kPermissionGroup {
+            color: $kGrayscale1;
+            font-weight: bold;
+            font-size: 15px;
+        }
+
+        .kIconError {
+            position: absolute;
+            top: 20px;
+            padding-right: 1px;
+            margin-right: 20px;
+            font-size: 24px;
+            color: $kDandger;
+        }
+    }
+
+    :host {
+        display: flex;
+        flex-flow: row wrap;
+        margin: 0;
+        flex-direction: column;
+    }
+
+    :host ::ng-deep .kPermissionsTable {
+        p-table .ui-table-scrollable-body{
+            margin-bottom: 34px;
+        }
+
+        .ui-table .ui-table-thead > tr > th {
+            border: 1px solid $kGrayscale6;
+            border-left: none;
+            border-right: none;
+            padding: 10px auto;
+        }
+
+        td {
+            position: relative;
+        }
+
+        .kHasError .ui-multiselect {
+            border: 1px solid $kDandger;
+        }
+
+        .ui-multiselect .ui-multiselect-panel{
+            z-index: 1;
+        }
+
+        .kPermissionsList {
+            .ui-multiselect {
+                width: 320px;
+            }
+
+            .ui-multiselect-label {
+                padding: .5em .5em;
+            }
+
+            .ui-multiselect-trigger {
+                padding: .25em !important;
+            }
+        }
+    }
+}

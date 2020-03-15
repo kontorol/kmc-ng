@@ -58,3 +58,64 @@
   z-index: 10;
   display: table;
 }
+//////////////////_FA
+:host-context(.fa){
+    .kTable {
+        background-color: white;
+        overflow: hidden;
+        position: relative;
+        padding: 0px;
+        width: 100%;
+        .kTableActions {
+            width: 100%;
+            text-align: center;
+        }
+
+        .kTitle {
+            color: #333333;
+            font-weight: 700;
+        }
+    }
+
+    :host ::ng-deep .selectionColumn {
+        width: 24px;
+        padding-right: 14px!important;
+    }
+
+    :host ::ng-deep .ui-table .nameColumn {
+        width: 100px;
+    }
+
+    :host ::ng-deep .ui-table .createdAtColumn {
+        width: 40px;
+        text-align: center;
+    }
+
+    :host ::ng-deep .ui-table .entriesCountColumn {
+        width: 50px;
+        text-align: center;
+    }
+
+    :host ::ng-deep .ui-table .actionsColumn {
+        overflow: visible;
+        width: 30px;
+    }
+
+
+    :host {
+        display: flex;
+        flex-flow: row wrap;
+        margin: 0;
+        flex-direction: column;
+    }
+
+    :host ::ng-deep p-table{
+        width: 100%;
+    }
+
+
+    :host ::ng-deep p-table .stickyHeader{
+        z-index: 10;
+        display: table;
+    }
+}

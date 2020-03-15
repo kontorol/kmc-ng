@@ -11,3 +11,19 @@
     font-size: 15px;
   }
 }
+//////////////_FA
+:host-context(.fa){
+    .kBulkActions{
+        display: flex;
+        align-items: center;
+        .kBulkDeleteBtn{
+            margin-left: 10px;
+            width: 44px;
+            font-size: 24px;
+        }
+        .kBulkActionsBtn{
+            font-weight: 400;
+            font-size: 15px;
+        }
+    }
+}

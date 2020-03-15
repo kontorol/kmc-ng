@@ -111,3 +111,117 @@ a.disabled {
   vertical-align: top;
   margin-top: 14px;
 }
+/////////////////_FA
+:host-context(.fa){
+    .kRefineFilters {
+        margin: 12px;
+    }
+
+    .kFiltersGroupTitle {
+        color: $kGrayscale3;
+        line-height: 40px;
+        letter-spacing: 0.1em;
+        font-size: 13px;
+        border-top: 1px solid $kGrayscale6;
+        border-bottom: 1px solid $kGrayscale6;
+        margin-left: -12px;
+        padding-right: 20px;
+        margin-right: -20px;
+        margin-bottom: 8px;
+    }
+
+    .kTreeContainer {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 420px;
+        border-bottom: 1px solid $kGrayscale6;
+        margin-left: -20px;
+        padding-right: 20px;
+        margin-right: -20px;
+        width: 387px;
+        position: relative;
+    }
+
+    .kDateRange {
+        display: flex;
+        align-items: center;
+    }
+
+    .kClearAll {
+        margin-bottom: 6px;
+        margin-top: 4px;
+        display: block;
+    }
+
+    .kClose {
+        float: left;
+    }
+
+    .kError {
+        font-size: 14px;
+        color: $kDandger;
+    }
+
+    .kTreeNodeLabel {
+        width: 100%;
+        font-size: 14px;
+        font-weight: 700;
+        line-height: 43px;
+        color: $kGrayscale1;
+        text-overflow: ellipsis;
+        margin-right: 5px;
+    }
+
+    a.disabled {
+        pointer-events: none;
+        cursor: not-allowed;
+        color: $kGrayscale5;
+        border: none;
+    }
+
+    .kTreeNodeNumChildren {
+        font-size: 14px;
+        font-weight: 400;
+        color: $kGrayscale3;
+        margin-right: 10px;
+    }
+
+    /* prevent calendars from being cut by the popup widget borders */
+    :host ::ng-deep .kPullLeft30 .ui-datepicker.ui-widget {
+        margin-right: -30px;
+        right: 0px !important;
+    }
+
+    :host ::ng-deep .kPullLeft90 .ui-datepicker.ui-widget {
+        margin-right: -90px;
+        right: 0px !important;
+    }
+
+    :host ::ng-deep .kDateRange .kDateRangeFirst .ui-calendar.ui-calendar-w-btn {
+        border-bottom-right-radius: 3px;
+        border-top-right-radius: 3px;
+    }
+
+    :host ::ng-deep .ui-calendar.ui-calendar-w-btn {
+        border-radius: 0px;
+    }
+
+    :host ::ng-deep .ui-calendar .ui-inputtext {
+        width: 120px;
+    }
+
+    :host ::ng-deep .kDateRange .kDateRangeLast .ui-calendar.ui-calendar-w-btn {
+        border-right: 0px solid $kGrayscale4;
+        border-bottom-left-radius: 3px;
+        border-top-left-radius: 3px;
+    }
+
+    :host ::ng-deep .ui-tree .ui-tree-container {
+        overflow: visible;
+    }
+
+    :host ::ng-deep .ui-tree .ui-chkbox {
+        vertical-align: top;
+        margin-top: 14px;
+    }
+}

@@ -97,3 +97,103 @@
     min-width: 230px;
 	width: 230px;
 }
+/////////////_FA
+:host-context(.fa){
+    .kEditWin{
+        .kHeader {
+            height: 78px;
+            width: 100%;
+            text-align: center;
+            padding-top: 24px;
+            box-sizing: border-box;
+            border-bottom: 1px solid $kGrayscale4;
+            .kTitle {
+                color: #333333;
+                font-size: 24px;
+                font-weight: 700;
+            }
+        }
+        .kContainer{
+            margin: 24px;
+            height: 320px;
+        }
+        .kFooter{
+            height: 66px;
+            border-top: 1px solid $kGrayscale4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            button{
+                height: 34px;
+            }
+        }
+
+        .kRow{
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            margin-top: 24px;
+            font-size: 15px;
+            .kLabel{
+                width: 160px;
+                flex: 0 0 auto;
+            }
+            input{
+                width: 230px;
+            }
+            &.kSlider{
+                align-items: baseline;
+            }
+        }
+        .kAccuracySlider{
+            display: flex;
+            flex-direction: column;
+            kSlider{
+                width: 230px;
+            }
+            span{
+                font-size: 13px;
+                font-weight: normal;
+                color: $kGrayscale3;
+                margin-top: 8px;
+            }
+        }
+
+
+        .kUpload{
+            padding-right: 160px;
+            margin-top: 18px;
+            overflow-x: hidden;
+        }
+        .kUploadButton{
+            font-weight: 400;
+            height: 32px;
+            margin-top: 4px;
+            margin-bottom: 4px;
+        }
+        .kCaptionUrl{
+            margin-top: 18px;
+            margin-right: 160px;
+            width: 230px;
+        }
+        .kUploadFileName{
+            width: 200px;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            padding-left: 12px;
+            overflow: hidden;
+            padding-right: 4px;
+        }
+        .kInvalid{
+            color: $kDandger;
+            font-size: 12px;
+            margin-right: 162px;
+            font-weight: 700;
+        }
+    }
+
+    :host ::ng-deep .ui-dropdown.ui-widget{
+        min-width: 230px;
+        width: 230px;
+    }
+}

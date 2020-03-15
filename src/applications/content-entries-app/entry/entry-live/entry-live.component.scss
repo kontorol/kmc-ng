@@ -151,3 +151,157 @@
 :host ::ng-deep span.ui-button-icon-left.kIconcalendar{
 	padding-top: 2px !important;
 }
+/////////////////_FA
+:host-context(.fa){
+    .kLiveDashboardContainer {
+        width: 100%;
+    }
+    .kLive{
+        padding: 24px;
+        padding-top: 0;
+        width: 100%;
+        .kTitle{
+            color: $kGrayscale1;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        .kButtons{
+            padding-top: 12px;
+            button {
+                margin-left: 16px;
+            }
+
+            .kButtonLiveDashboard {
+                height:34px;
+                width: 160px;
+                ::ng-deep .kIconstatistic{
+                    line-height: 18px;
+
+                    &:before {
+                        font-size: 22px;
+                        color: $kGrayscale3;
+                    }
+                }
+            }
+        }
+        .kLiveDetails{
+            box-sizing: border-box;
+            width: 100%;
+            button{
+                font-weight: 400;
+            }
+            .kSubTitle{
+                display: block;
+                color: $kGrayscale1;
+                font-size: 16px;
+                font-weight: 700;
+                padding-top: 42px;
+
+                &:first-child {
+                    margin-top:0;
+                }
+            }
+            .kRow{
+                display: flex;
+                padding-top: 18px;
+                align-items: center;
+
+                .kControl {
+                    color: $kGrayscale2;
+                    height: 34px;
+                    width: 360px;
+                    border-radius: 3px;
+                    &.kInputSwitch {
+                        padding-left: 12px;
+
+                        & + span {
+                            vertical-align: middle;
+                        }
+                    }
+                }
+            }
+            .kCopyBtn{
+                border: 0px solid white;
+                &:active:not(:disabled){
+                    box-shadow: none;
+                }
+                outline: none;
+                font-size: 18px;
+            }
+
+            .kTableHeader{
+                font-weight: 700;
+            }
+            .kNote{
+                display: block;
+                margin-top: 14px;
+                margin-bottom: 14px;
+            }
+            .kLabels{
+                flex: 0 0 auto;
+                width: 150px;
+            }
+            .kWideLabels{
+                flex: 0 0 auto;
+                width: 225px;
+            }
+            .kLiveNumber{
+                width:20px;
+            }
+            .kLiveBitrateCB{
+                margin-top: -2px;
+                width:26px;
+            }
+            .kLiveBitrate{
+                width:200px;
+                flex: 0 0 auto;
+            }
+            .kLiveKbps{
+                font-size:13px;
+                margin-right: 4px;
+            }
+            .kLiveWidth{
+                width:80px;
+            }
+            .kLiveX{
+                text-align: center;
+                width:40px;
+            }
+            .kLiveHeight{
+                width:80px;
+            }
+            .kReportLink{
+                margin-right: 12px;
+                &.kDisabled{
+                    pointer-events: none;
+                    color: $kGrayscale4;
+                }
+            }
+            .kError{
+                line-height: 28px;
+                padding-right: 20px;
+                color: $kDandger;
+                font-size: 13px;
+            }
+        }
+
+    }
+
+    :host ::ng-deep .ui-dropdown{
+        width: 200px !important;
+    }
+    :host ::ng-deep .kLiveBitrate .ui-dropdown{
+        width: 120px !important;
+    }
+    :host ::ng-deep .ui-dropdown-label.ui-inputtext{
+        background-color: #ffffff;
+    }
+
+    :host ::ng-deep .ui-spinner .pi{
+        margin-top: -.8em;
+    }
+
+    :host ::ng-deep span.ui-button-icon-left.kIconcalendar{
+        padding-top: 2px !important;
+    }
+}
