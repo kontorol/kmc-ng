@@ -98,3 +98,104 @@
         display: block;
     }
 }
+///////////////_FA
+:host-context(.fa){
+    .kTitle {
+        height: 24px;
+        width: 100%;
+        color: $kGrayscale1;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 24px;
+    }
+
+    .kAddToDefaultTranscodingProfile {
+        padding-top: 11px;
+        ::ng-deep {
+            .ui-chkbox-label {
+                font-weight: normal;
+            }
+        }
+    }
+
+    .kLandingPageExplanation {
+        color: $kGrayscale1;
+        width: 710px;
+        padding-top: 12px;
+        font-size: 15px;
+        line-height: 22px;
+        padding-bottom: 20px;
+    }
+
+    .kPlayback {
+        .kSelectPlayer {
+            padding-top: 17px;
+            display: flex;
+            align-items: center;
+
+            .kSelectPlayerLabel {
+                flex: 0 0 auto;
+            }
+            .kSelectPlayerControl {
+                padding-right:23px;
+            }
+        }
+
+        .kPlaybackLinkback {
+            padding-right: 31px;
+        }
+
+        .kSelectPlayerInfo {
+            padding-top: 12px;
+        }
+    }
+
+    :host ::ng-deep .kCategories {
+        .ui-multiselect {
+            padding-right: 0;
+        }
+
+        .ui-multiselect-label {
+            padding: .5em;
+            line-height: inherit;
+        }
+
+        .ui-widget-header {
+            border-radius: 0;
+        }
+    }
+    :host ::ng-deep .kSelectPlayer p-dropdown{
+        .ui-dropdown{
+            width: 380px !important;
+        }
+        .ui-dropdown-panel .ui-dropdown-filter-container{
+            padding-right: 12px;
+        }
+        .ui-dropdown-filter.ui-inputtext{
+            width: 350px;
+        }
+        .pi-pi-search:before{
+            font-size: 20px;
+            content: "\e911";
+        }
+
+        .ui-dropdown label{
+            padding-right: 2px;
+        }
+        .ui-dropdown-item.ui-corner-all{
+            padding-left: 8px;
+            padding-right: 8px;
+            width: 340px;
+        }
+        .ui-dropdown-item.ui-corner-all.ui-state-highlight:after{
+            content: none;
+        }
+        .check{
+            margin-right: auto;
+            display: none;
+        }
+        .ui-dropdown-item.ui-corner-all.ui-state-highlight .check{
+            display: block;
+        }
+    }
+}

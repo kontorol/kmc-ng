@@ -11,3 +11,19 @@
         }
     }
 }
+//////////_FA
+:host-context(.fa){
+    :host ::ng-deep .kAreaBlockerCoverAll{
+        position: fixed;
+        z-index: 1200;
+    }
+
+    :host ::ng-deep {
+        .kAlignToLeft {
+            .ui-dialog.ui-confirmdialog .ui-dialog-content.ui-widget-content {
+                text-align: right;
+                line-height: 1.4em;
+            }
+        }
+    }
+}
