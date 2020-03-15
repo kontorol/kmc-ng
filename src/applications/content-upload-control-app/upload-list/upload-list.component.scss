@@ -1,138 +1,315 @@
 @import 'app-theme/_variables.scss';
 
 .kUploads {
-  font-size: 15px;
-  background-color: $appBkgColor;
-  height: $contentArea;
-  padding-top: 24px;
-  width: 100%;
-  min-width: $minAppWidth;
-  box-sizing: border-box;
-  display: flex;
-  flex-flow: row wrap;
-  margin: 0;
-  .kUploadsHolder {
-    height: 100%;
-    border: none;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
-  .kRefreshBtn {
-    font-size: 24px;
-    border: none;
-    min-width: inherit;
-    margin-right: 8px;
-    width: 40px;
-    outline: 0;
-    color: $kGrayscale3;
-    &:active {
-      box-shadow: none;
-      transform: rotate(45deg);
-    }
-    &:hover {
-      background-color: #ffffff;
-      color: $kPrimary;
-    }
-  }
-  .kUploadsTableFilters {
-    color: $kGrayscale1;
-    z-index: 500;
-    height: 66px;
-    background-color: white;
-    flex: 0 0 auto;
-    align-items: center;
-    margin-left: 0px;
-    border-bottom: none;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    display: flex;
-    .kSelectedUploadsNum {
-      padding-left: 16px;
-    }
-  }
-  .kUploadsTableTags {
-    width: 100%;
-    height: 50px;
-    background-color: #f3f3f3;
-    border: 1px solid grey;
-    flex: 0 0 50px;
-  }
-  .kUploadsTable {
-    border: none;
-    position: relative;
-    background-color: white;
-    flex: 1 1 auto;
-  }
-  .kSelectedUploadsLabel {
-    font-weight: bold;
-    margin-right: 36px;
-    margin-left: 5px;
-  }
-  .kBulkOperations {
-    display: flex;
-    align-items: center;
-    .kBulkDeleteBtn {
-      margin-right: 10px;
-      width: 44px;
-      font-size: 24px;
-    }
-  }
-  .kPaginatorShowRowsLabel {
-    color: $kGrayscale1;
-    position: absolute;
-    top: 7px;
-    right: 80px;
-  }
-  .kBulkCancel {
-    margin-left: 10px;
-  }
-  .kBulkDeleteBtn {
-    margin-right: 10px;
-    width: 44px;
-    font-size: 24px;
-  }
-  .kBulkActionsBtn {
-    font-weight: 400;
     font-size: 15px;
-  }
-  .kFilters {
+    background-color: $appBkgColor;
+    height: $contentArea;
+    padding-top: 24px;
+    width: 100%;
+    min-width: $minAppWidth;
+    box-sizing: border-box;
     display: flex;
-    margin-left: auto;
-  }
+    flex-flow: row wrap;
+    margin: 0;
 
-  .kHidden {
-    visibility: hidden;
-    width: 0;
-    height: 0;
-  }
+    .kUploadsHolder {
+        height: 100%;
+        border: none;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .kRefreshBtn {
+        font-size: 24px;
+        border: none;
+        min-width: inherit;
+        margin-right: 8px;
+        width: 40px;
+        outline: 0;
+        color: $kGrayscale3;
+
+        &:active {
+            box-shadow: none;
+            transform: rotate(45deg);
+        }
+
+        &:hover {
+            background-color: #ffffff;
+            color: $kPrimary;
+        }
+    }
+
+    .kUploadsTableFilters {
+        color: $kGrayscale1;
+        z-index: 500;
+        height: 66px;
+        background-color: white;
+        flex: 0 0 auto;
+        align-items: center;
+        margin-left: 0px;
+        border-bottom: none;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        display: flex;
+
+        .kSelectedUploadsNum {
+            padding-left: 16px;
+        }
+    }
+
+    .kUploadsTableTags {
+        width: 100%;
+        height: 50px;
+        background-color: #f3f3f3;
+        border: 1px solid grey;
+        flex: 0 0 50px;
+    }
+
+    .kUploadsTable {
+        border: none;
+        position: relative;
+        background-color: white;
+        flex: 1 1 auto;
+    }
+
+    .kSelectedUploadsLabel {
+        font-weight: bold;
+        margin-right: 36px;
+        margin-left: 5px;
+    }
+
+    .kBulkOperations {
+        display: flex;
+        align-items: center;
+
+        .kBulkDeleteBtn {
+            margin-right: 10px;
+            width: 44px;
+            font-size: 24px;
+        }
+    }
+
+    .kPaginatorShowRowsLabel {
+        color: $kGrayscale1;
+        position: absolute;
+        top: 7px;
+        right: 80px;
+    }
+
+    .kBulkCancel {
+        margin-left: 10px;
+    }
+
+    .kBulkDeleteBtn {
+        margin-right: 10px;
+        width: 44px;
+        font-size: 24px;
+    }
+
+    .kBulkActionsBtn {
+        font-weight: 400;
+        font-size: 15px;
+    }
+
+    .kFilters {
+        display: flex;
+        margin-left: auto;
+    }
+
+    .kHidden {
+        visibility: hidden;
+        width: 0;
+        height: 0;
+    }
 }
 
 :host ::ng-deep span.ui-button-icon-left.pi-kIcontrash {
-  margin-left: -.5em;
+    margin-left: -.5em;
 }
 
 :host ::ng-deep .ui-tree {
-  width: 380px;
+    width: 380px;
 }
 
 :host ::ng-deep .ui-button-icon-right.kIcondropdown_arrow_bottom {
-  font-size: 10px;
-  margin-right: 2px;
-  pointer-events: none;
+    font-size: 10px;
+    margin-right: 2px;
+    pointer-events: none;
 }
 
 :host ::ng-deep .ui-tieredmenu.ui-menu {
-  width: 250px;
-  .ui-submenu-icon {
-    font-size: 10px;
-    margin-top: 3px;
-  }
+    width: 250px;
+
+    .ui-submenu-icon {
+        font-size: 10px;
+        margin-top: 3px;
+    }
 }
 
 :host ::ng-deep .ui-button-icon-only .pi {
-  margin-left: -.5em;
+    margin-left: -.5em;
 }
-:host ::ng-deep .kStickyClass{
-  border-bottom: 1px solid $kGrayscale5;
+
+:host ::ng-deep .kStickyClass {
+    border-bottom: 1px solid $kGrayscale5;
+}
+
+//////////////////////////////////////////////////_FA
+:host-context(.fa) {
+    .kUploads {
+        font-size: 15px;
+        background-color: $appBkgColor;
+        height: $contentArea;
+        padding-top: 24px;
+        width: 100%;
+        min-width: $minAppWidth;
+        box-sizing: border-box;
+        display: flex;
+        flex-flow: row wrap;
+        margin: 0;
+
+        .kUploadsHolder {
+            height: 100%;
+            border: none;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .kRefreshBtn {
+            font-size: 24px;
+            border: none;
+            min-width: inherit;
+            margin-left: 8px;
+            width: 40px;
+            outline: 0;
+            color: $kGrayscale3;
+
+            &:active {
+                box-shadow: none;
+                transform: rotate(45deg);
+            }
+
+            &:hover {
+                background-color: #ffffff;
+                color: $kPrimary;
+            }
+        }
+
+        .kUploadsTableFilters {
+            color: $kGrayscale1;
+            z-index: 500;
+            height: 66px;
+            background-color: white;
+            flex: 0 0 auto;
+            align-items: center;
+            margin-right: 0px;
+            border-bottom: none;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            display: flex;
+
+            .kSelectedUploadsNum {
+                padding-right: 16px;
+            }
+        }
+
+        .kUploadsTableTags {
+            width: 100%;
+            height: 50px;
+            background-color: #f3f3f3;
+            border: 1px solid grey;
+            flex: 0 0 50px;
+        }
+
+        .kUploadsTable {
+            border: none;
+            position: relative;
+            background-color: white;
+            flex: 1 1 auto;
+        }
+
+        .kSelectedUploadsLabel {
+            font-weight: bold;
+            margin-right: 5px;
+            margin-left: 36px;
+        }
+
+        .kBulkOperations {
+            display: flex;
+            align-items: center;
+
+            .kBulkDeleteBtn {
+                margin-left: 10px;
+                width: 44px;
+                font-size: 24px;
+            }
+        }
+
+        .kPaginatorShowRowsLabel {
+            color: $kGrayscale1;
+            position: absolute;
+            top: 7px;
+            left: 80px;
+        }
+
+        .kBulkCancel {
+            margin-right: 10px;
+        }
+
+        .kBulkDeleteBtn {
+            margin-left: 10px;
+            width: 44px;
+            font-size: 24px;
+        }
+
+        .kBulkActionsBtn {
+            font-weight: 400;
+            font-size: 15px;
+        }
+
+        .kFilters {
+            display: flex;
+            margin-right: auto;
+        }
+
+        .kHidden {
+            visibility: hidden;
+            width: 0;
+            height: 0;
+        }
+    }
+
+    :host ::ng-deep span.ui-button-icon-left.pi-kIcontrash {
+        margin-right: -.5em;
+    }
+
+    :host ::ng-deep .ui-tree {
+        width: 380px;
+    }
+
+    :host ::ng-deep .ui-button-icon-right.kIcondropdown_arrow_bottom {
+        font-size: 10px;
+        margin-left: 2px;
+        pointer-events: none;
+    }
+
+    :host ::ng-deep .ui-tieredmenu.ui-menu {
+        width: 250px;
+
+        .ui-submenu-icon {
+            font-size: 10px;
+            margin-top: 3px;
+        }
+    }
+
+    :host ::ng-deep .ui-button-icon-only .pi {
+        margin-right: -.5em;
+    }
+
+    :host ::ng-deep .kStickyClass {
+        border-bottom: 1px solid $kGrayscale5;
+    }
+
 }

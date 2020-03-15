@@ -1,115 +1,119 @@
 @import 'app-theme/_variables.scss';
 
 .kLoginForm {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  justify-content: center;
-  line-height: 19px;
-  transition: max-height 300ms ease-out;
-  max-height: 400px;
-  &.kResize{
-      max-height: 700px;
-  }
-  &.kError{
-      max-height: 500px;
-  }
-  h1 {
-    margin: 40px 0;
-    font-size: 24px;
-    font-weight: bold;
-    line-height: 23px;
-    text-align: center;
-  }
-
-  .kErrorMessage {
-    margin-top: -16px;
-    margin-bottom: 40px;
-    color: $kDandger;
-    text-align: center;
-    font-size: 14px;
-    line-height: 17px;
-  }
-
-  div {
-    width: 100%;
-    align-self: center;
-    text-align: center;
-    position: relative;
-
-    input {
-      width: 100%;
-      height: 48px;
-      padding: 14px 16px;
-      margin-bottom: 40px;
-      color: $kGrayscale3;
-      font-size: 16px;
-      border-radius: 4px;
-
-      &:placeholder-shown, &:-webkit-autofill:placeholder-shown {
-        background-color: $kGrayscale6;
-      }
-
-      &.has-error {
-        border: 2px solid $kDandger;
-      }
-
-      &.has-success:focus {
-        border: 2px solid $kPrimary;
-      }
-
-        &.kAuth{
-            margin-bottom: 60px;
-        }
-
-      /* Override chrome's autofill styles */
-      -webkit-text-fill-color: $kGrayscale3;
-
-      &:-webkit-autofill {
-        -webkit-box-shadow:0 0 0 48px $kGrayscale6 inset;
-      }
-
-      &:-webkit-autofill:focus {
-        -webkit-box-shadow:0 0 0 48px #FFFFFF inset;
-      }
-
-      &:-webkit-autofill:placeholder-shown {
-        background-color: $kGrayscale6;
-      }
-    }
-  }
-
-  .kControlLinks {
     display: flex;
-    justify-content: space-between;
-    margin-bottom: 40px;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+    line-height: 19px;
+    transition: max-height 300ms ease-out;
+    max-height: 400px;
 
-    a {
-      font-size: 16px;
-      color: $kGrayscale2;
-      text-decoration: none;
+    &.kResize {
+        max-height: 700px;
     }
-  }
 
-    .kLoginButton{
+    &.kError {
+        max-height: 500px;
+    }
+
+    h1 {
+        margin: 40px 0;
+        font-size: 24px;
+        font-weight: bold;
+        line-height: 23px;
+        text-align: center;
+    }
+
+    .kErrorMessage {
+        margin-top: -16px;
+        margin-bottom: 40px;
+        color: $kDandger;
+        text-align: center;
+        font-size: 14px;
+        line-height: 17px;
+    }
+
+    div {
+        width: 100%;
+        align-self: center;
+        text-align: center;
+        position: relative;
+
+        input {
+            width: 100%;
+            height: 48px;
+            padding: 14px 16px;
+            margin-bottom: 40px;
+            color: $kGrayscale3;
+            font-size: 16px;
+            border-radius: 4px;
+
+            &:placeholder-shown, &:-webkit-autofill:placeholder-shown {
+                background-color: $kGrayscale6;
+            }
+
+            &.has-error {
+                border: 2px solid $kDandger;
+            }
+
+            &.has-success:focus {
+                border: 2px solid $kPrimary;
+            }
+
+            &.kAuth {
+                margin-bottom: 60px;
+            }
+
+            /* Override chrome's autofill styles */
+            -webkit-text-fill-color: $kGrayscale3;
+
+            &:-webkit-autofill {
+                -webkit-box-shadow: 0 0 0 48px $kGrayscale6 inset;
+            }
+
+            &:-webkit-autofill:focus {
+                -webkit-box-shadow: 0 0 0 48px #FFFFFF inset;
+            }
+
+            &:-webkit-autofill:placeholder-shown {
+                background-color: $kGrayscale6;
+            }
+        }
+    }
+
+    .kControlLinks {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+
+        a {
+            font-size: 16px;
+            color: $kGrayscale2;
+            text-decoration: none;
+        }
+    }
+
+    .kLoginButton {
         display: flex;
         flex-direction: column;
         align-items: center;
-        a{
+
+        a {
             margin-top: 12px;
         }
     }
 
-  .kButtonDefault {
-    width: 160px;
-    height: 48px;
-    background-color: $kPrimary;
-    color: white;
-    font-weight: normal;
-    font-size: 16px;
-  }
+    .kButtonDefault {
+        width: 160px;
+        height: 48px;
+        background-color: $kPrimary;
+        color: white;
+        font-weight: normal;
+        font-size: 16px;
+    }
 
-    .kAuthHelp{
+    .kAuthHelp {
         position: absolute;
         text-decoration: underline;
         cursor: pointer;
@@ -121,16 +125,159 @@
 }
 
 :host ::ng-deep p-checkbox {
-  .ui-chkbox-label {
-    font-size: 16px;
-    font-weight: normal;
-    line-height: 19px;
-    color: $kGrayscale2;
-    margin-left: 10px;
-  }
+    .ui-chkbox-label {
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 19px;
+        color: $kGrayscale2;
+        margin-left: 10px;
+    }
 
-  .ui-chkbox .ui-chkbox-box {
-    width: 18px;
-    height: 18px;
-  }
+    .ui-chkbox .ui-chkbox-box {
+        width: 18px;
+        height: 18px;
+    }
+}
+
+//////////////////////////////////////////////////_FA
+:host-context(.fa) {
+    .kLoginForm {
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+        justify-content: center;
+        line-height: 19px;
+        transition: max-height 300ms ease-out;
+        max-height: 400px;
+
+        &.kResize {
+            max-height: 700px;
+        }
+
+        &.kError {
+            max-height: 500px;
+        }
+
+        h1 {
+            margin: 40px 0;
+            font-size: 24px;
+            font-weight: bold;
+            line-height: 23px;
+            text-align: center;
+        }
+
+        .kErrorMessage {
+            margin-top: -16px;
+            margin-bottom: 40px;
+            color: $kDandger;
+            text-align: center;
+            font-size: 14px;
+            line-height: 17px;
+        }
+
+        div {
+            width: 100%;
+            align-self: center;
+            text-align: center;
+            position: relative;
+
+            input {
+                width: 100%;
+                height: 48px;
+                padding: 14px 16px;
+                margin-bottom: 40px;
+                color: $kGrayscale3;
+                font-size: 16px;
+                border-radius: 4px;
+
+                &:placeholder-shown, &:-webkit-autofill:placeholder-shown {
+                    background-color: $kGrayscale6;
+                }
+
+                &.has-error {
+                    border: 2px solid $kDandger;
+                }
+
+                &.has-success:focus {
+                    border: 2px solid $kPrimary;
+                }
+
+                &.kAuth {
+                    margin-bottom: 60px;
+                }
+
+                /* Override chrome's autofill styles */
+                -webkit-text-fill-color: $kGrayscale3;
+
+                &:-webkit-autofill {
+                    -webkit-box-shadow: 0 0 0 48px $kGrayscale6 inset;
+                }
+
+                &:-webkit-autofill:focus {
+                    -webkit-box-shadow: 0 0 0 48px #FFFFFF inset;
+                }
+
+                &:-webkit-autofill:placeholder-shown {
+                    background-color: $kGrayscale6;
+                }
+            }
+        }
+
+        .kControlLinks {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 40px;
+
+            a {
+                font-size: 16px;
+                color: $kGrayscale2;
+                text-decoration: none;
+            }
+        }
+
+        .kLoginButton {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            a {
+                margin-top: 12px;
+            }
+        }
+
+        .kButtonDefault {
+            width: 160px;
+            height: 48px;
+            background-color: $kPrimary;
+            color: white;
+            font-weight: normal;
+            font-size: 16px;
+        }
+
+        .kAuthHelp {
+            position: absolute;
+            text-decoration: underline;
+            cursor: pointer;
+            right: 0px;
+            top: 60px;
+            color: $kGrayscale1;
+        }
+
+    }
+
+    :host ::ng-deep p-checkbox {
+        .ui-chkbox-label {
+            font-size: 16px;
+            font-weight: normal;
+            line-height: 19px;
+            color: $kGrayscale2;
+            margin-right: 10px;
+        }
+
+        .ui-chkbox .ui-chkbox-box {
+            width: 18px;
+            height: 18px;
+        }
+    }
+
 }

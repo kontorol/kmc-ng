@@ -1,19 +1,43 @@
 @import 'app-theme/_variables.scss';
 
 .kUploadBtn {
-  height: 34px;
-  font-size: 12px;
-  letter-spacing: 0.1em;
-  font-weight: 700;
-  color: $kGrayscale1;
-  margin-right: 12px;
-  padding-left: 6px;
-  padding-right: 6px;
-  border: none !important;
-  &:disabled{
-      color: $kGrayscale4;
-      background: transparent;
-      border: 1px solid $kGrayscale4 !important;
-      cursor: none;
-  }
+    height: 34px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    font-weight: 700;
+    color: $kGrayscale1;
+    margin-right: 12px;
+    padding-left: 6px;
+    padding-right: 6px;
+    border: none !important;
+
+    &:disabled {
+        color: $kGrayscale4;
+        background: transparent;
+        border: 1px solid $kGrayscale4 !important;
+        cursor: none;
+    }
+}
+
+//////////////////////////////////////////////////_FA
+:host-context(.fa) {
+    .kUploadBtn {
+        height: 34px;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+        color: $kGrayscale1;
+        margin-left: 12px;
+        padding-left: 6px;
+        padding-right: 6px;
+        border: none !important;
+
+        &:disabled {
+            color: $kGrayscale4;
+            background: transparent;
+            border: 1px solid $kGrayscale4 !important;
+            cursor: none;
+        }
+    }
+
 }

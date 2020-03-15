@@ -1,75 +1,157 @@
 @import 'app-theme/_variables.scss';
 
 .kReachProfilesList {
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  background-color: white;
-  display: inline-block;
-  width: 100%;
-  .kReachProfilesListTitle {
-    margin-top: 28px;
-    margin-bottom: 12px;
-    font-size: 20px;
-    margin-left: 14px;
-  }
-
-  .kReachProfilesTableHeader {
-    color: $kGrayscale1;
-    z-index: 500;
-    height: 66px;
-    flex: 0 0 auto;
-    align-items: center;
-    margin-left: 0;
-    border-bottom: none;
-    display: flex;
-
-    .kTotalProfilesCount {
-      padding-left: 16px;
-    }
-
-    .kSearchInput {
-      margin-left: auto;
-      margin-right: 24px;
-      width: 280px;
-      height: 34px;
-      background: $kMagnifyingGlassBkg;
-      padding: 9px 4px 8px 38px;
-
-      &:focus {
-        background-color: white;
-      }
-    }
-  }
-
-  .kProfilesTableFooter {
-    bottom: 0;
-    height: 34px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
     background-color: white;
-    border-top: 1px solid $kGrayscale6;
-    position: relative;
-    box-sizing: border-box;
-    flex: 0 0 auto;
-    padding: 0 14px 28px;
-    display: block;
-  }
+    display: inline-block;
+    width: 100%;
 
-  .kPaginatorShowRowsLabel {
-    color: $kGrayscale1;
-    position: absolute;
-    top: 7px;
-    right: 80px;
-  }
+    .kReachProfilesListTitle {
+        margin-top: 28px;
+        margin-bottom: 12px;
+        font-size: 20px;
+        margin-left: 14px;
+    }
+
+    .kReachProfilesTableHeader {
+        color: $kGrayscale1;
+        z-index: 500;
+        height: 66px;
+        flex: 0 0 auto;
+        align-items: center;
+        margin-left: 0;
+        border-bottom: none;
+        display: flex;
+
+        .kTotalProfilesCount {
+            padding-left: 16px;
+        }
+
+        .kSearchInput {
+            margin-left: auto;
+            margin-right: 24px;
+            width: 280px;
+            height: 34px;
+            background: $kMagnifyingGlassBkg;
+            padding: 9px 4px 8px 38px;
+
+            &:focus {
+                background-color: white;
+            }
+        }
+    }
+
+    .kProfilesTableFooter {
+        bottom: 0;
+        height: 34px;
+        background-color: white;
+        border-top: 1px solid $kGrayscale6;
+        position: relative;
+        box-sizing: border-box;
+        flex: 0 0 auto;
+        padding: 0 14px 28px;
+        display: block;
+    }
+
+    .kPaginatorShowRowsLabel {
+        color: $kGrayscale1;
+        position: absolute;
+        top: 7px;
+        right: 80px;
+    }
 }
 
 :host ::ng-deep k-area-blocker > .kAreaBlockerContainer {
-  z-index: 203;
+    z-index: 203;
 }
 
 :host ::ng-deep span.ui-button-icon-left.pi-kIcontrash {
-  margin-left: -.5em;
+    margin-left: -.5em;
 }
+
 :host ::ng-deep .kProfilesTableFooter {
-  .ui-dropdown-panel {
-    min-width: 70px;
-  }
+    .ui-dropdown-panel {
+        min-width: 70px;
+    }
+}
+
+////////////////////////////////////////////////////_FA
+:host-context(.fa) {
+    .kReachProfilesList {
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        background-color: white;
+        display: inline-block;
+        width: 100%;
+
+        .kReachProfilesListTitle {
+            margin-top: 28px;
+            margin-bottom: 12px;
+            font-size: 20px;
+            margin-right: 14px;
+        }
+
+        .kReachProfilesTableHeader {
+            color: $kGrayscale1;
+            z-index: 500;
+            height: 66px;
+            flex: 0 0 auto;
+            align-items: center;
+            margin-right: 0;
+            border-bottom: none;
+            display: flex;
+
+            .kTotalProfilesCount {
+                padding-right: 16px;
+            }
+
+            .kSearchInput {
+                margin-left: 24px;
+                margin-right: auto;
+                width: 280px;
+                height: 34px;
+                background: $kMagnifyingGlassBkg;
+                padding: 9px 38px 8px 4px;
+
+                &:focus {
+                    background-color: white;
+                }
+            }
+        }
+
+        .kProfilesTableFooter {
+            bottom: 0;
+            height: 34px;
+            background-color: white;
+            border-top: 1px solid $kGrayscale6;
+            position: relative;
+            box-sizing: border-box;
+            flex: 0 0 auto;
+            padding: 0 14px 28px;
+            display: block;
+        }
+
+        .kPaginatorShowRowsLabel {
+            color: $kGrayscale1;
+            position: absolute;
+            top: 7px;
+            left: 80px;
+        }
+    }
+
+    :host ::ng-deep k-area-blocker > .kAreaBlockerContainer {
+        z-index: 203;
+    }
+
+    :host ::ng-deep span.ui-button-icon-left.pi-kIcontrash {
+        margin-right: -.5em;
+    }
+
+    :host ::ng-deep .kProfilesTableFooter {
+        .ui-dropdown-panel {
+            min-width: 70px;
+        }
+    }
+
 }

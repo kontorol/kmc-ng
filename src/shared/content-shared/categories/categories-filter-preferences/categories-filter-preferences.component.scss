@@ -1,51 +1,105 @@
 @import "app-theme/_variables.scss";
 
 .kPrefs {
-  margin: 12px;
-  padding-left: 20px;
-  padding-top: 10px;
-  padding-right: 12px;
+    margin: 12px;
+    padding-left: 20px;
+    padding-top: 10px;
+    padding-right: 12px;
 }
 
 .kFilterPrefs {
-  color: $kGrayscale3;
-  line-height: 40px;
-  letter-spacing: 0.1em;
-  font-size: 13px;
+    color: $kGrayscale3;
+    line-height: 40px;
+    letter-spacing: 0.1em;
+    font-size: 13px;
 }
 
 .kRadioLabel {
-  margin-left: 34px;
-  margin-top: -20px;
-  color: $kGrayscale3;
-  font-size: 15px;
+    margin-left: 34px;
+    margin-top: -20px;
+    color: $kGrayscale3;
+    font-size: 15px;
 }
 
 .kButtons p-radiobutton:first-child:after {
-  margin-bottom: 14px;
+    margin-bottom: 14px;
 }
 
 :host ::ng-deep p-radiobutton {
 
-  display: flex;
-  margin-bottom: 18px;
+    display: flex;
+    margin-bottom: 18px;
 
-  &:after {
-    clear: both;
-    content: " ";
-    display: block;
-  }
+    &:after {
+        clear: both;
+        content: " ";
+        display: block;
+    }
 
-  .ui-radiobutton {
-    float: left;
-  }
+    .ui-radiobutton {
+        float: left;
+    }
 
-  .ui-radiobutton-label {
-    margin-left: 12px;
-    color: $kGrayscale3;
-    font-size: 14px;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    cursor: pointer;
-  }
+    .ui-radiobutton-label {
+        margin-left: 12px;
+        color: $kGrayscale3;
+        font-size: 14px;
+        font-weight: 400;
+        letter-spacing: 0.02em;
+        cursor: pointer;
+    }
+}
+
+//////////////////////////////////////////////////_FA
+:host-context(.fa) {
+    .kPrefs {
+        margin: 12px;
+        padding-right: 20px;
+        padding-top: 10px;
+        padding-left: 12px;
+    }
+
+    .kFilterPrefs {
+        color: $kGrayscale3;
+        line-height: 40px;
+        letter-spacing: 0.1em;
+        font-size: 13px;
+    }
+
+    .kRadioLabel {
+        margin-right: 34px;
+        margin-top: -20px;
+        color: $kGrayscale3;
+        font-size: 15px;
+    }
+
+    .kButtons p-radiobutton:first-child:after {
+        margin-bottom: 14px;
+    }
+
+    :host ::ng-deep p-radiobutton {
+
+        display: flex;
+        margin-bottom: 18px;
+
+        &:after {
+            clear: both;
+            content: " ";
+            display: block;
+        }
+
+        .ui-radiobutton {
+            float: right;
+        }
+
+        .ui-radiobutton-label {
+            margin-right: 12px;
+            color: $kGrayscale3;
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: 0.02em;
+            cursor: pointer;
+        }
+    }
+
 }

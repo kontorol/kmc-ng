@@ -1,83 +1,177 @@
 @import 'app-theme/_variables.scss';
 
 .kCustomSchemaForm {
-  padding: 32px 28px 23px 32px;
+    padding: 32px 28px 23px 32px;
 
-  .kRow {
-    &:first-child {
-      padding-top: 0;
-    }
-    &.applyTo {
-      padding-top: 13px;
-    }
+    .kRow {
+        &:first-child {
+            padding-top: 0;
+        }
 
-    display: flex;
-    padding-top: 20px;
+        &.applyTo {
+            padding-top: 13px;
+        }
 
-      .kErrorMessage {
-          color: $kDandger;
-          font-size: 14px;
-          margin-top: 5px;
-          margin-bottom: -15px;
-      }
-
-    .kSelectApplyTo {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      .kRadioLeft,
-      .kRadioRight {
         display: flex;
-        margin-right: 55px;
-      }
-    }
+        padding-top: 20px;
 
-    .kLabel {
-      width: 237px;
-      flex: 0 0 auto;
-      height: 18px;
-      color: $kGrayscale1;
-      font-size: 15px;
-      line-height: 18px;
-        position: relative;
-    }
-
-    .kRequired {
-      width: 20px;
-      font-size: 24px;
-      color: $kGrayscale3;
-      margin-left: -24px;
-        position: absolute;
-        top: 5px;
-        right: 0;
-
-        &.kControlInvalid {
+        .kErrorMessage {
             color: $kDandger;
+            font-size: 14px;
+            margin-top: 5px;
+            margin-bottom: -15px;
+        }
+
+        .kSelectApplyTo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            .kRadioLeft,
+            .kRadioRight {
+                display: flex;
+                margin-right: 55px;
+            }
+        }
+
+        .kLabel {
+            width: 237px;
+            flex: 0 0 auto;
+            height: 18px;
+            color: $kGrayscale1;
+            font-size: 15px;
+            line-height: 18px;
+            position: relative;
+        }
+
+        .kRequired {
+            width: 20px;
+            font-size: 24px;
+            color: $kGrayscale3;
+            margin-left: -24px;
+            position: absolute;
+            top: 5px;
+            right: 0;
+
+            &.kControlInvalid {
+                color: $kDandger;
+            }
+        }
+
+        .kRequired, .kLabel {
+            padding: 8px 4px 8px 0px;
+            height: 18px;
+        }
+
+        .kControl {
+            height: 34px;
+            color: $kGrayscale2;
+            width: 529px;
+            border-radius: 3px;
+
+            &.kControlInvalid {
+                border: 1px solid $kDandger;
+            }
+        }
+
+        .KTextArea {
+            height: 60px;
         }
     }
-    .kRequired, .kLabel {
-      padding: 8px 4px 8px 0px;
-      height: 18px;
-    }
-    .kControl {
-      height: 34px;
-      color: $kGrayscale2;
-      width: 529px;
-      border-radius: 3px;
-
-      &.kControlInvalid {
-        border: 1px solid $kDandger;
-      }
-    }
-    .KTextArea {
-      height: 60px;
-    }
-  }
 }
 
 :host ::ng-deep .kSelectApplyTo .ui-radiobutton-label {
-  font-weight: normal;
-  font-size: 15px;
-  margin-left: 5px;
+    font-weight: normal;
+    font-size: 15px;
+    margin-left: 5px;
+}
+
+//////////////////////////////////////////////////_FA
+:host-context(.fa) {
+    .kCustomSchemaForm {
+        padding: 32px 32px 23px 28px;
+
+        .kRow {
+            &:first-child {
+                padding-top: 0;
+            }
+
+            &.applyTo {
+                padding-top: 13px;
+            }
+
+            display: flex;
+            padding-top: 20px;
+
+            .kErrorMessage {
+                color: $kDandger;
+                font-size: 14px;
+                margin-top: 5px;
+                margin-bottom: -15px;
+            }
+
+            .kSelectApplyTo {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+
+                .kRadioLeft,
+                .kRadioRight {
+                    display: flex;
+                    margin-left: 55px;
+                }
+            }
+
+            .kLabel {
+                width: 237px;
+                flex: 0 0 auto;
+                height: 18px;
+                color: $kGrayscale1;
+                font-size: 15px;
+                line-height: 18px;
+                position: relative;
+            }
+
+            .kRequired {
+                width: 20px;
+                font-size: 24px;
+                color: $kGrayscale3;
+                margin-right: -24px;
+                position: absolute;
+                top: 5px;
+                right: 0;
+
+                &.kControlInvalid {
+                    color: $kDandger;
+                }
+            }
+
+            .kRequired, .kLabel {
+                padding: 8px 0px 8px 4px;
+                height: 18px;
+            }
+
+            .kControl {
+                height: 34px;
+                color: $kGrayscale2;
+                width: 529px;
+                border-radius: 3px;
+
+                &.kControlInvalid {
+                    border: 1px solid $kDandger;
+                }
+            }
+
+            .KTextArea {
+                height: 60px;
+            }
+        }
+    }
+
+    :host ::ng-deep .kSelectApplyTo .ui-radiobutton-label {
+        font-weight: normal;
+        font-size: 15px;
+        margin-right: 5px;
+    }
+
 }

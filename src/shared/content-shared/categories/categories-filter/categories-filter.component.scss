@@ -1,124 +1,262 @@
 @import "app-theme/_variables.scss";
 
 .kContainer {
-  margin: 12px;
+    margin: 12px;
 }
 
 .kClose {
-  float: right;
+    float: right;
 }
 
 .kAllCategories {
-  color: $kGrayscale3;
-  line-height: 40px;
-  letter-spacing: 0.1em;
-  font-size: 13px;
-  border-top: 1px solid $kGrayscale6;
-  border-bottom: 1px solid $kGrayscale6;
-  margin-left: -12px;
-  padding-left: 12px;
-  margin-right: -12px;
-  margin-top: 18px;
+    color: $kGrayscale3;
+    line-height: 40px;
+    letter-spacing: 0.1em;
+    font-size: 13px;
+    border-top: 1px solid $kGrayscale6;
+    border-bottom: 1px solid $kGrayscale6;
+    margin-left: -12px;
+    padding-left: 12px;
+    margin-right: -12px;
+    margin-top: 18px;
 }
 
 .kFilterPrefs {
-  color: $kGrayscale3;
-  line-height: 40px;
-  letter-spacing: 0.1em;
-  font-size: 13px;
+    color: $kGrayscale3;
+    line-height: 40px;
+    letter-spacing: 0.1em;
+    font-size: 13px;
 }
 
 .kTreeContainer {
-  overflow-y: auto;
-  overflow-x: hidden;
-  height: 340px;
-  border-bottom: 1px solid $kGrayscale6;
-  margin-left: -12px;
-  padding-left: 12px;
-  margin-right: -12px;
-  width: 387px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 340px;
+    border-bottom: 1px solid $kGrayscale6;
+    margin-left: -12px;
+    padding-left: 12px;
+    margin-right: -12px;
+    width: 387px;
 }
 
 a.disabled {
-  pointer-events: none;
-  cursor: not-allowed;
-  color: $kGrayscale5;
-  border: none;
+    pointer-events: none;
+    cursor: not-allowed;
+    color: $kGrayscale5;
+    border: none;
 }
 
 .kTreeConfig {
-  font-size: 24px;
-  position: absolute;
-  right: 16px;
-  top: 26px;
-  color: $kGrayscale3;
-  cursor: pointer;
-  &:hover {
-    color: $kPrimary;
-  }
+    font-size: 24px;
+    position: absolute;
+    right: 16px;
+    top: 26px;
+    color: $kGrayscale3;
+    cursor: pointer;
+
+    &:hover {
+        color: $kPrimary;
+    }
 }
 
 .kHeader {
-  padding-top: 10px;
-  kautocomplete{
-    margin-left: 4px;
-  }
+    padding-top: 10px;
+
+    kautocomplete {
+        margin-left: 4px;
+    }
 }
 
 .kLoadingMessage {
-  cursor: auto;
-  color: $kPrimary;
-  padding-left: 6px;
+    cursor: auto;
+    color: $kPrimary;
+    padding-left: 6px;
 }
 
 .kLoadingErrorMessage {
-  cursor: auto;
-  white-space: pre-line;
-  margin-top: -16px;
-  color: $kGrayscale3;
-  padding-left: 6px;
+    cursor: auto;
+    white-space: pre-line;
+    margin-top: -16px;
+    color: $kGrayscale3;
+    padding-left: 6px;
 }
 
 /* Make sure toggler and checkbox remain aligned even if the node height changes */
 :host ::ng-deep .ui-treenode .ui-tree-toggler {
-  vertical-align: top;
-  margin-top: 13px;
+    vertical-align: top;
+    margin-top: 13px;
 }
 
 :host ::ng-deep .ui-tree .ui-chkbox {
-  vertical-align: top;
-  margin-top: 16px;
+    vertical-align: top;
+    margin-top: 16px;
 }
 
 :host ::ng-deep .ui-tree .ui-tree-toggler {
-  margin-top: 15px;
+    margin-top: 15px;
 }
 
 :host ::ng-deep .kSearchCategory {
-  width: 338px;
-  height: 34px;
+    width: 338px;
+    height: 34px;
 }
 
 :host ::ng-deep .kHighlightedText {
-  font-weight: 700;
-  text-decoration: underline;
+    font-weight: 700;
+    text-decoration: underline;
 }
 
 :host ::ng-deep kautocomplete ul.ui-autocomplete-multiple-container.ui-inputtext {
-  padding: 0px;
-  .ui-autocomplete-input-token {
     padding: 0px;
-    input {
-      height: 34px;
-      padding-left: 8px;
-      width: 328px;
-      &:active {
-        background-color: white;
-      }
-      &:focus {
-        background-color: white;
-      }
+
+    .ui-autocomplete-input-token {
+        padding: 0px;
+
+        input {
+            height: 34px;
+            padding-left: 8px;
+            width: 328px;
+
+            &:active {
+                background-color: white;
+            }
+
+            &:focus {
+                background-color: white;
+            }
+        }
     }
-  }
 }
 
+//////////////////////////////////////////////////_FA
+:host-context(.fa) {
+    .kContainer {
+        margin: 12px;
+    }
+
+    .kClose {
+        float: left;
+    }
+
+    .kAllCategories {
+        color: $kGrayscale3;
+        line-height: 40px;
+        letter-spacing: 0.1em;
+        font-size: 13px;
+        border-top: 1px solid $kGrayscale6;
+        border-bottom: 1px solid $kGrayscale6;
+        margin-left: -12px;
+        padding-right: 12px;
+        margin-right: -12px;
+        margin-top: 18px;
+    }
+
+    .kFilterPrefs {
+        color: $kGrayscale3;
+        line-height: 40px;
+        letter-spacing: 0.1em;
+        font-size: 13px;
+    }
+
+    .kTreeContainer {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 340px;
+        border-bottom: 1px solid $kGrayscale6;
+        margin-left: -12px;
+        padding-right: 12px;
+        margin-right: -12px;
+        width: 387px;
+    }
+
+    a.disabled {
+        pointer-events: none;
+        cursor: not-allowed;
+        color: $kGrayscale5;
+        border: none;
+    }
+
+    .kTreeConfig {
+        font-size: 24px;
+        position: absolute;
+        left: 16px;
+        top: 26px;
+        color: $kGrayscale3;
+        cursor: pointer;
+
+        &:hover {
+            color: $kPrimary;
+        }
+    }
+
+    .kHeader {
+        padding-top: 10px;
+
+        kautocomplete {
+            margin-right: 4px;
+        }
+    }
+
+    .kLoadingMessage {
+        cursor: auto;
+        color: $kPrimary;
+        padding-right: 6px;
+    }
+
+    .kLoadingErrorMessage {
+        cursor: auto;
+        white-space: pre-line;
+        margin-top: -16px;
+        color: $kGrayscale3;
+        padding-right: 6px;
+    }
+
+    /* Make sure toggler and checkbox remain aligned even if the node height changes */
+    :host ::ng-deep .ui-treenode .ui-tree-toggler {
+        vertical-align: top;
+        margin-top: 13px;
+    }
+
+    :host ::ng-deep .ui-tree .ui-chkbox {
+        vertical-align: top;
+        margin-top: 16px;
+    }
+
+    :host ::ng-deep .ui-tree .ui-tree-toggler {
+        margin-top: 15px;
+    }
+
+    :host ::ng-deep .kSearchCategory {
+        width: 338px;
+        height: 34px;
+    }
+
+    :host ::ng-deep .kHighlightedText {
+        font-weight: 700;
+        text-decoration: underline;
+    }
+
+    :host ::ng-deep kautocomplete ul.ui-autocomplete-multiple-container.ui-inputtext {
+        padding: 0px;
+
+        .ui-autocomplete-input-token {
+            padding: 0px;
+
+            input {
+                height: 34px;
+                padding-right: 8px;
+                width: 328px;
+
+                &:active {
+                    background-color: white;
+                }
+
+                &:focus {
+                    background-color: white;
+                }
+            }
+        }
+    }
+
+
+}

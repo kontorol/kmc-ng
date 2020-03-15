@@ -20,3 +20,27 @@
         color: $kGrayscale1;
     }
 }
+//////////////////////////////////////////////////_FA
+:host-context(.fa){
+    :host {
+        line-height: 1.5em;
+
+        .kTitle {
+            font-size: 32px;
+            color: $kPrimary;
+            font-style: italic;
+            font-weight: 700;
+        }
+
+        h3 {
+            padding-bottom: 10px;
+            border-bottom: 1px solid gray;
+        }
+        .kDate {
+            font-size: 14px;
+            margin-right: 14px;
+            color: $kGrayscale1;
+        }
+    }
+
+}

@@ -46,3 +46,53 @@
         max-height: 261px !important;
     }
 }
+//////////////////////////////////////////////_FA
+:host-context(.fa){
+    .kReachProfilesTable {
+        .emptymessage {
+            display: table-row;
+            border: 0;
+            height: 200px;
+
+            .kEmptyMessage {
+                position: absolute;
+                width: 100%;
+                height: 200px;
+                border-bottom: 1px solid $kGrayscale4;
+            }
+        }
+
+        .kReachProfileNameWrapper {
+            display: flex;
+            align-items: center;
+
+            .kReachProfileName {
+                font-size: 15px;
+                font-weight: bold;
+                color: $kGrayscale1;
+                cursor: pointer;
+            }
+        }
+
+        .kReachProfilesTableActions {
+            width: 100%;
+            text-align: center;
+            .kMoreActionsButton {
+
+            }
+        }
+    }
+
+    :host ::ng-deep p-table {
+        .ui-table .ui-table-thead > tr > th {
+            border-right: 1px solid $kGrayscale6;
+        }
+        .ui-table-scrollable-body {
+            max-height: 280px !important;
+        }
+        .ui-table-scrollable-table-wrapper {
+            max-height: 261px !important;
+        }
+    }
+
+}
