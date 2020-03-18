@@ -1,53 +1,7 @@
 @import 'app-theme/_variables.scss';
 
-.kDRMDetails{
-  .kHeader {
-    height: 78px;
-    width: 100%;
-    text-align: center;
-    padding-top: 24px;
-    box-sizing: border-box;
-    border-bottom: 1px solid $kGrayscale4;
-    .kTitle {
-      color: #333333;
-      font-size: 24px;
-      font-weight: 700;
-    }
-  }
-  .kContainer{
-    margin: 12px;
-    height: 70px;
-  }
-  .kName{
-    font-weight: 700;
-    margin-bottom: 30px;
-    display: block;
-  }
-	.kRow{
-		display: flex;
-		margin-bottom: 12px;
-		flex-direction: row;
-		align-items: center;
-		.kLabel{
-			width: 350px;
-		}
-	}
-	.kSources{
-		background-color: $kGrayscale6;
-		border: 1px solid white;
-		border-radius: 3px;
-    box-sizing: border-box;
-		height: 150px;
-		margin-top: 6px;
-		margin-bottom: 12px;
-		padding: 8px;
-		overflow-x: hidden;
-		overflow-y: auto;
-	}
-}
-///////////_FA
-:host-context(.fa){
-    .kDRMDetails{
+:host-context(.ltr-theme) {
+    .kDRMDetails {
         .kHeader {
             height: 78px;
             width: 100%;
@@ -55,31 +9,92 @@
             padding-top: 24px;
             box-sizing: border-box;
             border-bottom: 1px solid $kGrayscale4;
+
             .kTitle {
                 color: #333333;
                 font-size: 24px;
                 font-weight: 700;
             }
         }
-        .kContainer{
+
+        .kContainer {
             margin: 12px;
             height: 70px;
         }
-        .kName{
+
+        .kName {
             font-weight: 700;
             margin-bottom: 30px;
             display: block;
         }
-        .kRow{
+
+        .kRow {
             display: flex;
             margin-bottom: 12px;
             flex-direction: row;
             align-items: center;
-            .kLabel{
+
+            .kLabel {
                 width: 350px;
             }
         }
-        .kSources{
+
+        .kSources {
+            background-color: $kGrayscale6;
+            border: 1px solid white;
+            border-radius: 3px;
+            box-sizing: border-box;
+            height: 150px;
+            margin-top: 6px;
+            margin-bottom: 12px;
+            padding: 8px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+    }
+}
+
+///////////_FA
+:host-context(.rtl-theme) {
+    .kDRMDetails {
+        .kHeader {
+            height: 78px;
+            width: 100%;
+            text-align: center;
+            padding-top: 24px;
+            box-sizing: border-box;
+            border-bottom: 1px solid $kGrayscale4;
+
+            .kTitle {
+                color: #333333;
+                font-size: 24px;
+                font-weight: 700;
+            }
+        }
+
+        .kContainer {
+            margin: 12px;
+            height: 70px;
+        }
+
+        .kName {
+            font-weight: 700;
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        .kRow {
+            display: flex;
+            margin-bottom: 12px;
+            flex-direction: row;
+            align-items: center;
+
+            .kLabel {
+                width: 350px;
+            }
+        }
+
+        .kSources {
             background-color: $kGrayscale6;
             border: 1px solid white;
             border-radius: 3px;

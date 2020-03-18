@@ -1,71 +1,73 @@
 @import 'app-theme/_variables.scss';
 
-.kUploadsTableWrapper {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex: 1 1 auto;
+:host-context(.ltr-theme) {
+    .kUploadsTableWrapper {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex: 1 1 auto;
 
-    .kUploadsTable {
-        background-color: white;
-        overflow-y: hidden;
-        position: absolute;
-        padding: 0;
+        .kUploadsTable {
+            background-color: white;
+            overflow-y: hidden;
+            position: absolute;
+            padding: 0;
 
-        .emptymessage {
-            display: table-row;
-            border: 0;
-            height: 200px;
-
-            .kEmptyMessage {
-                position: absolute;
-                width: 100%;
+            .emptymessage {
+                display: table-row;
+                border: 0;
                 height: 200px;
-                border-bottom: 1px solid $kGrayscale4;
+
+                .kEmptyMessage {
+                    position: absolute;
+                    width: 100%;
+                    height: 200px;
+                    border-bottom: 1px solid $kGrayscale4;
+                }
             }
-        }
 
-        .kUploadName {
-            color: $kGrayscale1;
-            font-weight: bold;
-        }
+            .kUploadName {
+                color: $kGrayscale1;
+                font-weight: bold;
+            }
 
-        .kIconRemoveFile {
-            font-size: 20px;
-            cursor: pointer;
-            display: none;
-            float: left;
-            width: 27px;
-        }
+            .kIconRemoveFile {
+                font-size: 20px;
+                cursor: pointer;
+                display: none;
+                float: left;
+                width: 27px;
+            }
 
-        .kIconMediaType {
-            font-size: 24px;
+            .kIconMediaType {
+                font-size: 24px;
+            }
         }
     }
 }
 
-:host {
+.ltr-theme :host {
     display: flex;
     flex-flow: row wrap;
     margin: 0;
     flex-direction: column;
 }
 
-:host ::ng-deep .kUploadsTable tr:hover .kIconRemoveFile { // show remove icon when hovering a row
+.ltr-theme :host ::ng-deep .kUploadsTable tr:hover .kIconRemoveFile { // show remove icon when hovering a row
     display: block !important;
 }
 
-:host ::ng-deep .kUploadsTable tr.has-error {
+.ltr-theme :host ::ng-deep .kUploadsTable tr.has-error {
     background-color: lighten($kDandger, 45%);
 }
 
-:host ::ng-deep .kUploadsTable tr.removing {
+.ltr-theme :host ::ng-deep .kUploadsTable tr.removing {
     background-color: $kGrayscale6;
     opacity: 0.3;
 }
 
-:host ::ng-deep .kUploadsTable td:last-child .ui-cell-data {
+.ltr-theme :host ::ng-deep .kUploadsTable td:last-child .ui-cell-data {
     display: flex;
     justify-content: center;
 
@@ -74,19 +76,19 @@
     }
 }
 
-:host ::ng-deep p-table .stickyHeader {
+.ltr-theme :host ::ng-deep p-table .stickyHeader {
     z-index: 10;
     display: table;
 }
 
-:host ::ng-deep p-table {
+.ltr-theme:host ::ng-deep p-table {
     .ui-table .ui-table-thead > tr > th {
         border-left: 1px solid $kGrayscale6;
     }
 }
 
 //////////////////////////////////////////////////_FA
-:host-context(.fa) {
+:host-context(.rtl-theme) {
     .kUploadsTableWrapper {
         position: relative;
         width: 100%;
@@ -131,45 +133,46 @@
             }
         }
     }
-
-    :host {
-        display: flex;
-        flex-flow: row wrap;
-        margin: 0;
-        flex-direction: column;
-    }
-
-    :host ::ng-deep .kUploadsTable tr:hover .kIconRemoveFile { // show remove icon when hovering a row
-        display: block !important;
-    }
-
-    :host ::ng-deep .kUploadsTable tr.has-error {
-        background-color: lighten($kDandger, 45%);
-    }
-
-    :host ::ng-deep .kUploadsTable tr.removing {
-        background-color: $kGrayscale6;
-        opacity: 0.3;
-    }
-
-    :host ::ng-deep .kUploadsTable td:last-child .ui-cell-data {
-        display: flex;
-        justify-content: center;
-
-        i:first-child {
-            margin-left: 15px;
-        }
-    }
-
-    :host ::ng-deep p-table .stickyHeader {
-        z-index: 10;
-        display: table;
-    }
-
-    :host ::ng-deep p-table {
-        .ui-table .ui-table-thead > tr > th {
-            border-right: 1px solid $kGrayscale6;
-        }
-    }
-
 }
+
+.rtl-theme :host {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0;
+    flex-direction: column;
+}
+
+.rtl-theme :host ::ng-deep .kUploadsTable tr:hover .kIconRemoveFile { // show remove icon when hovering a row
+    display: block !important;
+}
+
+.rtl-theme :host ::ng-deep .kUploadsTable tr.has-error {
+    background-color: lighten($kDandger, 45%);
+}
+
+.rtl-theme :host ::ng-deep .kUploadsTable tr.removing {
+    background-color: $kGrayscale6;
+    opacity: 0.3;
+}
+
+.rtl-theme :host ::ng-deep .kUploadsTable td:last-child .ui-cell-data {
+    display: flex;
+    justify-content: center;
+
+    i:first-child {
+        margin-left: 15px;
+    }
+}
+
+.rtl-theme :host ::ng-deep p-table .stickyHeader {
+    z-index: 10;
+    display: table;
+}
+
+.rtl-theme :host ::ng-deep p-table {
+    .ui-table .ui-table-thead > tr > th {
+        border-right: 1px solid $kGrayscale6;
+    }
+}
+
+

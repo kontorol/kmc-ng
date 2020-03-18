@@ -1,94 +1,105 @@
 @import 'app-theme/_variables.scss';
 
-.kUserSettings {
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-top: 3px;
-    padding-bottom: 8px;
-    .kLinks {
-        display: flex;
-        flex-direction: column;
+:host-context(.ltr-theme) {
+    .kUserSettings {
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-top: 3px;
+        padding-bottom: 8px;
+
+        .kLinks {
+            display: flex;
+            flex-direction: column;
+            padding-bottom: 4px;
+        }
+
+        a {
+            margin-top: 4px;
+            line-height: 24px;
+            margin-bottom: 4px;
+            color: $kGrayscale1;
+
+            &:hover {
+                color: #0D499D;
+            }
+
+            text-decoration: none;
+        }
+    }
+
+    ul {
+        list-style-type: none;
+        padding: 0;
         padding-bottom: 4px;
     }
-    a {
-        margin-top: 4px;
-        line-height: 24px;
-        margin-bottom: 4px;
-        color: $kGrayscale1;
-        &:hover {
-            color: #0D499D;
-        }
-        text-decoration: none;
+
+    i {
+        margin-right: 8px;
     }
-}
 
-ul {
-    list-style-type: none;
-    padding: 0;
-    padding-bottom: 4px;
-}
+    li {
+        margin-top: 18px;
+    }
 
-i {
-    margin-right: 8px;
-}
+    hr {
+        height: 1px;
+        margin-left: -20px;
+        margin-right: -20px;
+        border: 0;
+        border-top: 1px solid $kGrayscale6;
+    }
 
-li {
-    margin-top: 18px;
-}
+    .kMenuItemLabel {
+        font-size: 15px;
+        color: $kGrayscale1;
+    }
 
-hr{
-    height: 1px;
-    margin-left: -20px;
-    margin-right: -20px;
-    border: 0;
-    border-top: 1px solid $kGrayscale6;
-}
+    .kMenuItem {
+        display: flex;
+        flex-direction: column;
+        margin-left: 28px;
+        margin-top: -18px;
+    }
 
-.kMenuItemLabel {
-    font-size: 15px;
-    color: $kGrayscale1;
-}
+    .kIcon {
+        color: $kGrayscale1;
+        font-size: 18px;
+    }
 
-.kMenuItem {
-    display: flex;
-    flex-direction: column;
-    margin-left: 28px;
-    margin-top: -18px;
-}
-
-.kIcon {
-    color: $kGrayscale1;
-    font-size: 18px;
-}
-
-.kLanguages {
-    margin-bottom: 12px;
+    .kLanguages {
+        margin-bottom: 12px;
+    }
 }
 
 :host ::ng-deep .ui-dropdown.ui-widget {
     min-width: 208px;
     width: 208px !important;
 }
+
 /////////////_FA
-:host-context(.fa){
+:host-context(.rtl-theme) {
     .kUserSettings {
         padding-left: 16px;
         padding-right: 16px;
         padding-top: 3px;
         padding-bottom: 8px;
+
         .kLinks {
             display: flex;
             flex-direction: column;
             padding-bottom: 4px;
         }
+
         a {
             margin-top: 4px;
             line-height: 24px;
             margin-bottom: 4px;
             color: $kGrayscale1;
+
             &:hover {
                 color: #0D499D;
             }
+
             text-decoration: none;
         }
     }
@@ -107,7 +118,7 @@ hr{
         margin-top: 18px;
     }
 
-    hr{
+    hr {
         height: 1px;
         margin-left: -20px;
         margin-right: -20px;
@@ -136,8 +147,5 @@ hr{
         margin-bottom: 12px;
     }
 
-    :host ::ng-deep .ui-dropdown.ui-widget {
-        min-width: 208px;
-        width: 208px !important;
-    }
+
 }

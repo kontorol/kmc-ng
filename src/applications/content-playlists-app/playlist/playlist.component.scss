@@ -1,55 +1,50 @@
-:host ::ng-deep span.ui-button-icon-left.pi-kIconarrow_forward, :host ::ng-deep span.ui-button-icon-left.pi-kIconarrow_backward {
-	margin-left: -.5em;
+.ltr-theme :host ::ng-deep span.ui-button-icon-left.pi-kIconarrow_forward, :host ::ng-deep span.ui-button-icon-left.pi-kIconarrow_backward {
+    margin-left: -.5em;
 }
-:host ::ng-deep .stickyHeader{
-	background-color: white;
-	height: 55px;
-	z-index: 500;
-	left: 0px;
-	right: 0px;
-	padding-top: 11px;
-	box-sizing: border-box;
-	box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
-	width: 100% !important;
-}
-.kSections{
-	height: 100%;
-}
-.kEntryActionsWrapper {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
 
-    .kAnalytics {
-        margin-right: 24px;
-        ::ng-deep .kIconstatistic {
-            font-size: 24px;
-        }
-        ::ng-deep .ui-button-text{
-            padding-left: 42px;
-            white-space: nowrap;
-        }
-    }
+.ltr-theme :host ::ng-deep .stickyHeader {
+    background-color: white;
+    height: 55px;
+    z-index: 500;
+    left: 0px;
+    right: 0px;
+    padding-top: 11px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);
+    width: 100% !important;
 }
-////////////////_FA
-:host-context(.fa){
-    :host ::ng-deep span.ui-button-icon-left.pi-kIconarrow_forward, :host ::ng-deep span.ui-button-icon-left.pi-kIconarrow_backward {
-        margin-right: -.5em;
-    }
-    :host ::ng-deep .stickyHeader{
-        background-color: white;
-        height: 55px;
-        z-index: 500;
-        left: 0px;
-        right: 0px;
-        padding-top: 11px;
-        box-sizing: border-box;
-        box-shadow: 0px 0px 3px 1px rgba(0,0,0,0.2);
-        width: 100% !important;
-    }
-    .kSections{
+
+:host-context(.ltr-theme) {
+    .kSections {
         height: 100%;
     }
+
+    .kEntryActionsWrapper {
+        margin-left: auto;
+        display: flex;
+        align-items: center;
+
+        .kAnalytics {
+            margin-right: 24px;
+
+            ::ng-deep .kIconstatistic {
+                font-size: 24px;
+            }
+
+            ::ng-deep .ui-button-text {
+                padding-left: 42px;
+                white-space: nowrap;
+            }
+        }
+    }
+}
+
+////////////////_FA
+:host-context(.rtl-theme) {
+    .kSections {
+        height: 100%;
+    }
+
     .kEntryActionsWrapper {
         margin-right: auto;
         display: flex;
@@ -57,13 +52,31 @@
 
         .kAnalytics {
             margin-left: 24px;
+
             ::ng-deep .kIconstatistic {
                 font-size: 24px;
             }
-            ::ng-deep .ui-button-text{
+
+            ::ng-deep .ui-button-text {
                 padding-right: 42px;
                 white-space: nowrap;
             }
         }
     }
+}
+
+.rtl-theme :host ::ng-deep span.ui-button-icon-left.pi-kIconarrow_forward, :host ::ng-deep span.ui-button-icon-left.pi-kIconarrow_backward {
+    margin-right: -.5em;
+}
+
+.rtl-theme :host ::ng-deep .stickyHeader {
+    background-color: white;
+    height: 55px;
+    z-index: 500;
+    left: 0px;
+    right: 0px;
+    padding-top: 11px;
+    box-sizing: border-box;
+    box-shadow: 0px 0px 3px 1px rgba(0, 0, 0, 0.2);
+    width: 100% !important;
 }

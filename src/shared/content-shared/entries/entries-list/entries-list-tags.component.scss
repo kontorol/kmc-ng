@@ -1,5 +1,5 @@
 
-:host {
+.ltr-theme :host {
     width: 100%;
 
     .kTagContent {
@@ -17,6 +17,7 @@
         &:not(.kTagDisabled) {
             .kTagRemove {
                 cursor: pointer;
+
                 &:hover {
                     background-color: rgba(255, 255, 255, 0.3);
                     border: 0px solid rgba(255, 255, 255, 0.3);
@@ -43,50 +44,47 @@
 }
 
 //////////////////////////////////////////////////_FA
-:host-context(.fa){
+.rtl-theme :host {
+    width: 100%;
 
-    :host {
-        width: 100%;
+    .kTagContent {
+        display: flex;
+        align-items: center;
 
-        .kTagContent {
-            display: flex;
-            align-items: center;
-
-            &.kTagDisabled {
-                .kTagLabel {
-                    margin-left: 8px;
-                    line-height: 22px;
-                }
-
-            }
-
-            &:not(.kTagDisabled) {
-                .kTagRemove {
-                    cursor: pointer;
-                    &:hover {
-                        background-color: rgba(255, 255, 255, 0.3);
-                        border: 0px solid rgba(255, 255, 255, 0.3);
-                        border-radius: 3px;
-                    }
-                }
-            }
-
+        &.kTagDisabled {
             .kTagLabel {
-                flex: 0 0 auto;
-                user-select: none;
-                cursor: default;
-
+                margin-left: 8px;
+                line-height: 22px;
             }
 
+        }
+
+        &:not(.kTagDisabled) {
             .kTagRemove {
-                flex: 0 0 auto;
-                margin-top: 2px;
-                margin-right: 8px;
-                padding: 5px;
-                font-size: 10px;
+                cursor: pointer;
+
+                &:hover {
+                    background-color: rgba(255, 255, 255, 0.3);
+                    border: 0px solid rgba(255, 255, 255, 0.3);
+                    border-radius: 3px;
+                }
             }
         }
+
+        .kTagLabel {
+            flex: 0 0 auto;
+            user-select: none;
+            cursor: default;
+
+        }
+
+        .kTagRemove {
+            flex: 0 0 auto;
+            margin-top: 2px;
+            margin-right: 8px;
+            padding: 5px;
+            font-size: 10px;
+        }
     }
-
-
 }
+

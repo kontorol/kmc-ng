@@ -1,33 +1,39 @@
 @import 'app-theme/_variables.scss';
 
-.kAdvertisements {
-  .kTitle {
-    color: $kGrayscale1;
-    font-size: 20px;
-    font-weight: bold;
-    padding-top: 28px;
-    padding-left: 24px;
-    padding-bottom: 24px;
-  }
-  .kDescription {
-    color: $kGrayscale1;
-    font-size: 15px;
-    padding-left: 24px;
-    padding-bottom: 24px;
-  }
-  .kButtons {
-    display: flex;
-    padding-left: 24px;
-    margin-bottom: 20px;
-    button {
-      height: 32px;
-      font-weight: bold;
-      margin-right: 20px;
+:host-context(.ltr-theme) {
+    .kAdvertisements {
+        .kTitle {
+            color: $kGrayscale1;
+            font-size: 20px;
+            font-weight: bold;
+            padding-top: 28px;
+            padding-left: 24px;
+            padding-bottom: 24px;
+        }
+
+        .kDescription {
+            color: $kGrayscale1;
+            font-size: 15px;
+            padding-left: 24px;
+            padding-bottom: 24px;
+        }
+
+        .kButtons {
+            display: flex;
+            padding-left: 24px;
+            margin-bottom: 20px;
+
+            button {
+                height: 32px;
+                font-weight: bold;
+                margin-right: 20px;
+            }
+        }
     }
-  }
 }
+
 /////////////_FA
-:host-context(.fa){
+:host-context(.rtl-theme) {
     .kAdvertisements {
         .kTitle {
             color: $kGrayscale1;
@@ -37,16 +43,19 @@
             padding-right: 24px;
             padding-bottom: 24px;
         }
+
         .kDescription {
             color: $kGrayscale1;
             font-size: 15px;
             padding-right: 24px;
             padding-bottom: 24px;
         }
+
         .kButtons {
             display: flex;
             padding-right: 24px;
             margin-bottom: 20px;
+
             button {
                 height: 32px;
                 font-weight: bold;

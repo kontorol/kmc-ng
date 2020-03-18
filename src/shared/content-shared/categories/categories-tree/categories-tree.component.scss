@@ -16,7 +16,7 @@
                 font-weight: 700;
                 line-height: 43px;
                 text-overflow: ellipsis;
-                margin-left: 5px;
+                margin-right: 5px;
                 max-width: calc(100% - 80px);
                 display: inline-block;
                 overflow: hidden;
@@ -36,88 +36,57 @@
     }
 }
 
-.kTreeContainer {
-    overflow-y: auto;
-    overflow-x: hidden;
-    min-height: 340px;
-    margin-left: -20px;
-    padding-left: 20px;
-    margin-right: -20px;
-    width: 387px;
-}
+:host-context(.ltr-theme) {
 
-.kLoadingMessage {
-    cursor: auto;
-    color: $kPrimary;
-    padding-left: 6px;
-}
 
-.kLoadingErrorMessage {
-    cursor: auto;
-    white-space: pre-line;
-    margin-top: -16px;
-    color: $kGrayscale3;
-    padding-left: 6px;
+    .kTreeContainer {
+        overflow-y: auto;
+        overflow-x: hidden;
+        min-height: 340px;
+        margin-left: -20px;
+        padding-left: 20px;
+        margin-right: -20px;
+        width: 387px;
+    }
+
+    .kLoadingMessage {
+        cursor: auto;
+        color: $kPrimary;
+        padding-left: 6px;
+    }
+
+    .kLoadingErrorMessage {
+        cursor: auto;
+        white-space: pre-line;
+        margin-top: -16px;
+        color: $kGrayscale3;
+        padding-left: 6px;
+    }
 }
 
 /* Make sure toggler and checkbox remain aligned even if the node height changes */
-:host ::ng-deep .ui-treenode .ui-tree-toggler {
+.ltr-theme :host ::ng-deep .ui-treenode .ui-tree-toggler {
     vertical-align: top;
     margin-top: 13px;
 }
 
-:host ::ng-deep .ui-tree .ui-chkbox {
+.ltr-theme :host ::ng-deep .ui-tree .ui-chkbox {
     vertical-align: top;
     margin-top: 14px;
 }
 
-:host ::ng-deep .ui-tree .ui-tree-toggler {
+.ltr-theme :host ::ng-deep .ui-tree .ui-tree-toggler {
     margin-top: 15px;
 }
 
-:host ::ng-deep .ui-tree.ui-widget.ui-widget-content {
+.ltr-theme :host ::ng-deep .ui-tree.ui-widget.ui-widget-content {
     width: 100%;
     border: none;
 }
 
+
 //////////////////////////////////////////////////_FA
-:host-context(.fa) {
-    :host ::ng-deep {
-        .ui-treenode-content {
-            .ui-treenode-label {
-                width: 100%;
-            }
-
-            .kTreeNodeLabelWrapper {
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-
-                .kTreeNodeLabel {
-                    font-size: 14px;
-                    font-weight: 700;
-                    line-height: 43px;
-                    text-overflow: ellipsis;
-                    margin-right: 5px;
-                    max-width: calc(100% - 80px);
-                    display: inline-block;
-                    overflow: hidden;
-                }
-
-                .kTreeNodeLabelSingle {
-                    color: $kGrayscale1;
-                }
-
-                .kTreeNodeNumChildren {
-                    font-size: 14px;
-                    font-weight: 400;
-                    color: $kGrayscale3;
-                    margin-right: 10px;
-                }
-            }
-        }
-    }
-
+:host-context(.rtl-theme) {
     .kTreeContainer {
         overflow-y: auto;
         overflow-x: hidden;
@@ -141,25 +110,26 @@
         color: $kGrayscale3;
         padding-right: 6px;
     }
-
-    /* Make sure toggler and checkbox remain aligned even if the node height changes */
-    :host ::ng-deep .ui-treenode .ui-tree-toggler {
-        vertical-align: top;
-        margin-top: 13px;
-    }
-
-    :host ::ng-deep .ui-tree .ui-chkbox {
-        vertical-align: top;
-        margin-top: 14px;
-    }
-
-    :host ::ng-deep .ui-tree .ui-tree-toggler {
-        margin-top: 15px;
-    }
-
-    :host ::ng-deep .ui-tree.ui-widget.ui-widget-content {
-        width: 100%;
-        border: none;
-    }
-
 }
+
+/* Make sure toggler and checkbox remain aligned even if the node height changes */
+.rtl-theme :host ::ng-deep .ui-treenode .ui-tree-toggler {
+    vertical-align: top;
+    margin-top: 13px;
+}
+
+.rtl-theme :host ::ng-deep .ui-tree .ui-chkbox {
+    vertical-align: top;
+    margin-top: 14px;
+}
+
+.rtl-theme :host ::ng-deep .ui-tree .ui-tree-toggler {
+    margin-top: 15px;
+}
+
+.rtl-theme :host ::ng-deep .ui-tree.ui-widget.ui-widget-content {
+    width: 100%;
+    border: none;
+}
+
+

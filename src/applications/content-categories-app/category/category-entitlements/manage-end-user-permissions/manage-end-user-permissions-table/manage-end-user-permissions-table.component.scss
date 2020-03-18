@@ -1,148 +1,20 @@
 @import 'app-theme/_variables.scss';
 
-.kTable {
-    background-color: white;
-    position: relative;
-    padding: 0px;
-    height: 100%;
-    k-area-blocker {
-        min-height: 250px;
-    }
-    .kTableActions {
-        width: 100%;
-        text-align: center;
-        button {
-            color: grey !important;
-            background-color: rgba(0, 0, 0, 0) !important;
-            border: none !important;
-            font-size: 16px !important;
-            outline: 0;
-        }
-    }
-
-    .kTitle {
-        color: $kGrayscale1;
-        font-weight: 700;
-    }
-
-    &.kTagsVisible ::ng-deep .ui-table-scrollable-body {
-        height: calc(100vh - 320px) !important;
-    }
-
-    ::ng-deep .ui-table-scrollable-body {
-        height: calc(100vh - 280px) !important;
-        overflow: auto;
-    }
-}
-
-:host ::ng-deep {
-
-    .kDisabled {
-        .selectionColumn, .ui-chkbox-box {
-            pointer-events: none;
-            .ui-chkbox-box {
-                background-color: $kGrayscale6;
-            }
-        }
-    }
-
-    .selectionColumn {
-        width: 56px;
-        padding-left: 28px !important;
-    }
-
-    .ui-dropdown {
-        min-width: 127px !important;
-    }
-
-}
-
-:host ::ng-deep .ui-table .nameColumn {
-    font-weight: normal;
-    width: 200px;
-}
-
-:host ::ng-deep .ui-table .permissionLevelColumn {
-    font-weight: normal;
-    width: 140px;
-    text-align: left;
-    overflow: visible;
-    .ui-cell-data {
-        text-align: left;
-    }
-}
-
-:host ::ng-deep .ui-table .updateMethodColumn {
-    font-weight: normal;
-    width: 140px;
-    text-align: left;
-    overflow: visible;
-
-    .ui-cell-data {
-        text-align: left;
-    }
-}
-
-:host ::ng-deep .ui-table .updatedAtColumn {
-    font-weight: normal;
-    width: 81px;
-    text-align: left;
-}
-
-:host ::ng-deep .ui-table {
-    .statusColumn {
-        font-weight: normal;
-        width: 170px;
-        text-align: left;
-        padding-left: 20px;
-        .kCategoryUserStatus {
-            padding-left: 10px;
-        }
-    }
-}
-
-:host ::ng-deep tr:hover .removeColumn .kIconremove.kEnabled {
-    visibility: visible;
-}
-
-:host ::ng-deep .ui-table .removeColumn {
-    overflow: visible;
-    width: 55px;
-    text-align: center;
-
-    .kIconremove {
-        font-size: 22px;
-        color: $kDandger;
-        cursor: pointer;
-        visibility: hidden;
-    }
-}
-
-:host {
-    display: flex;
-    flex-flow: row wrap;
-    margin: 0;
-    height: 100%;
-    flex-direction: column;
-}
-
-:host ::ng-deep p-table .stickyHeader {
-    z-index: 10;
-    display: table;
-}
-///////////////_FA
-:host-context(.fa){
+:host-context(.ltr-theme) {
     .kTable {
         background-color: white;
         position: relative;
         padding: 0px;
         height: 100%;
+
         k-area-blocker {
             min-height: 250px;
         }
+
         .kTableActions {
             width: 100%;
             text-align: center;
+
             button {
                 color: grey !important;
                 background-color: rgba(0, 0, 0, 0) !important;
@@ -166,100 +38,244 @@
             overflow: auto;
         }
     }
+}
 
-    :host ::ng-deep {
+.ltr-theme :host ::ng-deep {
 
-        .kDisabled {
-            .selectionColumn, .ui-chkbox-box {
-                pointer-events: none;
-                .ui-chkbox-box {
-                    background-color: $kGrayscale6;
-                }
-            }
-        }
+    .kDisabled {
+        .selectionColumn, .ui-chkbox-box {
+            pointer-events: none;
 
-        .selectionColumn {
-            width: 56px;
-            padding-right: 28px !important;
-        }
-
-        .ui-dropdown {
-            min-width: 127px !important;
-        }
-
-    }
-
-    :host ::ng-deep .ui-table .nameColumn {
-        font-weight: normal;
-        width: 200px;
-    }
-
-    :host ::ng-deep .ui-table .permissionLevelColumn {
-        font-weight: normal;
-        width: 140px;
-        text-align: right;
-        overflow: visible;
-        .ui-cell-data {
-            text-align: right;
-        }
-    }
-
-    :host ::ng-deep .ui-table .updateMethodColumn {
-        font-weight: normal;
-        width: 140px;
-        text-align: right;
-        overflow: visible;
-
-        .ui-cell-data {
-            text-align: right;
-        }
-    }
-
-    :host ::ng-deep .ui-table .updatedAtColumn {
-        font-weight: normal;
-        width: 81px;
-        text-align: right;
-    }
-
-    :host ::ng-deep .ui-table {
-        .statusColumn {
-            font-weight: normal;
-            width: 170px;
-            text-align: right;
-            padding-right: 20px;
-            .kCategoryUserStatus {
-                padding-right: 10px;
+            .ui-chkbox-box {
+                background-color: $kGrayscale6;
             }
         }
     }
 
-    :host ::ng-deep tr:hover .removeColumn .kIconremove.kEnabled {
-        visibility: visible;
+    .selectionColumn {
+        width: 56px;
+        padding-left: 28px !important;
     }
 
-    :host ::ng-deep .ui-table .removeColumn {
-        overflow: visible;
-        width: 55px;
-        text-align: center;
-
-        .kIconremove {
-            font-size: 22px;
-            color: $kDandger;
-            cursor: pointer;
-            visibility: hidden;
-        }
+    .ui-dropdown {
+        min-width: 127px !important;
     }
 
-    :host {
-        display: flex;
-        flex-flow: row wrap;
-        margin: 0;
-        height: 100%;
-        flex-direction: column;
-    }
+}
 
-    :host ::ng-deep p-table .stickyHeader {
-        z-index: 10;
-        display: table;
+.ltr-theme :host ::ng-deep .ui-table .nameColumn {
+    font-weight: normal;
+    width: 200px;
+}
+
+.ltr-theme :host ::ng-deep .ui-table .permissionLevelColumn {
+    font-weight: normal;
+    width: 140px;
+    text-align: left;
+    overflow: visible;
+
+    .ui-cell-data {
+        text-align: left;
     }
 }
+
+.ltr-theme :host ::ng-deep .ui-table .updateMethodColumn {
+    font-weight: normal;
+    width: 140px;
+    text-align: left;
+    overflow: visible;
+
+    .ui-cell-data {
+        text-align: left;
+    }
+}
+
+.ltr-theme :host ::ng-deep .ui-table .updatedAtColumn {
+    font-weight: normal;
+    width: 81px;
+    text-align: left;
+}
+
+.ltr-theme :host ::ng-deep .ui-table {
+    .statusColumn {
+        font-weight: normal;
+        width: 170px;
+        text-align: left;
+        padding-left: 20px;
+
+        .kCategoryUserStatus {
+            padding-left: 10px;
+        }
+    }
+}
+
+.ltr-theme :host ::ng-deep tr:hover .removeColumn .kIconremove.kEnabled {
+    visibility: visible;
+}
+
+.ltr-theme :host ::ng-deep .ui-table .removeColumn {
+    overflow: visible;
+    width: 55px;
+    text-align: center;
+
+    .kIconremove {
+        font-size: 22px;
+        color: $kDandger;
+        cursor: pointer;
+        visibility: hidden;
+    }
+}
+
+.ltr-theme :host {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0;
+    height: 100%;
+    flex-direction: column;
+}
+
+.ltr-theme :host ::ng-deep p-table .stickyHeader {
+    z-index: 10;
+    display: table;
+}
+
+///////////////_FA
+:host-context(.rtl-theme) {
+    .kTable {
+        background-color: white;
+        position: relative;
+        padding: 0px;
+        height: 100%;
+
+        k-area-blocker {
+            min-height: 250px;
+        }
+
+        .kTableActions {
+            width: 100%;
+            text-align: center;
+
+            button {
+                color: grey !important;
+                background-color: rgba(0, 0, 0, 0) !important;
+                border: none !important;
+                font-size: 16px !important;
+                outline: 0;
+            }
+        }
+
+        .kTitle {
+            color: $kGrayscale1;
+            font-weight: 700;
+        }
+
+        &.kTagsVisible ::ng-deep .ui-table-scrollable-body {
+            height: calc(100vh - 320px) !important;
+        }
+
+        ::ng-deep .ui-table-scrollable-body {
+            height: calc(100vh - 280px) !important;
+            overflow: auto;
+        }
+    }
+}
+
+.rtl-theme :host ::ng-deep {
+
+    .kDisabled {
+        .selectionColumn, .ui-chkbox-box {
+            pointer-events: none;
+
+            .ui-chkbox-box {
+                background-color: $kGrayscale6;
+            }
+        }
+    }
+
+    .selectionColumn {
+        width: 56px;
+        padding-right: 28px !important;
+    }
+
+    .ui-dropdown {
+        min-width: 127px !important;
+    }
+
+}
+
+.rtl-theme :host ::ng-deep .ui-table .nameColumn {
+    font-weight: normal;
+    width: 200px;
+}
+
+.rtl-theme :host ::ng-deep .ui-table .permissionLevelColumn {
+    font-weight: normal;
+    width: 140px;
+    text-align: right;
+    overflow: visible;
+
+    .ui-cell-data {
+        text-align: right;
+    }
+}
+
+.rtl-theme :host ::ng-deep .ui-table .updateMethodColumn {
+    font-weight: normal;
+    width: 140px;
+    text-align: right;
+    overflow: visible;
+
+    .ui-cell-data {
+        text-align: right;
+    }
+}
+
+.rtl-theme :host ::ng-deep .ui-table .updatedAtColumn {
+    font-weight: normal;
+    width: 81px;
+    text-align: right;
+}
+
+.rtl-theme :host ::ng-deep .ui-table {
+    .statusColumn {
+        font-weight: normal;
+        width: 170px;
+        text-align: right;
+        padding-right: 20px;
+
+        .kCategoryUserStatus {
+            padding-right: 10px;
+        }
+    }
+}
+
+.rtl-theme :host ::ng-deep tr:hover .removeColumn .kIconremove.kEnabled {
+    visibility: visible;
+}
+
+.rtl-theme :host ::ng-deep .ui-table .removeColumn {
+    overflow: visible;
+    width: 55px;
+    text-align: center;
+
+    .kIconremove {
+        font-size: 22px;
+        color: $kDandger;
+        cursor: pointer;
+        visibility: hidden;
+    }
+}
+
+.rtl-theme :host {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0;
+    height: 100%;
+    flex-direction: column;
+}
+
+.rtl-theme :host ::ng-deep p-table .stickyHeader {
+    z-index: 10;
+    display: table;
+}
+

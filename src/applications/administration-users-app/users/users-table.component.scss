@@ -1,55 +1,55 @@
 @import 'app-theme/_variables.scss';
+:host-context(.ltr-theme) {
+    .kUsersTable {
+        background-color: white;
+        overflow-y: hidden;
+        position: absolute;
+        padding: 0px;
 
-.kUsersTable {
-  background-color: white;
-  overflow-y: hidden;
-  position: absolute;
-  padding: 0px;
+        .kFullName {
+            font-weight: bold;
+            color: $kGrayscale1;
+        }
 
-  .kFullName {
-    font-weight: bold;
-    color: $kGrayscale1;
-  }
+        .kIconOwner {
+            font-size: 25px;
+            vertical-align: sub;
+            margin-left: 12px;
+        }
 
-  .kIconOwner {
-    font-size: 25px;
-    vertical-align: sub;
-    margin-left: 12px;
-  }
-
-  .kUsersTableActions {
-    width: 100%;
-    text-align: center;
-  }
+        .kUsersTableActions {
+            width: 100%;
+            text-align: center;
+        }
+    }
 }
-
-:host {
+.ltr-theme :host {
   display: flex;
   flex-flow: row wrap;
   margin: 0;
   flex-direction: column;
 }
 
-:host ::ng-deep p-table .ui-table-scrollable-body {
+.ltr-theme :host ::ng-deep p-table .ui-table-scrollable-body {
   margin-bottom: 34px;
 }
 
-:host ::ng-deep p-table .stickyHeader {
+.ltr-theme :host ::ng-deep p-table .stickyHeader {
   z-index: 10;
   display: table;
 }
 
-:host ::ng-deep p-table .ui-widget-header.ui-table-scrollable-header {
+.ltr-theme :host ::ng-deep p-table .ui-widget-header.ui-table-scrollable-header {
   border-top: none;
 }
 
-:host ::ng-deep p-table {
+.ltr-theme :host ::ng-deep p-table {
     .ui-table .ui-table-thead > tr > th {
         border-left: 1px solid $kGrayscale6;
     }
 }
 ////////////////////////_FA
-:host-context(.fa) {
+:host-context(.rtl-theme) {
     .kUsersTable {
         background-color: white;
         overflow-y: hidden;
@@ -72,30 +72,30 @@
             text-align: center;
         }
     }
+}
 
-    :host {
-        display: flex;
-        flex-flow: row wrap;
-        margin: 0;
-        flex-direction: column;
-    }
+.rtl-theme :host {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0;
+    flex-direction: column;
+}
 
-    :host ::ng-deep p-table .ui-table-scrollable-body {
-        margin-bottom: 34px;
-    }
+.rtl-theme :host ::ng-deep p-table .ui-table-scrollable-body {
+    margin-bottom: 34px;
+}
 
-    :host ::ng-deep p-table .stickyHeader {
-        z-index: 10;
-        display: table;
-    }
+.rtl-theme :host ::ng-deep p-table .stickyHeader {
+    z-index: 10;
+    display: table;
+}
 
-    :host ::ng-deep p-table .ui-widget-header.ui-table-scrollable-header {
-        border-top: none;
-    }
+.rtl-theme :host ::ng-deep p-table .ui-widget-header.ui-table-scrollable-header {
+    border-top: none;
+}
 
-    :host ::ng-deep p-table {
-        .ui-table .ui-table-thead > tr > th {
-            border-right: 1px solid $kGrayscale6;
-        }
+.rtl-theme :host ::ng-deep p-table {
+    .ui-table .ui-table-thead > tr > th {
+        border-right: 1px solid $kGrayscale6;
     }
 }

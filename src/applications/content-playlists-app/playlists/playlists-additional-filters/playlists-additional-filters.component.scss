@@ -1,76 +1,81 @@
 @import 'app-theme/_variables.scss';
 
-.kRefineFilters{
-  margin: 12px;
-}
-.kTreeContainer{
-	float: left;
-	width: 100%;
-	border-bottom: 1px solid $kGrayscale6;
-	margin: 0 -20px 10px -20px;
-	padding: 0 0 10px 20px;
-	width: 387px;
-	position: relative;
-}
+:host-context(.ltr-theme) {
+    .kRefineFilters {
+        margin: 12px;
+    }
 
-.kFiltersGroupTitle {
-	color: $subLinkColor;
-	font-size: 12px;
-	letter-spacing: .5px;
-	cursor: pointer;
-	text-decoration: none;
-	margin: 5px 0 15px;
-}
+    .kTreeContainer {
+        float: left;
+        width: 100%;
+        border-bottom: 1px solid $kGrayscale6;
+        margin: 0 -20px 10px -20px;
+        padding: 0 0 10px 20px;
+        width: 387px;
+        position: relative;
+    }
 
-.kDateRange{
-	margin-bottom: 5px;
-}
+    .kFiltersGroupTitle {
+        color: $subLinkColor;
+        font-size: 12px;
+        letter-spacing: .5px;
+        cursor: pointer;
+        text-decoration: none;
+        margin: 5px 0 15px;
+    }
 
-.kClearDates{
-	margin: 5px 0 0;
-}
+    .kDateRange {
+        margin-bottom: 5px;
+    }
 
-.kClose{
-	float: right;
-}
+    .kClearDates {
+        margin: 5px 0 0;
+    }
 
-.disabledLink {
-  color: $kGrayscale4;
-  cursor: default;
-  text-decoration: none;
+    .kClose {
+        float: right;
+    }
+
+    .disabledLink {
+        color: $kGrayscale4;
+        cursor: default;
+        text-decoration: none;
+    }
 }
 
 :host ::ng-deep .kDateRange .ui-calendar.ui-calendar-w-btn {
-	width: 158px;
+    width: 158px;
 }
 
-:host ::ng-deep .kDateRange .ui-calendar .ui-inputtext {
-	margin: 0;
-	padding-left: 33px;
-	width: 100%;
+.ltr-theme :host ::ng-deep .kDateRange .ui-calendar .ui-inputtext {
+    margin: 0;
+    padding-left: 33px;
+    width: 100%;
 }
 
 :host ::ng-deep .kDateRange .kDateRangeFirst .ui-calendar.ui-calendar-w-btn {
-	border-bottom-left-radius: 3px;
-	border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
 }
 
-:host ::ng-deep .kDateRange .kDateRangeLast .ui-calendar.ui-calendar-w-btn {
-	border-left: 0 solid $kGrayscale4;
-	border-bottom-right-radius: 3px;
-	border-top-right-radius: 3px;
-	margin-left: -3px;
+.ltr-theme :host ::ng-deep .kDateRange .kDateRangeLast .ui-calendar.ui-calendar-w-btn {
+    border-left: 0 solid $kGrayscale4;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+    margin-left: -3px;
 }
 
 ::ng-deep kPopupWidget .kPopupWidget {
-	overflow: visible !important;
+    overflow: visible !important;
 }
+
 /////////////////_FA
-:host-context(.fa){
-    .kRefineFilters{
+:host-context(.rtl-theme) {
+    .kRefineFilters {
         margin: 12px;
     }
-    .kTreeContainer{
+
+    .kTreeContainer {
         float: right;
         width: 100%;
         border-bottom: 1px solid $kGrayscale6;
@@ -89,15 +94,15 @@
         margin: 5px 0 15px;
     }
 
-    .kDateRange{
+    .kDateRange {
         margin-bottom: 5px;
     }
 
-    .kClearDates{
+    .kClearDates {
         margin: 5px 0 0;
     }
 
-    .kClose{
+    .kClose {
         float: left;
     }
 
@@ -106,30 +111,20 @@
         cursor: default;
         text-decoration: none;
     }
-
-    :host ::ng-deep .kDateRange .ui-calendar.ui-calendar-w-btn {
-        width: 158px;
-    }
-
-    :host ::ng-deep .kDateRange .ui-calendar .ui-inputtext {
-        margin: 0;
-        padding-right: 33px;
-        width: 100%;
-    }
-
-    :host ::ng-deep .kDateRange .kDateRangeFirst .ui-calendar.ui-calendar-w-btn {
-        border-bottom-right-radius: 3px;
-        border-top-right-radius: 3px;
-    }
-
-    :host ::ng-deep .kDateRange .kDateRangeLast .ui-calendar.ui-calendar-w-btn {
-        border-right: 0 solid $kGrayscale4;
-        border-bottom-left-radius: 3px;
-        border-top-left-radius: 3px;
-        margin-right: -3px;
-    }
-
-    ::ng-deep kPopupWidget .kPopupWidget {
-        overflow: visible !important;
-    }
 }
+
+.rtl-theme :host ::ng-deep .kDateRange .ui-calendar .ui-inputtext {
+    margin: 0;
+    padding-right: 33px;
+    width: 100%;
+}
+
+.rtl-theme :host ::ng-deep .kDateRange .kDateRangeLast .ui-calendar.ui-calendar-w-btn {
+    border-right: 0 solid $kGrayscale4;
+    border-bottom-left-radius: 3px;
+    border-top-left-radius: 3px;
+    margin-right: -3px;
+}
+
+
+

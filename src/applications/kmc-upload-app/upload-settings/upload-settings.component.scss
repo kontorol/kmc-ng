@@ -1,168 +1,168 @@
 @import 'app-theme/_variables.scss';
-
-.kUploadSettings {
-    color: $kGrayscale1;
-    height: 607px;
-    width: 100%;
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: stretch;
-
-    .kHeader, .kFooter {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .kHeader {
-        text-align: center;
-        height: 77px;
-        border-bottom: 1px $kGrayscale4 solid;
-
-        h1 {
-            font-size: 24px;
-            font-weight: bold;
-        }
-
-    }
-
-    .kContent {
-        flex: 1 1 auto;
-        padding-top: 20px;
-        display: flex;
-        flex-direction: column;
+:host-context(.ltr-theme) {
+    .kUploadSettings {
+        color: $kGrayscale1;
+        height: 607px;
         width: 100%;
+        display: flex;
+        flex-flow: column nowrap;
+        align-items: stretch;
 
-        .kProfile {
-            padding: 0 28px 20px 28px;
-            border-bottom: 1px $kGrayscale6 solid;
-            font-size: 15px;
+        .kHeader, .kFooter {
             display: flex;
             align-items: center;
+            justify-content: center;
+        }
 
-            span {
+        .kHeader {
+            text-align: center;
+            height: 77px;
+            border-bottom: 1px $kGrayscale4 solid;
+
+            h1 {
+                font-size: 24px;
                 font-weight: bold;
             }
 
-            .kTranscodingProfile {
-                margin-left: 7px;
-
-                .kTranscodingProfileItem {
-                    white-space: nowrap;
-                    display: inline-block;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
-                    width: 190px;
-                    font-weight: normal;
-                }
-            }
-
-            .kTranscodingProfileError {
-                margin-left: 7px;
-                color: $kDandger;
-            }
         }
 
-        .kAddFileButton {
-            width: 110px;
-            height: 34px;
-            font-size: 14px;
-            color: $kGrayscale1;
-            margin-left: 24px;
-        }
+        .kContent {
+            flex: 1 1 auto;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            width: 100%;
 
-        .kTable {
-            .kFileNameInput {
-                width: 380px;
-
-                &.kHasError {
-                    border-color: $kDandger;
-                }
-            }
-
-            .kFileNameCell {
+            .kProfile {
+                padding: 0 28px 20px 28px;
+                border-bottom: 1px $kGrayscale6 solid;
+                font-size: 15px;
                 display: flex;
                 align-items: center;
 
-                .kFileName {
-                    color: $kGrayscale1;
+                span {
                     font-weight: bold;
-                    word-break: break-all;
-                    max-width: 360px;
                 }
 
-                .kIconEditFileName {
-                    font-size: 16px;
-                    margin-left: 10px;
-                    cursor: pointer;
-                    color: $kGrayscale3;
-                    font-weight: normal;
-                    display: none;
+                .kTranscodingProfile {
+                    margin-left: 7px;
+
+                    .kTranscodingProfileItem {
+                        white-space: nowrap;
+                        display: inline-block;
+                        overflow: hidden;
+                        text-overflow: ellipsis;
+                        width: 190px;
+                        font-weight: normal;
+                    }
+                }
+
+                .kTranscodingProfileError {
+                    margin-left: 7px;
+                    color: $kDandger;
                 }
             }
 
-            .kIconError {
-                font-size: 24px;
-                color: $kDandger;
-            }
-
-            .kIconRemoveFile {
-                font-size: 24px;
-                display: none;
-                cursor: pointer;
-            }
-
-            .kImportUrl {
-                width: 620px;
-
-                &.kHasError {
-                    border-color: $kDandger;
-                }
-            }
-        }
-
-        .kEmptyMessage {
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 280px;
-            color: $kGrayscale3;
-
-            h1 {
-                font-size: 28px;
-                margin-bottom: 14px;
-                font-weight: normal;
-            }
-
-            p {
+            .kAddFileButton {
+                width: 110px;
+                height: 34px;
                 font-size: 14px;
-                margin-top: 0;
+                color: $kGrayscale1;
+                margin-left: 24px;
+            }
+
+            .kTable {
+                .kFileNameInput {
+                    width: 380px;
+
+                    &.kHasError {
+                        border-color: $kDandger;
+                    }
+                }
+
+                .kFileNameCell {
+                    display: flex;
+                    align-items: center;
+
+                    .kFileName {
+                        color: $kGrayscale1;
+                        font-weight: bold;
+                        word-break: break-all;
+                        max-width: 360px;
+                    }
+
+                    .kIconEditFileName {
+                        font-size: 16px;
+                        margin-left: 10px;
+                        cursor: pointer;
+                        color: $kGrayscale3;
+                        font-weight: normal;
+                        display: none;
+                    }
+                }
+
+                .kIconError {
+                    font-size: 24px;
+                    color: $kDandger;
+                }
+
+                .kIconRemoveFile {
+                    font-size: 24px;
+                    display: none;
+                    cursor: pointer;
+                }
+
+                .kImportUrl {
+                    width: 620px;
+
+                    &.kHasError {
+                        border-color: $kDandger;
+                    }
+                }
+            }
+
+            .kEmptyMessage {
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 280px;
+                color: $kGrayscale3;
+
+                h1 {
+                    font-size: 28px;
+                    margin-bottom: 14px;
+                    font-weight: normal;
+                }
+
+                p {
+                    font-size: 14px;
+                    margin-top: 0;
+                }
             }
         }
-    }
 
-    .kFooter {
-        z-index: 1;
-        height: 66px;
-        border-top: 1px $kGrayscale4 solid;
-        text-align: center;
+        .kFooter {
+            z-index: 1;
+            height: 66px;
+            border-top: 1px $kGrayscale4 solid;
+            text-align: center;
 
-        .kUploadButton {
-            width: 140px;
-            height: 34px;
-            font-size: 14px;
-            margin-right: 16px;
+            .kUploadButton {
+                width: 140px;
+                height: 34px;
+                font-size: 14px;
+                margin-right: 16px;
 
-            &:last-child {
-                margin-right: 0;
+                &:last-child {
+                    margin-right: 0;
+                }
             }
         }
     }
 }
-
-:host ::ng-deep .kTranscodingProfile {
+.ltr-theme :host ::ng-deep .kTranscodingProfile {
     .ui-dropdown-panel {
         width: 250px;
     }
@@ -180,40 +180,40 @@
     }
 }
 
-:host ::ng-deep .kFileType .ui-dropdown.ui-widget {
+.ltr-theme :host ::ng-deep .kFileType .ui-dropdown.ui-widget {
     min-width: 127px;
     width: 127px;
 }
 
-:host ::ng-deep .kTable.empty .ui-widget-content {
+.ltr-theme :host ::ng-deep .kTable.empty .ui-widget-content {
     display: none;
 }
 
-:host ::ng-deep .kTable .ui-table-scrollable-header,
-:host ::ng-deep .kTable .ui-table-scrollable-body {
+.ltr-theme :host ::ng-deep .kTable .ui-table-scrollable-header,
+.ltr-theme :host ::ng-deep .kTable .ui-table-scrollable-body {
     border-top: 1px $kGrayscale6 solid;
 }
 
-:host ::ng-deep .kTable .ui-table-scrollable-body {
+.ltr-theme :host ::ng-deep .kTable .ui-table-scrollable-body {
     margin-bottom: -1px;
     max-height: 348px !important;
 }
 
-:host ::ng-deep .kTable tr:hover .kIconRemoveFile, // show remove icon when hovering a row
-:host ::ng-deep .kTable td:nth-child(2):hover .kIconEditFileName { // show edit icon when hovering filename column
+.ltr-theme :host ::ng-deep .kTable tr:hover .kIconRemoveFile, // show remove icon when hovering a row
+.ltr-theme :host ::ng-deep .kTable td:nth-child(2):hover .kIconEditFileName { // show edit icon when hovering filename column
     display: block !important;
 }
 
-:host ::ng-deep .kTable .ui-table-scrollable-table-wrapper {
+.ltr-theme :host ::ng-deep .kTable .ui-table-scrollable-table-wrapper {
     height: 280px;
 }
 
-button.kAddFileButton ::ng-deep .ui-button-icon-left {
+.ltr-theme button.kAddFileButton ::ng-deep .ui-button-icon-left {
     font-size: 18px;
 }
 
 //////////////////////////////////////////////////_FA
-:host-context(.fa) {
+:host-context(.rtl-theme) {
     .kUploadSettings {
         color: $kGrayscale1;
         height: 607px;
@@ -375,8 +375,8 @@ button.kAddFileButton ::ng-deep .ui-button-icon-left {
             }
         }
     }
-
-    :host ::ng-deep .kTranscodingProfile {
+}
+.rtl-theme  :host ::ng-deep .kTranscodingProfile {
         .ui-dropdown-panel {
             width: 250px;
         }
@@ -394,36 +394,36 @@ button.kAddFileButton ::ng-deep .ui-button-icon-left {
         }
     }
 
-    :host ::ng-deep .kFileType .ui-dropdown.ui-widget {
+.rtl-theme  :host ::ng-deep .kFileType .ui-dropdown.ui-widget {
         min-width: 127px;
         width: 127px;
     }
 
-    :host ::ng-deep .kTable.empty .ui-widget-content {
+.rtl-theme   :host ::ng-deep .kTable.empty .ui-widget-content {
         display: none;
     }
 
-    :host ::ng-deep .kTable .ui-table-scrollable-header,
-    :host ::ng-deep .kTable .ui-table-scrollable-body {
+.rtl-theme   :host ::ng-deep .kTable .ui-table-scrollable-header,
+.rtl-theme   :host ::ng-deep .kTable .ui-table-scrollable-body {
         border-top: 1px $kGrayscale6 solid;
     }
 
-    :host ::ng-deep .kTable .ui-table-scrollable-body {
+.rtl-theme  :host ::ng-deep .kTable .ui-table-scrollable-body {
         margin-bottom: -1px;
         max-height: 348px !important;
     }
 
-    :host ::ng-deep .kTable tr:hover .kIconRemoveFile, // show remove icon when hovering a row
-    :host ::ng-deep .kTable td:nth-child(2):hover .kIconEditFileName { // show edit icon when hovering filename column
+.rtl-theme   :host ::ng-deep .kTable tr:hover .kIconRemoveFile, // show remove icon when hovering a row
+.rtl-theme   :host ::ng-deep .kTable td:nth-child(2):hover .kIconEditFileName { // show edit icon when hovering filename column
         display: block !important;
     }
 
-    :host ::ng-deep .kTable .ui-table-scrollable-table-wrapper {
+.rtl-theme   :host ::ng-deep .kTable .ui-table-scrollable-table-wrapper {
         height: 280px;
     }
 
-    button.kAddFileButton ::ng-deep .ui-button-icon-left {
+.rtl-theme   button.kAddFileButton ::ng-deep .ui-button-icon-left {
         font-size: 18px;
     }
 
-}
+

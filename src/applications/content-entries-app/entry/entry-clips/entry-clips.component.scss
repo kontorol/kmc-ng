@@ -1,65 +1,79 @@
 @import 'app-theme/_variables.scss';
 
-.kClips{
-	.kTitle{
-		color: $kGrayscale1;
-		font-size: 20px;
-		font-weight: 700;
-		padding-left: 24px;
-	}
-  .kButtons{
-    display: flex;
-    padding-left: 24px;
-    padding-top: 12px;
-    margin-bottom: 20px;
-    button{
-      height: 32px;
-      font-weight: 400;
-      margin-right: 20px;
+:host-context(.ltr-theme) {
+    .kClips {
+        .kTitle {
+            color: $kGrayscale1;
+            font-size: 20px;
+            font-weight: 700;
+            padding-left: 24px;
+        }
+
+        .kButtons {
+            display: flex;
+            padding-left: 24px;
+            padding-top: 12px;
+            margin-bottom: 20px;
+
+            button {
+                height: 32px;
+                font-weight: 400;
+                margin-right: 20px;
+            }
+        }
+
+        .kTable {
+            margin-top: 24px;
+        }
     }
-  }
-	.kTable{
-		margin-top: 24px;
-	}
 }
-:host ::ng-deep .ui-paginator {
-	padding-right: 12px;
+
+.rtl-theme :host ::ng-deep .ui-paginator {
+    padding-right: 12px;
 }
-:host ::ng-deep .kTableFooter {
-  .ui-dropdown-panel {
-    min-width: 70px;
-  }
+
+.ltr-theme :host ::ng-deep .kTableFooter {
+    .ui-dropdown-panel {
+        min-width: 70px;
+    }
 }
+
 ///////////_FA
-:host-context(.fa){
-    .kClips{
-        .kTitle{
+:host-context(.rtl-theme) {
+    .kClips {
+        .kTitle {
             color: $kGrayscale1;
             font-size: 20px;
             font-weight: 700;
             padding-right: 24px;
         }
-        .kButtons{
+
+        .kButtons {
             display: flex;
             padding-right: 24px;
             padding-top: 12px;
             margin-bottom: 20px;
-            button{
+
+            button {
                 height: 32px;
                 font-weight: 400;
                 margin-left: 20px;
             }
         }
-        .kTable{
+
+        .kTable {
             margin-top: 24px;
         }
     }
-    :host ::ng-deep .ui-paginator {
-        padding-left: 12px;
-    }
-    :host ::ng-deep .kTableFooter {
-        .ui-dropdown-panel {
-            min-width: 70px;
-        }
+}
+
+.rtl-theme :host ::ng-deep .ui-paginator {
+    padding-left: 12px;
+}
+
+.rtl-theme :host ::ng-deep .kTableFooter {
+    .ui-dropdown-panel {
+        min-width: 70px;
     }
 }
+

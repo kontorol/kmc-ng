@@ -1,180 +1,33 @@
 @import 'app-theme/_variables.scss';
 
-.kLiveDashboardContainer {
-  width: 100%;
-}
-.kLive{
-  padding: 24px;
-  padding-top: 0;
-  width: 100%;
-	.kTitle{
-		color: $kGrayscale1;
-		font-size: 20px;
-		font-weight: 700;
-	}
-  .kButtons{
-    padding-top: 12px;
-      button {
-          margin-right: 16px;
-      }
-
-    .kButtonLiveDashboard {
-      height:34px;
-      width: 160px;
-      ::ng-deep .kIconstatistic{
-        line-height: 18px;
-
-        &:before {
-          font-size: 22px;
-          color: $kGrayscale3;
-        }
-      }
-    }
-  }
-	.kLiveDetails{
-		box-sizing: border-box;
-		width: 100%;
-		button{
-			font-weight: 400;
-		}
-		.kSubTitle{
-			display: block;
-			color: $kGrayscale1;
-			font-size: 16px;
-			font-weight: 700;
-            padding-top: 42px;
-
-      &:first-child {
-        margin-top:0;
-      }
-		}
-		.kRow{
-			display: flex;
-			padding-top: 18px;
-			align-items: center;
-
-            .kControl {
-                color: $kGrayscale2;
-                height: 34px;
-                width: 360px;
-                border-radius: 3px;
-                &.kInputSwitch {
-                    padding-right: 12px;
-
-                    & + span {
-                        vertical-align: middle;
-                    }
-                }
-            }
-		}
-		.kCopyBtn{
-			border: 0px solid white;
-			&:active:not(:disabled){
-				box-shadow: none;
-			}
-			outline: none;
-			font-size: 18px;
-		}
-
-		.kTableHeader{
-			font-weight: 700;
-		}
-		.kNote{
-			display: block;
-			margin-top: 14px;
-			margin-bottom: 14px;
-		}
-		.kLabels{
-			flex: 0 0 auto;
-			width: 150px;
-		}
-		.kWideLabels{
-			flex: 0 0 auto;
-			width: 225px;
-		}
-		.kLiveNumber{
-			width:20px;
-		}
-		.kLiveBitrateCB{
-			margin-top: -2px;
-			width:26px;
-		}
-		.kLiveBitrate{
-			width:200px;
-			flex: 0 0 auto;
-		}
-		.kLiveKbps{
-			font-size:13px;
-			margin-left: 4px;
-		}
-		.kLiveWidth{
-			width:80px;
-		}
-		.kLiveX{
-			text-align: center;
-			width:40px;
-		}
-		.kLiveHeight{
-			width:80px;
-		}
-		.kReportLink{
-			margin-left: 12px;
-			&.kDisabled{
-				pointer-events: none;
-				color: $kGrayscale4;
-			}
-		}
-		.kError{
-			line-height: 28px;
-			padding-left: 20px;
-			color: $kDandger;
-			font-size: 13px;
-		}
-	}
-
-}
-
-:host ::ng-deep .ui-dropdown{
-	width: 200px !important;
-}
-:host ::ng-deep .kLiveBitrate .ui-dropdown{
-	width: 120px !important;
-}
-:host ::ng-deep .ui-dropdown-label.ui-inputtext{
-	background-color: #ffffff;
-}
-
-:host ::ng-deep .ui-spinner .pi{
-	margin-top: -.8em;
-}
-
-:host ::ng-deep span.ui-button-icon-left.kIconcalendar{
-	padding-top: 2px !important;
-}
-/////////////////_FA
-:host-context(.fa){
+:host-context(.ltr-theme) {
     .kLiveDashboardContainer {
         width: 100%;
     }
-    .kLive{
+
+    .kLive {
         padding: 24px;
         padding-top: 0;
         width: 100%;
-        .kTitle{
+
+        .kTitle {
             color: $kGrayscale1;
             font-size: 20px;
             font-weight: 700;
         }
-        .kButtons{
+
+        .kButtons {
             padding-top: 12px;
+
             button {
-                margin-left: 16px;
+                margin-right: 16px;
             }
 
             .kButtonLiveDashboard {
-                height:34px;
+                height: 34px;
                 width: 160px;
-                ::ng-deep .kIconstatistic{
+
+                ::ng-deep .kIconstatistic {
                     line-height: 18px;
 
                     &:before {
@@ -184,13 +37,16 @@
                 }
             }
         }
-        .kLiveDetails{
+
+        .kLiveDetails {
             box-sizing: border-box;
             width: 100%;
-            button{
+
+            button {
                 font-weight: 400;
             }
-            .kSubTitle{
+
+            .kSubTitle {
                 display: block;
                 color: $kGrayscale1;
                 font-size: 16px;
@@ -198,10 +54,11 @@
                 padding-top: 42px;
 
                 &:first-child {
-                    margin-top:0;
+                    margin-top: 0;
                 }
             }
-            .kRow{
+
+            .kRow {
                 display: flex;
                 padding-top: 18px;
                 align-items: center;
@@ -211,6 +68,190 @@
                     height: 34px;
                     width: 360px;
                     border-radius: 3px;
+
+                    &.kInputSwitch {
+                        padding-right: 12px;
+
+                        & + span {
+                            vertical-align: middle;
+                        }
+                    }
+                }
+            }
+
+            .kCopyBtn {
+                border: 0px solid white;
+
+                &:active:not(:disabled) {
+                    box-shadow: none;
+                }
+
+                outline: none;
+                font-size: 18px;
+            }
+
+            .kTableHeader {
+                font-weight: 700;
+            }
+
+            .kNote {
+                display: block;
+                margin-top: 14px;
+                margin-bottom: 14px;
+            }
+
+            .kLabels {
+                flex: 0 0 auto;
+                width: 150px;
+            }
+
+            .kWideLabels {
+                flex: 0 0 auto;
+                width: 225px;
+            }
+
+            .kLiveNumber {
+                width: 20px;
+            }
+
+            .kLiveBitrateCB {
+                margin-top: -2px;
+                width: 26px;
+            }
+
+            .kLiveBitrate {
+                width: 200px;
+                flex: 0 0 auto;
+            }
+
+            .kLiveKbps {
+                font-size: 13px;
+                margin-left: 4px;
+            }
+
+            .kLiveWidth {
+                width: 80px;
+            }
+
+            .kLiveX {
+                text-align: center;
+                width: 40px;
+            }
+
+            .kLiveHeight {
+                width: 80px;
+            }
+
+            .kReportLink {
+                margin-left: 12px;
+
+                &.kDisabled {
+                    pointer-events: none;
+                    color: $kGrayscale4;
+                }
+            }
+
+            .kError {
+                line-height: 28px;
+                padding-left: 20px;
+                color: $kDandger;
+                font-size: 13px;
+            }
+        }
+
+    }
+}
+
+:host ::ng-deep .ui-dropdown {
+    width: 200px !important;
+}
+
+:host ::ng-deep .kLiveBitrate .ui-dropdown {
+    width: 120px !important;
+}
+
+:host ::ng-deep .ui-dropdown-label.ui-inputtext {
+    background-color: #ffffff;
+}
+
+:host ::ng-deep .ui-spinner .pi {
+    margin-top: -.8em;
+}
+
+:host ::ng-deep span.ui-button-icon-left.kIconcalendar {
+    padding-top: 2px !important;
+}
+
+/////////////////_FA
+:host-context(.rtl-theme) {
+    .kLiveDashboardContainer {
+        width: 100%;
+    }
+
+    .kLive {
+        padding: 24px;
+        padding-top: 0;
+        width: 100%;
+
+        .kTitle {
+            color: $kGrayscale1;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .kButtons {
+            padding-top: 12px;
+
+            button {
+                margin-left: 16px;
+            }
+
+            .kButtonLiveDashboard {
+                height: 34px;
+                width: 160px;
+
+                ::ng-deep .kIconstatistic {
+                    line-height: 18px;
+
+                    &:before {
+                        font-size: 22px;
+                        color: $kGrayscale3;
+                    }
+                }
+            }
+        }
+
+        .kLiveDetails {
+            box-sizing: border-box;
+            width: 100%;
+
+            button {
+                font-weight: 400;
+            }
+
+            .kSubTitle {
+                display: block;
+                color: $kGrayscale1;
+                font-size: 16px;
+                font-weight: 700;
+                padding-top: 42px;
+
+                &:first-child {
+                    margin-top: 0;
+                }
+            }
+
+            .kRow {
+                display: flex;
+                padding-top: 18px;
+                align-items: center;
+
+                .kControl {
+                    color: $kGrayscale2;
+                    height: 34px;
+                    width: 360px;
+                    border-radius: 3px;
+
                     &.kInputSwitch {
                         padding-left: 12px;
 
@@ -220,64 +261,80 @@
                     }
                 }
             }
-            .kCopyBtn{
+
+            .kCopyBtn {
                 border: 0px solid white;
-                &:active:not(:disabled){
+
+                &:active:not(:disabled) {
                     box-shadow: none;
                 }
+
                 outline: none;
                 font-size: 18px;
             }
 
-            .kTableHeader{
+            .kTableHeader {
                 font-weight: 700;
             }
-            .kNote{
+
+            .kNote {
                 display: block;
                 margin-top: 14px;
                 margin-bottom: 14px;
             }
-            .kLabels{
+
+            .kLabels {
                 flex: 0 0 auto;
                 width: 150px;
             }
-            .kWideLabels{
+
+            .kWideLabels {
                 flex: 0 0 auto;
                 width: 225px;
             }
-            .kLiveNumber{
-                width:20px;
+
+            .kLiveNumber {
+                width: 20px;
             }
-            .kLiveBitrateCB{
+
+            .kLiveBitrateCB {
                 margin-top: -2px;
-                width:26px;
+                width: 26px;
             }
-            .kLiveBitrate{
-                width:200px;
+
+            .kLiveBitrate {
+                width: 200px;
                 flex: 0 0 auto;
             }
-            .kLiveKbps{
-                font-size:13px;
+
+            .kLiveKbps {
+                font-size: 13px;
                 margin-right: 4px;
             }
-            .kLiveWidth{
-                width:80px;
+
+            .kLiveWidth {
+                width: 80px;
             }
-            .kLiveX{
+
+            .kLiveX {
                 text-align: center;
-                width:40px;
+                width: 40px;
             }
-            .kLiveHeight{
-                width:80px;
+
+            .kLiveHeight {
+                width: 80px;
             }
-            .kReportLink{
+
+            .kReportLink {
                 margin-right: 12px;
-                &.kDisabled{
+
+                &.kDisabled {
                     pointer-events: none;
                     color: $kGrayscale4;
                 }
             }
-            .kError{
+
+            .kError {
                 line-height: 28px;
                 padding-right: 20px;
                 color: $kDandger;
@@ -285,23 +342,5 @@
             }
         }
 
-    }
-
-    :host ::ng-deep .ui-dropdown{
-        width: 200px !important;
-    }
-    :host ::ng-deep .kLiveBitrate .ui-dropdown{
-        width: 120px !important;
-    }
-    :host ::ng-deep .ui-dropdown-label.ui-inputtext{
-        background-color: #ffffff;
-    }
-
-    :host ::ng-deep .ui-spinner .pi{
-        margin-top: -.8em;
-    }
-
-    :host ::ng-deep span.ui-button-icon-left.kIconcalendar{
-        padding-top: 2px !important;
     }
 }

@@ -1,43 +1,44 @@
 @import "app-theme/_variables.scss";
+:host-context(.ltr-theme) {
+    .kRefineFilters {
+        margin: 12px;
+    }
 
-.kRefineFilters {
-  margin: 12px;
-}
+    .kFiltersGroupTitle {
+        color: $kGrayscale3;
+        line-height: 40px;
+        letter-spacing: 0.1em;
+        font-size: 13px;
+        margin-left: -20px;
+        padding-left: 20px;
+        margin-right: -20px;
+        margin-bottom: 8px;
+    }
 
-.kFiltersGroupTitle {
-  color: $kGrayscale3;
-  line-height: 40px;
-  letter-spacing: 0.1em;
-  font-size: 13px;
-  margin-left: -20px;
-  padding-left: 20px;
-  margin-right: -20px;
-  margin-bottom: 8px;
-}
+    .kTreeContainer {
+        height: 124px;
+        border-bottom: 1px solid $kGrayscale6;
+        margin-left: -20px;
+        padding-left: 20px;
+        margin-right: -20px;
+        width: 387px;
+        position: relative;
+        overflow: visible;
+    }
 
-.kTreeContainer {
-  height: 124px;
-  border-bottom: 1px solid $kGrayscale6;
-  margin-left: -20px;
-  padding-left: 20px;
-  margin-right: -20px;
-  width: 387px;
-  position: relative;
-  overflow: visible;
-}
+    .kDateRange {
+        display: flex;
+        align-items: center;
+    }
 
-.kDateRange {
-  display: flex;
-  align-items: center;
-}
+    .kClose {
+        float: right;
+    }
 
-.kClose {
-  float: right;
-}
-
-.kError {
-  font-size: 14px;
-  color: $kDandger;
+    .kError {
+        font-size: 14px;
+        color: $kDandger;
+    }
 }
 
 /* prevent calendars from being cut by the popup widget borders */
@@ -70,7 +71,7 @@
   border-top-right-radius: 3px;
 }
 ////////////////_FA
-:host-context(.fa){
+:host-context(.rtl-theme){
     .kRefineFilters {
         margin: 12px;
     }
@@ -111,33 +112,4 @@
         color: $kDandger;
     }
 
-    /* prevent calendars from being cut by the popup widget borders */
-    :host ::ng-deep .kPullLeft30 .ui-datepicker.ui-widget {
-        margin-right: -30px;
-        right: 0px !important;
-    }
-
-    :host ::ng-deep .kPullLeft90 .ui-datepicker.ui-widget {
-        margin-right: -90px;
-        right: 0px !important;
-    }
-
-    :host ::ng-deep .kDateRange .kDateRangeFirst .ui-calendar.ui-calendar-w-btn {
-        border-bottom-right-radius: 3px;
-        border-top-right-radius: 3px;
-    }
-
-    :host ::ng-deep .ui-calendar.ui-calendar-w-btn {
-        border-radius: 0px;
-    }
-
-    :host ::ng-deep .ui-calendar .ui-inputtext {
-        width: 120px;
-    }
-
-    :host ::ng-deep .kDateRange .kDateRangeLast .ui-calendar.ui-calendar-w-btn {
-        border-right: 0px solid $kGrayscale4;
-        border-bottom-left-radius: 3px;
-        border-top-left-radius: 3px;
-    }
 }

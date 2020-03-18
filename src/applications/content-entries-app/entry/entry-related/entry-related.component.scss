@@ -1,101 +1,98 @@
 @import 'app-theme/_variables.scss';
 
-.kRelated{
-	position: relative;
-	height: 100%;
-	button{
-		margin-left: 24px;
-	}
-	.kTitle{
-		color: $kGrayscale1;
-		font-size: 20px;
-		font-weight: 700;
-		padding-left: 24px;
-	}
-	.kTable{
-		margin-top: 24px;
-	}
-	.kRelatedTableActions {
-		width: 100%;
-		text-align: center;
-	}
-	.kUploadMonitor{
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		a{
-			margin-top: 8px;
-		}
-	}
-	.kError{
-		color: $kDandger;
-	}
-}
-
-:host ::ng-deep .ui-dropdown.ui-widget{
-    min-width: 120px;
-	width: 120px;
-}
-
-
-:host ::ng-deep .ui-table-scrollable-body{
-	overflow: visible;
-}
-
-:host ::ng-deep .kFileName {
-  text-overflow: ellipsis;
-  overflow: hidden;
-  width: 100%;
-  color: $kGrayscale3;
-}
-/////////////////_FA
-:host-context(.fa){
-    .kRelated{
+:host-context(.ltr-theme) {
+    .kRelated {
         position: relative;
         height: 100%;
-        button{
+
+        button {
+            margin-left: 24px;
+        }
+
+        .kTitle {
+            color: $kGrayscale1;
+            font-size: 20px;
+            font-weight: 700;
+            padding-left: 24px;
+        }
+
+        .kTable {
+            margin-top: 24px;
+        }
+
+        .kRelatedTableActions {
+            width: 100%;
+            text-align: center;
+        }
+
+        .kUploadMonitor {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            a {
+                margin-top: 8px;
+            }
+        }
+
+        .kError {
+            color: $kDandger;
+        }
+    }
+}
+
+:host ::ng-deep .ui-dropdown.ui-widget {
+    min-width: 120px;
+    width: 120px;
+}
+:host ::ng-deep .ui-table-scrollable-body {
+    overflow: visible;
+}
+:host ::ng-deep .kFileName {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 100%;
+    color: $kGrayscale3;
+}
+
+/////////////////_FA
+:host-context(.rtl-theme) {
+    .kRelated {
+        position: relative;
+        height: 100%;
+
+        button {
             margin-right: 24px;
         }
-        .kTitle{
+
+        .kTitle {
             color: $kGrayscale1;
             font-size: 20px;
             font-weight: 700;
             padding-right: 24px;
         }
-        .kTable{
+
+        .kTable {
             margin-top: 24px;
         }
+
         .kRelatedTableActions {
             width: 100%;
             text-align: center;
         }
-        .kUploadMonitor{
+
+        .kUploadMonitor {
             display: flex;
             flex-direction: column;
             align-items: center;
-            a{
+
+            a {
                 margin-top: 8px;
             }
         }
-        .kError{
+
+        .kError {
             color: $kDandger;
         }
-    }
-
-    :host ::ng-deep .ui-dropdown.ui-widget{
-        min-width: 120px;
-        width: 120px;
-    }
-
-
-    :host ::ng-deep .ui-table-scrollable-body{
-        overflow: visible;
-    }
-
-    :host ::ng-deep .kFileName {
-        text-overflow: ellipsis;
-        overflow: hidden;
-        width: 100%;
-        color: $kGrayscale3;
     }
 }

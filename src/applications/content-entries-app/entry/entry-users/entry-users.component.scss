@@ -1,173 +1,54 @@
 @import 'app-theme/_variables.scss';
 
-form{
-	width: 100%;
-}
-
-.kUsers {
-	padding-left: 24px;
-	padding-right: 24px;
-	width: 100%;
-	box-sizing: border-box;
-	.kTitle {
-		color: $kGrayscale1;
-		font-size: 20px;
-		font-weight: 700;
-	}
-	.kUsersDetails{
-		padding-right: 12px;
-		margin-top: 12px;
-		width: 100%;
-		box-sizing: border-box;
-		.kRow{
-			display: flex;
-			padding-top: 24px;
-			align-items: center;
-		}
-		.kLabels{
-			width: 180px;
-			flex: 0 0 auto;
-		}
-		.changeOwner{
-			margin-left: 12px;
-		}
-		.kSeparator{
-			margin-top: 48px;
-		}
-	}
-}
-
-.kFloater{
-  display: flex;
-  flex-direction: column;
-  height: 260px;
-  .kHeader {
-    height: 78px;
+form {
     width: 100%;
-    text-align: center;
-    padding-top: 24px;
-    box-sizing: border-box;
-    border-bottom: 1px solid $kGrayscale4;
-    flex: 0 0 auto;
-    .kTitle {
-      color: #333333;
-      font-size: 24px;
-      font-weight: 700;
-    }
-  }
-  .kContainer{
-    flex: 0 0 auto;
-    height: 72px;
-    margin: 24px;
-    .kLabel{
-      display: block;
-      margin-bottom: 8px;
-    }
-  }
-  .kFooter{
-    flex: 0 0 auto;
-    height: 66px;
-    border-top: 1px solid $kGrayscale4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    button{
-      height: 34px;
-      margin-left: 8px;
-    }
-  }
-  ::ng-deep .ui-autocomplete.ui-widget{
-    width: 100%;
-    font-size: 15px;
-
-    input{
-      width: 100%;
-    }
-
-    li.userAdded{
-      background-color: transparentize($kPrimary, 0.5) !important;
-    }
-
-    ul.ui-autocomplete-multiple-container {
-      height: auto;
-    }
-  }
-  ::ng-deep kAutoComplete{
-    margin-top: 4px;
-    width: 100%;
-    .ui-autocomplete-input-token{
-      width: 260px;
-    }
-  }
 }
 
-:host ::ng-deep .ui-autocomplete.ui-widget{
-	width: 100%;
-	input{
-		width: 100%;
-	}
-}
-
-:host ::ng-deep kAutoComplete{
-	width: 100%;
-
-  li.userAdded{
-    background-color: transparentize($kPrimary, 0.5) !important;
-  }
-
-  .ui-state-disabled {
-    background-color: $kGrayscale5 !important;
-  }
-}
-
-::ng-deep kPopupWidget .kPopupWidget {
-	overflow: visible !important;
-}
-
-
-//////////////////_FA
-:host-context(.fa){
-    form{
-        width: 100%;
-    }
-
+:host-context(.ltr-theme) {
     .kUsers {
         padding-left: 24px;
         padding-right: 24px;
         width: 100%;
         box-sizing: border-box;
+
         .kTitle {
             color: $kGrayscale1;
             font-size: 20px;
             font-weight: 700;
         }
-        .kUsersDetails{
-            padding-left: 12px;
+
+        .kUsersDetails {
+            padding-right: 12px;
             margin-top: 12px;
             width: 100%;
             box-sizing: border-box;
-            .kRow{
+
+            .kRow {
                 display: flex;
                 padding-top: 24px;
                 align-items: center;
             }
-            .kLabels{
+
+            .kLabels {
                 width: 180px;
                 flex: 0 0 auto;
             }
-            .changeOwner{
-                margin-right: 12px;
+
+            .changeOwner {
+                margin-left: 12px;
             }
-            .kSeparator{
+
+            .kSeparator {
                 margin-top: 48px;
             }
         }
     }
 
-    .kFloater{
+    .kFloater {
         display: flex;
         flex-direction: column;
         height: 260px;
+
         .kHeader {
             height: 78px;
             width: 100%;
@@ -176,42 +57,48 @@ form{
             box-sizing: border-box;
             border-bottom: 1px solid $kGrayscale4;
             flex: 0 0 auto;
+
             .kTitle {
                 color: #333333;
                 font-size: 24px;
                 font-weight: 700;
             }
         }
-        .kContainer{
+
+        .kContainer {
             flex: 0 0 auto;
             height: 72px;
             margin: 24px;
-            .kLabel{
+
+            .kLabel {
                 display: block;
                 margin-bottom: 8px;
             }
         }
-        .kFooter{
+
+        .kFooter {
             flex: 0 0 auto;
             height: 66px;
             border-top: 1px solid $kGrayscale4;
             display: flex;
             align-items: center;
             justify-content: center;
-            button{
+
+            button {
                 height: 34px;
-                margin-right: 8px;
+                margin-left: 8px;
             }
         }
-        ::ng-deep .ui-autocomplete.ui-widget{
+
+        ::ng-deep .ui-autocomplete.ui-widget {
             width: 100%;
             font-size: 15px;
 
-            input{
+            input {
                 width: 100%;
             }
 
-            li.userAdded{
+            li.userAdded {
                 background-color: transparentize($kPrimary, 0.5) !important;
             }
 
@@ -219,35 +106,157 @@ form{
                 height: auto;
             }
         }
-        ::ng-deep kAutoComplete{
+
+        ::ng-deep kAutoComplete {
             margin-top: 4px;
             width: 100%;
-            .ui-autocomplete-input-token{
+
+            .ui-autocomplete-input-token {
                 width: 260px;
             }
         }
     }
+}
 
-    :host ::ng-deep .ui-autocomplete.ui-widget{
+:host ::ng-deep .ui-autocomplete.ui-widget {
+    width: 100%;
+
+    input {
         width: 100%;
-        input{
-            width: 100%;
-        }
-    }
-
-    :host ::ng-deep kAutoComplete{
-        width: 100%;
-
-        li.userAdded{
-            background-color: transparentize($kPrimary, 0.5) !important;
-        }
-
-        .ui-state-disabled {
-            background-color: $kGrayscale5 !important;
-        }
-    }
-
-    ::ng-deep kPopupWidget .kPopupWidget {
-        overflow: visible !important;
     }
 }
+
+:host ::ng-deep kAutoComplete {
+    width: 100%;
+
+    li.userAdded {
+        background-color: transparentize($kPrimary, 0.5) !important;
+    }
+
+    .ui-state-disabled {
+        background-color: $kGrayscale5 !important;
+    }
+}
+
+::ng-deep kPopupWidget .kPopupWidget {
+    overflow: visible !important;
+}
+
+
+//////////////////_FA
+:host-context(.rtl-theme) {
+
+    .kUsers {
+        padding-left: 24px;
+        padding-right: 24px;
+        width: 100%;
+        box-sizing: border-box;
+
+        .kTitle {
+            color: $kGrayscale1;
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .kUsersDetails {
+            padding-left: 12px;
+            margin-top: 12px;
+            width: 100%;
+            box-sizing: border-box;
+
+            .kRow {
+                display: flex;
+                padding-top: 24px;
+                align-items: center;
+            }
+
+            .kLabels {
+                width: 180px;
+                flex: 0 0 auto;
+            }
+
+            .changeOwner {
+                margin-right: 12px;
+            }
+
+            .kSeparator {
+                margin-top: 48px;
+            }
+        }
+    }
+
+    .kFloater {
+        display: flex;
+        flex-direction: column;
+        height: 260px;
+
+        .kHeader {
+            height: 78px;
+            width: 100%;
+            text-align: center;
+            padding-top: 24px;
+            box-sizing: border-box;
+            border-bottom: 1px solid $kGrayscale4;
+            flex: 0 0 auto;
+
+            .kTitle {
+                color: #333333;
+                font-size: 24px;
+                font-weight: 700;
+            }
+        }
+
+        .kContainer {
+            flex: 0 0 auto;
+            height: 72px;
+            margin: 24px;
+
+            .kLabel {
+                display: block;
+                margin-bottom: 8px;
+            }
+        }
+
+        .kFooter {
+            flex: 0 0 auto;
+            height: 66px;
+            border-top: 1px solid $kGrayscale4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            button {
+                height: 34px;
+                margin-right: 8px;
+            }
+        }
+
+        ::ng-deep .ui-autocomplete.ui-widget {
+            width: 100%;
+            font-size: 15px;
+
+            input {
+                width: 100%;
+            }
+
+            li.userAdded {
+                background-color: transparentize($kPrimary, 0.5) !important;
+            }
+
+            ul.ui-autocomplete-multiple-container {
+                height: auto;
+            }
+        }
+
+        ::ng-deep kAutoComplete {
+            margin-top: 4px;
+            width: 100%;
+
+            .ui-autocomplete-input-token {
+                width: 260px;
+            }
+        }
+    }
+}
+
+

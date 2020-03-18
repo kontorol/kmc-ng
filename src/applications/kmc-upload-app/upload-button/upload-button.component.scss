@@ -1,26 +1,26 @@
 @import 'app-theme/_variables.scss';
+:host-context(.ltr-theme) {
+    .kUploadBtn {
+        height: 34px;
+        font-size: 12px;
+        letter-spacing: 0.1em;
+        font-weight: 700;
+        color: $kGrayscale1;
+        margin-right: 12px;
+        padding-left: 6px;
+        padding-right: 6px;
+        border: none !important;
 
-.kUploadBtn {
-    height: 34px;
-    font-size: 12px;
-    letter-spacing: 0.1em;
-    font-weight: 700;
-    color: $kGrayscale1;
-    margin-right: 12px;
-    padding-left: 6px;
-    padding-right: 6px;
-    border: none !important;
-
-    &:disabled {
-        color: $kGrayscale4;
-        background: transparent;
-        border: 1px solid $kGrayscale4 !important;
-        cursor: none;
+        &:disabled {
+            color: $kGrayscale4;
+            background: transparent;
+            border: 1px solid $kGrayscale4 !important;
+            cursor: none;
+        }
     }
 }
-
 //////////////////////////////////////////////////_FA
-:host-context(.fa) {
+:host-context(.rtl-theme) {
     .kUploadBtn {
         height: 34px;
         font-size: 12px;

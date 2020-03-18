@@ -1,197 +1,10 @@
 @import 'app-theme/_variables.scss';
-.kTagsWrapper{
-    z-index: 500;
-}
-.kPlaylists {
-    font-size: 15px;
-    background-color: $appBkgColor;
-    padding-top: 24px;
-    width: 100%;
-	min-width: $minAppWidth;
-	box-sizing: border-box;
-	display: flex;
-	flex-flow: row wrap;
-	margin: 0px;
-    .kPlaylistsHolder {
-        height: 100%;
-		min-height: $minTableHeight;
-        border: 1px solid $kGrayscale6;
-        position: relative;
-		display: flex;
-		flex-direction: column;
-        ::ng-deep kpopupwidget .kPopupWidget {
-            box-shadow: 0 2px 8px 0 rgba(0, 0, 0, .24);
-        }
-    }
-    .kPlaylistsTable {
-        border: none;
-        position: relative;
-		background-color: white;
-		width: 100%;
-		flex: 1 1 auto;
-    }
-	.kPlaylistsTableFooter {
-		bottom: 0px;
-		height: 34px;
-		background-color: white;
-		border-top: 1px solid $kGrayscale6;
-		position: fixed;
-		box-sizing: border-box;
-		flex: 0 0 auto;
-		padding: 0 14px 28px;
-		display: block;
-	}
-	.kPaginatorShowRowsLabel {
-		color: $kGrayscale1;
-		position: absolute;
-		top: 7px;
-		right: 80px;
-	}
-	.kFiltersWrapper{
-		display: block;
-		height: 66px;
-	}
-	.kPlaylistsTableFilters {
-		color: $kGrayscale1;
-		z-index: 500;
-		height: 66px;
-		background-color: white;
-		flex: 0 0 auto;
-		align-items: center;
-		margin-left: 0px;
-		border-bottom: none;
-		border-top-left-radius: 5px;
-		border-top-right-radius: 5px;
-		display: flex;
-		.kSelectedPlaylistsNum{
-			padding-left: 16px;
-		}
-	}
-	.kRefreshBtn {
-		font-size: 24px;
-		border: none;
-		min-width: inherit;
-		margin-right: 8px;
-		width: 40px;
-		outline: 0px;
-		color: $kGrayscale3;
-		&:active{
-			box-shadow: none;
-			transform: rotate(45deg);
-		}
-		&:hover{
-			background-color: #ffffff;
-			color: $kPrimary;
-		}
-	}
-	.kBulkOperations {
-    display: flex;
-    align-items: center;
-	}
-	.kSelectedPlaylistsLabel {
-		font-weight: bold;
-		margin-right: 36px;
-		margin-left: 5px;
-	}
-	.kSearchInput {
-		background: $kMagnifyingGlassBkg;
-		margin-right: 8px;
-		padding: 9px 4px 8px 38px;
-		width: 260px;
-	}
-	.kTagContent {
-		display: flex;
-		align-items: center;
-	}
-	.kTagLabel {
-		flex: 0 0 auto;
-		user-select: none;
-		cursor: default;
-	}
-	.kTagRemove {
-		flex: 0 0 auto;
-		margin-top: 2px;
-		margin-left: 8px;
-		padding: 5px;
-		cursor: pointer;
-		font-size: 10px;
-		&:hover{
-			background-color: rgba(255,255,255,0.3);
-			border: 0 solid rgba(255,255,255,0.3);
-			border-radius: 3px;
-		}
-	}
-	.kAddPlaylistBtn {
-		margin-left: 14px;
-		height: 36px;
-    border: none;
-	}
-	.kBulkCancel {
-		margin-left: 26px;
-	}
-	.kBulkDeleteBtn {
-		margin-right: 10px;
-		width: 44px;
-		font-size: 24px;
-	}
-	.kBulkActionsBtn {
-		font-weight: 400;
-		font-size: 15px;
-	}
-	.kFilters {
-		display: flex;
-		margin-left: auto;
-	}
-	.kHidden {
-		visibility: hidden;
-		width: 0px;
-		height: 0px;
-	}
-	.kRefine {
-		display: flex;
-		height: 32px;
-		align-items: center;
-		cursor: pointer;
-		color: $kGrayscale1;
-		position: relative;
-		padding: 0 15px;
-		margin-right: 8px;
-		i {
-			font-size: 20px;
-			color: $kGrayscale4;
-		}
-	}
-}
 
-:host{
-	width: 100%;
-}
-
-:host ::ng-deep k-area-blocker>.kAreaBlockerContainer {
-  z-index: 203;
-}
-
-:host ::ng-deep span.ui-button-icon-left.pi-kIcontrash{
-	margin-left: -.5em;
-}
-
-:host ::ng-deep .ui-button-icon-only .pi{
-	margin-left: -.5em;
-}
-:host ::ng-deep .kStickyClass{
-	border-bottom: 1px solid $kGrayscale5;
-}
-
-:host ::ng-deep .kPlaylistsTableFooter {
-  .ui-dropdown-panel {
-    min-width: 70px;
-  }
-}
-////////////////_FA
-:host-context(.fa){
-    .kTagsWrapper{
+:host-context(.ltr-theme) {
+    .kTagsWrapper {
         z-index: 500;
     }
+
     .kPlaylists {
         font-size: 15px;
         background-color: $appBkgColor;
@@ -202,6 +15,7 @@
         display: flex;
         flex-flow: row wrap;
         margin: 0px;
+
         .kPlaylistsHolder {
             height: 100%;
             min-height: $minTableHeight;
@@ -209,10 +23,12 @@
             position: relative;
             display: flex;
             flex-direction: column;
+
             ::ng-deep kpopupwidget .kPopupWidget {
                 box-shadow: 0 2px 8px 0 rgba(0, 0, 0, .24);
             }
         }
+
         .kPlaylistsTable {
             border: none;
             position: relative;
@@ -220,6 +36,7 @@
             width: 100%;
             flex: 1 1 auto;
         }
+
         .kPlaylistsTableFooter {
             bottom: 0px;
             height: 34px;
@@ -231,16 +48,239 @@
             padding: 0 14px 28px;
             display: block;
         }
+
+        .kPaginatorShowRowsLabel {
+            color: $kGrayscale1;
+            position: absolute;
+            top: 7px;
+            right: 80px;
+        }
+
+        .kFiltersWrapper {
+            display: block;
+            height: 66px;
+        }
+
+        .kPlaylistsTableFilters {
+            color: $kGrayscale1;
+            z-index: 500;
+            height: 66px;
+            background-color: white;
+            flex: 0 0 auto;
+            align-items: center;
+            margin-left: 0px;
+            border-bottom: none;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            display: flex;
+
+            .kSelectedPlaylistsNum {
+                padding-left: 16px;
+            }
+        }
+
+        .kRefreshBtn {
+            font-size: 24px;
+            border: none;
+            min-width: inherit;
+            margin-right: 8px;
+            width: 40px;
+            outline: 0px;
+            color: $kGrayscale3;
+
+            &:active {
+                box-shadow: none;
+                transform: rotate(45deg);
+            }
+
+            &:hover {
+                background-color: #ffffff;
+                color: $kPrimary;
+            }
+        }
+
+        .kBulkOperations {
+            display: flex;
+            align-items: center;
+        }
+
+        .kSelectedPlaylistsLabel {
+            font-weight: bold;
+            margin-right: 36px;
+            margin-left: 5px;
+        }
+
+        .kSearchInput {
+            background: $kMagnifyingGlassBkg;
+            margin-right: 8px;
+            padding: 9px 4px 8px 38px;
+            width: 260px;
+        }
+
+        .kTagContent {
+            display: flex;
+            align-items: center;
+        }
+
+        .kTagLabel {
+            flex: 0 0 auto;
+            user-select: none;
+            cursor: default;
+        }
+
+        .kTagRemove {
+            flex: 0 0 auto;
+            margin-top: 2px;
+            margin-left: 8px;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 10px;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.3);
+                border: 0 solid rgba(255, 255, 255, 0.3);
+                border-radius: 3px;
+            }
+        }
+
+        .kAddPlaylistBtn {
+            margin-left: 14px;
+            height: 36px;
+            border: none;
+        }
+
+        .kBulkCancel {
+            margin-left: 26px;
+        }
+
+        .kBulkDeleteBtn {
+            margin-right: 10px;
+            width: 44px;
+            font-size: 24px;
+        }
+
+        .kBulkActionsBtn {
+            font-weight: 400;
+            font-size: 15px;
+        }
+
+        .kFilters {
+            display: flex;
+            margin-left: auto;
+        }
+
+        .kHidden {
+            visibility: hidden;
+            width: 0px;
+            height: 0px;
+        }
+
+        .kRefine {
+            display: flex;
+            height: 32px;
+            align-items: center;
+            cursor: pointer;
+            color: $kGrayscale1;
+            position: relative;
+            padding: 0 15px;
+            margin-right: 8px;
+
+            i {
+                font-size: 20px;
+                color: $kGrayscale4;
+            }
+        }
+    }
+}
+
+:host {
+    width: 100%;
+}
+
+:host ::ng-deep k-area-blocker > .kAreaBlockerContainer {
+    z-index: 203;
+}
+
+.ltr-theme :host ::ng-deep span.ui-button-icon-left.pi-kIcontrash {
+    margin-left: -.5em;
+}
+
+.ltr-theme :host ::ng-deep .ui-button-icon-only .pi {
+    margin-left: -.5em;
+}
+
+:host ::ng-deep .kStickyClass {
+    border-bottom: 1px solid $kGrayscale5;
+}
+
+:host ::ng-deep .kPlaylistsTableFooter {
+    .ui-dropdown-panel {
+        min-width: 70px;
+    }
+}
+
+////////////////_FA
+:host-context(.rtl-theme) {
+    .kTagsWrapper {
+        z-index: 500;
+    }
+
+    .kPlaylists {
+        font-size: 15px;
+        background-color: $appBkgColor;
+        padding-top: 24px;
+        width: 100%;
+        min-width: $minAppWidth;
+        box-sizing: border-box;
+        display: flex;
+        flex-flow: row wrap;
+        margin: 0px;
+
+        .kPlaylistsHolder {
+            height: 100%;
+            min-height: $minTableHeight;
+            border: 1px solid $kGrayscale6;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+
+            ::ng-deep kpopupwidget .kPopupWidget {
+                box-shadow: 0 2px 8px 0 rgba(0, 0, 0, .24);
+            }
+        }
+
+        .kPlaylistsTable {
+            border: none;
+            position: relative;
+            background-color: white;
+            width: 100%;
+            flex: 1 1 auto;
+        }
+
+        .kPlaylistsTableFooter {
+            bottom: 0px;
+            height: 34px;
+            background-color: white;
+            border-top: 1px solid $kGrayscale6;
+            position: fixed;
+            box-sizing: border-box;
+            flex: 0 0 auto;
+            padding: 0 14px 28px;
+            display: block;
+        }
+
         .kPaginatorShowRowsLabel {
             color: $kGrayscale1;
             position: absolute;
             top: 7px;
             left: 80px;
         }
-        .kFiltersWrapper{
+
+        .kFiltersWrapper {
             display: block;
             height: 66px;
         }
+
         .kPlaylistsTableFilters {
             color: $kGrayscale1;
             z-index: 500;
@@ -253,10 +293,12 @@
             border-top-left-radius: 5px;
             border-top-right-radius: 5px;
             display: flex;
-            .kSelectedPlaylistsNum{
+
+            .kSelectedPlaylistsNum {
                 padding-right: 16px;
             }
         }
+
         .kRefreshBtn {
             font-size: 24px;
             border: none;
@@ -265,39 +307,47 @@
             width: 40px;
             outline: 0px;
             color: $kGrayscale3;
-            &:active{
+
+            &:active {
                 box-shadow: none;
                 transform: rotate(45deg);
             }
-            &:hover{
+
+            &:hover {
                 background-color: #ffffff;
                 color: $kPrimary;
             }
         }
+
         .kBulkOperations {
             display: flex;
             align-items: center;
         }
+
         .kSelectedPlaylistsLabel {
             font-weight: bold;
             margin-right: 5px;
             margin-left: 36px;
         }
+
         .kSearchInput {
             background: $kMagnifyingGlassBkg;
             margin-left: 8px;
             padding: 9px 38px 8px 4px;
             width: 260px;
         }
+
         .kTagContent {
             display: flex;
             align-items: center;
         }
+
         .kTagLabel {
             flex: 0 0 auto;
             user-select: none;
             cursor: default;
         }
+
         .kTagRemove {
             flex: 0 0 auto;
             margin-top: 2px;
@@ -305,38 +355,46 @@
             padding: 5px;
             cursor: pointer;
             font-size: 10px;
-            &:hover{
-                background-color: rgba(255,255,255,0.3);
-                border: 0 solid rgba(255,255,255,0.3);
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.3);
+                border: 0 solid rgba(255, 255, 255, 0.3);
                 border-radius: 3px;
             }
         }
+
         .kAddPlaylistBtn {
             margin-right: 14px;
             height: 36px;
             border: none;
         }
+
         .kBulkCancel {
             margin-right: 26px;
         }
+
         .kBulkDeleteBtn {
             margin-left: 10px;
             width: 44px;
             font-size: 24px;
         }
+
         .kBulkActionsBtn {
             font-weight: 400;
             font-size: 15px;
         }
+
         .kFilters {
             display: flex;
             margin-right: auto;
         }
+
         .kHidden {
             visibility: hidden;
             width: 0px;
             height: 0px;
         }
+
         .kRefine {
             display: flex;
             height: 32px;
@@ -346,6 +404,7 @@
             position: relative;
             padding: 0 15px;
             margin-left: 8px;
+
             i {
                 font-size: 20px;
                 color: $kGrayscale4;
@@ -353,28 +412,14 @@
         }
     }
 
-    :host{
-        width: 100%;
-    }
-
-    :host ::ng-deep k-area-blocker>.kAreaBlockerContainer {
-        z-index: 203;
-    }
-
-    :host ::ng-deep span.ui-button-icon-left.pi-kIcontrash{
-        margin-right: -.5em;
-    }
-
-    :host ::ng-deep .ui-button-icon-only .pi{
-        margin-right: -.5em;
-    }
-    :host ::ng-deep .kStickyClass{
-        border-bottom: 1px solid $kGrayscale5;
-    }
-
-    :host ::ng-deep .kPlaylistsTableFooter {
-        .ui-dropdown-panel {
-            min-width: 70px;
-        }
-    }
 }
+
+.rtl-theme :host ::ng-deep span.ui-button-icon-left.pi-kIcontrash {
+    margin-right: -.5em;
+}
+
+.rtl-theme :host ::ng-deep .ui-button-icon-only .pi {
+    margin-right: -.5em;
+}
+
+

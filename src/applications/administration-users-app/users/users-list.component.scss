@@ -1,5 +1,5 @@
 @import 'app-theme/_variables.scss';
-
+:host-context(.ltr-theme) {
 .kUsers {
   font-size: 15px;
   background-color: $appBkgColor;
@@ -146,17 +146,18 @@
     }
   }
 }
-:host ::ng-deep .ui-button-icon-only .pi {
+}
+.ltr-theme :host ::ng-deep .ui-button-icon-only .pi {
   margin-left: -.5em;
 }
 
-:host ::ng-deep .kUsersTableFooter {
+.ltr-theme :host ::ng-deep .kUsersTableFooter {
   .ui-dropdown-panel {
     min-width: 70px;
   }
 }
 //////////////////_FA
-:host-context(.fa) {
+:host-context(.rtl-theme) {
     .kUsers {
         font-size: 15px;
         background-color: $appBkgColor;
@@ -303,13 +304,13 @@
             }
         }
     }
-    :host ::ng-deep .ui-button-icon-only .pi {
-        margin-right: -.5em;
-    }
+   }
+.rtl-theme :host ::ng-deep .ui-button-icon-only .pi {
+    margin-right: -.5em;
+}
 
-    :host ::ng-deep .kUsersTableFooter {
-        .ui-dropdown-panel {
-            min-width: 70px;
-        }
+.rtl-theme :host ::ng-deep .kUsersTableFooter {
+    .ui-dropdown-panel {
+        min-width: 70px;
     }
 }

@@ -1,27 +1,34 @@
-.kBulkActions{
-  display: flex;
-  align-items: center;
-  .kBulkDeleteBtn{
-    margin-right: 10px;
-    width: 44px;
-    font-size: 24px;
-  }
-  .kBulkActionsBtn{
-    font-weight: 400;
-    font-size: 15px;
-  }
-}
-//////////////_FA
-:host-context(.fa){
-    .kBulkActions{
+:host-context(.ltr-theme) {
+    .kBulkActions {
         display: flex;
         align-items: center;
-        .kBulkDeleteBtn{
+
+        .kBulkDeleteBtn {
+            margin-right: 10px;
+            width: 44px;
+            font-size: 24px;
+        }
+
+        .kBulkActionsBtn {
+            font-weight: 400;
+            font-size: 15px;
+        }
+    }
+}
+
+//////////////_FA
+:host-context(.rtl-theme) {
+    .kBulkActions {
+        display: flex;
+        align-items: center;
+
+        .kBulkDeleteBtn {
             margin-left: 10px;
             width: 44px;
             font-size: 24px;
         }
-        .kBulkActionsBtn{
+
+        .kBulkActionsBtn {
             font-weight: 400;
             font-size: 15px;
         }

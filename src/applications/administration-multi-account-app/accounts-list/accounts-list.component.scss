@@ -198,7 +198,7 @@
 }
 /////////////////////////////////_FA_///////////////////
 @import 'app-theme/_variables.scss';
-:host-context(.fa) {
+:host-context(.rtl-theme) {
     .kTagsWrapper {
         z-index: 500;
     }

@@ -1,153 +1,157 @@
 @import "app-theme/_variables.scss";
 
 $autoCompleteWidth: 326px;
-.kTitle {
-  color: $kGrayscale1;
-  font-size: 24px;
-  font-weight: 700;
-  text-align: center;
-  border-bottom: 1px solid $kGrayscale4;
-  height: 78px;
-  line-height: 78px;
-}
-
-.kContent {
-  display: flex;
-  flex-direction: column;
-  height: 449px;
-  width: 790px;
-
-  .kContainer {
-    height: 303px;
-    padding: 32px;
-    overflow: hidden;
-
-    .kRow {
-      display: flex;
-      padding-top: 16px;
-
-      width: 574px;
-      margin: 0 auto;
-
-      .kLabel {
-        width: 150px;
-        flex: 0 0 auto;
-        word-wrap: break-word;
-        padding-right: 12px;
+:host-context(.ltr-theme) {
+    .kTitle {
+        color: $kGrayscale1;
+        font-size: 24px;
+        font-weight: 700;
         text-align: center;
-        display: block;
-        margin-bottom: 10px;
-        padding-top: 7px;
-        font-size: 15px;
-      }
-
-      input {
-        width: 100%;
-        height: 34px;
-      }
-
-      textarea {
-        width: 100%;
-        height: 76px;
-      }
-
-      .kControl, k-prime-control {
-        width: 100%;
-      }
+        border-bottom: 1px solid $kGrayscale4;
+        height: 78px;
+        line-height: 78px;
     }
 
-    .kRow:first-child {
-      padding-top: 0;
-    }
+    .kContent {
+        display: flex;
+        flex-direction: column;
+        height: 449px;
+        width: 790px;
 
-    .kMultipleRow{
-      .kLabel{
-        padding-top:0;
-      }
-    }
+        .kContainer {
+            height: 303px;
+            padding: 32px;
+            overflow: hidden;
 
-    .kBlock {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding-bottom: 20px;
-      .kRadio {
-        padding-right: 40px;
+            .kRow {
+                display: flex;
+                padding-top: 16px;
 
-        ::ng-deep .ui-radiobutton-label {
-          font-weight: normal;
+                width: 574px;
+                margin: 0 auto;
+
+                .kLabel {
+                    width: 150px;
+                    flex: 0 0 auto;
+                    word-wrap: break-word;
+                    padding-right: 12px;
+                    text-align: center;
+                    display: block;
+                    margin-bottom: 10px;
+                    padding-top: 7px;
+                    font-size: 15px;
+                }
+
+                input {
+                    width: 100%;
+                    height: 34px;
+                }
+
+                textarea {
+                    width: 100%;
+                    height: 76px;
+                }
+
+                .kControl, k-prime-control {
+                    width: 100%;
+                }
+            }
+
+            .kRow:first-child {
+                padding-top: 0;
+            }
+
+            .kMultipleRow {
+                .kLabel {
+                    padding-top: 0;
+                }
+            }
+
+            .kBlock {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding-bottom: 20px;
+
+                .kRadio {
+                    padding-right: 40px;
+
+                    ::ng-deep .ui-radiobutton-label {
+                        font-weight: normal;
+                    }
+                }
+            }
+
+            .kAutoCompleteContainer {
+                width: $autoCompleteWidth !important;
+                margin: 0 auto;
+            }
         }
-      }
     }
 
-    .kAutoCompleteContainer {
-      width: $autoCompleteWidth !important;
-      margin: 0 auto;
+    .kFooter {
+
+        display: flex;
+        height: 66px;
+        padding: 7px;
+        border-top: 1px solid $kGrayscale4;
+        align-items: center;
+        justify-content: center;
+
+        .kButtonDefault, .kButtonBranded {
+            height: 34px;
+            width: 160px;
+        }
+
+        .kButtonDefault {
+            border-radius: 0;
+            margin-right: 16px;
+        }
     }
-  }
 }
 
-.kFooter {
-
-  display: flex;
-  height: 66px;
-  padding: 7px;
-  border-top: 1px solid $kGrayscale4;
-  align-items: center;
-  justify-content: center;
-
-  .kButtonDefault, .kButtonBranded {
-    height: 34px;
-    width: 160px;
-  }
-
-  .kButtonDefault {
-    border-radius: 0;
-    margin-right: 16px;
-  }
-}
-
-:host ::ng-deep .ui-autocomplete.ui-widget {
-  width: $autoCompleteWidth;
-  font-size: 15px;
+.ltr-theme :host ::ng-deep .ui-autocomplete.ui-widget {
+    width: $autoCompleteWidth;
+    font-size: 15px;
 
     li.userAdded {
         background-color: transparentize($kPrimary, 0.5) !important;
     }
 
-  input {
-    width: 100%;
-  }
-  .ui-autocomplete-input-token {
-    width: 100%;
-  }
-
-  ul.ui-autocomplete-multiple-container {
-
-    height: 85px;
-    overflow: auto;
-  }
-
-  .ui-autocomplete-panel {
-    height: 120px;
-  }
-}
-
-:host ::ng-deep {
-  .ui-dropdown {
-    height: 34px;
-    width: 326px !important;
-    border: 1px solid $kGrayscale4;
-
-    .ui-dropdown-label {
-      color: $kGrayscale1;
-      font-size: 15px;
+    input {
+        width: 100%;
     }
-  }
+
+    .ui-autocomplete-input-token {
+        width: 100%;
+    }
+
+    ul.ui-autocomplete-multiple-container {
+
+        height: 85px;
+        overflow: auto;
+    }
+
+    .ui-autocomplete-panel {
+        height: 120px;
+    }
 }
+
+.ltr-theme :host ::ng-deep {
+    .ui-dropdown {
+        height: 34px;
+        width: 326px !important;
+        border: 1px solid $kGrayscale4;
+
+        .ui-dropdown-label {
+            color: $kGrayscale1;
+            font-size: 15px;
+        }
+    }
+}
+
 /////////////////_FA
-:host-context(.fa){
-    $autoCompleteWidth: 326px;
+:host-context(.rtl-theme) {
     .kTitle {
         color: $kGrayscale1;
         font-size: 24px;
@@ -207,9 +211,9 @@ $autoCompleteWidth: 326px;
                 padding-top: 0;
             }
 
-            .kMultipleRow{
-                .kLabel{
-                    padding-top:0;
+            .kMultipleRow {
+                .kLabel {
+                    padding-top: 0;
                 }
             }
 
@@ -218,6 +222,7 @@ $autoCompleteWidth: 326px;
                 align-items: center;
                 justify-content: center;
                 padding-bottom: 20px;
+
                 .kRadio {
                     padding-left: 40px;
 
@@ -254,42 +259,44 @@ $autoCompleteWidth: 326px;
         }
     }
 
-    :host ::ng-deep .ui-autocomplete.ui-widget {
-        width: $autoCompleteWidth;
-        font-size: 15px;
+}
 
-        li.userAdded {
-            background-color: transparentize($kPrimary, 0.5) !important;
-        }
+.ltr-theme :host ::ng-deep .ui-autocomplete.ui-widget {
+    width: $autoCompleteWidth;
+    font-size: 15px;
 
-        input {
-            width: 100%;
-        }
-        .ui-autocomplete-input-token {
-            width: 100%;
-        }
-
-        ul.ui-autocomplete-multiple-container {
-
-            height: 85px;
-            overflow: auto;
-        }
-
-        .ui-autocomplete-panel {
-            height: 120px;
-        }
+    li.userAdded {
+        background-color: transparentize($kPrimary, 0.5) !important;
     }
 
-    :host ::ng-deep {
-        .ui-dropdown {
-            height: 34px;
-            width: 326px !important;
-            border: 1px solid $kGrayscale4;
+    input {
+        width: 100%;
+    }
 
-            .ui-dropdown-label {
-                color: $kGrayscale1;
-                font-size: 15px;
-            }
+    .ui-autocomplete-input-token {
+        width: 100%;
+    }
+
+    ul.ui-autocomplete-multiple-container {
+
+        height: 85px;
+        overflow: auto;
+    }
+
+    .ui-autocomplete-panel {
+        height: 120px;
+    }
+}
+
+.ltr-theme :host ::ng-deep {
+    .ui-dropdown {
+        height: 34px;
+        width: 326px !important;
+        border: 1px solid $kGrayscale4;
+
+        .ui-dropdown-label {
+            color: $kGrayscale1;
+            font-size: 15px;
         }
     }
 }

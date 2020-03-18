@@ -1,112 +1,114 @@
 @import "app-theme/_variables.scss";
 
-.kContainer {
-    margin: 12px;
-}
+:host-context(.ltr-theme) {
+    .kContainer {
+        margin: 12px;
+    }
 
-.kClose {
-    float: right;
-}
+    .kClose {
+        float: right;
+    }
 
-.kAllCategories {
-    color: $kGrayscale3;
-    line-height: 40px;
-    letter-spacing: 0.1em;
-    font-size: 13px;
-    border-top: 1px solid $kGrayscale6;
-    border-bottom: 1px solid $kGrayscale6;
-    margin-left: -12px;
-    padding-left: 12px;
-    margin-right: -12px;
-    margin-top: 18px;
-}
+    .kAllCategories {
+        color: $kGrayscale3;
+        line-height: 40px;
+        letter-spacing: 0.1em;
+        font-size: 13px;
+        border-top: 1px solid $kGrayscale6;
+        border-bottom: 1px solid $kGrayscale6;
+        margin-left: -12px;
+        padding-left: 12px;
+        margin-right: -12px;
+        margin-top: 18px;
+    }
 
-.kFilterPrefs {
-    color: $kGrayscale3;
-    line-height: 40px;
-    letter-spacing: 0.1em;
-    font-size: 13px;
-}
+    .kFilterPrefs {
+        color: $kGrayscale3;
+        line-height: 40px;
+        letter-spacing: 0.1em;
+        font-size: 13px;
+    }
 
-.kTreeContainer {
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: 340px;
-    border-bottom: 1px solid $kGrayscale6;
-    margin-left: -12px;
-    padding-left: 12px;
-    margin-right: -12px;
-    width: 387px;
-}
+    .kTreeContainer {
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: 340px;
+        border-bottom: 1px solid $kGrayscale6;
+        margin-left: -12px;
+        padding-left: 12px;
+        margin-right: -12px;
+        width: 387px;
+    }
 
-a.disabled {
-    pointer-events: none;
-    cursor: not-allowed;
-    color: $kGrayscale5;
-    border: none;
-}
+    a.disabled {
+        pointer-events: none;
+        cursor: not-allowed;
+        color: $kGrayscale5;
+        border: none;
+    }
 
-.kTreeConfig {
-    font-size: 24px;
-    position: absolute;
-    right: 16px;
-    top: 26px;
-    color: $kGrayscale3;
-    cursor: pointer;
+    .kTreeConfig {
+        font-size: 24px;
+        position: absolute;
+        right: 16px;
+        top: 26px;
+        color: $kGrayscale3;
+        cursor: pointer;
 
-    &:hover {
+        &:hover {
+            color: $kPrimary;
+        }
+    }
+
+    .kHeader {
+        padding-top: 10px;
+
+        kautocomplete {
+            margin-left: 4px;
+        }
+    }
+
+    .kLoadingMessage {
+        cursor: auto;
         color: $kPrimary;
+        padding-left: 6px;
     }
-}
 
-.kHeader {
-    padding-top: 10px;
-
-    kautocomplete {
-        margin-left: 4px;
+    .kLoadingErrorMessage {
+        cursor: auto;
+        white-space: pre-line;
+        margin-top: -16px;
+        color: $kGrayscale3;
+        padding-left: 6px;
     }
-}
-
-.kLoadingMessage {
-    cursor: auto;
-    color: $kPrimary;
-    padding-left: 6px;
-}
-
-.kLoadingErrorMessage {
-    cursor: auto;
-    white-space: pre-line;
-    margin-top: -16px;
-    color: $kGrayscale3;
-    padding-left: 6px;
 }
 
 /* Make sure toggler and checkbox remain aligned even if the node height changes */
-:host ::ng-deep .ui-treenode .ui-tree-toggler {
+.ltr-theme :host ::ng-deep .ui-treenode .ui-tree-toggler {
     vertical-align: top;
     margin-top: 13px;
 }
 
-:host ::ng-deep .ui-tree .ui-chkbox {
+.ltr-theme :host ::ng-deep .ui-tree .ui-chkbox {
     vertical-align: top;
     margin-top: 16px;
 }
 
-:host ::ng-deep .ui-tree .ui-tree-toggler {
+.ltr-theme :host ::ng-deep .ui-tree .ui-tree-toggler {
     margin-top: 15px;
 }
 
-:host ::ng-deep .kSearchCategory {
+.ltr-theme :host ::ng-deep .kSearchCategory {
     width: 338px;
     height: 34px;
 }
 
-:host ::ng-deep .kHighlightedText {
+.ltr-theme :host ::ng-deep .kHighlightedText {
     font-weight: 700;
     text-decoration: underline;
 }
 
-:host ::ng-deep kautocomplete ul.ui-autocomplete-multiple-container.ui-inputtext {
+.ltr-theme :host ::ng-deep kautocomplete ul.ui-autocomplete-multiple-container.ui-inputtext {
     padding: 0px;
 
     .ui-autocomplete-input-token {
@@ -128,8 +130,9 @@ a.disabled {
     }
 }
 
+
 //////////////////////////////////////////////////_FA
-:host-context(.fa) {
+:host-context(.rtl-theme) {
     .kContainer {
         margin: 12px;
     }
@@ -210,53 +213,54 @@ a.disabled {
         color: $kGrayscale3;
         padding-right: 6px;
     }
+}
 
-    /* Make sure toggler and checkbox remain aligned even if the node height changes */
-    :host ::ng-deep .ui-treenode .ui-tree-toggler {
-        vertical-align: top;
-        margin-top: 13px;
-    }
+/* Make sure toggler and checkbox remain aligned even if the node height changes */
+.rtl-theme :host ::ng-deep .ui-treenode .ui-tree-toggler {
+    vertical-align: top;
+    margin-top: 13px;
+}
 
-    :host ::ng-deep .ui-tree .ui-chkbox {
-        vertical-align: top;
-        margin-top: 16px;
-    }
+.rtl-theme :host ::ng-deep .ui-tree .ui-chkbox {
+    vertical-align: top;
+    margin-top: 16px;
+}
 
-    :host ::ng-deep .ui-tree .ui-tree-toggler {
-        margin-top: 15px;
-    }
+.rtl-theme :host ::ng-deep .ui-tree .ui-tree-toggler {
+    margin-top: 15px;
+}
 
-    :host ::ng-deep .kSearchCategory {
-        width: 338px;
-        height: 34px;
-    }
+.rtl-theme :host ::ng-deep .kSearchCategory {
+    width: 338px;
+    height: 34px;
+}
 
-    :host ::ng-deep .kHighlightedText {
-        font-weight: 700;
-        text-decoration: underline;
-    }
+.rtl-theme :host ::ng-deep .kHighlightedText {
+    font-weight: 700;
+    text-decoration: underline;
+}
 
-    :host ::ng-deep kautocomplete ul.ui-autocomplete-multiple-container.ui-inputtext {
+.rtl-theme :host ::ng-deep kautocomplete ul.ui-autocomplete-multiple-container.ui-inputtext {
+    padding: 0px;
+
+    .ui-autocomplete-input-token {
         padding: 0px;
 
-        .ui-autocomplete-input-token {
-            padding: 0px;
+        input {
+            height: 34px;
+            padding-right: 8px;
+            width: 328px;
 
-            input {
-                height: 34px;
-                padding-right: 8px;
-                width: 328px;
+            &:active {
+                background-color: white;
+            }
 
-                &:active {
-                    background-color: white;
-                }
-
-                &:focus {
-                    background-color: white;
-                }
+            &:focus {
+                background-color: white;
             }
         }
     }
-
-
 }
+
+
+

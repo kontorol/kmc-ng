@@ -1,104 +1,107 @@
 @import 'app-theme/_variables.scss';
+:host-context(.ltr-theme) {
+    .kFeedDetailsContainer {
 
-.kFeedDetailsContainer {
+        .kFeedDetailsContainerHeader {
+            height: 34px;
+            padding: 19px 28px 19px 28px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid $kGrayscale4;
 
-  .kFeedDetailsContainerHeader {
-    height: 34px;
-    padding: 19px 28px 19px 28px;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid $kGrayscale4;
-    .kFeedIcon {
-      flex: 0 0 auto;
-      font-size: 24px;
-      color: $kGrayscale3;
+            .kFeedIcon {
+                flex: 0 0 auto;
+                font-size: 24px;
+                color: $kGrayscale3;
 
-    }
-    .kFeedName {
-      flex: 1 1 auto;
-      padding: 0 18px;
-      color: $kGrayscale1;
-      font-size: 15px;
-      font-weight: bold;
-    }
+            }
 
-    .kBulkCancel {
-      flex: 0 0 auto;
-      color: $kBlack;
-    }
+            .kFeedName {
+                flex: 1 1 auto;
+                padding: 0 18px;
+                color: $kGrayscale1;
+                font-size: 15px;
+                font-weight: bold;
+            }
 
-    .kDeletehBtn {
-      flex: 0 0 auto;
-      margin-left: 16px;
-      height: 34px;
-      width: 100px;
-    }
+            .kBulkCancel {
+                flex: 0 0 auto;
+                color: $kBlack;
+            }
 
-    .kSaveBtn {
-      flex: 0 0 auto;
-      margin-left: 16px;
-      height: 34px;
-      width: 100px;
-    }
-  }
-  .kFeedDetailsContainerBody {
-    padding: 20px 28px;
-    height: calc(100vh - 193px);
-    overflow-y: auto;
+            .kDeletehBtn {
+                flex: 0 0 auto;
+                margin-left: 16px;
+                height: 34px;
+                width: 100px;
+            }
 
-    .kDestination {
-      .kControl {
-        display: block;
-        width: 258px;
-
-        &.kHasError{
-          ::ng-deep .ui-widget.ui-dropdown {
-            border: none;
-            padding-top: 1px;
-          }
+            .kSaveBtn {
+                flex: 0 0 auto;
+                margin-left: 16px;
+                height: 34px;
+                width: 100px;
+            }
         }
 
-        ::ng-deep .ui-dropdown-items-wrapper {
-          max-height:250px !important;
+        .kFeedDetailsContainerBody {
+            padding: 20px 28px;
+            height: calc(100vh - 193px);
+            overflow-y: auto;
+
+            .kDestination {
+                .kControl {
+                    display: block;
+                    width: 258px;
+
+                    &.kHasError {
+                        ::ng-deep .ui-widget.ui-dropdown {
+                            border: none;
+                            padding-top: 1px;
+                        }
+                    }
+
+                    ::ng-deep .ui-dropdown-items-wrapper {
+                        max-height: 250px !important;
+                    }
+                }
+            }
+
+            .kContentType {
+                .kSelectPlaylist {
+                    padding-top: 17px;
+                }
+
+                .kContentTypePlaylist {
+                    padding-left: 31px;
+                }
+
+                .kInvalid {
+                    color: $kDandger;
+                }
+            }
+
+            .kEntriesCount {
+                .error {
+                    display: flex;
+                    align-items: center;
+
+                    .kIconwarning {
+                        font-size: 20px;
+                        vertical-align: middle;
+                        padding-right: 5px;
+                    }
+
+                    .kMoreInfo {
+                        padding-left: 4px;
+                        color: $kDandger;
+                    }
+                }
+            }
         }
-      }
     }
-
-    .kContentType {
-      .kSelectPlaylist {
-        padding-top: 17px;
-      }
-
-      .kContentTypePlaylist {
-        padding-left: 31px;
-      }
-
-        .kInvalid {
-            color: $kDandger;
-        }
-    }
-
-    .kEntriesCount {
-      .error {
-          display: flex;
-          align-items: center;
-
-        .kIconwarning {
-          font-size: 20px;
-          vertical-align: middle;
-          padding-right: 5px;
-        }
-
-        .kMoreInfo{
-          padding-left: 4px;
-          color: $kDandger;
-        }
-      }
-    }
-  }
 }
-
-:host ::ng-deep {
+.ltr-theme :host ::ng-deep {
   .kWarningMoreInfoTooltip {
     font-size: 15px;
     font-weight: normal;
@@ -109,7 +112,7 @@
 }
 
 // Form styling
-:host ::ng-deep {
+.ltr-theme :host ::ng-deep {
   .kRow {
     display: flex;
     padding-bottom: 20px;
@@ -186,7 +189,7 @@
   }
 }
 
-:host ::ng-deep {
+.ltr-theme :host ::ng-deep {
   .kPlaylist {
     display: flex;
     align-items: center;
@@ -291,7 +294,7 @@
   }
 }
 ////////////////_FA
-:host-context(.fa){
+:host-context(.rtl-theme) {
     .kFeedDetailsContainer {
 
         .kFeedDetailsContainerHeader {
@@ -300,12 +303,14 @@
             display: flex;
             align-items: center;
             border-bottom: 1px solid $kGrayscale4;
+
             .kFeedIcon {
                 flex: 0 0 auto;
                 font-size: 24px;
                 color: $kGrayscale3;
 
             }
+
             .kFeedName {
                 flex: 1 1 auto;
                 padding: 0 18px;
@@ -333,6 +338,7 @@
                 width: 100px;
             }
         }
+
         .kFeedDetailsContainerBody {
             padding: 20px 28px;
             height: calc(100vh - 193px);
@@ -343,7 +349,7 @@
                     display: block;
                     width: 258px;
 
-                    &.kHasError{
+                    &.kHasError {
                         ::ng-deep .ui-widget.ui-dropdown {
                             border: none;
                             padding-top: 1px;
@@ -351,7 +357,7 @@
                     }
 
                     ::ng-deep .ui-dropdown-items-wrapper {
-                        max-height:250px !important;
+                        max-height: 250px !important;
                     }
                 }
             }
@@ -381,7 +387,7 @@
                         padding-left: 5px;
                     }
 
-                    .kMoreInfo{
+                    .kMoreInfo {
                         padding-right: 4px;
                         color: $kDandger;
                     }
@@ -389,8 +395,8 @@
             }
         }
     }
-
-    :host ::ng-deep {
+}
+.rtl-theme  :host ::ng-deep {
         .kWarningMoreInfoTooltip {
             font-size: 15px;
             font-weight: normal;
@@ -401,7 +407,7 @@
     }
 
     // Form styling
-    :host ::ng-deep {
+.rtl-theme  :host ::ng-deep {
         .kRow {
             display: flex;
             padding-bottom: 20px;
@@ -478,7 +484,7 @@
         }
     }
 
-    :host ::ng-deep {
+.rtl-theme  :host ::ng-deep {
         .kPlaylist {
             display: flex;
             align-items: center;
@@ -582,4 +588,4 @@
             color: $kGrayscale1;
         }
     }
-}
+

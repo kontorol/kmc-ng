@@ -1,61 +1,7 @@
 @import 'app-theme/_variables.scss';
 
-.kFlavorPreview{
-  .kHeader {
-    height: 78px;
-    width: 100%;
-    text-align: center;
-    padding-top: 24px;
-    box-sizing: border-box;
-    border-bottom: 1px solid $kGrayscale4;
-    .kTitle {
-      color: #333333;
-      font-size: 24px;
-      font-weight: 700;
-    }
-  }
-  .kContainer{
-	  margin: 12px;
-	  padding-bottom: 4px;
-  }
-	.kLoading{
-		line-height: 252px;
-		padding-left: 130px;
-	}
-	.kLoadingError{
-		display: flex;
-		flex-direction: column;
-		line-height: 24px;
-		color: $kDandger;
-		height: 150px;
-		padding-top: 80px;
-		width: 100%;
-		text-align: center;
-		margin-bottom: 20px;
-		border: 1px solid $kGrayscale1;
-	}
-	video{
-		border: 1px solid $kGrayscale1;
-		padding: 5px;
-		margin-bottom: 20px;
-	}
-	.kRow{
-		display: flex;
-		margin-bottom: 12px;
-		flex-direction: row;
-		align-items: center;
-		.kLabel{
-			width: 150px;
-		}
-	}
-	.kPreview{
-		margin-bottom: 12px;
-	}
-}
-
-////////////_FA
-:host-context(.fa){
-    .kFlavorPreview{
+:host-context(.ltr-theme) {
+    .kFlavorPreview {
         .kHeader {
             height: 78px;
             width: 100%;
@@ -63,21 +9,25 @@
             padding-top: 24px;
             box-sizing: border-box;
             border-bottom: 1px solid $kGrayscale4;
+
             .kTitle {
                 color: #333333;
                 font-size: 24px;
                 font-weight: 700;
             }
         }
-        .kContainer{
+
+        .kContainer {
             margin: 12px;
             padding-bottom: 4px;
         }
-        .kLoading{
+
+        .kLoading {
             line-height: 252px;
-            padding-right: 130px;
+            padding-left: 130px;
         }
-        .kLoadingError{
+
+        .kLoadingError {
             display: flex;
             flex-direction: column;
             line-height: 24px;
@@ -89,21 +39,89 @@
             margin-bottom: 20px;
             border: 1px solid $kGrayscale1;
         }
-        video{
+
+        video {
             border: 1px solid $kGrayscale1;
             padding: 5px;
             margin-bottom: 20px;
         }
-        .kRow{
+
+        .kRow {
             display: flex;
             margin-bottom: 12px;
             flex-direction: row;
             align-items: center;
-            .kLabel{
+
+            .kLabel {
                 width: 150px;
             }
         }
-        .kPreview{
+
+        .kPreview {
+            margin-bottom: 12px;
+        }
+    }
+}
+
+////////////_FA
+:host-context(.rtl-theme) {
+    .kFlavorPreview {
+        .kHeader {
+            height: 78px;
+            width: 100%;
+            text-align: center;
+            padding-top: 24px;
+            box-sizing: border-box;
+            border-bottom: 1px solid $kGrayscale4;
+
+            .kTitle {
+                color: #333333;
+                font-size: 24px;
+                font-weight: 700;
+            }
+        }
+
+        .kContainer {
+            margin: 12px;
+            padding-bottom: 4px;
+        }
+
+        .kLoading {
+            line-height: 252px;
+            padding-right: 130px;
+        }
+
+        .kLoadingError {
+            display: flex;
+            flex-direction: column;
+            line-height: 24px;
+            color: $kDandger;
+            height: 150px;
+            padding-top: 80px;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 20px;
+            border: 1px solid $kGrayscale1;
+        }
+
+        video {
+            border: 1px solid $kGrayscale1;
+            padding: 5px;
+            margin-bottom: 20px;
+        }
+
+        .kRow {
+            display: flex;
+            margin-bottom: 12px;
+            flex-direction: row;
+            align-items: center;
+
+            .kLabel {
+                width: 150px;
+            }
+        }
+
+        .kPreview {
             margin-bottom: 12px;
         }
     }

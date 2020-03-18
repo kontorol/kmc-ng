@@ -7,13 +7,4 @@
     height: calc(100vh - 55px);
   }
 }
-////////////////////_FA
-:host-context(.fa) {
-    .kApp{
-        height: $contentArea;
-        iframe{
-            width: 100%;
-            height: calc(100vh - 55px);
-        }
-    }
-}
+

@@ -1,5 +1,5 @@
 @import 'app-theme/_variables.scss';
-
+:host-context(.ltr-theme){
 .kMetadataWrap {
     width: 100%;
     height: 100%;
@@ -71,6 +71,7 @@
     /*********************/
 
 }
+}
 
 :host ::ng-deep .kMetadataDetails {
     .ui-dropdown.ui-widget {
@@ -78,7 +79,7 @@
     }
 }
 ////////////////////////////////////////////////////////_FA
-:host-context(.fa){
+:host-context(.rtl-theme){
 
     .kMetadataWrap {
         width: 100%;
@@ -150,12 +151,6 @@
         /* PrimeNG overrides */
         /*********************/
 
-    }
-
-    :host ::ng-deep .kMetadataDetails {
-        .ui-dropdown.ui-widget {
-            width: 100%;
-        }
     }
 
 }

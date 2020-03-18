@@ -1,60 +1,72 @@
 @import 'app-theme/_variables.scss';
 
-.kPreviewDetails{
-	display: flex;
-	color: $kGrayscale3;
-	font-size: 13px;
-	overflow: hidden;
-	.kRow{
-		display: flex;
-		flex: 0 0 auto;
-		a{
-			font-size: 13px;
-		}
-		.kLabels{
-			margin-right: 4px;
-		}
-		.kSeparator{
-			margin-right: 8px;
-			margin-left: 8px;
-		}
-	}
-
-}
-
-:host ::ng-deep .kDetails {
-  .kIcontranscoding {
-    margin-left: 1px;
-  }
-}
-///////////////////////////////////////////////////_FA
-:host-context(.fa){
-    .kPreviewDetails{
+:host-context(.ltr-theme) {
+    .kPreviewDetails {
         display: flex;
         color: $kGrayscale3;
         font-size: 13px;
         overflow: hidden;
-        .kRow{
+
+        .kRow {
             display: flex;
             flex: 0 0 auto;
-            a{
+
+            a {
                 font-size: 13px;
             }
-            .kLabels{
-                margin-left: 4px;
+
+            .kLabels {
+                margin-right: 4px;
             }
-            .kSeparator{
+
+            .kSeparator {
                 margin-right: 8px;
                 margin-left: 8px;
             }
         }
 
     }
-
-    :host ::ng-deep .kDetails {
-        .kIcontranscoding {
-            margin-right: 1px;
-        }
-    }
-
 }
+
+.ltr-theme :host ::ng-deep .kDetails {
+    .kIcontranscoding {
+        margin-left: 1px;
+    }
+}
+
+///////////////////////////////////////////////////_FA
+:host-context(.rtl-theme) {
+    .kPreviewDetails {
+        display: flex;
+        color: $kGrayscale3;
+        font-size: 13px;
+        overflow: hidden;
+
+        .kRow {
+            display: flex;
+            flex: 0 0 auto;
+
+            a {
+                font-size: 13px;
+            }
+
+            .kLabels {
+                margin-left: 4px;
+            }
+
+            .kSeparator {
+                margin-right: 8px;
+                margin-left: 8px;
+            }
+        }
+
+    }
+}
+
+.rtl-theme :host ::ng-deep .kDetails {
+    .kIcontranscoding {
+        margin-right: 1px;
+    }
+}
+
+

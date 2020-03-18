@@ -1,46 +1,5 @@
 @import 'app-theme/_variables.scss';
 
-:host {
-    display: block;
-    margin-left: 24px;
-}
-
-.kReplaceMediaButtonsLabel {
-    color: $kGrayscale1;
-    font-size: 15px;
-    font-weight: bold;
-    line-height: 18px;
-    margin-bottom: 20px;
-}
-
-.kFlavorReplaceButton {
-    margin-right: 20px;
-    margin-bottom: 16px;
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.kReplaceVideoPopup {
-    padding-bottom: 17px;
-
-    p {
-        margin: 0;
-        padding: 17px 17px 0 17px;
-        font-size: 15px;
-        cursor: pointer;
-        color: $kGrayscale1;
-        &:hover {
-            color: #000000;
-        }
-    }
-    .kHidden {
-        display: none;
-        margin: 0;
-        padding: 0;
-        width: 0;
-        height: 0;
-    }
-}
 
 @media screen and (max-width: 1310px) {
     .kFlavorReplaceButton {
@@ -49,12 +8,60 @@
         margin-right: 10px;
     }
 }
-///////////////_FA
-:host-context(.fa){
-    :host {
-        display: block;
-        margin-right: 24px;
+
+.ltr-theme :host {
+    display: block;
+    margin-left: 24px;
+}
+
+:host-context(.ltr-theme) {
+    .kReplaceMediaButtonsLabel {
+        color: $kGrayscale1;
+        font-size: 15px;
+        font-weight: bold;
+        line-height: 18px;
+        margin-bottom: 20px;
     }
+
+    .kFlavorReplaceButton {
+        margin-right: 20px;
+        margin-bottom: 16px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+
+    .kReplaceVideoPopup {
+        padding-bottom: 17px;
+
+        p {
+            margin: 0;
+            padding: 17px 17px 0 17px;
+            font-size: 15px;
+            cursor: pointer;
+            color: $kGrayscale1;
+
+            &:hover {
+                color: #000000;
+            }
+        }
+
+        .kHidden {
+            display: none;
+            margin: 0;
+            padding: 0;
+            width: 0;
+            height: 0;
+        }
+    }
+}
+
+///////////////_FA
+.rtl-theme :host {
+    display: block;
+    margin-right: 24px;
+}
+
+:host-context(.rtl-theme) {
 
     .kReplaceMediaButtonsLabel {
         color: $kGrayscale1;
@@ -80,24 +87,18 @@
             font-size: 15px;
             cursor: pointer;
             color: $kGrayscale1;
+
             &:hover {
                 color: #000000;
             }
         }
+
         .kHidden {
             display: none;
             margin: 0;
             padding: 0;
             width: 0;
             height: 0;
-        }
-    }
-
-    @media screen and (max-width: 1310px) {
-        .kFlavorReplaceButton {
-            width: 130px;
-            height: 48px;
-            margin-left: 10px;
         }
     }
 }

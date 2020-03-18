@@ -1,6 +1,6 @@
 @import 'app-theme/_variables.scss';
 
-:host {
+.ltr-theme :host {
     line-height: 1.5em;
 
     .kTitle {
@@ -21,8 +21,7 @@
     }
 }
 //////////////////////////////////////////////////_FA
-:host-context(.fa){
-    :host {
+.rtl-theme   :host {
         line-height: 1.5em;
 
         .kTitle {
@@ -43,4 +42,3 @@
         }
     }
 
-}

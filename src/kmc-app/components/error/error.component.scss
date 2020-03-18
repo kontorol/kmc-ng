@@ -351,7 +351,7 @@ $box-shadow2: ();
 }
 
 //////////////////////////////////////////////////_FA
-:host-context(.fa) {
+:host-context(.rtl-theme) {
     @keyframes bob {
         0% {
             top: 0;

@@ -1,218 +1,252 @@
 @import 'app-theme/_variables.scss';
-.kTagsWrapper{
-  z-index: 500;
+:host-context(.ltr-theme) {
+    .kTagsWrapper {
+        z-index: 500;
+    }
+
+    .kSticky {
+        border-bottom: 1px solid $kGrayscale5;
+    }
+
+    .kCategories {
+        font-size: 15px;
+        background-color: $appBkgColor;
+        padding-top: 24px;
+        width: 100%;
+        min-width: $minAppWidth;
+        box-sizing: border-box;
+        display: flex;
+        flex-flow: row wrap;
+        margin: 0px;
+
+        .kSeparator {
+            margin-bottom: 24px !important;
+        }
+
+        .kCategoriesHolder {
+            height: 100%;
+            min-height: $minTableHeight;
+            border: none;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .kRefreshBtn {
+            font-size: 24px;
+            border: none;
+            min-width: inherit;
+            margin-right: 8px;
+            width: 40px;
+            outline: 0;
+            color: $kGrayscale3;
+
+            &:active {
+                box-shadow: none;
+                transform: rotate(45deg);
+            }
+
+            &:hover {
+                background-color: #ffffff;
+                color: $kPrimary;
+            }
+        }
+
+        .kCategoriesTableFilters {
+            color: $kGrayscale1;
+            z-index: 500;
+            height: 66px;
+            background-color: white;
+            flex: 0 0 auto;
+            align-items: center;
+            margin-left: 0px;
+            border-bottom: none;
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            display: flex;
+
+            .kSelectedCategoriesNum {
+                padding-left: 16px;
+            }
+        }
+
+        .kCategoriesTableTags {
+            width: 100%;
+            height: 50px;
+            background-color: #f3f3f3;
+            border: 1px solid grey;
+            flex: 0 0 50px;
+        }
+
+        .kCategoriesTableFooter {
+            bottom: 0px;
+            height: 34px;
+            background-color: white;
+            border-top: 1px solid $kGrayscale6;
+            position: fixed;
+            box-sizing: border-box;
+            flex: 0 0 auto;
+            padding: 0 14px 28px;
+            display: block;
+        }
+
+        .kCategoriesTable {
+            width: 100%;
+            border: none;
+            position: relative;
+            background-color: white;
+            flex: 1 1 auto;
+        }
+
+        .kSelectedCategoriesLabel {
+            font-weight: bold;
+            margin-right: 36px;
+            margin-left: 5px;
+        }
+
+        .kSearchInput {
+            background: $kMagnifyingGlassBkg;
+            padding-left: 38px;
+            margin-right: 8px;
+            width: 260px;
+        }
+
+        .kBulkOperations {
+            display: flex;
+            align-items: center;
+        }
+
+        .kPaginatorShowRowsLabel {
+            color: $kGrayscale1;
+            position: absolute;
+            top: 7px;
+            right: 80px;
+        }
+
+        .kAddCategoryBtn {
+            margin-left: 14px;
+            height: 36px;
+        }
+
+        .kBulkCancel {
+            margin-left: 10px;
+        }
+
+        .kBulkDeleteBtn {
+            margin-right: 10px;
+            width: 44px;
+            font-size: 24px;
+        }
+
+        .kBulkActionsBtn {
+            font-weight: 400;
+            font-size: 15px;
+        }
+
+        .kFilters {
+            display: flex;
+            margin-left: auto;
+        }
+
+        .kCategoriesFilter {
+            display: flex;
+            height: 32px;
+            align-items: center;
+            cursor: pointer;
+            color: $kGrayscale1;
+            width: 190px;
+            position: relative;
+            margin-right: 8px;
+
+            .kSpinnerBkg {
+                position: relative;
+                width: 20px;
+                height: 20px;
+                padding-left: 8px;
+                padding-right: 8px;
+                margin-top: 0px;
+            }
+
+            .kSpinnerAnim {
+                width: 12px;
+                height: 12px;
+            }
+
+            i {
+                margin-right: 12px;
+                margin-left: 8px;
+                font-size: 24px;
+                color: $kGrayscale4;
+
+                &.dropdown {
+                    font-size: 10px;
+                }
+            }
+
+            .dropdown {
+                position: absolute;
+                right: 4px;
+                top: 12px;
+            }
+        }
+
+        .kRefine {
+            @extend .kCategoriesFilter;
+            width: 160px;
+        }
+
+        .kHidden {
+            visibility: hidden;
+            width: 0px;
+            height: 0px;
+        }
+
+        .kTagContent {
+            display: flex;
+            align-items: center;
+        }
+
+        .kTagLabel {
+            flex: 0 0 auto;
+            user-select: none;
+            cursor: default;
+        }
+
+        .kTagRemove {
+            flex: 0 0 auto;
+            margin-top: 2px;
+            margin-left: 8px;
+            padding: 5px;
+            cursor: pointer;
+            font-size: 10px;
+
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.3);
+                border: 0px solid rgba(255, 255, 255, 0.3);
+                border-radius: 3px;
+            }
+        }
+    }
 }
-.kSticky{
-  border-bottom: 1px solid $kGrayscale5;
-}
-.kCategories {
-  font-size: 15px;
-  background-color: $appBkgColor;
-  padding-top: 24px;
+.ltr-theme :host{
   width: 100%;
-  min-width: $minAppWidth;
-  box-sizing: border-box;
-  display: flex;
-  flex-flow: row wrap;
-  margin: 0px;
-  .kSeparator{
-    margin-bottom: 24px !important;
-  }
-  .kCategoriesHolder {
-    height: 100%;
-    min-height: $minTableHeight;
-    border: none;
-    position: relative;
-    display: flex;
-    flex-direction: column;
-  }
-  .kRefreshBtn {
-    font-size: 24px;
-    border: none;
-    min-width: inherit;
-    margin-right: 8px;
-    width: 40px;
-    outline: 0;
-    color: $kGrayscale3;
-    &:active {
-      box-shadow: none;
-      transform: rotate(45deg);
-    }
-    &:hover {
-      background-color: #ffffff;
-      color: $kPrimary;
-    }
-  }
-  .kCategoriesTableFilters {
-    color: $kGrayscale1;
-    z-index: 500;
-    height: 66px;
-    background-color: white;
-    flex: 0 0 auto;
-    align-items: center;
-    margin-left: 0px;
-    border-bottom: none;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-    display: flex;
-    .kSelectedCategoriesNum {
-      padding-left: 16px;
-    }
-  }
-  .kCategoriesTableTags {
-    width: 100%;
-    height: 50px;
-    background-color: #f3f3f3;
-    border: 1px solid grey;
-    flex: 0 0 50px;
-  }
-  .kCategoriesTableFooter {
-    bottom: 0px;
-    height: 34px;
-    background-color: white;
-    border-top: 1px solid $kGrayscale6;
-    position: fixed;
-    box-sizing: border-box;
-    flex: 0 0 auto;
-    padding: 0 14px 28px;
-    display: block;
-  }
-  .kCategoriesTable {
-    width: 100%;
-    border: none;
-    position: relative;
-    background-color: white;
-    flex: 1 1 auto;
-  }
-  .kSelectedCategoriesLabel {
-    font-weight: bold;
-    margin-right: 36px;
-    margin-left: 5px;
-  }
-  .kSearchInput {
-    background: $kMagnifyingGlassBkg;
-    padding-left: 38px;
-    margin-right: 8px;
-    width: 260px;
-  }
-  .kBulkOperations {
-    display: flex;
-    align-items: center;
-  }
-  .kPaginatorShowRowsLabel {
-    color: $kGrayscale1;
-    position: absolute;
-    top: 7px;
-    right: 80px;
-  }
-  .kAddCategoryBtn {
-    margin-left: 14px;
-    height: 36px;
-  }
-  .kBulkCancel {
-    margin-left: 10px;
-  }
-  .kBulkDeleteBtn {
-    margin-right: 10px;
-    width: 44px;
-    font-size: 24px;
-  }
-  .kBulkActionsBtn {
-    font-weight: 400;
-    font-size: 15px;
-  }
-  .kFilters {
-    display: flex;
-    margin-left: auto;
-  }
-  .kCategoriesFilter {
-    display: flex;
-    height: 32px;
-    align-items: center;
-    cursor: pointer;
-    color: $kGrayscale1;
-    width: 190px;
-    position: relative;
-    margin-right: 8px;
-    .kSpinnerBkg{
-      position: relative;
-      width: 20px;
-      height: 20px;
-      padding-left: 8px;
-      padding-right: 8px;
-      margin-top: 0px;
-    }
-    .kSpinnerAnim{
-      width: 12px;
-      height: 12px;
-    }
-    i {
-      margin-right: 12px;
-      margin-left: 8px;
-      font-size: 24px;
-      color: $kGrayscale4;
-      &.dropdown {
-        font-size: 10px;
-      }
-    }
-    .dropdown {
-      position: absolute;
-      right: 4px;
-      top: 12px;
-    }
-  }
-  .kRefine {
-    @extend .kCategoriesFilter;
-    width: 160px;
-  }
-  .kHidden {
-    visibility: hidden;
-    width: 0px;
-    height: 0px;
-  }
-  .kTagContent {
-    display: flex;
-    align-items: center;
-  }
-  .kTagLabel {
-    flex: 0 0 auto;
-    user-select: none;
-    cursor: default;
-  }
-  .kTagRemove {
-    flex: 0 0 auto;
-    margin-top: 2px;
-    margin-left: 8px;
-    padding: 5px;
-    cursor: pointer;
-    font-size: 10px;
-    &:hover {
-      background-color: rgba(255, 255, 255, 0.3);
-      border: 0px solid rgba(255, 255, 255, 0.3);
-      border-radius: 3px;
-    }
-  }
 }
 
-:host{
-  width: 100%;
-}
-
-:host ::ng-deep span.ui-button-icon-left.pi-kIcontrash {
+.ltr-theme :host ::ng-deep span.ui-button-icon-left.pi-kIcontrash {
   margin-left: -.5em;
 }
 
-:host ::ng-deep .ui-tree {
+.ltr-theme :host ::ng-deep .ui-tree {
   width: 380px;
 }
 
-:host ::ng-deep .ui-button-icon-right.kIcondropdown_arrow_bottom {
+.ltr-theme :host ::ng-deep .ui-button-icon-right.kIcondropdown_arrow_bottom {
   font-size: 10px;
   margin-right: 2px;
   pointer-events: none;
 }
 
-:host ::ng-deep .ui-tieredmenu.ui-menu {
+.ltr-theme :host ::ng-deep .ui-tieredmenu.ui-menu {
   width: 250px;
   .ui-submenu-icon {
     font-size: 10px;
@@ -220,21 +254,21 @@
   }
 }
 
-:host ::ng-deep .ui-button-icon-only .pi {
+.ltr-theme :host ::ng-deep .ui-button-icon-only .pi {
   margin-left: -.5em;
 }
 
-:host ::ng-deep .kStickyClass{
+.ltr-theme :host ::ng-deep .kStickyClass{
   border-bottom: 1px solid $kGrayscale5;
 }
 
-:host ::ng-deep .kCategoriesTableFooter {
+.ltr-theme :host ::ng-deep .kCategoriesTableFooter {
   .ui-dropdown-panel {
     min-width: 70px;
   }
 }
 //////////////////_FA
-:host-context(.fa) {
+:host-context(.rtl-theme) {
     .kTagsWrapper{
         z-index: 500;
     }
@@ -242,7 +276,7 @@
         border-bottom: 1px solid $kGrayscale5;
     }
     .kCategories {
-        font-size: 15px;
+        font-size: 12px;
         background-color: $appBkgColor;
         padding-top: 24px;
         width: 100%;
@@ -263,7 +297,7 @@
             flex-direction: column;
         }
         .kRefreshBtn {
-            font-size: 24px;
+            font-size: 21px;
             border: none;
             min-width: inherit;
             margin-left: 8px;
@@ -430,43 +464,44 @@
         }
     }
 
-    :host{
-        width: 100%;
-    }
+}
 
-    :host ::ng-deep span.ui-button-icon-left.pi-kIcontrash {
-        margin-right: -.5em;
-    }
+.rtl-theme :host{
+    width: 100%;
+}
 
-    :host ::ng-deep .ui-tree {
-        width: 380px;
-    }
+.rtl-theme :host ::ng-deep span.ui-button-icon-left.pi-kIcontrash {
+    margin-right: -.5em;
+}
 
-    :host ::ng-deep .ui-button-icon-right.kIcondropdown_arrow_bottom {
+.rtl-theme :host ::ng-deep .ui-tree {
+    width: 380px;
+}
+
+.rtl-theme :host ::ng-deep .ui-button-icon-right.kIcondropdown_arrow_bottom {
+    font-size: 10px;
+    margin-left: 2px;
+    pointer-events: none;
+}
+
+.rtl-theme :host ::ng-deep .ui-tieredmenu.ui-menu {
+    width: 250px;
+    .ui-submenu-icon {
         font-size: 10px;
-        margin-left: 2px;
-        pointer-events: none;
+        margin-top: 3px;
     }
+}
 
-    :host ::ng-deep .ui-tieredmenu.ui-menu {
-        width: 250px;
-        .ui-submenu-icon {
-            font-size: 10px;
-            margin-top: 3px;
-        }
-    }
+.rtl-theme :host ::ng-deep .ui-button-icon-only .pi {
+    margin-right: -.5em;
+}
 
-    :host ::ng-deep .ui-button-icon-only .pi {
-        margin-right: -.5em;
-    }
+.rtl-theme :host ::ng-deep .kStickyClass{
+    border-bottom: 1px solid $kGrayscale5;
+}
 
-    :host ::ng-deep .kStickyClass{
-        border-bottom: 1px solid $kGrayscale5;
-    }
-
-    :host ::ng-deep .kCategoriesTableFooter {
-        .ui-dropdown-panel {
-            min-width: 70px;
-        }
+.rtl-theme :host ::ng-deep .kCategoriesTableFooter {
+    .ui-dropdown-panel {
+        min-width: 70px;
     }
 }

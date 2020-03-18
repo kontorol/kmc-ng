@@ -1,109 +1,106 @@
 @import 'app-theme/_variables.scss';
 
-.kTitle {
-  height: 24px;
-  width: 100%;
-  color: $kGrayscale1;
-  font-size: 20px;
-  font-weight: bold;
-  line-height: 24px;
-}
-
-.kAddToDefaultTranscodingProfile,
-.kEnforceFeedAuthor {
-  padding-top: 11px;
-  ::ng-deep {
-    .ui-chkbox-label {
-      font-weight: normal;
+:host-context(.ltr-theme) {
+    .kTitle {
+        height: 24px;
+        width: 100%;
+        color: $kGrayscale1;
+        font-size: 20px;
+        font-weight: bold;
+        line-height: 24px;
     }
-  }
-}
+    .kAddToDefaultTranscodingProfile,
+    .kEnforceFeedAuthor {
+        padding-top: 11px;
 
-.kHint {
-  width: 500px;
-  margin-top: 10px;
-}
-
-.kLabel, .kAsterix {
-  align-self: flex-start;
-}
-
-.kAsterix {
-  padding-top: 12px !important;
-}
-
-.threeRows {
-  width: 500px;
-}
-
-.kHasError {
-  ::ng-deep .ui-multiselect {
-    border: 1px solid $kDandger;
-  }
-}
-
-.kLandingPageExplanation {
-  color: $kGrayscale1;
-  width: 710px;
-  padding-top: 12px;
-  font-size: 15px;
-  line-height: 22px;
-  padding-bottom: 20px;
-}
-
-.kPlayback {
-  .kSelectPlayer {
-    padding-top: 17px;
-    display: flex;
-    align-items: center;
-
-    .kSelectPlayerLabel {
-      flex: 0 0 auto;
+        ::ng-deep {
+            .ui-chkbox-label {
+                font-weight: normal;
+            }
+        }
     }
-    .kSelectPlayerControl {
-      padding-left:23px;
+    .kHint {
+        width: 500px;
+        margin-top: 10px;
     }
-  }
+    .kLabel, .kAsterix {
+        align-self: flex-start;
+    }
+    .kAsterix {
+        padding-top: 12px !important;
+    }
+    .threeRows {
+        width: 500px;
+    }
+    .kHasError {
+        ::ng-deep .ui-multiselect {
+            border: 1px solid $kDandger;
+        }
+    }
+    .kLandingPageExplanation {
+        color: $kGrayscale1;
+        width: 710px;
+        padding-top: 12px;
+        font-size: 15px;
+        line-height: 22px;
+        padding-bottom: 20px;
+    }
+    .kPlayback {
+        .kSelectPlayer {
+            padding-top: 17px;
+            display: flex;
+            align-items: center;
 
-  .kPlaybackLinkback {
-    padding-left: 31px;
-  }
+            .kSelectPlayerLabel {
+                flex: 0 0 auto;
+            }
 
-  .kSelectPlayerInfo {
-    padding-top: 12px;
-  }
+            .kSelectPlayerControl {
+                padding-left: 23px;
+            }
+        }
+
+        .kPlaybackLinkback {
+            padding-left: 31px;
+        }
+
+        .kSelectPlayerInfo {
+            padding-top: 12px;
+        }
+    }
 }
 
-:host ::ng-deep .kCategories {
-  .ui-multiselect {
-    padding-left: 0;
-  }
+.ltr-theme :host ::ng-deep .kCategories {
+    .ui-multiselect {
+        padding-left: 0;
+    }
 
-  .ui-multiselect-label {
-    padding: .5em;
-    line-height: inherit;
-  }
+    .ui-multiselect-label {
+        padding: .5em;
+        line-height: inherit;
+    }
 
-  .ui-widget-header {
-    border-radius: 0;
-  }
+    .ui-widget-header {
+        border-radius: 0;
+    }
 }
 
-:host ::ng-deep {
-  .ui-dropdown .ui-dropdown-label {
-    text-overflow: ellipsis;
-  }
+.ltr-theme :host ::ng-deep {
+    .ui-dropdown .ui-dropdown-label {
+        text-overflow: ellipsis;
+    }
 
-  .ui-dropdown-item > span {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    width: 210px;
-    text-overflow: ellipsis;
-  }
+    .ui-dropdown-item > span {
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 210px;
+        text-overflow: ellipsis;
+    }
 }
+
 ////////////////FA_
-:host-context(.fa){
+:host-context(.rtl-theme) {
     .kTitle {
         height: 24px;
         width: 100%;
@@ -116,6 +113,7 @@
     .kAddToDefaultTranscodingProfile,
     .kEnforceFeedAuthor {
         padding-top: 11px;
+
         ::ng-deep {
             .ui-chkbox-label {
                 font-weight: normal;
@@ -164,8 +162,9 @@
             .kSelectPlayerLabel {
                 flex: 0 0 auto;
             }
+
             .kSelectPlayerControl {
-                padding-right:23px;
+                padding-right: 23px;
             }
         }
 
@@ -177,33 +176,34 @@
             padding-top: 12px;
         }
     }
+}
 
-    :host ::ng-deep .kCategories {
-        .ui-multiselect {
-            padding-right: 0;
-        }
-
-        .ui-multiselect-label {
-            padding: .5em;
-            line-height: inherit;
-        }
-
-        .ui-widget-header {
-            border-radius: 0;
-        }
+.rtl-theme :host ::ng-deep .kCategories {
+    .ui-multiselect {
+        padding-right: 0;
     }
 
-    :host ::ng-deep {
-        .ui-dropdown .ui-dropdown-label {
-            text-overflow: ellipsis;
-        }
+    .ui-multiselect-label {
+        padding: .5em;
+        line-height: inherit;
+    }
 
-        .ui-dropdown-item > span {
-            display: inline-block;
-            overflow: hidden;
-            white-space: nowrap;
-            width: 210px;
-            text-overflow: ellipsis;
-        }
+    .ui-widget-header {
+        border-radius: 0;
     }
 }
+
+.rtl-theme :host ::ng-deep {
+    .ui-dropdown .ui-dropdown-label {
+        text-overflow: ellipsis;
+    }
+
+    .ui-dropdown-item > span {
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        width: 210px;
+        text-overflow: ellipsis;
+    }
+}
+

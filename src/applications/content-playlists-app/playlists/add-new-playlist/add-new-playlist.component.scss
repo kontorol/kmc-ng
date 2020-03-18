@@ -1,103 +1,6 @@
 @import 'app-theme/_variables.scss';
 
-.kAddNewPlaylist {
-  .kHeader {
-    height: 78px;
-    width: 100%;
-    text-align: center;
-    padding-top: 24px;
-    box-sizing: border-box;
-    border-bottom: 1px solid $kGrayscale4;
-
-    .kTitle {
-      color: #333333;
-      font-size: 24px;
-      font-weight: bold;
-    }
-  }
-
-  .kContainer {
-    padding-bottom: 5px;
-
-    .selectPlaylistTypeCaption,
-    .selectPlaylistType {
-      font-size: 15px;
-      text-align: center;
-    }
-
-    .selectPlaylistTypeCaption {
-      padding: 31px 0 26px;
-    }
-
-    .selectPlaylistType {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 22px;
-    }
-
-    .kRadioLeft,
-    .kRadioRight {
-      display: flex;
-    }
-
-    .kRadioLeft {
-      margin-right: 40px;
-    }
-
-    .kControl {
-      padding: 0 60px;
-      margin-bottom: 19px;
-
-      input,
-      textarea {
-        width: 100%;
-      }
-
-      .kHasError {
-          border: 1px solid $kDandger;
-          background: initial;
-      }
-
-      textarea {
-        min-height: 74px;
-      }
-    }
-
-  }
-
-  .kFooter{
-    padding: 15px 0;
-    border-top: 1px solid $kGrayscale4;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    .kNextBtn {
-      min-width: 100px;
-      height: 34px;
-      border-width: 0;
-      font-size: 14px;
-
-      &:disabled {
-        border-width: 1px;
-      }
-    }
-  }
-}
-
-:host ::ng-deep .ui-radiobutton,
-:host ::ng-deep.ui-chkbox {
-  margin-right: 14px;
-}
-
-:host ::ng-deep .ui-radiobutton-label,
-:host ::ng-deep .ui-chkbox-label {
-  font-size: 15px;
-  font-weight: normal;
-}
-////////////////////_FA
-:host-context(.fa){
+:host-context(.ltr-theme) {
     .kAddNewPlaylist {
         .kHeader {
             height: 78px;
@@ -106,6 +9,107 @@
             padding-top: 24px;
             box-sizing: border-box;
             border-bottom: 1px solid $kGrayscale4;
+
+            .kTitle {
+                color: #333333;
+                font-size: 24px;
+                font-weight: bold;
+            }
+        }
+
+        .kContainer {
+            padding-bottom: 5px;
+
+            .selectPlaylistTypeCaption,
+            .selectPlaylistType {
+                font-size: 15px;
+                text-align: center;
+            }
+
+            .selectPlaylistTypeCaption {
+                padding: 31px 0 26px;
+            }
+
+            .selectPlaylistType {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-bottom: 22px;
+            }
+
+            .kRadioLeft,
+            .kRadioRight {
+                display: flex;
+            }
+
+            .kRadioLeft {
+                margin-right: 40px;
+            }
+
+            .kControl {
+                padding: 0 60px;
+                margin-bottom: 19px;
+
+                input,
+                textarea {
+                    width: 100%;
+                }
+
+                .kHasError {
+                    border: 1px solid $kDandger;
+                    background: initial;
+                }
+
+                textarea {
+                    min-height: 74px;
+                }
+            }
+
+        }
+
+        .kFooter {
+            padding: 15px 0;
+            border-top: 1px solid $kGrayscale4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .kNextBtn {
+                min-width: 100px;
+                height: 34px;
+                border-width: 0;
+                font-size: 14px;
+
+                &:disabled {
+                    border-width: 1px;
+                }
+            }
+        }
+    }
+}
+
+.ltr-theme :host ::ng-deep .ui-radiobutton,
+:host ::ng-deep.ui-chkbox {
+    margin-right: 14px;
+}
+
+:host ::ng-deep .ui-radiobutton-label,
+:host ::ng-deep .ui-chkbox-label {
+    font-size: 15px;
+    font-weight: normal;
+}
+
+////////////////////_FA
+:host-context(.rtl-theme) {
+    .kAddNewPlaylist {
+        .kHeader {
+            height: 78px;
+            width: 100%;
+            text-align: center;
+            padding-top: 24px;
+            box-sizing: border-box;
+            border-bottom: 2px solid $kDivider;
+            background-color: $kHeader;
 
             .kTitle {
                 color: #333333;
@@ -164,9 +168,9 @@
 
         }
 
-        .kFooter{
+        .kFooter {
             padding: 15px 0;
-            border-top: 1px solid $kGrayscale4;
+            border-top: 1px solid $kDivider;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -183,15 +187,12 @@
             }
         }
     }
-
-    :host ::ng-deep .ui-radiobutton,
-    :host ::ng-deep.ui-chkbox {
-        margin-left: 14px;
-    }
-
-    :host ::ng-deep .ui-radiobutton-label,
-    :host ::ng-deep .ui-chkbox-label {
-        font-size: 15px;
-        font-weight: normal;
-    }
 }
+
+.rtl-theme :host ::ng-deep .ui-radiobutton,
+:host ::ng-deep.ui-chkbox {
+    margin-left: 14px;
+}
+
+
+

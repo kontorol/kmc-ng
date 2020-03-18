@@ -1,46 +1,7 @@
 @import 'app-theme/_variables.scss';
 
-.kFlavorImport{
-	.kHeader {
-    height: 78px;
-    width: 100%;
-    text-align: center;
-    padding-top: 32px;
-    box-sizing: border-box;
-    border-bottom: 1px solid $kGrayscale4;
-    .kTitle {
-      color: #333333;
-      font-size: 16px;
-      font-weight: 700;
-    }
-	}
-  .kContainer{
-    margin: 24px;
-    height: 70px;
-  }
-  .kFooter{
-    text-align: center;
-    height: 66px;
-    border-top: 1px solid $kGrayscale4;
-    button{
-      margin-top: 16px;
-      height: 34px;
-    }
-  }
-	.kFlavorUrl{
-		margin-top: 6px;
-		width: 100%;
-	}
-	.kInvalid{
-		color: $kDandger;
-		font-size: 12px;
-		font-weight: 700;
-	}
-}
-
-////////////_FA
-:host-context(.fa){
-    .kFlavorImport{
+:host-context(.ltr-theme) {
+    .kFlavorImport {
         .kHeader {
             height: 78px;
             width: 100%;
@@ -48,30 +9,83 @@
             padding-top: 32px;
             box-sizing: border-box;
             border-bottom: 1px solid $kGrayscale4;
+
             .kTitle {
                 color: #333333;
                 font-size: 16px;
                 font-weight: 700;
             }
         }
-        .kContainer{
+
+        .kContainer {
             margin: 24px;
             height: 70px;
         }
-        .kFooter{
+
+        .kFooter {
             text-align: center;
             height: 66px;
             border-top: 1px solid $kGrayscale4;
-            button{
+
+            button {
                 margin-top: 16px;
                 height: 34px;
             }
         }
-        .kFlavorUrl{
+
+        .kFlavorUrl {
             margin-top: 6px;
             width: 100%;
         }
-        .kInvalid{
+
+        .kInvalid {
+            color: $kDandger;
+            font-size: 12px;
+            font-weight: 700;
+        }
+    }
+}
+
+////////////_FA
+:host-context(.rtl-theme) {
+    .kFlavorImport {
+        .kHeader {
+            height: 78px;
+            width: 100%;
+            text-align: center;
+            padding-top: 32px;
+            box-sizing: border-box;
+            border-bottom: 1px solid $kGrayscale4;
+
+            .kTitle {
+                color: #333333;
+                font-size: 16px;
+                font-weight: 700;
+            }
+        }
+
+        .kContainer {
+            margin: 24px;
+            height: 70px;
+        }
+
+        .kFooter {
+            text-align: center;
+            height: 66px;
+            border-top: 1px solid $kGrayscale4;
+
+            button {
+                margin-top: 16px;
+                height: 34px;
+            }
+        }
+
+        .kFlavorUrl {
+            margin-top: 6px;
+            width: 100%;
+        }
+
+        .kInvalid {
             color: $kDandger;
             font-size: 12px;
             font-weight: 700;
