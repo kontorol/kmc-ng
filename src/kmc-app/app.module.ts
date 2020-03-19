@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {BrowserModule} from '@angular/platform-browser';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClient, HttpClientModule} from '@angular/common/http';
 import {CommonModule} from '@angular/common';
 import {NgxWebstorageModule} from 'ngx-webstorage';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
@@ -12,9 +12,9 @@ import {PreviewAndEmbedModule} from '../applications/preview-and-embed/preview-a
 import {EntriesModule} from 'app-shared/content-shared/entries/entries.module';
 import {CategoriesModule} from 'app-shared/content-shared/categories/categories.module';
 import {CategoriesStatusModule} from 'app-shared/content-shared/categories-status/categories-status.module';
-import { KMCPermissionsModule } from 'app-shared/kmc-shared/kmc-permissions';
-import { LocalizationModule } from '@kontorol-ng/mc-shared';
-import { KontorolLoggerInjectionToken } from '@kontorol-ng/kontorol-common';
+import {KMCPermissionsModule} from 'app-shared/kmc-shared/kmc-permissions';
+import {LocalizationModule} from '@kontorol-ng/mc-shared';
+import {KontorolLoggerInjectionToken} from '@kontorol-ng/kontorol-common';
 
 export function createTranslateLoader(http: HttpClient) {
     return new TranslateHttpLoader(http, './i18n/', '.json');
@@ -28,20 +28,20 @@ import {
     NewEntryUploadModule
 } from 'app-shared/kmc-shell';
 import {
-  AppStorage,
+    AppStorage,
     KontorolCommonModule,
-  OperationTagModule,
-  UploadManagement
+    OperationTagModule,
+    UploadManagement
 } from '@kontorol-ng/kontorol-common';
 import {AreaBlockerModule, StickyModule, TooltipModule} from '@kontorol-ng/kontorol-ui';
 import {KontorolClientModule, KontorolClientOptions} from 'kontorol-ngx-client';
 import {PopupWidgetModule} from '@kontorol-ng/kontorol-ui';
 import {
-  AccessControlProfileStore,
-  AppEventsModule,
-  FlavoursStore,
-  KontorolServerModule,
-  MetadataProfileModule, PartnerProfileStore,
+    AccessControlProfileStore,
+    AppEventsModule,
+    FlavoursStore,
+    KontorolServerModule,
+    MetadataProfileModule, PartnerProfileStore,
 } from 'app-shared/kmc-shared';
 
 import {AppComponent} from './app.component';
@@ -52,68 +52,69 @@ import {AppMenuComponent} from './components/app-menu/app-menu.component';
 import {MultiAccountComponent} from './components/multiAccount/multi-account.component';
 import {ErrorComponent} from './components/error/error.component';
 import {UserSettingsComponent} from './components/user-settings/user-settings.component';
-import { UploadManagementModule } from '@kontorol-ng/kontorol-common';
-import { NgxPageScrollModule } from 'ngx-page-scroll';
-import { LoginComponent } from './components/login/login.component';
-import { ForgotPasswordFormComponent } from './components/login/forgot-password-form/forgot-password-form.component';
-import { LoginFormComponent } from './components/login/login-form/login-form.component';
-import { SsoFormComponent } from './components/login/sso-form/sso-form.component';
-import { AuthenticationFormComponent } from './components/login/authentication-form/authentication-form.component';
-import { PasswordExpiredFormComponent } from './components/login/password-expired-form/password-expired-form.component';
-import { InvalidLoginHashFormComponent } from './components/login/invalid-login-hash-form/invalid-login-hash-form.component';
-import { AppMenuContentComponent } from './components/app-menu/app-menu-content.component';
-import { KmcUploadAppModule } from '../applications/kmc-upload-app/kmc-upload-app.module';
-import { TranscodingProfileManagementModule } from 'app-shared/kmc-shared/transcoding-profile-management';
-import { ChangeAccountComponent } from './components/changeAccount/change-account.component';
-import { OpenEmailComponent } from './components/open-email/open-email.component';
-import { BulkUploadModule } from 'app-shared/kmc-shell/bulk-upload';
-import { ChangelogComponent } from './components/changelog/changelog.component';
-import { ChangelogContentComponent } from './components/changelog/changelog-content/changelog-content.component';
-import { PlaylistCreationModule } from 'app-shared/kmc-shared/events/playlist-creation';
-import { KMCServerPollsModule } from 'app-shared/kmc-shared/server-polls';
-import { ViewCategoryEntriesModule } from 'app-shared/kmc-shared/events/view-category-entries/view-category-entries.module';
-import { AccessControlProfileModule } from 'app-shared/kmc-shared/access-control/access-control-profile.module';
+import {UploadManagementModule} from '@kontorol-ng/kontorol-common';
+import {NgxPageScrollModule} from 'ngx-page-scroll';
+import {LoginComponent} from './components/login/login.component';
+import {ForgotPasswordFormComponent} from './components/login/forgot-password-form/forgot-password-form.component';
+import {LoginFormComponent} from './components/login/login-form/login-form.component';
+import {SsoFormComponent} from './components/login/sso-form/sso-form.component';
+import {AuthenticationFormComponent} from './components/login/authentication-form/authentication-form.component';
+import {PasswordExpiredFormComponent} from './components/login/password-expired-form/password-expired-form.component';
+import {InvalidLoginHashFormComponent} from './components/login/invalid-login-hash-form/invalid-login-hash-form.component';
+import {AppMenuContentComponent} from './components/app-menu/app-menu-content.component';
+import {KmcUploadAppModule} from '../applications/kmc-upload-app/kmc-upload-app.module';
+import {TranscodingProfileManagementModule} from 'app-shared/kmc-shared/transcoding-profile-management';
+import {ChangeAccountComponent} from './components/changeAccount/change-account.component';
+import {OpenEmailComponent} from './components/open-email/open-email.component';
+import {BulkUploadModule} from 'app-shared/kmc-shell/bulk-upload';
+import {ChangelogComponent} from './components/changelog/changelog.component';
+import {ChangelogContentComponent} from './components/changelog/changelog-content/changelog-content.component';
+import {PlaylistCreationModule} from 'app-shared/kmc-shared/events/playlist-creation';
+import {KMCServerPollsModule} from 'app-shared/kmc-shared/server-polls';
+import {ViewCategoryEntriesModule} from 'app-shared/kmc-shared/events/view-category-entries/view-category-entries.module';
+import {AccessControlProfileModule} from 'app-shared/kmc-shared/access-control/access-control-profile.module';
 import {PlayersStore} from "app-shared/kmc-shared/players";
-import { globalConfig } from 'config/global';
-import { getKontorolServerUri } from 'config/server';
-import { StorageProfilesStore } from 'app-shared/kmc-shared/storage-profiles';
-import { TranscodingProfileCreationModule } from 'app-shared/kmc-shared/events/transcoding-profile-creation/transcoding-profile-creation.module';
-import { APP_STORAGE_TOKEN } from '@kontorol-ng/kontorol-common';
-import { KmcLogsModule } from 'app-shared/kmc-shell/kmc-logs/kmc-logs.module';
-import { KontorolLoggerModule } from '@kontorol-ng/kontorol-logger';
-import { KmcViewsModule } from 'app-shared/kmc-shared/kmc-views/kmc-views.module';
-import { AppDefaultViewComponent } from './components/app-default-view/app-default-view.component';
-import { LoginByKSComponent } from './components/app-actions/login-by-ks.component';
-import { AuthenticatorComponent } from './components/app-actions/authenticator.component';
-import { NewReplaceVideoUploadModule } from 'app-shared/kmc-shell/new-replace-video-upload/new-replace-video-upload.module';
-import { RestorePasswordComponent } from './components/app-actions/restore-password.component';
-import { NotFoundPageComponent } from './components/not-found-page/not-found-page.component';
-import { ProgressBarComponent } from './components/progress-bar/progress-bar.component';
-import { RestorePasswordFormComponent } from './components/login/restore-password-form/restore-password-form.component';
-import { InvalidRestorePasswordHashFormComponent } from './components/login/invalid-restore-password-hash-form/invalid-restore-password-hash-form.component';
+import {globalConfig} from 'config/global';
+import {getKontorolServerUri} from 'config/server';
+import {StorageProfilesStore} from 'app-shared/kmc-shared/storage-profiles';
+import {TranscodingProfileCreationModule} from 'app-shared/kmc-shared/events/transcoding-profile-creation/transcoding-profile-creation.module';
+import {APP_STORAGE_TOKEN} from '@kontorol-ng/kontorol-common';
+import {KmcLogsModule} from 'app-shared/kmc-shell/kmc-logs/kmc-logs.module';
+import {KontorolLoggerModule} from '@kontorol-ng/kontorol-logger';
+import {KmcViewsModule} from 'app-shared/kmc-shared/kmc-views/kmc-views.module';
+import {AppDefaultViewComponent} from './components/app-default-view/app-default-view.component';
+import {LoginByKSComponent} from './components/app-actions/login-by-ks.component';
+import {AuthenticatorComponent} from './components/app-actions/authenticator.component';
+import {NewReplaceVideoUploadModule} from 'app-shared/kmc-shell/new-replace-video-upload/new-replace-video-upload.module';
+import {RestorePasswordComponent} from './components/app-actions/restore-password.component';
+import {NotFoundPageComponent} from './components/not-found-page/not-found-page.component';
+import {ProgressBarComponent} from './components/progress-bar/progress-bar.component';
+import {RestorePasswordFormComponent} from './components/login/restore-password-form/restore-password-form.component';
+import {InvalidRestorePasswordHashFormComponent} from './components/login/invalid-restore-password-hash-form/invalid-restore-password-hash-form.component';
 
-import { CopyToClipboardModule } from '@kontorol-ng/mc-shared';
-import { ContextualHelpModule } from 'app-shared/kmc-shared/contextual-help/contextual-help.module';
-import { PersistLoginByKsComponent } from './components/app-actions/persist-login-by-ks.component';
-import { ColumnsResizeManagerModule } from 'app-shared/kmc-shared/columns-resize-manager';
-import { CaptionRequestAppModule } from '../applications/caption-request-app/caption-request-app.module';
-import { NewEntryCreateFromUrlModule } from 'app-shared/kmc-shell/new-entry-create-from-url/new-entry-create-from-url.module';
-import { ButtonModule } from 'primeng/button';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { DropdownModule } from 'primeng/dropdown';
-import { InputTextModule } from 'primeng/inputtext';
-import { ConfirmationService } from 'primeng/api';
-import { TieredMenuModule } from 'primeng/tieredmenu';
-import { CheckboxModule } from 'primeng/checkbox';
-import { GrowlModule } from 'primeng/growl';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { MenuModule } from 'primeng/menu';
+import {CopyToClipboardModule} from '@kontorol-ng/mc-shared';
+import {ContextualHelpModule} from 'app-shared/kmc-shared/contextual-help/contextual-help.module';
+import {PersistLoginByKsComponent} from './components/app-actions/persist-login-by-ks.component';
+import {ColumnsResizeManagerModule} from 'app-shared/kmc-shared/columns-resize-manager';
+import {CaptionRequestAppModule} from '../applications/caption-request-app/caption-request-app.module';
+import {NewEntryCreateFromUrlModule} from 'app-shared/kmc-shell/new-entry-create-from-url/new-entry-create-from-url.module';
+import {ButtonModule} from 'primeng/button';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {DropdownModule} from 'primeng/dropdown';
+import {InputTextModule} from 'primeng/inputtext';
+import {ConfirmationService} from 'primeng/api';
+import {TieredMenuModule} from 'primeng/tieredmenu';
+import {CheckboxModule} from 'primeng/checkbox';
+import {GrowlModule} from 'primeng/growl';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import {MenuModule} from 'primeng/menu';
+import {KCommonModule} from "app-shared/common/k-common.module";
 
 const partnerProviders: PartnerProfileStore[] = [AccessControlProfileStore, FlavoursStore, PlayersStore, StorageProfilesStore];
 
 export function kontorolClientOptionsFactory(): KontorolClientOptions {
 
-    return  {
+    return {
         endpointUrl: getKontorolServerUri(),
         clientTag: 'kmcng',
         chunkFileSize: 5 * 1024 * 1024
@@ -121,110 +122,112 @@ export function kontorolClientOptionsFactory(): KontorolClientOptions {
 }
 
 @NgModule({
-  imports: <any>[
-    AuthModule.forRoot(),
-    FormsModule,
-    BrowserModule,
-    BrowserAnimationsModule,
-    ButtonModule,
-    MenuModule,
-    CommonModule,
-    ConfirmDialogModule,
-    DropdownModule,
-    HttpClientModule,
-    InputTextModule,
-    MetadataProfileModule.forRoot(),
-    NgxPageScrollModule,
-    AppEventsModule.forRoot(),
-    KMCShellModule.forRoot(),
-    KontorolCommonModule.forRoot(),
-  TranslateModule.forRoot({
-      loader: {
-          provide: TranslateLoader,
-          useFactory: (createTranslateLoader),
-          deps: [HttpClient]
-      }
-  }),
-      EntriesModule.forRoot(),
-      CategoriesModule.forRoot(),
-      NgxWebstorageModule.forRoot(),
-    PopupWidgetModule,
-    routing,
-    PreviewAndEmbedModule,
-    TieredMenuModule,
-    UploadManagementModule,
-    KontorolServerModule,
-    AreaBlockerModule,
-    CheckboxModule,
-    ReactiveFormsModule,
-    TooltipModule,
-    GrowlModule,
-    CopyToClipboardModule,
-    KmcUploadAppModule.forRoot(),
-    NewEntryUploadModule.forRoot(),
-      NewReplaceVideoUploadModule.forRoot(),
-    BulkUploadModule.forRoot(),
-    TranscodingProfileManagementModule.forRoot(),
-    RadioButtonModule,
-    StickyModule.forRoot(),
-    OperationTagModule.forRoot(),
-    PlaylistCreationModule.forRoot(),
-    KMCServerPollsModule.forRoot(),
-    CategoriesStatusModule.forRoot(),
-    ViewCategoryEntriesModule.forRoot(),
-    AccessControlProfileModule.forRoot(),
-    KMCPermissionsModule.forRoot(),
-    TranscodingProfileCreationModule.forRoot(),
-    KontorolClientModule.forRoot(kontorolClientOptionsFactory),
-      KmcLogsModule.forRoot(),
-      KontorolLoggerModule.forRoot('kmc'),
-      ContextualHelpModule.forRoot(),
-      KmcViewsModule.forRoot(),
-      LocalizationModule.forRoot(),
-      NewEntryCreateFromUrlModule.forRoot(),
-      CaptionRequestAppModule,
-      ColumnsResizeManagerModule.forRoot()
-  ],
-  declarations: <any>[
-    AppComponent,
-      AppDefaultViewComponent,
-    DashboardComponent,
-    AppMenuComponent,
-    MultiAccountComponent,
-    AppMenuContentComponent,
-    LoginComponent,
-    AuthenticationFormComponent,
-    ErrorComponent,
-    UserSettingsComponent,
-    LoginFormComponent,
-    SsoFormComponent,
-    PasswordExpiredFormComponent,
-    ForgotPasswordFormComponent,
-    InvalidLoginHashFormComponent,
-    ChangeAccountComponent,
-    OpenEmailComponent,
-    ChangelogComponent,
-    ChangelogContentComponent,
-    LoginByKSComponent,
-      AuthenticatorComponent,
-      RestorePasswordComponent,
-      NotFoundPageComponent,
-      RestorePasswordFormComponent,
-      InvalidRestorePasswordHashFormComponent,
-      ProgressBarComponent,
-      PersistLoginByKsComponent,
-  ],
-  bootstrap: <any>[
-    AppComponent
-  ],
-  exports: [],
-  providers: <any>[
-      ...partnerProviders,
-      {
-           provide: APP_STORAGE_TOKEN, useExisting: BrowserService },
-    ConfirmationService,
-      { provide: KontorolLoggerInjectionToken, useClass: KontorolLogger }
-  ]
+    imports: <any>[
+        KCommonModule,
+        AuthModule.forRoot(),
+        FormsModule,
+        BrowserModule,
+        BrowserAnimationsModule,
+        ButtonModule,
+        MenuModule,
+        CommonModule,
+        ConfirmDialogModule,
+        DropdownModule,
+        HttpClientModule,
+        InputTextModule,
+        MetadataProfileModule.forRoot(),
+        NgxPageScrollModule,
+        AppEventsModule.forRoot(),
+        KMCShellModule.forRoot(),
+        KontorolCommonModule.forRoot(),
+        TranslateModule.forRoot({
+            loader: {
+                provide: TranslateLoader,
+                useFactory: (createTranslateLoader),
+                deps: [HttpClient]
+            }
+        }),
+        EntriesModule.forRoot(),
+        CategoriesModule.forRoot(),
+        NgxWebstorageModule.forRoot(),
+        PopupWidgetModule,
+        routing,
+        PreviewAndEmbedModule,
+        TieredMenuModule,
+        UploadManagementModule,
+        KontorolServerModule,
+        AreaBlockerModule,
+        CheckboxModule,
+        ReactiveFormsModule,
+        TooltipModule,
+        GrowlModule,
+        CopyToClipboardModule,
+        KmcUploadAppModule.forRoot(),
+        NewEntryUploadModule.forRoot(),
+        NewReplaceVideoUploadModule.forRoot(),
+        BulkUploadModule.forRoot(),
+        TranscodingProfileManagementModule.forRoot(),
+        RadioButtonModule,
+        StickyModule.forRoot(),
+        OperationTagModule.forRoot(),
+        PlaylistCreationModule.forRoot(),
+        KMCServerPollsModule.forRoot(),
+        CategoriesStatusModule.forRoot(),
+        ViewCategoryEntriesModule.forRoot(),
+        AccessControlProfileModule.forRoot(),
+        KMCPermissionsModule.forRoot(),
+        TranscodingProfileCreationModule.forRoot(),
+        KontorolClientModule.forRoot(kontorolClientOptionsFactory),
+        KmcLogsModule.forRoot(),
+        KontorolLoggerModule.forRoot('kmc'),
+        ContextualHelpModule.forRoot(),
+        KmcViewsModule.forRoot(),
+        LocalizationModule.forRoot(),
+        NewEntryCreateFromUrlModule.forRoot(),
+        CaptionRequestAppModule,
+        ColumnsResizeManagerModule.forRoot()
+    ],
+    declarations: <any>[
+        AppComponent,
+        AppDefaultViewComponent,
+        DashboardComponent,
+        AppMenuComponent,
+        MultiAccountComponent,
+        AppMenuContentComponent,
+        LoginComponent,
+        AuthenticationFormComponent,
+        ErrorComponent,
+        UserSettingsComponent,
+        LoginFormComponent,
+        SsoFormComponent,
+        PasswordExpiredFormComponent,
+        ForgotPasswordFormComponent,
+        InvalidLoginHashFormComponent,
+        ChangeAccountComponent,
+        OpenEmailComponent,
+        ChangelogComponent,
+        ChangelogContentComponent,
+        LoginByKSComponent,
+        AuthenticatorComponent,
+        RestorePasswordComponent,
+        NotFoundPageComponent,
+        RestorePasswordFormComponent,
+        InvalidRestorePasswordHashFormComponent,
+        ProgressBarComponent,
+        PersistLoginByKsComponent,
+    ],
+    bootstrap: <any>[
+        AppComponent
+    ],
+    exports: [],
+    providers: <any>[
+        ...partnerProviders,
+        {
+            provide: APP_STORAGE_TOKEN, useExisting: BrowserService
+        },
+        ConfirmationService,
+        {provide: KontorolLoggerInjectionToken, useClass: KontorolLogger}
+    ]
 })
 export class AppModule {
     constructor(kontorolLogger: KontorolLogger,

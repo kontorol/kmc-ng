@@ -3,16 +3,16 @@ import {LocalStorageService, SessionStorageService} from 'ngx-webstorage';
 import {IAppStorage} from '@kontorol-ng/kontorol-common';
 import {AppLocalization} from '@kontorol-ng/mc-shared';
 import {Subject} from 'rxjs/Subject';
-import { Observable } from 'rxjs';
-import { KontorolLogger } from '@kontorol-ng/kontorol-logger';
-import { Router, ActivatedRoute, NavigationExtras, NavigationEnd, RoutesRecognized } from '@angular/router';
-import { kmcAppConfig } from '../../../kmc-app/kmc-app-config';
-import { AppEventsService } from 'app-shared/kmc-shared/app-events/app-events.service';
-import { OpenEmailEvent } from 'app-shared/kmc-shared/events';
-import { EmailConfig } from '../../../kmc-app/components/open-email/open-email.component';
-import { serverConfig } from 'config/server';
-import { PageExitVerificationService } from '../page-exit-verification';
-import { filter, map, pairwise } from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {KontorolLogger} from '@kontorol-ng/kontorol-logger';
+import {Router, ActivatedRoute, NavigationExtras, NavigationEnd, RoutesRecognized} from '@angular/router';
+import {kmcAppConfig} from '../../../kmc-app/kmc-app-config';
+import {AppEventsService} from 'app-shared/kmc-shared/app-events/app-events.service';
+import {OpenEmailEvent} from 'app-shared/kmc-shared/events';
+import {EmailConfig} from '../../../kmc-app/components/open-email/open-email.component';
+import {serverConfig} from 'config/server';
+import {PageExitVerificationService} from '../page-exit-verification';
+import {filter, map, pairwise} from 'rxjs/operators';
 
 export enum HeaderTypes {
     error = 1,
@@ -22,36 +22,36 @@ export enum HeaderTypes {
 }
 
 export interface Confirmation {
-	message: string;
-	key?: string;
-	icon?: string;
-	header?: string;
-	headerType?: HeaderTypes,
-	accept?: Function;
-	reject?: Function;
-	acceptVisible?: boolean;
-	rejectVisible?: boolean;
-	acceptLabel?: string;
-	rejectLabel?: string;
-	acceptEvent?: EventEmitter<any>;
-	rejectEvent?: EventEmitter<any>;
-	alignMessage?: 'left' | 'center' | 'byContent';
+    message: string;
+    key?: string;
+    icon?: string;
+    header?: string;
+    headerType?: HeaderTypes,
+    accept?: Function;
+    reject?: Function;
+    acceptVisible?: boolean;
+    rejectVisible?: boolean;
+    acceptLabel?: string;
+    rejectLabel?: string;
+    acceptEvent?: EventEmitter<any>;
+    rejectEvent?: EventEmitter<any>;
+    alignMessage?: 'left' | 'center' | 'byContent';
 }
 
 export interface GrowlMessage {
-  severity : 'success' | 'info' | 'error' | 'warn';
-  summary?: string;
-  detail?: string;
+    severity: 'success' | 'info' | 'error' | 'warn';
+    summary?: string;
+    detail?: string;
 }
 
 export declare type QueryParams = {
     [key: string]: any;
 };
 
-export type OnShowConfirmationFn = (confirmation : Confirmation) => void;
+export type OnShowConfirmationFn = (confirmation: Confirmation) => void;
 
 export type AppStatus = {
-  errorMessage : string;
+    errorMessage: string;
 };
 
 @Injectable()
@@ -232,10 +232,10 @@ export class BrowserService implements IAppStorage {
         this._appEvents.publish(new OpenEmailEvent(emailConfig.email, emailConfig.title, emailConfig.message));
     }
 
-    public openSupport(): void{
+    public openSupport(): void {
         let emailAddress = null;
         let msg = this._appLocalization.get('app.openMail.supportMailMsg');
-        if (serverConfig.externalLinks.kontorol && serverConfig.externalLinks.kontorol.support){
+        if (serverConfig.externalLinks.kontorol && serverConfig.externalLinks.kontorol.support) {
             emailAddress = serverConfig.externalLinks.kontorol.support;
             msg = this._appLocalization.get('app.openMail.supportMailMsgNoMail');
         }
@@ -282,8 +282,7 @@ export class BrowserService implements IAppStorage {
             textRange.moveToElementText(el);
             textRange.select();
             textRange.execCommand("Copy");
-        }
-        else if (window.getSelection && document.createRange) {
+        } else if (window.getSelection && document.createRange) {
             // non-IE
             let editable = el.contentEditable; // Record contentEditable status of element
             let readOnly = el.readOnly; // Record readOnly status of element
@@ -420,7 +419,7 @@ export class BrowserService implements IAppStorage {
     public navigateToDefault(removeCurrentFromBrowserHistory: boolean = true): void {
         let extras: NavigationExtras = null;
         if (removeCurrentFromBrowserHistory) {
-            extras = { replaceUrl: true };
+            extras = {replaceUrl: true};
         }
         this._logger.info(`navigate to default view`, {removeCurrentFromBrowserHistory});
         this._router.navigate([kmcAppConfig.routing.defaultRoute], extras);
@@ -428,7 +427,7 @@ export class BrowserService implements IAppStorage {
 
     public navigateToError(): void {
         this._logger.info(`navigate to error view`);
-        this._router.navigateByUrl(kmcAppConfig.routing.errorRoute, { replaceUrl: true });
+        this._router.navigateByUrl(kmcAppConfig.routing.errorRoute, {replaceUrl: true});
     }
 
     public navigate(path: string): void {
@@ -473,8 +472,8 @@ export class BrowserService implements IAppStorage {
                 pairwise(),
                 filter((routes: any[]) => {
                     const [previousRoute, currentRoute] = routes;
-                    const { url: prevUrl } = this.getUrlWithoutParams(previousRoute.url);
-                    const { url: currentUrl } = this.getUrlWithoutParams(currentRoute.url);
+                    const {url: prevUrl} = this.getUrlWithoutParams(previousRoute.url);
+                    const {url: currentUrl} = this.getUrlWithoutParams(currentRoute.url);
                     return currentUrl !== prevUrl;
                 }),
                 map((routes: RoutesRecognized[]) => routes[0])
@@ -489,25 +488,29 @@ export class BrowserService implements IAppStorage {
         let url = '/';
         let queryParams = null;
         if (urlTree.root.children['primary']) {
-            url = `/${urlTree.root.children['primary'].segments.map(({ path }) => path).join('/')}`;
+            url = `/${urlTree.root.children['primary'].segments.map(({path}) => path).join('/')}`;
             queryParams = urlTree.queryParams;
         }
 
-        return { url, queryParams };
+        return {url, queryParams};
     }
 
-    public getCurrentDateFormat(forCalendarComponent = false): string {
+    public getCurrentDateFormat(forCalendarComponent = false,forFormatting?:boolean): string {
         const format = this.getFromLocalStorage('kmc_date_format') || 'month-day-year';
+        if (this.getFromLocalStorage('kmc_lang') === 'fa' && forFormatting)
+            return forCalendarComponent
+                ? (format === 'month-day-year' ? 'jyy/jmm/jdd' : 'jyy/jmm/jdd')
+                : (format === 'month-day-year' ? 'jYYYY/jMM/jDD' : 'jYYYY/jMM/jDD');
         return forCalendarComponent
-            ? (format === 'month-day-year' ? 'mm/dd/yy' : 'dd/mm/yy')
-            : (format === 'month-day-year' ? 'MM/DD/YYYY' : 'DD/MM/YYYY');
+                ? (format === 'month-day-year' ? 'yy/mm/dd' : 'yy/mm/dd')
+                : (format === 'month-day-year' ? 'YYYY/MM/DD' : 'YYYY/MM/DD');
     }
 
     public getDocumentBase(): string {
         const bases = document.getElementsByTagName('base');
         let baseHref = '';
 
-        if ( bases.length ) {
+        if (bases.length) {
             baseHref = bases[0].getAttribute('href');
         }
 

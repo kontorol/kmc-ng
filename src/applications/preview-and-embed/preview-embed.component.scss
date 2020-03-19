@@ -1,247 +1,247 @@
 @import 'app-theme/_variables.scss';
 :host-context(.ltr-theme) {
-    .kPreviewAndEmbed {
-        display: flex;
-        flex-flow: column;
-        width: 100%;
+.kPreviewAndEmbed {
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    height: 100%;
+    font-size: 15px;
+
+    form {
         height: 100%;
-        font-size: 15px;
+    }
 
-        form {
-            height: 100%;
+    ::ng-deep .kPopupWidget {
+        box-shadow: 0 2px 8px 0 rgba(0, 0, 0, .24);
+    }
+
+    .kHeader {
+        height: 58px;
+        width: 100%;
+        display: flex;
+        flex-flow: row;
+        justify-content: space-between;
+        align-items: center;
+        background-color: $kGrayscale1;
+        color: white;
+        border-bottom: 1px solid $kGrayscale4;
+
+        .kClose {
+            color: $kGrayscale3;
+            font-size: 18px;
+            margin-left: 24px;
+            cursor: pointer;
+
+            &:hover {
+                color: white;
+            }
         }
 
-        ::ng-deep .kPopupWidget {
-            box-shadow: 0 2px 8px 0 rgba(0, 0, 0, .24);
+        .kTitle {
+            margin-left: 24px;
+            font-size: 18px;
+            font-weight: 700;
         }
 
-        .kHeader {
-            height: 58px;
-            width: 100%;
+        .kSelectPlayer {
             display: flex;
             flex-flow: row;
-            justify-content: space-between;
             align-items: center;
-            background-color: $kGrayscale1;
-            color: white;
-            border-bottom: 1px solid $kGrayscale4;
 
-            .kClose {
+            span {
+                margin-right: 24px;
+            }
+
+            .kPlayerSettings {
+                font-size: 24px;
                 color: $kGrayscale3;
-                font-size: 18px;
-                margin-left: 24px;
+                margin-left: 12px;
                 cursor: pointer;
 
                 &:hover {
                     color: white;
                 }
             }
-
-            .kTitle {
-                margin-left: 24px;
-                font-size: 18px;
-                font-weight: 700;
-            }
-
-            .kSelectPlayer {
-                display: flex;
-                flex-flow: row;
-                align-items: center;
-
-                span {
-                    margin-right: 24px;
-                }
-
-                .kPlayerSettings {
-                    font-size: 24px;
-                    color: $kGrayscale3;
-                    margin-left: 12px;
-                    cursor: pointer;
-
-                    &:hover {
-                        color: white;
-                    }
-                }
-            }
-
-            .kToggleParamsIcon {
-                font-size: 24px;
-                color: white;
-                cursor: pointer;
-                margin-right: 24px;
-
-                &.kHighlight {
-                    color: $kGrayscale3;
-                }
-            }
-
         }
 
-        .kPreview {
-            width: 100%;
-            height: calc(100vh - 60px);
-            flex: 1 1 auto;
-            display: flex;
-            flex-flow: row;
+        .kToggleParamsIcon {
+            font-size: 24px;
+            color: white;
+            cursor: pointer;
+            margin-right: 24px;
 
-            .kPreviewContainer {
-                flex: 1 1 auto;
-                position: relative;
-
-                iframe {
-                    position: absolute;
-                    width: 100%;
-                    height: 100%;
-                    right: 0px;
-                    bottom: 0px;
-                }
-            }
-
-            .kPreviewParams {
-                width: 450px;
-                height: 100%;
-                overflow-y: auto;
-                flex: 0 0 auto;
-                display: flex;
-                flex-flow: column;
-                box-sizing: border-box;
-                border-left: 1px solid $kGrayscale4;
-                transition: max-width 0.3s;
-                overflow-x: hidden;
-
-                .kParamsContainer {
-                    padding: 20px;
-                }
-
-                .kTitle {
-                    display: block;
-                    color: $kGrayscale1;
-                    font-size: 18px;
-                    font-weight: 700;
-                    margin-bottom: 32px;
-                }
-
-                .kRow {
-                    display: block;
-                    margin-bottom: 28px;
-                }
-
-                .kSection {
-                    display: flex;
-                    flex-flow: row;
-                    align-items: center;
-
-                    i {
-                        font-size: 20px;
-                    }
-
-                    .kCol {
-                        width: 120px;
-                        margin-right: 20px;
-                        line-height: 18px;
-                    }
-
-                    .kSectionHeader {
-                        color: $kGrayscale1;
-                        font-size: 16px;
-                        font-weight: 700;
-                        margin-left: 8px;
-                    }
-
-                    .kHelpTip {
-                        font-size: 15px;
-                        margin-left: 8px;
-                        cursor: pointer;
-
-                        &:hover {
-                            color: $kSecondary;
-                        }
-                    }
-
-                    textarea {
-                        width: 260px;
-                        height: 100px;
-                    }
-
-                    .kCopyCode {
-                        width: 80px;
-                        margin-left: 320px;
-                        margin-top: 10px;
-                    }
-
-                    ::ng-deep .kQRCodeCanvas img {
-                        margin-left: -10px;
-                        width: 80px;
-                    }
-
-                    .kAdvancedArrow {
-                        font-size: 11px;
-                        margin-top: 2px;
-                        color: $kGrayscale3;
-                        margin-left: 6px;
-                        transition: transform 0.3s;
-                    }
-
-                    .kArrowDown {
-                        transform: rotate(90deg);
-                    }
-                }
-
-                .kAlignTop {
-                    align-items: flex-start;
-                }
-
-                .kAdvanced {
-                    transition: max-height 0.3s;
-                    overflow-y: hidden;
-                    height: 250px;
-                }
-            }
-        }
-
-        .kSettings {
-            padding: 28px;
-            box-sizing: border-box;
-            display: flex;
-            flex-flow: column;
-
-            span {
-                line-height: 40px;
-                letter-spacing: 0.1em;
-                font-size: 13px;
+            &.kHighlight {
                 color: $kGrayscale3;
-                margin-bottom: 20px;
-            }
-        }
-
-        .kTooltip {
-            padding: 24px;
-            box-sizing: border-box;
-            display: flex;
-            flex-flow: column;
-            color: $kGrayscale3;
-
-            .kHelpTitle {
-                display: flex;
-                flex-flow: row;
-                align-items: center;
-                font-weight: 700;
-                color: $kGrayscale1;
-
-                i {
-                    margin-right: 8px;
-                    font-size: 24px;
-                    color: $kGrayscale3;
-                }
-            }
-
-            .kTooltipContent {
-                display: block;
-                margin-top: 20px;
             }
         }
 
     }
+
+    .kPreview {
+        width: 100%;
+        height: calc(100vh - 60px);
+        flex: 1 1 auto;
+        display: flex;
+        flex-flow: row;
+
+        .kPreviewContainer {
+            flex: 1 1 auto;
+            position: relative;
+
+            iframe {
+                position: absolute;
+                width: 100%;
+                height: 100%;
+                right: 0px;
+                bottom: 0px;
+            }
+        }
+
+        .kPreviewParams {
+            width: 450px;
+            height: 100%;
+            overflow-y: auto;
+            flex: 0 0 auto;
+            display: flex;
+            flex-flow: column;
+            box-sizing: border-box;
+            border-left: 1px solid $kGrayscale4;
+            transition: max-width 0.3s;
+            overflow-x: hidden;
+
+            .kParamsContainer {
+                padding: 20px;
+            }
+
+            .kTitle {
+                display: block;
+                color: $kGrayscale1;
+                font-size: 18px;
+                font-weight: 700;
+                margin-bottom: 32px;
+            }
+
+            .kRow {
+                display: block;
+                margin-bottom: 28px;
+            }
+
+            .kSection {
+                display: flex;
+                flex-flow: row;
+                align-items: center;
+
+                i {
+                    font-size: 20px;
+                }
+
+                .kCol {
+                    width: 120px;
+                    margin-right: 20px;
+                    line-height: 18px;
+                }
+
+                .kSectionHeader {
+                    color: $kGrayscale1;
+                    font-size: 16px;
+                    font-weight: 700;
+                    margin-left: 8px;
+                }
+
+                .kHelpTip {
+                    font-size: 15px;
+                    margin-left: 8px;
+                    cursor: pointer;
+
+                    &:hover {
+                        color: $kSecondary;
+                    }
+                }
+
+                textarea {
+                    width: 260px;
+                    height: 100px;
+                }
+
+                .kCopyCode {
+                    width: 80px;
+                    margin-left: 320px;
+                    margin-top: 10px;
+                }
+
+                ::ng-deep .kQRCodeCanvas img {
+                    margin-left: -10px;
+                    width: 80px;
+                }
+
+                .kAdvancedArrow {
+                    font-size: 11px;
+                    margin-top: 2px;
+                    color: $kGrayscale3;
+                    margin-left: 6px;
+                    transition: transform 0.3s;
+                }
+
+                .kArrowDown {
+                    transform: rotate(90deg);
+                }
+            }
+
+            .kAlignTop {
+                align-items: flex-start;
+            }
+
+            .kAdvanced {
+                transition: max-height 0.3s;
+                overflow-y: hidden;
+                height: 250px;
+            }
+        }
+    }
+
+    .kSettings {
+        padding: 28px;
+        box-sizing: border-box;
+        display: flex;
+        flex-flow: column;
+
+        span {
+            line-height: 40px;
+            letter-spacing: 0.1em;
+            font-size: 13px;
+            color: $kGrayscale3;
+            margin-bottom: 20px;
+        }
+    }
+
+    .kTooltip {
+        padding: 24px;
+        box-sizing: border-box;
+        display: flex;
+        flex-flow: column;
+        color: $kGrayscale3;
+
+        .kHelpTitle {
+            display: flex;
+            flex-flow: row;
+            align-items: center;
+            font-weight: 700;
+            color: $kGrayscale1;
+
+            i {
+                margin-right: 8px;
+                font-size: 24px;
+                color: $kGrayscale3;
+            }
+        }
+
+        .kTooltipContent {
+            display: block;
+            margin-top: 20px;
+        }
+    }
+
+}
 }
 .rtl-theme :host ::ng-deep .kHeader p-dropdown {
     .ui-dropdown {
@@ -412,7 +412,7 @@
             height: calc(100vh - 60px);
             flex: 1 1 auto;
             display: flex;
-            flex-flow: row;
+            flex-flow: row-reverse;
 
             .kPreviewContainer {
                 flex: 1 1 auto;

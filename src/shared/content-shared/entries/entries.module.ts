@@ -26,96 +26,96 @@ import {EntriesStoreDataProvider} from 'app-shared/content-shared/entries/entrie
 import {EntriesDataProviderToken} from 'app-shared/content-shared/entries/entries-store/entries-store.service';
 import {LiveDashboardComponent} from 'app-shared/content-shared/entries/live-dashboard/live-dashboard.component';
 import {LiveDashboardHostComponent} from 'app-shared/content-shared/entries/live-dashboard-host/live-dashboard-host.component';
-import { LinkedEntriesTableComponent } from './link-entries-selector/linked-entries-table/linked-entries-table.component';
-import { LinkedEntriesAddEntriesComponent } from './link-entries-selector/linked-entries-add-entries/linked-entries-add-entries.component';
+import {LinkedEntriesTableComponent} from './link-entries-selector/linked-entries-table/linked-entries-table.component';
+import {LinkedEntriesAddEntriesComponent} from './link-entries-selector/linked-entries-add-entries/linked-entries-add-entries.component';
 import {LinkedEntriesComponent} from './link-entries-selector/linked-entries/linked-entries.component';
-import { KMCPermissionsModule } from 'app-shared/kmc-shared/kmc-permissions';
-import { DateFormatModule } from 'app-shared/kmc-shared/date-format/date-format.module';
-import { TreeModule } from 'primeng/tree';
-import { DropdownModule } from 'primeng/dropdown';
-import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
-import { RadioButtonModule } from 'primeng/radiobutton';
-import { CheckboxModule } from 'primeng/checkbox';
-import { MenuModule } from 'primeng/menu';
-import { PaginatorModule } from 'primeng/paginator';
-import { TieredMenuModule } from 'primeng/tieredmenu';
-import { InputTextModule } from 'primeng/inputtext';
+import {KMCPermissionsModule} from 'app-shared/kmc-shared/kmc-permissions';
+import {DateFormatModule} from 'app-shared/kmc-shared/date-format/date-format.module';
+import {TreeModule} from 'primeng/tree';
+import {DropdownModule} from 'primeng/dropdown';
+import {ButtonModule} from 'primeng/button';
+import {RadioButtonModule} from 'primeng/radiobutton';
+import {CheckboxModule} from 'primeng/checkbox';
+import {MenuModule} from 'primeng/menu';
+import {PaginatorModule} from 'primeng/paginator';
+import {TieredMenuModule} from 'primeng/tieredmenu';
+import {InputTextModule} from 'primeng/inputtext';
+import {KCommonModule} from "app-shared/common/k-common.module";
 
 @NgModule({
-  imports: [
-    AreaBlockerModule,
-    TooltipModule,
-    AutoCompleteModule,
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    TreeModule,
-    LocalizationModule,
-    KontorolPrimeNgUIModule,
-    KPTableModule,
-    KontorolUIModule,
-    DropdownModule,
-    ButtonModule,
-    CalendarModule,
-    RadioButtonModule,
-    CheckboxModule,
-    PopupWidgetModule,
-    TableModule,
-    MenuModule,
-    TagsModule,
-    PaginatorModule,
-    TieredMenuModule,
-    InputTextModule,
-    StickyModule,
-    FiltersModule,
-    CategoriesModule,
-    KMCPermissionsModule,
-      DateFormatModule
-  ],
-  declarations: [
-    EntryStatusPipe,
-    EntryTypePipe,
-    SchedulingComponent,
-    EntryDurationPipe,
-    MaxEntriesPipe,
-    PrimeTableSortTransformPipe,
-    ModerationPipe,
-    EntriesRefineFiltersComponent,
-    EntriesTableComponent,
-    EntriesListComponent,
-    EntriesListTagsComponent,
-    EntriesSelectorComponent,
-    LiveDashboardComponent,
-    LiveDashboardHostComponent,
-    LinkedEntriesComponent,
-    LinkedEntriesTableComponent,
-    LinkedEntriesAddEntriesComponent
-  ],
-  exports: [
-    EntryStatusPipe,
-    EntryTypePipe,
-    ModerationPipe,
-    MaxEntriesPipe,
-    SchedulingComponent,
-    EntryDurationPipe,
-    EntriesRefineFiltersComponent,
-    EntriesTableComponent,
-    EntriesListComponent,
-    EntriesSelectorComponent,
-    LiveDashboardComponent,
-    LiveDashboardHostComponent,
-	  LinkedEntriesComponent,
-	  LinkedEntriesTableComponent,
-	  LinkedEntriesAddEntriesComponent
-  ]
+    imports: [
+        AreaBlockerModule,
+        TooltipModule,
+        AutoCompleteModule,
+        CommonModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TreeModule,
+        LocalizationModule,
+        KontorolPrimeNgUIModule,
+        KPTableModule,
+        KontorolUIModule,
+        DropdownModule,
+        ButtonModule,
+        RadioButtonModule,
+        CheckboxModule,
+        PopupWidgetModule,
+        TableModule,
+        MenuModule,
+        TagsModule,
+        PaginatorModule,
+        TieredMenuModule,
+        InputTextModule,
+        StickyModule,
+        FiltersModule,
+        CategoriesModule,
+        KMCPermissionsModule,
+        DateFormatModule,
+        KCommonModule
+    ],
+    declarations: [
+        EntryStatusPipe,
+        EntryTypePipe,
+        SchedulingComponent,
+        EntryDurationPipe,
+        MaxEntriesPipe,
+        PrimeTableSortTransformPipe,
+        ModerationPipe,
+        EntriesRefineFiltersComponent,
+        EntriesTableComponent,
+        EntriesListComponent,
+        EntriesListTagsComponent,
+        EntriesSelectorComponent,
+        LiveDashboardComponent,
+        LiveDashboardHostComponent,
+        LinkedEntriesComponent,
+        LinkedEntriesTableComponent,
+        LinkedEntriesAddEntriesComponent
+    ],
+    exports: [
+        EntryStatusPipe,
+        EntryTypePipe,
+        ModerationPipe,
+        MaxEntriesPipe,
+        SchedulingComponent,
+        EntryDurationPipe,
+        EntriesRefineFiltersComponent,
+        EntriesTableComponent,
+        EntriesListComponent,
+        EntriesSelectorComponent,
+        LiveDashboardComponent,
+        LiveDashboardHostComponent,
+        LinkedEntriesComponent,
+        LinkedEntriesTableComponent,
+        LinkedEntriesAddEntriesComponent
+    ]
 })
 export class EntriesModule {
     static forRoot(): ModuleWithProviders {
         return {
             ngModule: EntriesModule,
             providers: <any[]>[
-                { provide: EntriesDataProviderToken, useClass: EntriesStoreDataProvider }
+                {provide: EntriesDataProviderToken, useClass: EntriesStoreDataProvider}
             ]
         };
     }

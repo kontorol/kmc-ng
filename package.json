@@ -1,116 +1,117 @@
 {
-  "name": "kmc-ng",
-  "version": "5.24.0",
-  "license": "AGPL-3.0",
-  "private": true,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/kontorol/kmc-ng.git"
-  },
-  "description": "",
-  "keywords": [
-    "kontorol"
-  ],
-  "author": {
-    "name": "Kontorol Community",
-    "email": "community@kontorol.com"
-  },
-  "bugs": {
-    "url": "https://github.com/kontorol/kmc-ng/issues"
-  },
-  "contributors": [
-    {
-      "name": "Eran Sakal",
-      "email": "eran@sakalim.com"
+    "name": "kmc-ng",
+    "version": "5.24.0",
+    "license": "AGPL-3.0",
+    "private": true,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/kontorol/kmc-ng.git"
     },
-    {
-      "name": "Amir Chervinsky",
-      "email": "amir.chr@gmail.com"
+    "description": "",
+    "keywords": [
+        "kontorol"
+    ],
+    "author": {
+        "name": "Kontorol Community",
+        "email": "community@kontorol.com"
+    },
+    "bugs": {
+        "url": "https://github.com/kontorol/kmc-ng/issues"
+    },
+    "contributors": [
+        {
+            "name": "Eran Sakal",
+            "email": "eran@sakalim.com"
+        },
+        {
+            "name": "Amir Chervinsky",
+            "email": "amir.chr@gmail.com"
+        }
+    ],
+    "homepage": "https://github.com/kontorol/kmc-ng#readme",
+    "scripts": {
+        "setup": "node ./scripts/setup.js",
+        "build": "ng build",
+        "build:prod": "node --max_old_space_size=8092 ./node_modules/@angular/cli/bin/ng build --prod",
+        "build:analyze": "node --max_old_space_size=8092 ./node_modules/@angular/cli/bin/ng build --prod--preserve-symlinks --aot --extract-licenses --named-chunks --stats-json && webpack-bundle-analyzer dist/stats.json",
+        "kws": "kws",
+        "lint": "ng lint",
+        "ng": "ng",
+        "prebuild": "node ./scripts/pre-build.js",
+        "prestart": "node ./scripts/pre-build.js",
+        "prebuild:prod": "node ./scripts/pre-build.js",
+        "postbuild:prod": "node ./scripts/post-build-prod.js",
+        "release:prepare": "kws release --publish=false",
+        "release:publish": "kws release --prepare=false",
+        "standalone": "node ./scripts/checkout-standalone.js",
+        "standalone:update": "npm run kws -- bookmark standalone --update && git commit -am 'chore: update standalone commit' && git push",
+        "start": "ng serve",
+        "test": "ng test",
+        "generate:ch": "node ./dev/tools/contextual-help-generator/generate.js"
+    },
+    "dependencies": {
+        "@angular/animations": "~8.2.6",
+        "@angular/cdk": "~8.2.0",
+        "@angular/common": "~8.2.6",
+        "@angular/compiler": "~8.2.6",
+        "@angular/core": "~8.2.6",
+        "@angular/forms": "~8.2.6",
+        "@angular/platform-browser": "~8.2.6",
+        "@angular/platform-browser-dynamic": "~8.2.6",
+        "@angular/router": "~8.2.6",
+        "@kontorol-ng/kontorol-common": "~7.1.4",
+        "@kontorol-ng/kontorol-logger": "~3.1.5",
+        "@kontorol-ng/kontorol-primeng-ui": "~3.3.4",
+        "@kontorol-ng/kontorol-ui": "~7.3.4",
+        "@kontorol-ng/mc-shared": "~5.2.4",
+        "@kontorol-ng/mc-theme": "~3.1.5",
+        "@ngx-translate/core": "~11.0.1",
+        "@ngx-translate/http-loader": "~4.0.0",
+        "ajv": "~6.1.1",
+        "angularx-qrcode": "~1.5.1",
+        "core-js": "^3.2.1",
+        "intl": "^1.2.5",
+        "jquery": "~3.4.1",
+        "jsnlog": "~2.26.2",
+        "kontorol-ngx-client": "file:libs/kontorol-ngx-client-11.4.0-v20200210-132058.tgz",
+        "moment": "^2.24.0",
+        "jalali-moment": "3.3.3",
+        "ngx-page-scroll": "~5.0.1",
+        "ngx-webstorage": "~3.0.2",
+        "normalize.css": "~8.0.1",
+        "primeicons": "~1.0.0",
+        "primeng": "8.0.0",
+        "ramda": "~0.25.0",
+        "rxjs": "~6.5.3",
+        "rxjs-compat": "~6.5.3",
+        "seamless-immutable": "~7.1.4",
+        "ts-md5": "~1.2.4",
+        "tslib": "~1.10.0",
+        "web-animations-js": "^2.3.2",
+        "zone.js": "~0.10.2"
+    },
+    "devDependencies": {
+        "@angular-devkit/build-angular": "~0.803.24",
+        "@angular/cli": "~8.3.4",
+        "@angular/compiler-cli": "~8.2.6",
+        "@angular/language-service": "~8.2.6",
+        "@kontorol-ng/dev-workspace": "~2.4.2",
+        "@types/core-js": "0.9.28",
+        "@types/jquery": "~2.0.53",
+        "@types/node": "~6.0.118",
+        "codelyzer": "^5.0.1",
+        "csvtojson": "~2.0.10",
+        "enhanced-resolve": "~3.3.0",
+        "globby": "~8.0.2",
+        "minimist": "~1.2.0",
+        "node-sass": "~4.13.1",
+        "ts-node": "~4.1.0",
+        "tslint": "~5.9.1",
+        "typescript": "3.4.5",
+        "webpack-bundle-analyzer": "~3.3.2"
+    },
+    "engines": {
+        "node": ">= 8.9.0",
+        "npm": ">= 5.5.1"
     }
-  ],
-  "homepage": "https://github.com/kontorol/kmc-ng#readme",
-  "scripts": {
-    "setup": "node ./scripts/setup.js",
-    "build": "ng build",
-    "build:prod": "node --max_old_space_size=8092 ./node_modules/@angular/cli/bin/ng build --prod",
-    "build:analyze": "node --max_old_space_size=8092 ./node_modules/@angular/cli/bin/ng build --prod--preserve-symlinks --aot --extract-licenses --named-chunks --stats-json && webpack-bundle-analyzer dist/stats.json",
-    "kws": "kws",
-    "lint": "ng lint",
-    "ng": "ng",
-    "prebuild": "node ./scripts/pre-build.js",
-    "prestart": "node ./scripts/pre-build.js",
-    "prebuild:prod": "node ./scripts/pre-build.js",
-    "postbuild:prod": "node ./scripts/post-build-prod.js",
-    "release:prepare": "kws release --publish=false",
-    "release:publish": "kws release --prepare=false",
-    "standalone": "node ./scripts/checkout-standalone.js",
-    "standalone:update": "npm run kws -- bookmark standalone --update && git commit -am 'chore: update standalone commit' && git push",
-    "start": "ng serve",
-    "test": "ng test",
-    "generate:ch": "node ./dev/tools/contextual-help-generator/generate.js"
-  },
-  "dependencies": {
-    "@angular/animations": "~8.2.6",
-    "@angular/cdk": "~8.2.0",
-    "@angular/common": "~8.2.6",
-    "@angular/compiler": "~8.2.6",
-    "@angular/core": "~8.2.6",
-    "@angular/forms": "~8.2.6",
-    "@angular/platform-browser": "~8.2.6",
-    "@angular/platform-browser-dynamic": "~8.2.6",
-    "@angular/router": "~8.2.6",
-    "@kontorol-ng/kontorol-common": "~7.1.4",
-    "@kontorol-ng/kontorol-logger": "~3.1.5",
-    "@kontorol-ng/kontorol-primeng-ui": "~3.3.4",
-    "@kontorol-ng/kontorol-ui": "~7.3.4",
-    "@kontorol-ng/mc-shared": "~5.2.4",
-    "@kontorol-ng/mc-theme": "~3.1.5",
-    "@ngx-translate/core": "~11.0.1",
-    "@ngx-translate/http-loader": "~4.0.0",
-    "ajv": "~6.1.1",
-    "angularx-qrcode": "~1.5.1",
-    "core-js": "^3.2.1",
-    "intl": "^1.2.5",
-    "jquery": "~3.4.1",
-    "jsnlog": "~2.26.2",
-    "kontorol-ngx-client": "file:libs/kontorol-ngx-client-11.4.0-v20200210-132058.tgz",
-    "moment": "~2.22.2",
-    "ngx-page-scroll": "~5.0.1",
-    "ngx-webstorage": "~3.0.2",
-    "normalize.css": "~8.0.1",
-    "primeicons": "~1.0.0",
-    "primeng": "8.0.0",
-    "ramda": "~0.25.0",
-    "rxjs": "~6.5.3",
-    "rxjs-compat": "~6.5.3",
-    "seamless-immutable": "~7.1.4",
-    "ts-md5": "~1.2.4",
-    "tslib": "~1.10.0",
-    "web-animations-js": "^2.3.2",
-    "zone.js": "~0.10.2"
-  },
-  "devDependencies": {
-    "@angular-devkit/build-angular": "~0.803.24",
-    "@angular/cli": "~8.3.4",
-    "@angular/compiler-cli": "~8.2.6",
-    "@angular/language-service": "~8.2.6",
-    "@kontorol-ng/dev-workspace": "~2.4.2",
-    "@types/core-js": "0.9.28",
-    "@types/jquery": "~2.0.53",
-    "@types/node": "~6.0.118",
-    "codelyzer": "^5.0.1",
-    "csvtojson": "~2.0.10",
-    "enhanced-resolve": "~3.3.0",
-    "globby": "~8.0.2",
-    "minimist": "~1.2.0",
-    "node-sass": "~4.13.1",
-    "ts-node": "~4.1.0",
-    "tslint": "~5.9.1",
-    "typescript": "3.4.5",
-    "webpack-bundle-analyzer": "~3.3.2"
-  },
-  "engines": {
-    "node": ">= 8.9.0",
-    "npm": ">= 5.5.1"
-  }
 }

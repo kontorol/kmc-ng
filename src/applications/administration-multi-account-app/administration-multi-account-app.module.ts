@@ -31,7 +31,6 @@ import { DateFormatModule } from 'app-shared/kmc-shared/date-format/date-format.
 import { FiltersModule } from '@kontorol-ng/mc-shared';
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DropdownModule } from 'primeng/dropdown';
@@ -52,7 +51,6 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     AreaBlockerModule,
     AutoCompleteModule,
     ButtonModule,
-    CalendarModule,
     CheckboxModule,
     CommonModule,
     ConfirmDialogModule,

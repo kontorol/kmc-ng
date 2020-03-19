@@ -1,14 +1,15 @@
-import { Component, Input, OnChanges, OnDestroy, OnInit, ViewChild, ViewChildren } from '@angular/core';
-import { AppLocalization } from '@kontorol-ng/mc-shared';
-import { RefinePrimeTree } from '@kontorol-ng/mc-shared';
-import { PopupWidgetComponent } from '@kontorol-ng/kontorol-ui';
-import { RefineGroup } from '../entries-store/entries-refine-filters.service';
-import { cancelOnDestroy } from '@kontorol-ng/kontorol-common';
-import { ScrollToTopContainerComponent } from '@kontorol-ng/kontorol-ui';
-import { EntriesFilters, EntriesStore } from 'app-shared/content-shared/entries/entries-store/entries-store.service';
-import { subApplicationsConfig } from 'config/sub-applications';
-import { Calendar } from 'primeng/calendar';
-import { BrowserService } from 'app-shared/kmc-shell/providers';
+import {Component, Input, OnChanges, OnDestroy, OnInit, ViewChild, ViewChildren} from '@angular/core';
+import {AppLocalization} from '@kontorol-ng/mc-shared';
+import {RefinePrimeTree} from '@kontorol-ng/mc-shared';
+import {PopupWidgetComponent} from '@kontorol-ng/kontorol-ui';
+import {RefineGroup} from '../entries-store/entries-refine-filters.service';
+import {cancelOnDestroy} from '@kontorol-ng/kontorol-common';
+import {ScrollToTopContainerComponent} from '@kontorol-ng/kontorol-ui';
+import {EntriesFilters, EntriesStore} from 'app-shared/content-shared/entries/entries-store/entries-store.service';
+import {subApplicationsConfig} from 'config/sub-applications';
+//import { Calendar } from 'primeng/calendar';
+import {BrowserService} from 'app-shared/kmc-shell/providers';
+import {Calendar} from "app-shared/common/calendar/calendar";
 
 const listOfFilterNames: (keyof EntriesFilters)[] = [
     'createdAt',
@@ -44,65 +45,65 @@ export interface PrimeList {
 }
 
 export interface PrimeListsGroup {
-  label: string;
-  lists: PrimeList[];
+    label: string;
+    lists: PrimeList[];
 }
 
 
 @Component({
-  selector: 'k-entries-refine-filters',
-  templateUrl: './entries-refine-filters.component.html',
-  styleUrls: ['./entries-refine-filters.component.scss']
+    selector: 'k-entries-refine-filters',
+    templateUrl: './entries-refine-filters.component.html',
+    styleUrls: ['./entries-refine-filters.component.scss']
 })
-export class EntriesRefineFiltersComponent implements OnInit,  OnDestroy, OnChanges {
-  @Input() parentPopupWidget: PopupWidgetComponent;
-  @ViewChild(ScrollToTopContainerComponent, { static: true }) _treeContainer: ScrollToTopContainerComponent;
+export class EntriesRefineFiltersComponent implements OnInit, OnDestroy, OnChanges {
+    @Input() parentPopupWidget: PopupWidgetComponent;
+    @ViewChild(ScrollToTopContainerComponent, {static: true}) _treeContainer: ScrollToTopContainerComponent;
     @Input() refineFilters: RefineGroup[];
     @Input() showEnforcedFilters = false;
 
     @Input() enforcedFilters: Partial<EntriesFilters>;
 
-  @ViewChildren(RefinePrimeTree)
-  public _primeTreesActions: RefinePrimeTree[];
+    @ViewChildren(RefinePrimeTree)
+    public _primeTreesActions: RefinePrimeTree[];
 
-    @ViewChild('scheduledfrom', { static: true }) scheduledFrom: Calendar;
-    @ViewChild('scheduledto', { static: true }) scheduledTo: Calendar;
+    @ViewChild('scheduledfrom', {static: true}) scheduledFrom: Calendar;
+    @ViewChild('scheduledto', {static: true}) scheduledTo: Calendar;
 
-  private _primeListsMap: { [key: string]: PrimeList } = {};
+    private _primeListsMap: { [key: string]: PrimeList } = {};
 
-  // properties that are exposed to the template
-  public _primeListsGroups: PrimeListsGroup[] = [];
+    // properties that are exposed to the template
+    public _primeListsGroups: PrimeListsGroup[] = [];
 
-  public _showLoader = true;
-  public _createdFilterError: string = null;
-  public _scheduledAfter: Date;
-  public _scheduledBefore: Date;
-  public _scheduledSelected: boolean;
-  public _scheduledFilterError: string = null;
-  public _createdAtDateRange: string = subApplicationsConfig.shared.datesRange;
-  public _createdAfter: Date;
-  public _createdBefore: Date;
+    public _showLoader = true;
+    public _createdFilterError: string = null;
+    public _scheduledAfter: Date;
+    public _scheduledBefore: Date;
+    public _scheduledSelected: boolean;
+    public _scheduledFilterError: string = null;
+    public _createdAtDateRange: string = subApplicationsConfig.shared.datesRange;
+    public _createdAfter: Date;
+    public _createdBefore: Date;
     public _calendarFormat = this._browserService.getCurrentDateFormat(true);
 
-  constructor(private _entriesStore: EntriesStore,
-              private _browserService: BrowserService,
-              private _appLocalization: AppLocalization) {
-  }
+    constructor(private _entriesStore: EntriesStore,
+                private _browserService: BrowserService,
+                private _appLocalization: AppLocalization) {
+    }
 
-  ngOnInit() {
-      this._registerToFilterStoreDataChanges();
-      this._handleFiltersChange();
-  }
+    ngOnInit() {
+        this._registerToFilterStoreDataChanges();
+        this._handleFiltersChange();
+    }
 
-  ngOnChanges(changes) {
-      if (typeof changes.filters !== 'undefined') {
-          this._handleFiltersChange();
-      }
-  }
+    ngOnChanges(changes) {
+        if (typeof changes.filters !== 'undefined') {
+            this._handleFiltersChange();
+        }
+    }
 
-  ngOnDestroy() {
+    ngOnDestroy() {
 
-  }
+    }
 
 
     private _restoreFiltersState(): void {
@@ -112,93 +113,91 @@ export class EntriesRefineFiltersComponent implements OnInit,  OnDestroy, OnChan
         this._fixPrimeTreePropagation();
     }
 
-  private _updateComponentState(updates: Partial<EntriesFilters>): void {
-      if (!this.refineFilters) {
-          return;
-      }
+    private _updateComponentState(updates: Partial<EntriesFilters>): void {
+        if (!this.refineFilters) {
+            return;
+        }
 
-      if (typeof updates.createdAt  !== 'undefined') {
-          this._createdAfter = updates.createdAt.fromDate || null;
-          this._createdBefore = updates.createdAt.toDate || null;
-          this._createdFilterError = null;
-      }
+        if (typeof updates.createdAt !== 'undefined') {
+            this._createdAfter = updates.createdAt.fromDate || null;
+            this._createdBefore = updates.createdAt.toDate || null;
+            this._createdFilterError = null;
+        }
 
-      if (typeof updates.scheduledAt  !== 'undefined') {
-          this._scheduledAfter = updates.scheduledAt.fromDate || null;
-          this._scheduledBefore = updates.scheduledAt.toDate || null;
-      }
+        if (typeof updates.scheduledAt !== 'undefined') {
+            this._scheduledAfter = updates.scheduledAt.fromDate || null;
+            this._scheduledBefore = updates.scheduledAt.toDate || null;
+        }
 
-      const customMetadataFilter = updates['customMetadata'];
-      const shouldClearCustomMetadata = customMetadataFilter ? Object.keys(customMetadataFilter).length === 0 : false;
-      let updatedPrimeTreeSelections = false;
+        const customMetadataFilter = updates['customMetadata'];
+        const shouldClearCustomMetadata = customMetadataFilter ? Object.keys(customMetadataFilter).length === 0 : false;
+        let updatedPrimeTreeSelections = false;
 
-      Object.keys(this._primeListsMap).forEach(listName => {
-          const listData = this._primeListsMap[listName];
-          let listFilter: any[];
-          if (listData.group === 'customMetadata') {
-              if (shouldClearCustomMetadata) {
-                  listFilter = [];
-              } else {
-                  listFilter = customMetadataFilter ? customMetadataFilter[listName] : undefined; // important: must set 'undefined' and not null because null is valid value
-              }
-          }else
-          {
-              listFilter = updates[listName] ;
-          }
+        Object.keys(this._primeListsMap).forEach(listName => {
+            const listData = this._primeListsMap[listName];
+            let listFilter: any[];
+            if (listData.group === 'customMetadata') {
+                if (shouldClearCustomMetadata) {
+                    listFilter = [];
+                } else {
+                    listFilter = customMetadataFilter ? customMetadataFilter[listName] : undefined; // important: must set 'undefined' and not null because null is valid value
+                }
+            } else {
+                listFilter = updates[listName];
+            }
 
-          if (Array.isArray(listFilter) || listFilter === null) {
-              // important: the above condition doesn't filter out 'null' because 'null' is valid value.
+            if (Array.isArray(listFilter) || listFilter === null) {
+                // important: the above condition doesn't filter out 'null' because 'null' is valid value.
 
-              const listSelectionsMap = this._entriesStore.filtersUtils.toMap(listData.selections, 'value');
-              const listFilterMap = this._entriesStore.filtersUtils.toMap(listFilter, null);
-              const diff = this._entriesStore.filtersUtils.getDiff(listSelectionsMap, listFilterMap );
+                const listSelectionsMap = this._entriesStore.filtersUtils.toMap(listData.selections, 'value');
+                const listFilterMap = this._entriesStore.filtersUtils.toMap(listFilter, null);
+                const diff = this._entriesStore.filtersUtils.getDiff(listSelectionsMap, listFilterMap);
 
-              diff.added.forEach(addedItem => {
-                  const listItems = listData.items.length > 0 ? listData.items[0].children : [];
-                  const matchingItem = listItems.find(item => item.value === addedItem);
-                  if (!matchingItem) {
-                      console.warn(`[entries-refine-filters]: failed to sync filter for '${listName}'`);
-                  } else {
-                      updatedPrimeTreeSelections = true;
-                      listData.selections.push(matchingItem);
-                  }
-              });
+                diff.added.forEach(addedItem => {
+                    const listItems = listData.items.length > 0 ? listData.items[0].children : [];
+                    const matchingItem = listItems.find(item => item.value === addedItem);
+                    if (!matchingItem) {
+                        console.warn(`[entries-refine-filters]: failed to sync filter for '${listName}'`);
+                    } else {
+                        updatedPrimeTreeSelections = true;
+                        listData.selections.push(matchingItem);
+                    }
+                });
 
-              diff.deleted.forEach(removedItem => {
+                diff.deleted.forEach(removedItem => {
 
-                  if (removedItem.value !== null && typeof removedItem.value !== 'undefined') {
-                      // ignore root items (they are managed by the component tree)
-                      listData.selections.splice(
-                          listData.selections.indexOf(removedItem),
-                          1
-                      );
-                      updatedPrimeTreeSelections = true;
-                  }
-              });
-          }
+                    if (removedItem.value !== null && typeof removedItem.value !== 'undefined') {
+                        // ignore root items (they are managed by the component tree)
+                        listData.selections.splice(
+                            listData.selections.indexOf(removedItem),
+                            1
+                        );
+                        updatedPrimeTreeSelections = true;
+                    }
+                });
+            }
 
-          if (listName === 'youtubeVideo') {
-              this._syncYoutubeVideoMode(listData);
-          }
+            if (listName === 'youtubeVideo') {
+                this._syncYoutubeVideoMode(listData);
+            }
 
-          if (listName === 'videoQuiz') {
-              this._syncVideoQuizMode(listData);
-          }
+            if (listName === 'videoQuiz') {
+                this._syncVideoQuizMode(listData);
+            }
 
-          if (listName === 'videoCaptions') {
-              this._syncVideoCaptionsMode(listData);
-          }
+            if (listName === 'videoCaptions') {
+                this._syncVideoCaptionsMode(listData);
+            }
 
-          if (listName === 'timeScheduling') {
-              this._syncScheduleDatesMode();
-          }
-      });
+            if (listName === 'timeScheduling') {
+                this._syncScheduleDatesMode();
+            }
+        });
 
-      if (updatedPrimeTreeSelections)
-      {
-          this._fixPrimeTreePropagation();
-      }
-  }
+        if (updatedPrimeTreeSelections) {
+            this._fixPrimeTreePropagation();
+        }
+    }
 
     /**
      * Close calendar overlay
@@ -213,7 +212,7 @@ export class EntriesRefineFiltersComponent implements OnInit,  OnDestroy, OnChan
         }
     }
 
-  private _registerToFilterStoreDataChanges(): void {
+    private _registerToFilterStoreDataChanges(): void {
         this._entriesStore.filtersChange$
             .pipe(cancelOnDestroy(this))
             .subscribe(
@@ -232,7 +231,7 @@ export class EntriesRefineFiltersComponent implements OnInit,  OnDestroy, OnChan
         const videoQuiz = this._entriesStore.cloneFilter('videoQuiz', false);
         listData.selections = videoQuiz ? [listData.items[0]] : [];
     }
-    
+
     private _syncVideoCaptionsMode(listData: PrimeList): void {
         const videoCaptions = this._entriesStore.cloneFilter('videoCaptions', false);
         listData.selections = videoCaptions ? [listData.items[0]] : [];
@@ -259,14 +258,10 @@ export class EntriesRefineFiltersComponent implements OnInit,  OnDestroy, OnChan
         }
     }
 
-    private _fixPrimeTreePropagation()
-    {
-        setTimeout(() =>
-        {
-            if (this._primeTreesActions)
-            {
-                this._primeTreesActions.forEach(item =>
-                {
+    private _fixPrimeTreePropagation() {
+        setTimeout(() => {
+            if (this._primeTreesActions) {
+                this._primeTreesActions.forEach(item => {
                     item.fixPropagation();
                 });
             }
@@ -317,223 +312,221 @@ export class EntriesRefineFiltersComponent implements OnInit,  OnDestroy, OnChan
     }
 
 
-
-  /**
-   * Clear content of created components and sync filters accordingly.
-   *
-   * Not part of the API, don't use it from outside this component
-   */
-  public _clearCreatedComponents(): void {
-      this._createdFilterError = "";
-      this._entriesStore.filter({
-          createdAt: {
-              fromDate: null,
-              toDate: null
-          }
-      });
-  }
-
-  /**
-   * Clear all content components and sync filters accordingly.
-   *
-   * Not part of the API, don't use it from outside this component
-   */
-  public _clearAllComponents(): void {
-      this._closeCalendar(this.scheduledFrom);
-      this._closeCalendar(this.scheduledTo);
-      this._entriesStore.resetFilters(listOfFilterNames);
-
-      if (this.enforcedFilters) {
-          this._entriesStore.filter(this.enforcedFilters);
-      }
-  }
-
-  public _onCreatedChanged(): void {
-      const updateResult = this._entriesStore.filter({
-          createdAt: {
-              fromDate: this._createdAfter,
-              toDate: this._createdBefore
-          }
-      });
-
-      if (updateResult.createdAt && updateResult.createdAt.failed) {
-          this._createdFilterError = this._appLocalization.get('applications.content.entryDetails.errors.datesRangeError');
-
-          setTimeout(() => {
-              const createdAt = this._entriesStore.cloneFilter('createdAt', null);
-              this._createdAfter = createdAt ? createdAt.fromDate : null;
-              this._createdBefore = createdAt ? createdAt.toDate : null;
-
-          }, 0);
-      } else {
-          this._createdFilterError = null;
-      }
-  }
-
-  /**
-   * Create or update scheduled components filter once the component data was changed by the user
-   *
-   * Not part of the API, don't use it from outside this component
-   */
-  public _onSchedulingChanged(calendarRef: Calendar): void {
-      const updateResult = this._entriesStore.filter({
-          scheduledAt: {
-              fromDate: this._scheduledAfter,
-              toDate: this._scheduledBefore
-          }
-      });
-
-      if (updateResult.scheduledAt && updateResult.scheduledAt.failed) {
-          this._scheduledFilterError = this._appLocalization.get('applications.content.entryDetails.errors.datesRangeError');
-
-          setTimeout(() => {
-              const scheduledAt = this._entriesStore.cloneFilter('scheduledAt', null);
-              this._scheduledAfter = scheduledAt ? scheduledAt.fromDate : null;
-              this._scheduledBefore = scheduledAt ? scheduledAt.toDate : null;
-
-          }, 0);
-      } else {
-          this._scheduledFilterError = null;
-      }
-
-      this._closeCalendar(calendarRef);
-  }
-
-  public _onTreeNodeSelect({ node }: { node: PrimeListItem }) {
-      // find group data by filter name
-      if (node.listName) {
-          const listData = this._primeListsMap[node.listName];
-          if (listData) {
-
-              // DEVELOPER NOTICE: there is a complexity caused since 'customMetadata' holds dynamic lists
-              let newFilterItems: string[];
-              let newFilterValue;
-              let newFilterName: string;
-
-              if (listData.group === 'customMetadata')
-              {
-                  newFilterValue = this._entriesStore.cloneFilter('customMetadata', {});
-                  newFilterItems = newFilterValue[node.listName] = newFilterValue[node.listName] || [];
-                  newFilterName = 'customMetadata';
-              } else {
-                  if (node.listName === 'videoQuiz' || node.listName === 'videoCaptions') {
-                      newFilterValue = newFilterItems = this._entriesStore.cloneFilter(<any>node.listName, false);
-                  } else {
-                      newFilterValue = newFilterItems = this._entriesStore.cloneFilter(<any>node.listName, []);
-                  }
-                  newFilterName = node.listName;
-              }
-
-              const selectedNodes = node.children && node.children.length ? [node, ...node.children] : [node];
-
-              selectedNodes
-                  .filter(selectedNode => {
-                      // ignore root items (they are managed by the component tree)
-                      return selectedNode.value !== null && typeof selectedNode.value !== 'undefined';
-                  })
-                  .forEach(selectedNode => {
-                      if (Array.isArray(newFilterItems)) {
-                          if (!newFilterItems.find(item => item === selectedNode.value)) {
-                              newFilterItems.push(selectedNode.value);
-                          }
-                      } else {
-                          newFilterValue = selectedNode.value;
-                      }
-
-                  });
-              this._entriesStore.filter({[newFilterName]: newFilterValue});
-          }
-      }
-  }
-
-  public _onTreeNodeUnselect({ node }: { node: PrimeListItem }) {
-      // find group data by filter name
-      if (node.listName) {
-
-          const listData = this._primeListsMap[node.listName];
-          if (listData) {
-
-              // DEVELOPER NOTICE: there is a complexity caused since 'customMetadata' holds dynamic lists
-              let newFilterItems: any[];
-              let newFilterValue;
-              let newFilterName: string;
-
-              // get existing filters by filter name
-              if (listData.group === 'customMetadata') {
-                  newFilterValue = this._entriesStore.cloneFilter('customMetadata', {});
-                  newFilterItems = newFilterValue[node.listName] = newFilterValue[node.listName] || [];
-                  newFilterName = 'customMetadata';
-              } else {
-                  newFilterValue = newFilterItems = this._entriesStore.cloneFilter(<any>node.listName, []);
-                  newFilterName = node.listName;
-              }
-
-              const selectedNodes = node.children && node.children.length ? [node, ...node.children] : [node];
-
-              selectedNodes
-                  .filter(selectedNode => {
-                      // ignore root items (they are managed by the component tree)
-                      return selectedNode.value !== null && typeof selectedNode.value !== 'undefined';
-                  })
-                  .forEach(selectedNode => {
-                      if (Array.isArray(newFilterItems)) {
-                          const itemIndex = newFilterItems.findIndex(item => item === selectedNode.value);
-                          if (itemIndex > -1) {
-                              newFilterItems.splice(itemIndex, 1);
-
-                              if (node.listName === 'timeScheduling' && selectedNode.value === 'scheduled') {
-                                  this._closeCalendar(this.scheduledFrom);
-                                  this._closeCalendar(this.scheduledTo);
-                                  this._entriesStore.filter({
-                                      scheduledAt: {
-                                          fromDate: null,
-                                          toDate: null
-                                      }
-                                  });
-                              }
-                          }
-                      } else {
-                          if (node.listName === 'videoQuiz' || node.listName === 'youtubeVideo' || node.listName === 'videoCaptions') {
-                              newFilterValue = false;
-                          } else {
-                              newFilterValue = null;
-                          }
-                      }
-                  });
-
-              this._entriesStore.filter({[newFilterName]: newFilterValue});
-          }
-      }
-  }
-
-  /**
-   * Stop propagating clicks of the provided event.
-   *
-   * Not part of the API, don't use it from outside this component
-   */
-  public _blockScheduleToggle(event) {
-    event.stopPropagation();
-  }
-
-  /**
-   * Invoke a request to the popup widget container to close the popup widget.
-   *
-   * Not part of the API, don't use it from outside this component
-   */
-  public _close() {
-    if (this.parentPopupWidget) {
-      this.parentPopupWidget.close();
+    /**
+     * Clear content of created components and sync filters accordingly.
+     *
+     * Not part of the API, don't use it from outside this component
+     */
+    public _clearCreatedComponents(): void {
+        this._createdFilterError = "";
+        this._entriesStore.filter({
+            createdAt: {
+                fromDate: null,
+                toDate: null
+            }
+        });
     }
-  }
 
     /**
-    * Fixed calendar closing issue originated by {@link _blockScheduleToggle}
-    * Not part of the API, don't use it from outside this component
-    *
-    * @param {FocusEvent} event
-    * @param {Calendar} calendar
-    * @private
-    */
+     * Clear all content components and sync filters accordingly.
+     *
+     * Not part of the API, don't use it from outside this component
+     */
+    public _clearAllComponents(): void {
+        this._closeCalendar(this.scheduledFrom);
+        this._closeCalendar(this.scheduledTo);
+        this._entriesStore.resetFilters(listOfFilterNames);
+
+        if (this.enforcedFilters) {
+            this._entriesStore.filter(this.enforcedFilters);
+        }
+    }
+
+    public _onCreatedChanged(): void {
+        const updateResult = this._entriesStore.filter({
+            createdAt: {
+                fromDate: this._createdAfter,
+                toDate: this._createdBefore
+            }
+        });
+
+        if (updateResult.createdAt && updateResult.createdAt.failed) {
+            this._createdFilterError = this._appLocalization.get('applications.content.entryDetails.errors.datesRangeError');
+
+            setTimeout(() => {
+                const createdAt = this._entriesStore.cloneFilter('createdAt', null);
+                this._createdAfter = createdAt ? createdAt.fromDate : null;
+                this._createdBefore = createdAt ? createdAt.toDate : null;
+
+            }, 0);
+        } else {
+            this._createdFilterError = null;
+        }
+    }
+
+    /**
+     * Create or update scheduled components filter once the component data was changed by the user
+     *
+     * Not part of the API, don't use it from outside this component
+     */
+    public _onSchedulingChanged(calendarRef: Calendar): void {
+        const updateResult = this._entriesStore.filter({
+            scheduledAt: {
+                fromDate: this._scheduledAfter,
+                toDate: this._scheduledBefore
+            }
+        });
+
+        if (updateResult.scheduledAt && updateResult.scheduledAt.failed) {
+            this._scheduledFilterError = this._appLocalization.get('applications.content.entryDetails.errors.datesRangeError');
+
+            setTimeout(() => {
+                const scheduledAt = this._entriesStore.cloneFilter('scheduledAt', null);
+                this._scheduledAfter = scheduledAt ? scheduledAt.fromDate : null;
+                this._scheduledBefore = scheduledAt ? scheduledAt.toDate : null;
+
+            }, 0);
+        } else {
+            this._scheduledFilterError = null;
+        }
+
+        this._closeCalendar(calendarRef);
+    }
+
+    public _onTreeNodeSelect({node}: { node: PrimeListItem }) {
+        // find group data by filter name
+        if (node.listName) {
+            const listData = this._primeListsMap[node.listName];
+            if (listData) {
+
+                // DEVELOPER NOTICE: there is a complexity caused since 'customMetadata' holds dynamic lists
+                let newFilterItems: string[];
+                let newFilterValue;
+                let newFilterName: string;
+
+                if (listData.group === 'customMetadata') {
+                    newFilterValue = this._entriesStore.cloneFilter('customMetadata', {});
+                    newFilterItems = newFilterValue[node.listName] = newFilterValue[node.listName] || [];
+                    newFilterName = 'customMetadata';
+                } else {
+                    if (node.listName === 'videoQuiz' || node.listName === 'videoCaptions') {
+                        newFilterValue = newFilterItems = this._entriesStore.cloneFilter(<any>node.listName, false);
+                    } else {
+                        newFilterValue = newFilterItems = this._entriesStore.cloneFilter(<any>node.listName, []);
+                    }
+                    newFilterName = node.listName;
+                }
+
+                const selectedNodes = node.children && node.children.length ? [node, ...node.children] : [node];
+
+                selectedNodes
+                    .filter(selectedNode => {
+                        // ignore root items (they are managed by the component tree)
+                        return selectedNode.value !== null && typeof selectedNode.value !== 'undefined';
+                    })
+                    .forEach(selectedNode => {
+                        if (Array.isArray(newFilterItems)) {
+                            if (!newFilterItems.find(item => item === selectedNode.value)) {
+                                newFilterItems.push(selectedNode.value);
+                            }
+                        } else {
+                            newFilterValue = selectedNode.value;
+                        }
+
+                    });
+                this._entriesStore.filter({[newFilterName]: newFilterValue});
+            }
+        }
+    }
+
+    public _onTreeNodeUnselect({node}: { node: PrimeListItem }) {
+        // find group data by filter name
+        if (node.listName) {
+
+            const listData = this._primeListsMap[node.listName];
+            if (listData) {
+
+                // DEVELOPER NOTICE: there is a complexity caused since 'customMetadata' holds dynamic lists
+                let newFilterItems: any[];
+                let newFilterValue;
+                let newFilterName: string;
+
+                // get existing filters by filter name
+                if (listData.group === 'customMetadata') {
+                    newFilterValue = this._entriesStore.cloneFilter('customMetadata', {});
+                    newFilterItems = newFilterValue[node.listName] = newFilterValue[node.listName] || [];
+                    newFilterName = 'customMetadata';
+                } else {
+                    newFilterValue = newFilterItems = this._entriesStore.cloneFilter(<any>node.listName, []);
+                    newFilterName = node.listName;
+                }
+
+                const selectedNodes = node.children && node.children.length ? [node, ...node.children] : [node];
+
+                selectedNodes
+                    .filter(selectedNode => {
+                        // ignore root items (they are managed by the component tree)
+                        return selectedNode.value !== null && typeof selectedNode.value !== 'undefined';
+                    })
+                    .forEach(selectedNode => {
+                        if (Array.isArray(newFilterItems)) {
+                            const itemIndex = newFilterItems.findIndex(item => item === selectedNode.value);
+                            if (itemIndex > -1) {
+                                newFilterItems.splice(itemIndex, 1);
+
+                                if (node.listName === 'timeScheduling' && selectedNode.value === 'scheduled') {
+                                    this._closeCalendar(this.scheduledFrom);
+                                    this._closeCalendar(this.scheduledTo);
+                                    this._entriesStore.filter({
+                                        scheduledAt: {
+                                            fromDate: null,
+                                            toDate: null
+                                        }
+                                    });
+                                }
+                            }
+                        } else {
+                            if (node.listName === 'videoQuiz' || node.listName === 'youtubeVideo' || node.listName === 'videoCaptions') {
+                                newFilterValue = false;
+                            } else {
+                                newFilterValue = null;
+                            }
+                        }
+                    });
+
+                this._entriesStore.filter({[newFilterName]: newFilterValue});
+            }
+        }
+    }
+
+    /**
+     * Stop propagating clicks of the provided event.
+     *
+     * Not part of the API, don't use it from outside this component
+     */
+    public _blockScheduleToggle(event) {
+        event.stopPropagation();
+    }
+
+    /**
+     * Invoke a request to the popup widget container to close the popup widget.
+     *
+     * Not part of the API, don't use it from outside this component
+     */
+    public _close() {
+        if (this.parentPopupWidget) {
+            this.parentPopupWidget.close();
+        }
+    }
+
+    /**
+     * Fixed calendar closing issue originated by {@link _blockScheduleToggle}
+     * Not part of the API, don't use it from outside this component
+     *
+     * @param {FocusEvent} event
+     * @param {Calendar} calendar
+     * @private
+     */
     public _fixCalendarBlurPropagation(event: FocusEvent, calendar: Calendar): void {
         const findByClassName = (element, className) => {
             return element && element.classList

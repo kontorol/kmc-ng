@@ -28,7 +28,6 @@ import { KMCPermissionsModule } from 'app-shared/kmc-shared/kmc-permissions';
 import { DateFormatModule } from 'app-shared/kmc-shared/date-format/date-format.module';
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DropdownModule } from 'primeng/dropdown';
@@ -49,7 +48,6 @@ import { InputSwitchModule } from 'primeng/inputswitch';
     AreaBlockerModule,
     AutoCompleteModule,
     ButtonModule,
-    CalendarModule,
     CheckboxModule,
     CommonModule,
     ConfirmDialogModule,

@@ -1,6 +1,7 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 import * as moment from 'moment';
-import { BrowserService } from 'app-shared/kmc-shell/providers';
+import {BrowserService} from 'app-shared/kmc-shell/providers';
+import {DateUtil} from "app-shared/common/calendar/custom-moment";
 
 @Pipe({
     name: 'kmcDate'
@@ -15,16 +16,15 @@ export class DatePipe implements PipeTransform {
             if (!format) {
                 format = 'dateAndTime';
             }
-
             switch (format) {
                 case 'dateOnly':
-                    format = this._browserService.getCurrentDateFormat();
+                    format = this._browserService.getCurrentDateFormat(false,true);
                     break;
                 case 'timeOnly':
                     format = 'HH:mm';
                     break;
                 case 'dateAndTime':
-                    format = `${this._browserService.getCurrentDateFormat()} HH:mm`;
+                    format = `${this._browserService.getCurrentDateFormat(false,true)} HH:mm`;
                     break;
                 case 'longDateOnly':
                     format = 'MMMM D, YYYY';
@@ -34,7 +34,9 @@ export class DatePipe implements PipeTransform {
             }
 
 
-            return moment(date).format(format);
+            let dateUtil = new DateUtil(date / 1000);
+          //  dateUtil.setJalali(this._browserService.getFromLocalStorage('kmc_lang') === 'fa');
+            return dateUtil.format(format);
         } else {
             return '';
         }

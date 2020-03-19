@@ -5,471 +5,474 @@ $mc-theme-font-path: '~@kontorol-ng/mc-theme/themes/default/fonts';
 
 $spinner-circle-radius: 4px;
 $spinner-colors: rgb(218, 31, 38), rgb(6, 168, 133), rgb(0, 147, 68), rgb(248, 166, 26), rgb(27, 74, 151), rgb(0, 171, 204), rgb(177, 210, 56), rgb(252, 210, 3);
-
-@keyframes kontorol-spinner {
-    0% {
-        transform: rotate(0deg) scale(0.7);
-        opacity: 1;
-    }
-    70% {
-        transform: rotate(360deg) scale(0.7);
-        opacity: 1;
-    }
-    82% {
-        transform: rotate(360deg) scale(0);
-        opacity: 0;
-    }
-    87% {
-        transform: rotate(360deg) scale(0.9);
-        opacity: 1;
-    }
-    100% {
-        transform: rotate(360deg) scale(0.7);
-        opacity: 1;
-    }
-}
-
-.loading-backdrop {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(255, 255, 255, 0.3);
-
-    .spinner-container {
-        display: block;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate3d(-50px, -50px, 0);
-    }
-}
-
-.spinner {
-    width: 100px;
-    height: 100px;
-    position: relative;
-    animation: kontorol-spinner 2.5s infinite;
-
-    span {
-        width: $spinner-circle-radius * 2;
-        height: $spinner-circle-radius * 2;
-        background-color: #fff;
-        display: block;
-        border-radius: $spinner-circle-radius * 2;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        margin-top: -$spinner-circle-radius;
-        margin-left: -$spinner-circle-radius;
-
-        @for $n from 1 through 8 {
-            &:nth-child(#{$n}) {
-                transform: rotate($n * 45deg) translateX(-25px) translateY(-25px);
-                background-color: nth($spinner-colors, $n);
-            }
+.ltr-theme {
+    direction: ltr;
+    @keyframes kontorol-spinner {
+        0% {
+            transform: rotate(0deg) scale(0.7);
+            opacity: 1;
+        }
+        70% {
+            transform: rotate(360deg) scale(0.7);
+            opacity: 1;
+        }
+        82% {
+            transform: rotate(360deg) scale(0);
+            opacity: 0;
+        }
+        87% {
+            transform: rotate(360deg) scale(0.9);
+            opacity: 1;
+        }
+        100% {
+            transform: rotate(360deg) scale(0.7);
+            opacity: 1;
         }
     }
-}
 
-.kModal {
-    overflow: hidden;
-
-    .appMenu {
-        z-index: 501 !important;
-    }
-}
-
-.kmcDetailsLayout {
-    font-size: 15px;
-    background-color: $appBkgColor;
-    padding-top: 20px;
-    width: 100%;
-    min-height: calc(100vh - 125px);
-
-    button {
-        cursor: pointer;
-    }
-
-    .kDetailsWrapper {
-        display: flex;
-        flex-direction: column;
+    .loading-backdrop {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
         height: 100%;
+        background-color: rgba(255, 255, 255, 0.3);
 
-        .kDetailsHeader {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            flex: 0 0 auto;
+        .spinner-container {
+            display: block;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate3d(-50px, -50px, 0);
+        }
+    }
 
-            .kBackBtn {
-                margin-top: 4px;
-                margin-left: -46px;
-                margin-right: 28px;
-                border: none;
-                outline: none;
-                background-color: transparent;
-                color: $kGrayscale3;
-                height: 20px;
-                width: 18px;
-                font-size: 24px;
+    .spinner {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        animation: kontorol-spinner 2.5s infinite;
 
-                &:active {
-                    box-shadow: none;
+        span {
+            width: $spinner-circle-radius * 2;
+            height: $spinner-circle-radius * 2;
+            background-color: #fff;
+            display: block;
+            border-radius: $spinner-circle-radius * 2;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            margin-top: -$spinner-circle-radius;
+            margin-left: -$spinner-circle-radius;
+
+            @for $n from 1 through 8 {
+                &:nth-child(#{$n}) {
+                    transform: rotate($n * 45deg) translateX(-25px) translateY(-25px);
+                    background-color: nth($spinner-colors, $n);
                 }
-
-                &:hover {
-                    color: $kPrimary;
-                }
-            }
-
-            .kTypeIcon {
-                width: 24px;
-                height: 24px;
-                margin-top: 2px;
-                font-size: 24px;
-                color: $kGrayscale3;
-            }
-
-            .kTitle {
-                color: $kGrayscale1;
-                font-size: 24px;
-                font-weight: 700;
-                margin-right: 40px;
-                white-space: nowrap;
-                overflow: hidden;
-                text-overflow: ellipsis;
-            }
-
-            .kSaveBtn {
-                margin-left: auto;
-                width: 100px;
-                margin-right: 24px;
-            }
-
-            .kNavigationBtn {
-                font-size: 24px;
-                margin-left: auto;
-                width: 40px;
-                margin-left: 0px;
-                margin-right: 0px;
-            }
-
-            .kNavigationBtnLeft {
-                @extend .kNavigationBtn;
-                border-right: none;
-                border-bottom-right-radius: 0px;
-                border-top-right-radius: 0px;
-            }
-
-            .kNavigationBtnRight {
-                @extend .kNavigationBtn;
-                border-bottom-left-radius: 0px;
-                border-top-left-radius: 0px;
             }
         }
+    }
 
-        .kHeaderDetails {
-            width: 100%;
-            height: 54px;
-            padding-top: 12px;
-            box-sizing: border-box;
-            flex: 0 0 auto;
+    .kModal {
+        overflow: hidden;
+
+        .appMenu {
+            z-index: 501 !important;
+        }
+    }
+
+    .kmcDetailsLayout {
+        font-size: 15px;
+        background-color: $appBkgColor;
+        padding-top: 20px;
+        width: 100%;
+        min-height: calc(100vh - 125px);
+
+        button {
+            cursor: pointer;
         }
 
-        .kDetailsMain {
+        .kDetailsWrapper {
             display: flex;
-            flex-direction: row;
+            flex-direction: column;
             height: 100%;
-            min-height: 0;
 
-            .kSections {
+            .kDetailsHeader {
                 display: flex;
-                flex-direction: column;
-                overflow-y: hidden;
-                overflow-x: hidden;
-                width: 280px;
+                flex-direction: row;
+                align-items: center;
                 flex: 0 0 auto;
 
-                ul {
-                    list-style-type: none;
-                    padding-left: 0;
-                    width: 100%;
+                .kBackBtn {
+                    margin-top: 4px;
+                    margin-left: -46px;
+                    margin-right: 28px;
+                    border: none;
+                    outline: none;
+                    background-color: transparent;
+                    color: $kGrayscale3;
+                    height: 20px;
+                    width: 18px;
+                    font-size: 24px;
 
-                    li {
-                        line-height: 44px;
-                        cursor: pointer;
-                        color: $kGrayscale3;
-                        font-weight: 700;
-                        padding-left: 24px;
+                    &:active {
+                        box-shadow: none;
+                    }
 
-                        &:hover {
-                            background-color: $kGrayscale7;
-                        }
-
-                        &.active {
-                            color: $kTertiary;
-                            cursor: default;
-                        }
+                    &:hover {
+                        color: $kPrimary;
                     }
                 }
 
-                .kSectionHasErrors::before {
-                    font-family: 'kmcng-icon-pack';
-                    content: '\e922';
-                    color: $kDandger;
-                    margin-right: 8px;
-                    font-size: 10px;
+                .kTypeIcon {
+                    width: 24px;
+                    height: 24px;
+                    margin-top: 2px;
+                    font-size: 24px;
+                    color: $kGrayscale3;
                 }
 
-                .kPreview {
+                .kTitle {
+                    color: $kGrayscale1;
+                    font-size: 24px;
+                    font-weight: 700;
+                    margin-right: 40px;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                }
+
+                .kSaveBtn {
+                    margin-left: auto;
+                    width: 100px;
+                    margin-right: 24px;
+                }
+
+                .kNavigationBtn {
+                    font-size: 24px;
+                    margin-left: auto;
+                    width: 40px;
+                    margin-left: 0px;
+                    margin-right: 0px;
+                }
+
+                .kNavigationBtnLeft {
+                    @extend .kNavigationBtn;
+                    border-right: none;
+                    border-bottom-right-radius: 0px;
+                    border-top-right-radius: 0px;
+                }
+
+                .kNavigationBtnRight {
+                    @extend .kNavigationBtn;
+                    border-bottom-left-radius: 0px;
+                    border-top-left-radius: 0px;
+                }
+            }
+
+            .kHeaderDetails {
+                width: 100%;
+                height: 54px;
+                padding-top: 12px;
+                box-sizing: border-box;
+                flex: 0 0 auto;
+            }
+
+            .kDetailsMain {
+                display: flex;
+                flex-direction: row;
+                height: 100%;
+                min-height: 0;
+
+                .kSections {
+                    display: flex;
+                    flex-direction: column;
+                    overflow-y: hidden;
+                    overflow-x: hidden;
                     width: 280px;
-                    background-color: #ffffff;
-                    margin-bottom: 20px;
                     flex: 0 0 auto;
+
+                    ul {
+                        list-style-type: none;
+                        padding-left: 0;
+                        width: 100%;
+
+                        li {
+                            line-height: 44px;
+                            cursor: pointer;
+                            color: $kGrayscale3;
+                            font-weight: 700;
+                            padding-left: 24px;
+
+                            &:hover {
+                                background-color: $kGrayscale7;
+                            }
+
+                            &.active {
+                                color: $kTertiary;
+                                cursor: default;
+                            }
+                        }
+                    }
+
+                    .kSectionHasErrors::before {
+                        font-family: 'kmcng-icon-pack';
+                        content: '\e922';
+                        color: $kDandger;
+                        margin-right: 8px;
+                        font-size: 10px;
+                    }
+
+                    .kPreview {
+                        width: 280px;
+                        background-color: #ffffff;
+                        margin-bottom: 20px;
+                        flex: 0 0 auto;
+                        border: 0px solid #ffffff;
+                        border-radius: 3px;
+                    }
+                }
+
+                .kDetailsContent {
+                    width: 100%;
+                    height: 100%;
+                    background-color: #ffffff;
                     border: 0px solid #ffffff;
                     border-radius: 3px;
+                    flex: 1 1 auto;
+                    margin-left: 28px;
                 }
             }
+        }
 
-            .kDetailsContent {
-                width: 100%;
-                height: 100%;
-                background-color: #ffffff;
-                border: 0px solid #ffffff;
-                border-radius: 3px;
-                flex: 1 1 auto;
-                margin-left: 28px;
-            }
+        .kSpacer {
+            display: block;
+            height: 40px;
         }
     }
 
-    .kSpacer {
-        display: block;
-        height: 40px;
-    }
-}
-
-.kForceFix {
-    position: fixed !important;
-    margin-top: 0px !important;
-}
-
-.kLocked {
-    opacity: 0.5;
-    pointer-events: none;
-}
-
-.kNotification {
-    height: 66px;
-    background-color: $kGrayscale4;
-    color: black;
-    border-radius: 3px;
-    font-size: 15px;
-    padding: 12px;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-}
-
-.kHidden {
-    visibility: hidden;
-    width: 0 !important;
-    height: 0 !important;
-    padding: 0 !important;
-}
-
-.kMoreActionsButton {
-    color: $kGrayscale3 !important;
-    background-color: rgba(0, 0, 0, 0) !important;
-    border: none !important;
-    font-size: 24px !important;
-    outline: 0;
-
-    &:active, &:hover {
-        color: $kGrayscale1 !important;
-    }
-}
-
-.kDisabledLink {
-    color: $kGrayscale5;
-    pointer-events: none;
-    cursor: not-allowed;
-}
-
-@media screen and (max-width: 1090px) {
-    .kmcDetailsLayout .kDetailsWrapper .kDetailsHeader .kBackBtn {
-        margin-left: 0px;
-        margin-right: 12px;
-    }
-}
-
-.kTableColumn {
-    display: inline-block;
-    max-width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-}
-
-.kShowAsDisabled {
-    opacity: 0.5 !important;
-    cursor: default !important;
-}
-
-.kPermissionsListPanel {
-    width: 320px;
-
-    &.ui-multiselect-panel {
-        .pi-minus {
-            background-color: #00a784;
-            border: 1px solid #00a784;
-            color: #ffffff;
-            width: 16px;
-            height: 16px;
-            border-radius: 3px;
-            top: -1px;
-            position: relative;
-            left: -1px;
-        }
+    .kForceFix {
+        position: fixed !important;
+        margin-top: 0px !important;
     }
 
-
-    .ui-multiselect-header {
-        margin-bottom: 0;
+    .kLocked {
+        opacity: 0.5;
+        pointer-events: none;
     }
 
-    .ui-widget-header {
-        border: none;
+    .kNotification {
+        height: 66px;
+        background-color: $kGrayscale4;
+        color: black;
+        border-radius: 3px;
+        font-size: 15px;
+        padding: 12px;
+        box-sizing: border-box;
         display: flex;
-        flex-direction: row;
         align-items: center;
     }
 
-    .ui-select-all label {
-        cursor: pointer;
-        font-weight: normal;
+    .kHidden {
+        visibility: hidden;
+        width: 0 !important;
+        height: 0 !important;
+        padding: 0 !important;
     }
 
-    .ui-multiselect-item {
-        height: 40px;
+    .kMoreActionsButton {
+        color: $kGrayscale3 !important;
+        background-color: rgba(0, 0, 0, 0) !important;
+        border: none !important;
+        font-size: 24px !important;
+        outline: 0;
+
+        &:active, &:hover {
+            color: $kGrayscale1 !important;
+        }
     }
 
-    .ui-chkbox {
-        margin-right: 15px;
+    .kDisabledLink {
+        color: $kGrayscale5;
+        pointer-events: none;
+        cursor: not-allowed;
     }
 
-    .kPermissionItem {
-        font-size: 15px;
-    }
-}
-
-.kDropdown {
-    border: 1px solid $kGrayscale4;
-    border-radius: 4px;
-    background-color: #ffffff;
-
-    &:hover {
-        border: 1px solid $kPrimary;
+    @media screen and (max-width: 1090px) {
+        .kmcDetailsLayout .kDetailsWrapper .kDetailsHeader .kBackBtn {
+            margin-left: 0px;
+            margin-right: 12px;
+        }
     }
 
-    &:active {
-        box-shadow: 0 0 0 3px rgba(0, 167, 132, 0.4);
+    .kTableColumn {
+        display: inline-block;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
     }
 
-    -webkit-transition: all 100ms ease-in-out;
-    -moz-transition: all 100ms ease-in-out;
-    -ms-transition: all 100ms ease-in-out;
-    -o-transition: all 100ms ease-in-out;
-    transition: all 100ms ease-in-out;
-}
-
-.ui-column-resizer-helper {
-    background-color: $kGrayscale5;
-}
-
-.ui-button {
-    .ui-button-icon-left {
-        font-size: inherit;
-    }
-}
-
-.playerItem {
-    display: flex;
-    align-items: center;
-
-    .playerIcon {
-        width: 28px;
-        height: 28px;
-        flex: 0 0 auto;
-        margin-right: 8px;
+    .kShowAsDisabled {
+        opacity: 0.5 !important;
+        cursor: default !important;
     }
 
-    .v2 {
-        background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg width='28px' height='28px' viewBox='0 0 28 28' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3EV2 icon%3C/title%3E%3Cdesc%3ECreated with Sketch.%3C/desc%3E%3Cdefs%3E%3C/defs%3E%3Cg id='Share-&amp;-Embed' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='Preview-&amp;-Share-Select-Player' transform='translate(-577.000000, -136.000000)'%3E%3Cg id='Select-player' transform='translate(460.000000, 10.000000)'%3E%3Cg id='Drop-Down' transform='translate(100.000000, 42.000000)'%3E%3Cg id='Menu/Menu-item' transform='translate(0.000000, 82.000000)'%3E%3Cg id='V2-icon' transform='translate(17.000000, 2.000000)'%3E%3Crect id='Rectangle-4' fill='%2301ACCD' x='0' y='0' width='28' height='28' rx='3'%3E%3C/rect%3E%3Cpath d='M9.655,19 L6.985,19 L5.32,8.995 L7.645,8.995 L8.725,16.69 L13.18,8.995 L15.715,8.995 L9.655,19 Z M21.685,19 L14.155,19 L14.59,17.02 C18.82,14.62 21.01,13.3 21.01,11.89 C21.01,11.17 20.26,10.72 19.21,10.72 C18.115,10.72 17.305,11.125 16.72,11.62 L15.82,10.09 C16.705,9.325 18.04,8.845 19.36,8.845 C21.415,8.845 23.245,9.85 23.245,11.755 C23.245,13.735 21.16,15.43 18.01,17.125 L22.09,17.125 L21.685,19 Z' id='V2' fill='%23FFFFFF'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    .kPermissionsListPanel {
+        width: 320px;
+
+        &.ui-multiselect-panel {
+            .pi-minus {
+                background-color: #00a784;
+                border: 1px solid #00a784;
+                color: #ffffff;
+                width: 16px;
+                height: 16px;
+                border-radius: 3px;
+                top: -1px;
+                position: relative;
+                left: -1px;
+            }
+        }
+
+
+        .ui-multiselect-header {
+            margin-bottom: 0;
+        }
+
+        .ui-widget-header {
+            border: none;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+        }
+
+        .ui-select-all label {
+            cursor: pointer;
+            font-weight: normal;
+        }
+
+        .ui-multiselect-item {
+            height: 40px;
+        }
+
+        .ui-chkbox {
+            margin-right: 15px;
+        }
+
+        .kPermissionItem {
+            font-size: 15px;
+        }
     }
 
-    .v3 {
-        background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg width='28px' height='28px' viewBox='0 0 28 28' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3EV7 Icon%3C/title%3E%3Cdesc%3ECreated with Sketch.%3C/desc%3E%3Cdefs%3E%3C/defs%3E%3Cg id='Share-&amp;-Embed' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='Preview-&amp;-Share-Select-Player' transform='translate(-577.000000, -168.000000)'%3E%3Cg id='Select-player' transform='translate(460.000000, 10.000000)'%3E%3Cg id='Drop-Down' transform='translate(100.000000, 42.000000)'%3E%3Cg id='Menu/Menu-item' transform='translate(0.000000, 114.000000)'%3E%3Cg id='V7-Icon' transform='translate(17.000000, 2.000000)'%3E%3Crect id='Rectangle-4' fill='%23BB48B4' x='0' y='0' width='28' height='28' rx='3'%3E%3C/rect%3E%3Cpath d='M9.655,20 L6.985,20 L5.32,9.995 L7.645,9.995 L8.725,17.69 L13.18,9.995 L15.715,9.995 L9.655,20 Z M17.635,20 L15.19,20 L20.53,11.87 L15.61,11.87 L16.015,9.995 L23.53,9.995 L23.2,11.48 L17.635,20 Z' id='V7' fill='%23FFFFFF'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    .kDropdown {
+        border: 1px solid $kGrayscale4;
+        border-radius: 4px;
+        background-color: #ffffff;
+
+        &:hover {
+            border: 1px solid $kPrimary;
+        }
+
+        &:active {
+            box-shadow: 0 0 0 3px rgba(0, 167, 132, 0.4);
+        }
+
+        -webkit-transition: all 100ms ease-in-out;
+        -moz-transition: all 100ms ease-in-out;
+        -ms-transition: all 100ms ease-in-out;
+        -o-transition: all 100ms ease-in-out;
+        transition: all 100ms ease-in-out;
     }
 
-    &.selectedPlayer {
-        height: 24px;
+    .ui-column-resizer-helper {
+        background-color: $kGrayscale5;
+    }
+
+    .ui-button {
+        .ui-button-icon-left {
+            font-size: inherit;
+        }
+    }
+
+    .playerItem {
+        display: flex;
+        align-items: center;
 
         .playerIcon {
-            transform: scale(0.8);
+            width: 28px;
+            height: 28px;
+            flex: 0 0 auto;
+            margin-right: 8px;
+        }
+
+        .v2 {
+            background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg width='28px' height='28px' viewBox='0 0 28 28' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3EV2 icon%3C/title%3E%3Cdesc%3ECreated with Sketch.%3C/desc%3E%3Cdefs%3E%3C/defs%3E%3Cg id='Share-&amp;-Embed' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='Preview-&amp;-Share-Select-Player' transform='translate(-577.000000, -136.000000)'%3E%3Cg id='Select-player' transform='translate(460.000000, 10.000000)'%3E%3Cg id='Drop-Down' transform='translate(100.000000, 42.000000)'%3E%3Cg id='Menu/Menu-item' transform='translate(0.000000, 82.000000)'%3E%3Cg id='V2-icon' transform='translate(17.000000, 2.000000)'%3E%3Crect id='Rectangle-4' fill='%2301ACCD' x='0' y='0' width='28' height='28' rx='3'%3E%3C/rect%3E%3Cpath d='M9.655,19 L6.985,19 L5.32,8.995 L7.645,8.995 L8.725,16.69 L13.18,8.995 L15.715,8.995 L9.655,19 Z M21.685,19 L14.155,19 L14.59,17.02 C18.82,14.62 21.01,13.3 21.01,11.89 C21.01,11.17 20.26,10.72 19.21,10.72 C18.115,10.72 17.305,11.125 16.72,11.62 L15.82,10.09 C16.705,9.325 18.04,8.845 19.36,8.845 C21.415,8.845 23.245,9.85 23.245,11.755 C23.245,13.735 21.16,15.43 18.01,17.125 L22.09,17.125 L21.685,19 Z' id='V2' fill='%23FFFFFF'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        .v3 {
+            background-image: url("data:image/svg+xml,%3C%3Fxml version='1.0' encoding='UTF-8'%3F%3E%3Csvg width='28px' height='28px' viewBox='0 0 28 28' version='1.1' xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink'%3E%3C!-- Generator: Sketch 51.3 (57544) - http://www.bohemiancoding.com/sketch --%3E%3Ctitle%3EV7 Icon%3C/title%3E%3Cdesc%3ECreated with Sketch.%3C/desc%3E%3Cdefs%3E%3C/defs%3E%3Cg id='Share-&amp;-Embed' stroke='none' stroke-width='1' fill='none' fill-rule='evenodd'%3E%3Cg id='Preview-&amp;-Share-Select-Player' transform='translate(-577.000000, -168.000000)'%3E%3Cg id='Select-player' transform='translate(460.000000, 10.000000)'%3E%3Cg id='Drop-Down' transform='translate(100.000000, 42.000000)'%3E%3Cg id='Menu/Menu-item' transform='translate(0.000000, 114.000000)'%3E%3Cg id='V7-Icon' transform='translate(17.000000, 2.000000)'%3E%3Crect id='Rectangle-4' fill='%23BB48B4' x='0' y='0' width='28' height='28' rx='3'%3E%3C/rect%3E%3Cpath d='M9.655,20 L6.985,20 L5.32,9.995 L7.645,9.995 L8.725,17.69 L13.18,9.995 L15.715,9.995 L9.655,20 Z M17.635,20 L15.19,20 L20.53,11.87 L15.61,11.87 L16.015,9.995 L23.53,9.995 L23.2,11.48 L17.635,20 Z' id='V7' fill='%23FFFFFF'%3E%3C/path%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+
+        &.selectedPlayer {
+            height: 24px;
+
+            .playerIcon {
+                transform: scale(0.8);
+            }
         }
     }
-}
 
-.ui-menu {
-    li.kSelected {
-        font-weight: bold;
+    .ui-menu {
+        li.kSelected {
+            font-weight: bold;
 
-        a:after {
-            font-family: kmcng-icon-pack;
-            content: "\e91c";
-            font-size: 12px;
-        }
+            a:after {
+                font-family: kmcng-icon-pack;
+                content: "\e91c";
+                font-size: 12px;
+            }
 
-        span {
-            display: inline-block;
-            width: 162px
-        }
-    }
-}
-
-body {
-    kpopupwidget[data-aid="categoriesFilterPopup"],
-    kpopupwidget[data-aid="entriesRefinePopup"],
-    kpopupwidget[data-aid="resultsLimitPopup"],
-    kpopupwidget[data-aid="manageUsersRefinePopup"],
-    kpopupwidget[data-aid="bulkLogRefinePopup"],
-    kpopupwidget[data-aid="dropFoldersRefinePopup"],
-    kpopupwidget[data-aid="categoriesPref"],
-    kpopupwidget[data-aid="usersettings"],
-    kpopupwidget[data-aid="categoriesRefinePopup"] {
-        .kPopupWidget {
-            box-shadow: 0 2px 8px 0 rgba(0, 0, 0, .24);
+            span {
+                display: inline-block;
+                width: 162px
+            }
         }
     }
-}
 
-div, span, tr, td, li {
-    outline: none !important;
-}
+    body {
+        kpopupwidget[data-aid="categoriesFilterPopup"],
+        kpopupwidget[data-aid="entriesRefinePopup"],
+        kpopupwidget[data-aid="resultsLimitPopup"],
+        kpopupwidget[data-aid="manageUsersRefinePopup"],
+        kpopupwidget[data-aid="bulkLogRefinePopup"],
+        kpopupwidget[data-aid="dropFoldersRefinePopup"],
+        kpopupwidget[data-aid="categoriesPref"],
+        kpopupwidget[data-aid="usersettings"],
+        kpopupwidget[data-aid="categoriesRefinePopup"] {
+            .kPopupWidget {
+                box-shadow: 0 2px 8px 0 rgba(0, 0, 0, .24);
+            }
+        }
+    }
 
-.ui-datepicker-trigger {
-    position: absolute;
-}
+    div, span, tr, td, li {
+        outline: none !important;
+    }
 
-.ui-table p-sorticon {
-    vertical-align: unset;
+    .ui-datepicker-trigger {
+        position: absolute;
+    }
+
+    .ui-table p-sorticon {
+        vertical-align: unset;
+    }
 }
 
 //////////////////////////////////////////////////_FA
-.fa {
+.rtl-theme {
+    direction: rtl;
     @keyframes kontorol-spinner {
         0% {
             transform: rotate(0deg) scale(0.7);
@@ -781,6 +784,11 @@ div, span, tr, td, li {
         cursor: default !important;
     }
 
+    .kPaginatorShowRowsLabel {
+        right: 8px !important;
+        font-size: 10pt;
+    }
+
     .kPermissionsListPanel {
         width: 320px;
 
@@ -817,6 +825,7 @@ div, span, tr, td, li {
 
         .ui-multiselect-item {
             height: 40px;
+            text-align: right;
         }
 
         .ui-chkbox {
@@ -846,6 +855,14 @@ div, span, tr, td, li {
         -ms-transition: all 100ms ease-in-out;
         -o-transition: all 100ms ease-in-out;
         transition: all 100ms ease-in-out;
+    }
+
+    .ui-radiobutton {
+        margin-left: 6px;
+    }
+
+    .ui-chkbox {
+        margin-left: 6px;
     }
 
     .ui-column-resizer-helper {
@@ -931,4 +948,16 @@ div, span, tr, td, li {
         vertical-align: unset;
     }
 
+    .ui-table-thead > tr > th {
+        text-align: right;
+    }
+
+    .ui-datepicker-calendar {
+        direction: rtl;
+
+        th {
+
+            font-size: 10px;
+        }
+    }
 }

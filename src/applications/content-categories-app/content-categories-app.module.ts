@@ -52,7 +52,7 @@ import { EntriesModule } from 'app-shared/content-shared/entries/entries.module'
 import { DateFormatModule } from 'app-shared/kmc-shared/date-format/date-format.module';
 import { AccordionModule } from 'primeng/accordion';
 import { ButtonModule } from 'primeng/button';
-import { CalendarModule } from 'primeng/calendar';
+// import { CalendarModule } from 'primeng/calendar';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { DropdownModule } from 'primeng/dropdown';
@@ -67,6 +67,7 @@ import { SpinnerModule } from 'primeng/spinner';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { TreeModule } from 'primeng/tree';
 import { InputSwitchModule } from 'primeng/inputswitch';
+import {KCommonModule} from "app-shared/common/k-common.module";
 
 @NgModule({
     imports: [
@@ -75,8 +76,9 @@ import { InputSwitchModule } from 'primeng/inputswitch';
         AreaBlockerModule,
         AutoCompleteModule,
         ButtonModule,
-        CalendarModule,
+        // CalendarModule,
         CheckboxModule,
+        KCommonModule,
         CommonModule,
         ConfirmDialogModule,
         CategoriesModule,
