@@ -19,11 +19,13 @@ if (!fs.existsSync(targetFilePath)) {
 }
 
 // Use folder with nearest package.json as root
-const localePath = path.join(packageRoot, './node_modules/moment/locale/*');
+//const localePath = path.join(packageRoot, './node_modules/moment/locale/*');
 console.log('deleting all moment locale files to prevent them from bundling into the app (see https://github.com/angular/angular-cli/issues/6137)');
+/*
 globby([localePath])
     .then(function then(paths) {
         paths.map(function map(item) {
             rimraf.sync(item);
         });
     });
+*/
