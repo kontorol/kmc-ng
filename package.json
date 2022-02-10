@@ -104,7 +104,7 @@
         "enhanced-resolve": "~3.3.0",
         "globby": "~8.0.2",
         "minimist": "~1.2.0",
-        "node-sass": "~4.13.1",
+        "node-sass": "~7.0.0",
         "ts-node": "~4.1.0",
         "tslint": "~5.9.1",
         "typescript": "3.4.5",
